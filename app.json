@@ -1,0 +1,7 @@
+{
+  "name": "slaymakercellars",
+  "stack": "heroku-18",
+  "scripts": {
+    "postdeploy": "./script/postdeploy.sh"
+  }
+}
