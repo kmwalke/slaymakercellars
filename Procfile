@@ -1,2 +1,2 @@
-release: ./script/release.sh
+release: bash ./script/release.sh
 web: bundle exec puma -C config/puma.rb
