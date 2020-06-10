@@ -12,22 +12,22 @@ services:
       - "3000:3000"
     stdin_open: true # docker run -i
     tty: true        # docker run -t
-#    links:
-#      - db
-#    environment:
-#      DB_DEV: smc-development
-#      DB_HOST: db
-#      DB_TEST: smc-test
-#      DB_USERNAME: postgres
+    links:
+      - db
+    environment:
+      DB_DEV: smc-development
+      DB_HOST: db
+      DB_TEST: smc-test
+      DB_USERNAME: postgres
 
-#  db:
-#    image: postgres:11.5
-#    volumes:
-#      - smc-data:/var/lib/postgresql/data
-#    ports:
-#      - "5432:5432"
+  db:
+    image: postgres:11.5
+    volumes:
+      - smc-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
 
 volumes:
-#  smc-data:
+  smc-data:
   smc-gems:
