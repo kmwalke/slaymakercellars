@@ -12,7 +12,7 @@ RUN apt-get update && \
   postgresql-client
 
 ENV BUNDLE_PATH /gems
-#ENV PATH $BUNDLE_PATH/bin:$GEM_HOME/gems/bin:$PATH
+ENV PATH $BUNDLE_PATH/bin:$GEM_HOME/gems/bin:$PATH
 
 WORKDIR /app
 EXPOSE 3000
