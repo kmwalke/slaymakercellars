@@ -17,6 +17,6 @@ ENV PATH $BUNDLE_PATH/bin:$GEM_HOME/gems/bin:$PATH
 WORKDIR /app
 EXPOSE 3000
 
-RUN gem install bundler
+RUN gem install bundler && yarn install
 
 ENTRYPOINT [ "./script/docker-entrypoint.sh" ]
