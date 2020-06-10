@@ -11,7 +11,6 @@ RUN apt-get update && \
 ENV BUNDLE_PATH /gems
 ENV PATH $BUNDLE_PATH/bin:$GEM_HOME/gems/bin:$PATH
 
-#ADD . /app
 WORKDIR /app
 EXPOSE 3000
 
