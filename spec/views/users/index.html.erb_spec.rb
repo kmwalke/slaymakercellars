@@ -5,12 +5,12 @@ RSpec.describe 'users/index', type: :view do
     assign(:users, [
              User.create!(
                email: 'Email',
-               password: '',
+               password: '123',
                name: 'Name'
              ),
              User.create!(
-               email: 'Email',
-               password: '',
+               email: 'Email1',
+               password: '123',
                name: 'Name'
              )
            ])
@@ -18,8 +18,8 @@ RSpec.describe 'users/index', type: :view do
 
   it 'renders a list of users' do
     render
-    assert_select 'tr>td', text: 'Email'.to_s, count: 2
-    assert_select 'tr>td', text: ''.to_s, count: 2
+    assert_select 'tr>td', text: 'Email'.to_s, count: 1
+    assert_select 'tr>td', text: 'Email1'.to_s, count: 1
     assert_select 'tr>td', text: 'Name'.to_s, count: 2
   end
 end
