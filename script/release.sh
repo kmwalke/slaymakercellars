@@ -9,7 +9,7 @@ psql $DATABASE_URL -c 'SELECT id FROM users LIMIT 1'
 
 if [ $? == 0 ]; then
   echo "Running Rails DB migrations..."
-  bundle exec rake db:migrate
+  bundle exec rails db:migrate
 else
   echo 'Skipping Rails DB migrations!!'
   echo 'If this is happening outside review app provisioning something went wrong!'

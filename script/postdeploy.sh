@@ -3,4 +3,5 @@
 echo 'Starting Postdeploy...'
 
 echo 'Running migrations...'
-bundle exec rake db:migrate
+bundle exec rails db:migrate
+bundle exec rails db:seed
