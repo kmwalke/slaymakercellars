@@ -22,18 +22,14 @@ RSpec.feature 'Users', :type => :feature do
     end
 
     scenario 'create a user' do
+      user2 = User.new(name: 'name2', email: 'name2@place.com', password: '123')
       visit users_path
 
       click_link 'New User'
-
-      fill_in 'Name', with: 'name2'
-      fill_in 'Email', with: 'name2@place.com'
-      fill_in 'Password', with: '123'
-      fill_in 'Password confirmation', with: '123'
-      click_button 'Create User'
+      fill_in_form(user2)
 
       expect(current_path).to eq(users_path)
-      expect(page).to have_content('name2')
+      expect(page).to have_content(user2.name)
     end
 
     scenario 'edit a user' do
@@ -45,5 +41,13 @@ RSpec.feature 'Users', :type => :feature do
       visit users_path
 
     end
+  end
+
+  def fill_in_form(user)
+    fill_in 'Name', with: user.name
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    fill_in 'Password confirmation', with: user.password
+    click_button 'Create User'
   end
 end
