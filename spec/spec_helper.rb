@@ -95,4 +95,16 @@ RSpec.configure do |config|
 end
 
 def login
+  user = User.create(name: 'name', email: 'name@place.com', password: '123')
+  visit login_path
+  fill_in 'Email', with: user.email
+  fill_in 'Password', with: user.password
+  click_button 'Log In'
+
+  user
+end
+
+def logout
+  visit root_path
+  click_link 'Log Out'
 end
