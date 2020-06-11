@@ -4,7 +4,7 @@ RSpec.feature 'Users', type: :feature do
   describe 'logged out' do
     scenario 'must be logged in to manage users' do
       visit users_path
-      expect(current_path).to eq(root_path)
+      expect(current_path).to eq(login_path)
     end
   end
 
