@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature 'Sessions', :type => :feature do
+RSpec.feature 'Sessions', type: :feature do
   before :each do
     login
   end

@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature 'Home', :type => :feature do
+RSpec.feature 'Home', type: :feature do
   scenario 'displays the homepage' do
     visit root_path
 
