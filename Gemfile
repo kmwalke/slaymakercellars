@@ -15,6 +15,9 @@ gem 'webpacker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'guard-rspec'
   gem 'pry-rails'
   gem 'rspec-rails'
 end
