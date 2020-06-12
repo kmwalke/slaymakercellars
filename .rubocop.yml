@@ -4,6 +4,7 @@ AllCops:
     - 'db/migrate/*acts_as_taggable*'
     - 'config/environments/*'
     - 'bin/*'
+    - 'node_modules/**/*'
 
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
