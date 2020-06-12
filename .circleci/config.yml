@@ -51,7 +51,7 @@ jobs:
             - rails-demo-yarn-
       - run:
           name: NPM install
-          command: npm install --dev
+          command: npm install --only=dev
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
