@@ -82,9 +82,6 @@ jobs:
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
-#      - run:
-#          name: Webpacker Compile
-#          command: bundle exec rails webpacker:compile
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
