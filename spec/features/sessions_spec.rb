@@ -1,17 +1,26 @@
 require 'rails_helper'
 
 RSpec.feature 'Sessions', type: :feature do
-  before :each do
+  scenario 'redirects to requested admin page' do
+    visit users_path
+    expect(current_path).to eq(login_path)
     login
+    expect(current_path).to eq(users_path)
   end
 
-  scenario 'logs in' do
-    visit root_path
-    expect(page).to have_content('Log Out')
-  end
+  describe 'logged in' do
+    before :each do
+      login
+    end
 
-  scenario 'logs out' do
-    logout
-    expect(page).to have_content('Log In')
+    scenario 'logs in' do
+      visit root_path
+      expect(page).to have_content('Log Out')
+    end
+
+    scenario 'logs out' do
+      logout
+      expect(page).to have_content('Log In')
+    end
   end
 end
