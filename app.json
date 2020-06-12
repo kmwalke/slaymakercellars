@@ -2,7 +2,8 @@
   "name": "slaymakercellars",
   "stack": "heroku-18",
   "scripts": {
-    "postdeploy": "./script/postdeploy.sh"
+    "postdeploy": "./script/postdeploy.sh",
+    "heroku-prebuild": "yarn install"
   },
   "addons": [
     "papertrail"
