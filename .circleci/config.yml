@@ -35,28 +35,28 @@ jobs:
       # bundle cache
       - restore_cache:
           keys:
-            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - rails-demo-bundle-v2-
+            - smc-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - smc-bundle-v2-
       - run:
           name: Bundle Install
           command: bundle check || bundle install
       # Store bundle cache
       - save_cache:
-          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: smc-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       # Only necessary if app uses webpacker or yarn in some other way
-      - restore_cache:
-          keys:
-            - rails-demo-yarn-{{ checksum "yarn.lock" }}
-            - rails-demo-yarn-
+#      - restore_cache:
+#          keys:
+#            - smc-yarn-{{ checksum "yarn.lock" }}
+#            - smc-yarn-
       - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
-      - run: bundle exec rake webpacker:compile
+      - run: bundle exec rails webpacker:compile
       # Store yarn / webpacker cache
       - save_cache:
-          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+          key: smc-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
   test:
@@ -68,15 +68,15 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - rails-demo-bundle-v2-
+            - smc-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - smc-bundle-v2-
       - run:
           name: Bundle Install
           command: bundle check || bundle install
       - restore_cache:
           keys:
-            - rails-demo-yarn-{{ checksum "yarn.lock" }}
-            - rails-demo-yarn-
+            - smc-yarn-{{ checksum "yarn.lock" }}
+            - smc-yarn-
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
