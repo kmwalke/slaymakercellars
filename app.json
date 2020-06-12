@@ -1,8 +1,16 @@
 {
   "name": "slaymakercellars",
   "stack": "heroku-18",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ],
   "scripts": {
-    "postdeploy": "./script/postdeploy.sh"
+    "postdeploy": "./script/postdeploy.sh",
   },
   "addons": [
     "papertrail"
