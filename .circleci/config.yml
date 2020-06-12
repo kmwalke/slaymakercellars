@@ -50,9 +50,6 @@ jobs:
             - rails-demo-yarn-{{ checksum "yarn.lock" }}
             - rails-demo-yarn-
       - run:
-          name: NPM install
-          command: npm install
-      - run:
           name: Yarn Install
           command: yarn install --cache-folder ~/.cache/yarn
       # Store yarn / webpacker cache
