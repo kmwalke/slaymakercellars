@@ -29,6 +29,23 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/features/*'
+    - 'Guardfile'
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/MethodLength:
+  Max: 20
+
 Style/Documentation:
   Enabled: false
 
@@ -59,19 +76,3 @@ Style/SymbolArray:
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
 
-Metrics/AbcSize:
-  Max: 25
-
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/requests/*'
-    - 'Guardfile'
-
-Metrics/CyclomaticComplexity:
-  Max: 10
-
-Metrics/PerceivedComplexity:
-  Max: 10
-
-Metrics/MethodLength:
-  Max: 20
