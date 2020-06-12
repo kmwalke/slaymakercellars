@@ -5,12 +5,12 @@ ruby '2.7.1'
 
 gem 'bcrypt'
 gem 'bootsnap'
-gem 'jbuilder'
 gem 'pg'
 gem 'puma'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 gem 'sass-rails'
 gem 'turbolinks'
+gem 'webpacker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
