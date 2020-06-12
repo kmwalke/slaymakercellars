@@ -1,6 +1,11 @@
 {
   "name": "slaymakercellars",
   "stack": "heroku-18",
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
   "scripts": {
     "postdeploy": "./script/postdeploy.sh",
     "heroku-prebuild": "yarn install"
