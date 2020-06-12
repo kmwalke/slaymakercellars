@@ -1,6 +1,4 @@
 #!/bin/bash
-echo 'system started'
-
 psql -h $DB_HOST -d $DB_DEV -U $DB_USERNAME -c 'SELECT id FROM users LIMIT 1'
 
 if [ $? == 0 ]; then
