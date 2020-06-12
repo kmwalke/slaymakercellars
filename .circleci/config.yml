@@ -79,9 +79,9 @@ jobs:
           keys:
             - smc-yarn-{{ checksum "yarn.lock" }}
             - smc-yarn-
-#      - run:
-#          name: Yarn Install
-#          command: yarn install --cache-folder ~/.cache/yarn
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
 #      - run:
 #          name: Webpacker Compile
 #          command: bundle exec rails webpacker:compile
