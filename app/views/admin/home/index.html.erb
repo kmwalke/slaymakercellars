@@ -1,0 +1,100 @@
+<h1>Administration</h1>
+
+<div class="c_panel">
+<!--  <fieldset>-->
+<!--    <legend><%#= link_to "Orders", admin_orders_path %></legend>-->
+<!--    <ul>-->
+<!--      <li>-->
+        <%#= link_to "New Order", new_admin_order_path %>
+<!--      </li>-->
+      <%# unless @late_orders.size == 0 -%>
+<!--        <li class="urgent">-->
+          <%#= orders_link @late_orders, "late", {show: :late} %>
+<!--        </li>-->
+      <%# end -%>
+<!--      <li>-->
+        <%#= orders_link @todays_orders, "to fulfill today" %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= orders_link @orders, "in total" %>
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </fieldset>-->
+
+<!--  <fieldset>-->
+<!--    <legend><%#= link_to "Contacts", admin_contacts_path %></legend>-->
+<!--    <ul>-->
+<!--      <li>-->
+        <%#= link_to 'New Contact', new_admin_contact_path %>
+<!--      </li>-->
+      <%# unless @urgent_contacts.size == 0 -%>
+<!--        <li class="urgent">-->
+          <%#= contacts_link @urgent_contacts, "", {show: :urgent} %>
+<!--        </li>-->
+      <%# end -%>
+<!--      <li>-->
+        <%#= pluralize @contacts, 'contact' %>
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </fieldset>-->
+
+<!--  <fieldset>-->
+<!--    <legend><%#= link_to "News", admin_articles_path %></legend>-->
+<!--    <ul>-->
+<!--      <li>-->
+        <%#= link_to 'New Article', new_admin_article_path %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= pluralize @articles, 'article' %>
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </fieldset>-->
+
+<!--  <fieldset>-->
+<!--    <legend><%#= link_to "Products", admin_products_path %></legend>-->
+<!--    <ul>-->
+<!--      <li>-->
+        <%#= link_to 'New Product', new_admin_product_path %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= pluralize @products, 'product' %>
+<!--      </li>-->
+<!--      <li>-->
+<!--        <%#= pluralize @active_products, 'product' %> in production-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </fieldset>-->
+
+<!--  <fieldset>-->
+<!--    <legend><%#= link_to "Reports", admin_reports_path %></legend>-->
+<!--    <ul>-->
+<!--      <li>-->
+        <%#= link_to 'Sales Activity', sales_activity_admin_reports_path %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= link_to 'New Report', new_admin_report_path %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= pluralize @reports, 'Report' %>
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </fieldset>-->
+
+<!--  <fieldset>-->
+<!--    <legend><%#= link_to "Locations", admin_states_path %></legend>-->
+<!--    <ul>-->
+<!--      <li>-->
+        <%#= link_to 'New State', new_admin_state_path %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= pluralize @states, 'State' %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= link_to 'New Town', new_admin_town_path %>
+<!--      </li>-->
+<!--      <li>-->
+        <%#= pluralize @towns, 'Town' %>
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </fieldset>-->
+</div>

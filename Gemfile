@@ -15,8 +15,12 @@ gem 'webpacker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'guard-rspec'
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'sprockets', '3.7.2' # greater versions break on windows https://github.com/rails/sprockets/issues/283
 end
 
 group :development do
