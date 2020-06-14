@@ -14,13 +14,14 @@ RSpec.feature 'Sessions', type: :feature do
     end
 
     scenario 'logs in' do
-      visit root_path
       expect(page).to have_content('Log Out')
+      expect(current_path).to eq('/admin')
     end
 
     scenario 'logs out' do
       logout
       expect(page).to have_content('Log In')
+      expect(current_path).to eq(root_path)
     end
   end
 end
