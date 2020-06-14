@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.feature 'Sessions', type: :feature do
   scenario 'redirects to requested admin page' do
-    visit users_path
+    visit admin_users_path
     expect(current_path).to eq(login_path)
     login
-    expect(current_path).to eq(users_path)
+    expect(current_path).to eq(admin_users_path)
   end
 
   describe 'logged in' do
