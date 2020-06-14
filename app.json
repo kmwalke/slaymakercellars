@@ -10,7 +10,7 @@
     }
   ],
   "scripts": {
-    "postdeploy": "./script/postdeploy.sh",
+    "postdeploy": "./script/postdeploy.sh"
   },
   "addons": [
     "papertrail"

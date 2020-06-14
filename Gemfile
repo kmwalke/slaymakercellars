@@ -20,6 +20,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'sprockets', '3.5.2' # greater versions break on windows https://github.com/rails/sprockets/issues/283
 end
 
 group :development do
