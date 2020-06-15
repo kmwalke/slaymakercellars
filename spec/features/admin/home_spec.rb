@@ -17,5 +17,17 @@ RSpec.feature 'Admin::Home', type: :feature do
       visit '/admin'
       expect(page).to have_content('Administration')
     end
+
+    scenario 'user link' do
+      visit '/admin'
+      click_link 'Users'
+      expect(current_path).to eq(admin_users_path)
+    end
+
+    scenario 'product link' do
+      visit '/admin'
+      click_link 'Products'
+      expect(current_path).to eq(admin_products_path)
+    end
   end
 end
