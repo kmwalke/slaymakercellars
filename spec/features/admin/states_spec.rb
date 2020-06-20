@@ -9,7 +9,7 @@ RSpec.feature 'Admin::States', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:state) { State.create(name: 'Colorado', abbreviation: 'CO' ) }
+    let!(:state) { State.create(name: 'Colorado', abbreviation: 'CO') }
 
     before :each do
       login
@@ -21,7 +21,7 @@ RSpec.feature 'Admin::States', type: :feature do
     end
 
     scenario 'create a state' do
-      state2 = State.new(name: 'Arkansas', abbreviation: 'AR' )
+      state2 = State.new(name: 'Arkansas', abbreviation: 'AR')
       visit admin_states_path
 
       click_link 'New State'

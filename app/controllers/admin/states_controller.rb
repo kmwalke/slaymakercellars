@@ -11,8 +11,7 @@ module Admin
       @state = State.new
     end
 
-    def edit
-    end
+    def edit; end
 
     def create
       @state = State.new(state_params)
