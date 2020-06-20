@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get '/', to: 'home#index'
     resources :products
     resources :states
+    resources :towns
     resources :users
   end
 end
