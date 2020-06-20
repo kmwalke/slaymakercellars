@@ -1,6 +1,7 @@
 module Admin
   class StatesController < ApplicationController
-    before_action :set_state, only: [:show, :edit, :update, :destroy]
+    before_action :set_state, only: [:edit, :update, :destroy]
+    before_action :logged_in?
 
     def index
       @states = State.all

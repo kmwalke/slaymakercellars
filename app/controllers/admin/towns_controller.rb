@@ -1,6 +1,7 @@
 module Admin
   class TownsController < ApplicationController
-    before_action :set_town, only: [:show, :edit, :update, :destroy]
+    before_action :set_town, only: [:edit, :update, :destroy]
+    before_action :logged_in?
 
     def index
       @towns = Town.all
