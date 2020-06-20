@@ -6,4 +6,10 @@ RSpec.feature 'Home', type: :feature do
 
     expect(page).to have_content('Kenobi')
   end
+
+  scenario 'product link' do
+    visit root_path
+    click_link 'Products'
+    expect(current_path).to eq(products_path)
+  end
 end

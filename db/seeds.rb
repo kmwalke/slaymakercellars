@@ -8,3 +8,6 @@
 
 User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123')
 User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123')
+
+Product.create(name: 'Traditional', price_point: 10, description: 'This is the description')
+Product.create(name: 'Sweet Clover', price_point: 12, description: 'This is the description')
