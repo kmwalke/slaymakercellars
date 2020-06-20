@@ -1,6 +1,7 @@
 <h1>Editing State</h1>
 
-<%= render 'form', state: @state %>
+<%= form_for(@state, url: admin_state_path(@state), html: {multipart: true}) do |form| %>
+  <%= render 'form', state: @state, form: form %>
+<% end -%>
 
-<%= link_to 'Show', @state %> |
-<%= link_to 'Back', states_path %>
+<%= link_to 'Back', admin_states_path %>

@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>States</h1>
 
 <table>
@@ -13,10 +11,11 @@
   <tbody>
     <% @states.each do |state| %>
       <tr>
-        <td><%= state.name %></td>
-        <td><%= link_to 'Show', state %></td>
-        <td><%= link_to 'Edit', edit_state_path(state) %></td>
-        <td><%= link_to 'Destroy', state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to state.name, edit_admin_state_path(state)%></td>
+        <td>
+          <%= link_to 'X', admin_state_path(state), method: :delete, id: "delete_#{state.id}", data: {confirm: 'Are you sure?' } %>
+          &nbsp;
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +23,4 @@
 
 <br>
 
-<%= link_to 'New State', new_state_path %>
+<%= link_to 'New State', new_admin_state_path %>
