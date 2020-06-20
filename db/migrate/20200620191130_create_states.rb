@@ -3,8 +3,6 @@ class CreateStates < ActiveRecord::Migration[6.0]
     create_table :states do |t|
       t.string :name
       t.string :abbreviation
-
-      t.timestamps
     end
   end
 end
