@@ -25,8 +25,6 @@ class Contact < ApplicationRecord
     self.deleted_at = nil
   end
 
-  private
-
   def self.display_contacts(show, search_string)
     show == 'inactive' ? Contact.inactive.search(search_string) : Contact.active.search(search_string)
   end

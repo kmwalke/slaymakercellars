@@ -11,8 +11,7 @@ module Admin
       @contact = Contact.new
     end
 
-    def edit
-    end
+    def edit; end
 
     def create
       @contact = Contact.new(contact_params)
@@ -39,7 +38,7 @@ module Admin
     def destroy
       notice = @contact.destroy
       respond_to do |format|
-        format.html { redirect_to admin_contacts_path, notice: "Contact was successfully #{ notice }." }
+        format.html { redirect_to admin_contacts_path, notice: "Contact was successfully #{notice}." }
       end
     end
 
@@ -50,7 +49,16 @@ module Admin
     end
 
     def contact_params
-      params.require(:contact).permit(:name, :phone, :email, :contact_point, :address, :description, :deleted_at, :town_id)
+      params.require(:contact).permit(
+        :name,
+        :phone,
+        :email,
+        :contact_point,
+        :address,
+        :description,
+        :deleted_at,
+        :town_id
+      )
     end
   end
 end

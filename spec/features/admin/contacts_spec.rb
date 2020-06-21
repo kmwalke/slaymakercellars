@@ -64,7 +64,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
     end
 
     scenario 'hard delete a contact' do
-      contact_id = contact.id
+      contact_id = deleted_contact.id
       visit admin_contacts_path
       click_link 'Deleted'
 

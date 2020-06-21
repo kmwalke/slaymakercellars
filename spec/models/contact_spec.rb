@@ -30,22 +30,35 @@ RSpec.describe Contact, type: :model do
 
   it 'should hard delete' do
     expect(deleted_contact.destroy).to eq('destroyed')
-    expect{deleted_contact.reload}.to raise_error(ActiveRecord::RecordNotFound)
+    expect { deleted_contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   describe 'display' do
+    it 'should select active by default' do
+      show, contacts, title = Contact.display
+
+      expect(contacts).to include(contact)
+      expect(contacts).not_to include(deleted_contact)
+      expect(show).to eq('active')
+      expect(title).to eq('Active Contacts')
+    end
+
     it 'should select active' do
       show, contacts, title = Contact.display('active')
 
       expect(contacts).to include(contact)
       expect(contacts).not_to include(deleted_contact)
+      expect(show).to eq('active')
+      expect(title).to eq('Active Contacts')
     end
 
     it 'should select inactive' do
-      contacts = Contact.inactive
+      show, contacts, title = Contact.display('inactive')
 
       expect(contacts).to include(deleted_contact)
       expect(contacts).not_to include(contact)
+      expect(show).to eq('inactive')
+      expect(title).to eq('Deleted Contacts')
     end
   end
 end
