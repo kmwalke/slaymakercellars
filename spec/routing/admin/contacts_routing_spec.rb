@@ -13,6 +13,10 @@ RSpec.describe Admin::ContactsController, type: :routing do
     expect(get: '/admin/contacts/1/edit').to route_to('admin/contacts#edit', id: '1')
   end
 
+  it 'routes to #undestroy' do
+    expect(get: '/admin/contacts/1/undestroy').to route_to('admin/contacts#undestroy', id: '1')
+  end
+
   it 'routes to #create' do
     expect(post: '/admin/contacts').to route_to('admin/contacts#create')
   end

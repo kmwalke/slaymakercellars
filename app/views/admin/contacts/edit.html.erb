@@ -1,5 +1,13 @@
 <h1>Editing Contact</h1>
 
+<p>
+  <% if @contact.deleted_at -%>
+    <%= link_to 'Activate Contact', undestroy_admin_contact_path(@contact), confirm: 'Are you sure?' %>
+  <% else -%>
+    <%= link_to 'Delete Contact', admin_contact_path(@contact), confirm: 'Are you sure?', method: :delete %>
+  <% end -%>
+</p>
+
 <%= form_for(@contact, url: admin_contact_path(@contact), html: {multipart: true}) do |form| %>
   <%= render 'form', contact: @contact, form: form %>
 <% end %>

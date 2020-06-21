@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'home#index'
-    resources :contacts
+    resources :contacts do
+      member do
+        get :undestroy
+      end
+    end
     resources :products
     resources :states
     resources :towns

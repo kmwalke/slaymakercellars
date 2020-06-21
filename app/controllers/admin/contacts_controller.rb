@@ -1,6 +1,6 @@
 module Admin
   class ContactsController < ApplicationController
-    before_action :set_contact, only: [:edit, :update, :destroy]
+    before_action :set_contact, only: [:edit, :update, :destroy, :undestroy]
     before_action :logged_in?
 
     def index
@@ -39,6 +39,13 @@ module Admin
       notice = @contact.destroy
       respond_to do |format|
         format.html { redirect_to admin_contacts_path, notice: "Contact was successfully #{notice}." }
+      end
+    end
+
+    def undestroy
+      @contact.undestroy
+      respond_to do |format|
+        format.html { redirect_to admin_contacts_path, notice: 'Contact was made active.' }
       end
     end
 

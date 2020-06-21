@@ -60,18 +60,23 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       click_link "delete_#{contact.id}"
       expect(current_path).to eq(admin_contacts_path)
       expect(page).to have_content('archived')
-      expect(Contact.find_by_id(contact.id)).to eq(contact)
     end
 
     scenario 'hard delete a contact' do
-      contact_id = deleted_contact.id
       visit admin_contacts_path
       click_link 'Deleted'
 
-      click_link "delete_#{contact_id}"
+      click_link "delete_#{deleted_contact.id}"
       expect(current_path).to eq(admin_contacts_path)
       expect(page).to have_content('destroyed')
-      expect(Contact.find_by_id(contact_id)).to be_nil
+    end
+
+    scenario 'undelete a contact' do
+      visit edit_admin_contact_path(deleted_contact)
+      click_link 'Activate Contact'
+
+      expect(current_path).to eq(admin_contacts_path)
+      expect(page).to have_content(contact.name)
     end
   end
 
