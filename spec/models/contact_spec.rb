@@ -25,7 +25,7 @@ RSpec.describe Contact, type: :model do
   it 'should soft undelete' do
     deleted_contact.undestroy
 
-    expect(deleted_contact.deleted_at).to be_nil
+    expect(deleted_contact.reload.deleted_at).to be_nil
   end
 
   it 'should hard delete' do

@@ -68,7 +68,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       visit admin_contacts_path
       click_link 'Deleted'
 
-      click_link "delete_#{contact.id}"
+      click_link "delete_#{contact_id}"
       expect(current_path).to eq(admin_contacts_path)
       expect(page).to have_content('destroyed')
       expect(Contact.find_by_id(contact_id)).to be_nil

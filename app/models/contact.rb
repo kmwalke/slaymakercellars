@@ -22,7 +22,7 @@ class Contact < ApplicationRecord
   end
 
   def undestroy
-    self.deleted_at = nil
+    update(deleted_at: nil)
   end
 
   def self.display_contacts(show, search_string)
