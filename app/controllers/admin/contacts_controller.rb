@@ -1,6 +1,7 @@
 module Admin
   class ContactsController < ApplicationController
     before_action :set_contact, only: [:edit, :update, :destroy]
+    before_action :logged_in?
 
     def index
       @contacts = Contact.all
@@ -18,7 +19,7 @@ module Admin
 
       respond_to do |format|
         if @contact.save
-          format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+          format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully created.' }
         else
           format.html { render :new }
         end
@@ -28,7 +29,7 @@ module Admin
     def update
       respond_to do |format|
         if @contact.update(contact_params)
-          format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+          format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully updated.' }
         else
           format.html { render :edit }
         end
@@ -38,7 +39,7 @@ module Admin
     def destroy
       @contact.destroy
       respond_to do |format|
-        format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+        format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully destroyed.' }
       end
     end
 
