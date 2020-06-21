@@ -19,7 +19,7 @@ RSpec.describe Contact, type: :model do
 
   it 'should soft delete' do
     expect(contact.destroy).to eq('archived')
-    expect(contact.deleted_at).to be_a(ActiveSupport::TimeWithZone)
+    expect(contact.reload.deleted_at).to be_a(ActiveSupport::TimeWithZone)
   end
 
   it 'should soft undelete' do

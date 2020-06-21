@@ -16,7 +16,7 @@ class Contact < ApplicationRecord
       super
       'destroyed'
     else
-      self.deleted_at = DateTime.now
+      update(deleted_at: DateTime.now)
       'archived'
     end
   end
