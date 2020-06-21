@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :contacts
   root to: 'home#index'
 
   resources :sessions, only: [:new, :create, :destroy]
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'home#index'
+    resources :contacts
     resources :products
     resources :states
     resources :towns

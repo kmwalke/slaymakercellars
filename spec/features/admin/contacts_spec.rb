@@ -10,6 +10,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
 
   describe 'logged in' do
     let!(:contact) { Contact.create(name: 'name1') }
+    let!(:deleted_contact) { Contact.create(name: 'name1', deleted_at: DateTime.now) }
 
     before :each do
       login
@@ -18,6 +19,14 @@ RSpec.feature 'Admin::Contacts', type: :feature do
     scenario 'list contacts' do
       visit admin_contacts_path
       expect(page).to have_content(contact.name)
+      expect(page).not_to have_content(deleted_contact.name)
+    end
+
+    scenario 'list deleted contacts' do
+      visit admin_contacts_path
+      click_link 'Deleted'
+      expect(page).not_to have_content(contact.name)
+      expect(page).to have_content(deleted_contact.name)
     end
 
     scenario 'create a contact' do
