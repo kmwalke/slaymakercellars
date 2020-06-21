@@ -1,6 +1,7 @@
 <h1>Editing Contact</h1>
 
-<%= render 'form', contact: @contact %>
+<%= form_for(@contact, url: admin_contact_path(@contact), html: {multipart: true}) do |form| %>
+  <%= render 'form', contact: @contact, form: form %>
+<% end %>
 
-<%= link_to 'Show', @contact %> |
-<%= link_to 'Back', contacts_path %>
+<%= link_to 'Back', admin_contacts_path %>
