@@ -15,6 +15,11 @@
   <%= form.text_field :name %>
 </div>
 
+<div class="field">
+  <%= form.label :state %>
+  <%= form.collection_select :state_id, State.order(:name), :id, :name, include_blank: true %>
+</div>
+
 <div class="actions">
   <%= form.submit %>
 </div>

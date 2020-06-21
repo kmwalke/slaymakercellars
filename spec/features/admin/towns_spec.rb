@@ -9,7 +9,8 @@ RSpec.feature 'Admin::Towns', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:town) { Town.create(name: 'Idaho Springs') }
+    let!(:state) { State.create(name: 'Colorado', abbreviation: 'CO') }
+    let!(:town) { Town.create(name: 'Idaho Springs', state: state) }
 
     before :each do
       login
@@ -21,7 +22,7 @@ RSpec.feature 'Admin::Towns', type: :feature do
     end
 
     scenario 'create a town' do
-      town2 = Town.new(name: 'Denver')
+      town2 = Town.new(name: 'Denver', state: state)
       visit admin_towns_path
 
       click_link 'New Town'
@@ -56,5 +57,6 @@ RSpec.feature 'Admin::Towns', type: :feature do
 
   def fill_in_form(town)
     fill_in 'Name', with: town.name
+    select town.state.name, from: 'town_state_id'
   end
 end
