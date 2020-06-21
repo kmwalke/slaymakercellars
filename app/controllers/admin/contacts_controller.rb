@@ -37,9 +37,9 @@ module Admin
     end
 
     def destroy
-      @contact.destroy
+      notice = @contact.destroy
       respond_to do |format|
-        format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully destroyed.' }
+        format.html { redirect_to admin_contacts_path, notice: "Contact was successfully #{ notice }." }
       end
     end
 
