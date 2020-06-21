@@ -33,9 +33,9 @@ RSpec.describe Contact, type: :model do
     expect{deleted_contact.reload}.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  describe 'scopes' do
+  describe 'display' do
     it 'should select active' do
-      contacts = Contact.active
+      show, contacts, title = Contact.display('active')
 
       expect(contacts).to include(contact)
       expect(contacts).not_to include(deleted_contact)

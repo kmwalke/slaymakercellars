@@ -2,6 +2,19 @@
 
 <h1>Contacts</h1>
 
+<fieldset class="view_select">
+  <legend>
+    Select Contacts to View
+  </legend>
+
+  <p class="main_options">
+    <%= @show == "active" ? "Active" : link_to('Active', admin_contacts_path({show: "active"})) %> |
+    <%= @show == "inactive" ? "Deleted" : link_to(
+        'Deleted Contacts', admin_contacts_path({show: "inactive"})
+    ) %>
+  </p>
+</fieldset>
+
 <table>
   <thead>
     <tr>

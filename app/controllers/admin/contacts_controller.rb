@@ -4,7 +4,7 @@ module Admin
     before_action :logged_in?
 
     def index
-      @contacts = Contact.all
+      @show, @contacts, @title = Contact.display(params[:show], params[:search])
     end
 
     def new
