@@ -1,0 +1,26 @@
+<h1>Towns</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @towns.each do |town| %>
+      <tr>
+        <td><%= link_to town.name, edit_admin_town_path(town)%></td>
+        <td>
+          <%= link_to 'X', admin_town_path(town), method: :delete, id: "delete_#{town.id}", data: {confirm: 'Are you sure?' } %>
+          &nbsp;
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Town', new_admin_town_path %>
