@@ -10,6 +10,7 @@ else
   bundle exec rails db:seed
 fi
 
-bundle exec rails db:migrate
+bundle exec rails db:migrate RAILS_ENV=development
+bundle exec rails db:migrate RAILS_ENV=test
 
 bundle exec puma -p 3000 -C config/puma.rb
