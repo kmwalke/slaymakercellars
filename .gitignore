@@ -42,6 +42,8 @@ yarn-debug.log*
 
 .env
 .idea
+.cache/
+.guard_history
 
 /public/packs
 /public/packs-test
