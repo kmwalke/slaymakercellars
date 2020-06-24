@@ -3,6 +3,7 @@ class CreateLineItems < ActiveRecord::Migration[6.0]
     create_table :line_items do |t|
       t.integer :quantity
       t.integer :product_id
+      t.integer :purchase_order_id
       t.string :description
       t.float :price
     end
