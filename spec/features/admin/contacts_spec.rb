@@ -78,6 +78,31 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       expect(current_path).to eq(admin_contacts_path)
       expect(page).to have_content(contact.name)
     end
+
+    describe 'notes' do
+      scenario 'add a note' do
+        visit edit_admin_contact_path(contact)
+        click_link 'Add Note'
+
+        fill_in 'Content', with: 'this is the content of the note'
+        click_button 'Create Note'
+
+        expect(current_path).to eq(edit_admin_contact_path(contact))
+        expect(page).to have_content('this is the content of the note')
+
+        expect(Note.last.created_by).to eq(current_user)
+      end
+
+      scenario 'resolve a note' do
+        Note.create(content: 'note content', contact: contact, created_by: current_user)
+
+        visit edit_admin_contact_path(contact)
+        click_link 'Resolve Note'
+
+        expect(current_path).to eq(edit_admin_contact_path(contact))
+        expect(page).to have_content("Resolved by #{current_user.name}")
+      end
+    end
   end
 
   def fill_in_form(contact)
