@@ -17,7 +17,7 @@ services:
       - "3000:3000"
     stdin_open: true # docker run -i
     tty: true        # docker run -t
-#    user: $USER
+    user: $USER
     links:
       - db
     environment:
