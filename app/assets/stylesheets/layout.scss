@@ -14,6 +14,11 @@ html {
     height: 100%;
     width: 100%;
     background-color: $tan;
+    font-family: 'Courier Prime', monospace;
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Averia Serif Libre', cursive;
+    }
 
     div.header {
       width: 100%;
