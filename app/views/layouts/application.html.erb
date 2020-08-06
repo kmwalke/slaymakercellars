@@ -10,11 +10,28 @@
   </head>
 
   <body>
-  <% if current_user %>
-    <%= render partial: 'layouts/admin_links' %>
-  <% else %>
-    <%= render partial: 'layouts/links' %>
-  <% end %>
+  <div class="header">
+    <div class="left">
+      <div class="image-wrapper">
+        <%= image_tag 'traditional_bottle.png' %>
+        <%= image_tag 'traditional_bottle.png' %>
+        <%= image_tag 'traditional_bottle.png' %>
+      </div>
+    </div>
+    <div class="right">
+      <% if current_user %>
+        <%= render partial: 'layouts/admin_links' %>
+      <% else %>
+        <%= render partial: 'layouts/links' %>
+      <% end %>
+      <div class="header-text">
+        <h1>Cellar Aged</h1>
+        <h1>Craft Mead</h1>
+        <span>crafted from love</span>
+        <%= link_to 'Learn More', root_path %>
+      </div>
+    </div>
+  </div>
 
   <p id=”notice”><%= notice %></p>
 
