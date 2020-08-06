@@ -1,5 +1,58 @@
 @import 'variables';
 
-div.page-title {
+$page-title-size: 7em;
 
+div.page-title {
+  @include rounded-corners($page-title-size/2);
+  display: block;
+  width: $page-title-size;
+  height: $page-title-size;
+  position: absolute;
+  top: -$page-title-size*5/8;
+  right: 10em;
+  background: $tan;
+  margin: 0;
+  padding: 0;
+
+  h2 {
+    color: $brown;
+    display: block;
+    width: $page-title-size * 2/3;
+    text-align: center;
+    line-height: $page-title-size * 2/3;
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+  }
+
+  div.squiggle {
+    margin-top: -$page-title-size*1/3;
+
+    span {
+      color: $black;
+      display: block;
+      margin: 0 0 0 $page-title-size/2*3/4;
+      padding: 0;
+      font-weight: bold;
+      font-size: 1.25em;
+      line-height: .75em;
+    }
+  }
+}
+
+div.spacer {
+  height: 5em;
+}
+
+div.section {
+  h1 {
+    width: 8em;
+  }
+
+  p {
+    margin: 0 0 2em 15%;
+    width: 60%;
+    line-height: 1.5em;
+    color: $brown;
+  }
 }
