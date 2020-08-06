@@ -1,6 +1,10 @@
-<div class="links">
-  <%= link_to 'Our Story', root_path(anchor: 'story') %>
-  <%= link_to 'Where to Buy', root_path %>
-  <%= link_to 'Order', products_path %>
-  <%= link_to image_tag('small_tan_logo.png'), root_path %>
-</div>
+<% if current_user %>
+  <%= render partial: 'layouts/admin_links' %>
+<% else %>
+  <div class="links">
+    <%= link_to 'Our Story', root_path(anchor: 'story') %>
+    <%= link_to 'Where to Buy', root_path %>
+    <%= link_to 'Order', products_path %>
+    <%= link_to image_tag('small_tan_logo.png'), root_path %>
+  </div>
+<% end %>

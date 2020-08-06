@@ -11,31 +11,7 @@
   </head>
 
   <body>
-  <div class="header">
-    <div class="left">
-      <div class="image-wrapper">
-        <%= image_tag 'traditional_bottle.png' %>
-        <%= image_tag 'traditional_bottle.png' %>
-        <%= image_tag 'traditional_bottle.png' %>
-      </div>
-    </div>
-    <div class="right">
-      <% if current_user %>
-        <%= render partial: 'layouts/admin_links' %>
-      <% else %>
-        <%= render partial: 'layouts/links' %>
-      <% end %>
-      <div class="header-text">
-        <h1>Cellar Aged</h1>
-        <h1>Craft Mead</h1>
-        <span>crafted from love</span>
-        <div class="link-wrapper">
-          <%= link_to '&nbsp;', root_path(anchor: 'story'), class: 'box-shadow' %>
-          <%= link_to 'Learn More', root_path(anchor: 'story') %>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render partial: 'layouts/header' %>
 
   <p id=”notice”><%= notice %></p>
 

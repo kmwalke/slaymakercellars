@@ -1,6 +1,7 @@
 @import 'variables';
 
-$header-height: 50em;
+$splash-header-height: 50em;
+$header-height: 5em;
 
 html {
   margin: 0;
@@ -20,13 +21,20 @@ html {
       font-family: 'Averia Serif Libre', cursive;
     }
 
+    div.splash-header {
+      height: $splash-header-height;
+    }
+
     div.header {
+      height: $header-height;
+    }
+
+    div.splash-header, div.header {
       width: 100%;
       margin: 0;
       display: flex;
 
       div.left, div.right {
-        height: $header-height;
         overflow-x: hidden;
       }
 
@@ -38,7 +46,7 @@ html {
 
         div.image-wrapper {
           width: 200%;
-          height: $header-height;
+          height: $splash-header-height;
           position: absolute;
           left: 0;
 
@@ -86,7 +94,7 @@ html {
         }
 
         div.header-text {
-          padding-top: $header-height/3;
+          padding-top: $splash-header-height/3;
 
           h1 {
             font-size: 4em;
