@@ -20,7 +20,7 @@ RSpec.feature 'Sessions', type: :feature do
 
     scenario 'logs out' do
       logout
-      expect(page).to have_content('Log In')
+      expect(page).not_to have_content('Log Out')
       expect(current_path).to eq(root_path)
     end
   end
