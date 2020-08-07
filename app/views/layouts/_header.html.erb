@@ -1,0 +1,10 @@
+<% if controller_name == 'home' && !current_user %>
+  <%= render partial: 'layouts/splash_header' %>
+<% else %>
+  <div class="header">
+    <div class="left">&nbsp;</div>
+    <div class="right">
+      <%= render partial: 'layouts/links' %>
+    </div>
+  </div>
+<% end %>

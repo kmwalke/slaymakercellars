@@ -2,7 +2,12 @@ version: '3.4'
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        USERNAME: $USER
+        UID: ${USER_ID:-0}
+        GID: ${GROUP_ID:-0}
     command: "./script/start-dev.sh"
     volumes:
       - .:/app
@@ -12,6 +17,7 @@ services:
       - "3000:3000"
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+#    user: $USER
     links:
       - db
     environment:

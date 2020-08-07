@@ -39,6 +39,8 @@
 yarn-debug.log*
 .yarn-integrity
 /node_modules
+
+.env
 .idea
 
 /public/packs
@@ -47,3 +49,5 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.cache
+.gem

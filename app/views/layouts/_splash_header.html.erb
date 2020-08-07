@@ -1,0 +1,21 @@
+<div class="splash-header">
+  <div class="left">
+    <div class="image-wrapper">
+      <%= image_tag 'traditional_bottle.png' %>
+      <%= image_tag 'traditional_bottle.png' %>
+      <%= image_tag 'traditional_bottle.png' %>
+    </div>
+  </div>
+  <div class="right">
+    <%= render partial: 'layouts/links' %>
+    <div class="header-text">
+      <h1>Cellar Aged</h1>
+      <h1>Craft Mead</h1>
+      <span>crafted from love</span>
+      <div class="link-wrapper">
+        <%= link_to '&nbsp;', root_path(anchor: 'story'), class: 'box-shadow' %>
+        <%= link_to 'Learn More', root_path(anchor: 'story') %>
+      </div>
+    </div>
+  </div>
+</div>
