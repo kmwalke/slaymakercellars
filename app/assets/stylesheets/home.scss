@@ -105,4 +105,23 @@ div.section {
       }
     }
   }
+
+  ul.process-list {
+    list-style: none;
+    text-align: center;
+
+    li:first-child {
+      margin: 0;
+    }
+
+    li {
+      display: inline-block;
+      width: 10em;
+      margin-left: 5%;
+    }
+
+    li:last-child h2{
+      word-spacing: 50em;
+    }
+  }
 }
