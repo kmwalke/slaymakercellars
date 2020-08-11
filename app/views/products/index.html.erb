@@ -4,7 +4,9 @@
   <% @products.each do |product| %>
     <li>
       <span><%= product.name %></span>
-      <span><%= product.description %></span>
+      <span>ABV: <%= product.abv %></span>
+      <pre><%= product.description %></pre>
+      <%= image_tag product.img %>
     </li>
   <% end %>
 </ul>

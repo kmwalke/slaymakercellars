@@ -11,6 +11,7 @@ gem 'puma'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 gem 'sass-rails'
 gem 'turbolinks'
+gem 'vinochipper'
 gem 'webpacker'
 
 group :development, :test do
