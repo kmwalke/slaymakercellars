@@ -8,3 +8,20 @@
 
 User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123')
 User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123')
+
+ar = State.create(name: 'Arkansas', abbreviation: 'AR')
+co = State.create(name: 'Colorado', abbreviation: 'CO')
+
+idaho_springs = Town.create(name: 'Idaho Springs', state: co)
+georgetown    = Town.create(name: 'georgetown', state: co)
+little_rock   = Town.create(name: 'Little Rock', state: ar)
+
+Contact.create(name: 'A bar', town: idaho_springs)
+Contact.create(name: 'A package store', town: idaho_springs)
+Contact.create(name: 'A restaurant', town: idaho_springs)
+Contact.create(name: 'B bar', town: georgetown)
+Contact.create(name: 'B package store', town: georgetown)
+Contact.create(name: 'B restaurant', town: georgetown)
+Contact.create(name: 'C bar', town: little_rock)
+Contact.create(name: 'C package store', town: little_rock)
+Contact.create(name: 'C restaurant', town: little_rock)
