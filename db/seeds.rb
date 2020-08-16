@@ -16,7 +16,7 @@ ar = State.create(name: 'Arkansas', abbreviation: 'AR')
 co = State.create(name: 'Colorado', abbreviation: 'CO')
 
 idaho_springs = Town.create(name: 'Idaho Springs', state: co)
-georgetown    = Town.create(name: 'georgetown', state: co)
+georgetown    = Town.create(name: 'Georgetown', state: co)
 little_rock   = Town.create(name: 'Little Rock', state: ar)
 
 Contact.create(name: 'A bar', town: idaho_springs)
