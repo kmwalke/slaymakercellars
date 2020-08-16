@@ -1,0 +1,29 @@
+<h1>
+  Where to Buy
+</h1>
+
+<ul class="states">
+  <% @states.each do |state| -%>
+    <li class="state">
+      <span class="state"><%= state.name %></span>
+      <ul class="towns">
+        <% state.towns.each do |town| -%>
+          <li class="town">
+            <span class="town"><%= town.name %></span>
+            <ul class="contacts">
+              <% town.contacts.where(deleted_at: nil).each do |contact| -%>
+                <li class="contact">
+                  <% if contact.url.blank? -%>
+                    <%= contact.name %>
+                  <% else -%>
+                    <%= link_to contact.name, contact.url %>
+                  <% end -%>
+                </li>
+              <% end -%>
+            </ul>
+          </li>
+        <% end -%>
+      </ul>
+    </li>
+  <% end -%>
+</ul>
