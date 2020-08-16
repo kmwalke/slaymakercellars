@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
   def index
-    @contacts = Contact.all
+    @states = State.all
   end
 end
