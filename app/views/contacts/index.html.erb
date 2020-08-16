@@ -11,7 +11,7 @@
           <li class="town">
             <span class="town"><%= town.name %></span>
             <ul class="contacts">
-              <% town.contacts.each do |contact| -%>
+              <% town.contacts.where(deleted_at: nil).each do |contact| -%>
                 <li class="contact">
                   <% if contact.url.blank? -%>
                     <%= contact.name %>
