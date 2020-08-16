@@ -1,0 +1,7 @@
+<h1>Editing Town</h1>
+
+<%= form_for(@town, url: admin_town_path(@town), html: {multipart: true}) do |form| %>
+  <%= render 'form', town: @town, form: form %>
+<% end -%>
+
+<%= link_to 'Back', admin_towns_path %>
