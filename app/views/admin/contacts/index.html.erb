@@ -1,0 +1,45 @@
+<h1><%= @title %></h1>
+
+<fieldset class="view_select">
+  <legend>
+    Select Contacts to View
+  </legend>
+
+  <p class="main_options">
+    <%= @show == "active" ? "Active" : link_to('Active', admin_contacts_path({show: "active"})) %> |
+    <%= @show == "inactive" ? "Deleted" : link_to(
+        'Deleted Contacts', admin_contacts_path({show: "inactive"})
+    ) %>
+  </p>
+</fieldset>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Town</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= link_to contact.name, edit_admin_contact_path(contact)%></td>
+        <td><%= link_to contact.phone || '', edit_admin_contact_path(contact)%></td>
+        <td><%= link_to contact.email || '', edit_admin_contact_path(contact)%></td>
+        <td><%= link_to contact.town.name, edit_admin_contact_path(contact)%></td>
+        <td>
+          <%= link_to 'X', admin_contact_path(contact), method: :delete, id: "delete_#{contact.id}", data: {confirm: 'Are you sure?' } %>
+          &nbsp;
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Contact', new_admin_contact_path %>
