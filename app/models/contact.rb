@@ -1,8 +1,12 @@
 class Contact < ApplicationRecord
+  include UrlValidator
+
   belongs_to :town
 
   validates :name, presence: true, uniqueness: true
   validates :town_id, presence: true
+
+  validate :proper_url
 
   scope :active, -> { where(deleted_at: nil) }
   scope :inactive, -> { where.not(deleted_at: nil) }
@@ -34,6 +38,6 @@ class Contact < ApplicationRecord
   end
 
   def self.search(search)
-    search ? where('lower(name) LIKE lower(?)', "%#{search}%") : all
+    search ? where('lower(name) LIKE lower(?) ODER BY town_id', "%#{search}%") : all.order(:town_id)
   end
 end
