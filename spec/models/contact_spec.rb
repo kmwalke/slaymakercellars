@@ -17,6 +17,18 @@ RSpec.describe Contact, type: :model do
     expect(Contact.create(town_id: '').errors).to have_key(:town_id)
   end
 
+  it 'should require a valid url' do
+    expect(Contact.create(url: 'not a url').errors).to have_key(:url)
+  end
+
+  it 'should require a full url' do
+    expect(Contact.create(url: 'www.google.com').errors).to have_key(:url)
+  end
+
+  it 'should allow a full url' do
+    expect(Contact.create(url: 'http://www.google.com').errors).not_to have_key(:url)
+  end
+
   it 'should soft delete' do
     expect(contact.destroy).to eq('archived')
     expect(contact.reload.deleted_at).to be_a(ActiveSupport::TimeWithZone)

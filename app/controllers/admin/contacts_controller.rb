@@ -60,6 +60,7 @@ module Admin
         :name,
         :phone,
         :email,
+        :url,
         :contact_point,
         :address,
         :description,
