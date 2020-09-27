@@ -1,3 +1,30 @@
-// Place all the styles related to the contacts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+@import 'variables';
+
+ul {
+  li {
+    list-style: none;
+  }
+
+}
+
+ul.states {
+
+  li.state {
+    border: 1px solid $blue;
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+    padding: .5em;
+    margin: 0 0 5% 1em;
+
+    .state {
+      font-size: x-large;
+      font-weight: bold;
+      color: $blue;
+    }
+
+    li.town {
+
+    }
+  }
+}

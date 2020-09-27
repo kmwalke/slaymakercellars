@@ -5,6 +5,7 @@ AllCops:
     - 'config/environments/*'
     - 'bin/*'
     - 'node_modules/**/*'
+  NewCops: enable
 
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
