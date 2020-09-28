@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'contacts', to: 'contacts#index'
   get 'products', to: 'products#index'
+  get 'visit', to: 'visit#index'
 
   namespace :admin do
     get '/', to: 'home#index'
