@@ -7,9 +7,9 @@ RSpec.feature 'Home', type: :feature do
     expect(page).to have_content('Slaymaker Cellars')
   end
 
-  scenario 'product link', skip: 'product page not implemented' do
+  scenario 'product link' do
     visit root_path
-    click_link 'Order'
+    click_link 'Meads'
     expect(current_path).to eq(products_path)
   end
 
