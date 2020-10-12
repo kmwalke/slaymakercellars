@@ -8,7 +8,8 @@ class Product < ApplicationRecord
 
   def acceptable_image
     errors.add(:bottle_image, 'is required') && return unless bottle_image.attached?
+
     errors.add(:bottle_image, 'must be < 1MB') unless bottle_image.byte_size <= 1.megabyte
-    errors.add(:bottle_image, "must be a PNG") unless ['image/png'].include?(bottle_image.content_type)
+    errors.add(:bottle_image, 'must be a PNG') unless ['image/png'].include?(bottle_image.content_type)
   end
 end
