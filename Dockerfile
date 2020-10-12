@@ -13,9 +13,10 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 RUN apt-get update && \
   apt-get install -y \
   build-essential \
-  yarn \
+  imagemagick \
   nodejs \
-  postgresql-client
+  postgresql-client \
+  yarn
 
 ENV BUNDLE_PATH /gems
 ENV PATH $BUNDLE_PATH/bin:$GEM_HOME/gems/bin:$PATH

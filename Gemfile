@@ -5,6 +5,7 @@ ruby '2.7.1'
 
 gem 'bcrypt'
 gem 'bootsnap'
+gem 'image_processing'
 gem 'jbuilder'
 gem 'pg'
 gem 'puma'
