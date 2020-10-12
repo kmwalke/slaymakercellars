@@ -3,10 +3,10 @@
 <ul>
   <% @products.each do |product| %>
     <li>
-      <span><%= product.name %></span>
-      <span>ABV: <%= product.abv %></span>
-      <pre><%= product.description %></pre>
-      <%= image_tag product.img %>
+      <span><%= link_to product.name, product %></span>
+<!--      <span>ABV: <%#= product.abv %></span>-->
+<!--      <pre><%#= product.description %></pre>-->
+      <%= image_tag product.bottle_image %>
     </li>
   <% end %>
 </ul>

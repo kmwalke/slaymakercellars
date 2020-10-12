@@ -15,15 +15,8 @@
   <%= form.text_field :name %>
 </div>
 
-<div class="field">
-  <%= form.label :price_point %>
-  <%= form.text_field :price_point %>
-</div>
-
-<div class="field">
-  <%= form.label :description %>
-  <%= form.text_area :description %>
-</div>
+<%= form.label :bottle_image %>
+<%= form.file_field :bottle_image %>
 
 <div class="actions">
   <%= form.submit %>

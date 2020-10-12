@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
-  get 'contacts', to: 'contacts#index'
-  get 'products', to: 'products#index'
+  resources :contacts, only: [:index]
+  resources :products, only: [:index, :show]
   get 'visit', to: 'visit#index'
 
   namespace :admin do
