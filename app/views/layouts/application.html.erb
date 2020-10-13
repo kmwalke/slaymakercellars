@@ -11,8 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   </head>
 
-  <body>
-  <%= render partial: 'layouts/header' %>
+  <body class="<%= controller.controller_name%>">
+  <% if controller_name == 'home' && !current_user %>
+    <%= render partial: 'layouts/splash_header' %>
+  <% else %>
+    <%= render partial: 'layouts/header' %>
+  <% end %>
 
   <p id=”notice”><%= notice %></p>
 
