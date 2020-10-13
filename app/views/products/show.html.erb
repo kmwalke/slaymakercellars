@@ -1,0 +1,4 @@
+<h1>Our Products</h1>
+
+<div class="title"><%= @product.name%></div>
+<%= image_tag @product.bottle_image.variant(resize_to_limit: [150, nil]) %>

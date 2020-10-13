@@ -1,11 +1,9 @@
-<h1>Products</h1>
+<h1>Our Products</h1>
 
 <ul>
   <% @products.each do |product| %>
     <li>
       <span><%= link_to product.name, product %></span>
-<!--      <span>ABV: <%#= product.abv %></span>-->
-<!--      <pre><%#= product.description %></pre>-->
       <%= image_tag product.bottle_image.variant(resize_to_limit: [150, nil]) %>
     </li>
   <% end %>
