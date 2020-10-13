@@ -12,7 +12,11 @@
   </head>
 
   <body>
-  <%= render partial: 'layouts/header' %>
+  <% if controller_name == 'home' && !current_user %>
+    <%= render partial: 'layouts/splash_header' %>
+  <% else %>
+    <%= render partial: 'layouts/header' %>
+  <% end %>
 
   <p id=”notice”><%= notice %></p>
 
