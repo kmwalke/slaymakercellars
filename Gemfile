@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '3.0.0'
 
 gem 'bcrypt'
 gem 'bootsnap'
 gem 'jbuilder'
 gem 'pg'
 gem 'puma'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
+gem 'rails', '6.1.3'
 gem 'sass-rails'
 gem 'turbolinks'
 gem 'vinochipper'
