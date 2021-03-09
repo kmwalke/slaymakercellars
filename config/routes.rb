@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root to: 'home#index'
+  if Rails.env.production?
+    get '404', :to => 'home#index'
+  end
 
   resources :sessions, only: [:new, :create, :destroy]
   get 'login', to: 'sessions#new', as: 'login'
