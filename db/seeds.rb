@@ -18,11 +18,9 @@ co = State.create(name: 'Colorado', abbreviation: 'CO')
   Town.create(name: "Town #{i}", state: co)
 end
 
-
 Town.all.each do |town|
-  (1 + rand(6)).times do |i|
-    contact_url = [true,false].sample == true ? 'http://www.thing.com' : nil
+  rand(1..6).times do |i|
+    contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
     Contact.create(name: "Contact_#{town.id}_#{i}", town: town, url: contact_url)
   end
 end
-
