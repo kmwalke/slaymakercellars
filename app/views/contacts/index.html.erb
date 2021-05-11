@@ -7,7 +7,7 @@
     <li class="state">
       <h2 class="state"><%= state.name %></h2>
       <ul class="towns">
-        <% state.towns.each do |town| -%>
+        <% state.towns.order(:name).each do |town| -%>
           <li class="town">
             <h3 class="town"><%= town.name %></h3>
             <ul class="contacts">
