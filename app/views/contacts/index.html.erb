@@ -5,19 +5,27 @@
 <ul class="states">
   <% @states.each do |state| -%>
     <li class="state">
-      <h2 class="state"><%= state.name %></h2>
+      <h1 class="state"><%= state.name %></h1>
       <ul class="towns">
-        <% state.towns.order(:name).each do |town| -%>
-          <li class="town">
-            <h3 class="town"><%= town.name %></h3>
-            <ul class="contacts">
-              <% town.contacts.where(deleted_at: nil).each do |contact| -%>
-                <li class="contact">
-                  <% if contact.url.blank? -%>
-                    <span><%= contact.name %></span>
-                  <% else -%>
-                    <%= link_to contact.name, contact.url, target: '_blank' %>
-                  <% end -%>
+        <% state.towns.order(:name).each_slice(3) do |towns_slice| -%>
+          <li class="towns_slice">
+            <ul>
+              <% towns_slice.each do |town| %>
+                <li class="town">
+                  <h3 class="town"><%= town.name %></h3>
+                  <ul class="contacts">
+                    <% town.contacts.where(deleted_at: nil).each_slice(3) do |contacts_slice| -%>
+                      <% contacts_slice.each do |contact| %>
+                        <li class="contact">
+                          <% if contact.url.blank? -%>
+                            <span><%= contact.name %></span>
+                          <% else -%>
+                            <%= link_to contact.name, contact.url, target: '_blank' %>
+                          <% end -%>
+                        </li>
+                      <% end -%>
+                    <% end -%>
+                  </ul>
                 </li>
               <% end -%>
             </ul>
