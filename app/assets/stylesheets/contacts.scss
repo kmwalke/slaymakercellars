@@ -11,7 +11,7 @@ ul.states {
 
   li.state {
     border: 1px solid $brown;
-    width: 40%;
+    width: 100%;
     display: inline-block;
     vertical-align: top;
     padding: .5em;
@@ -24,6 +24,10 @@ ul.states {
     }
 
     li.town {
+      width: 30%;
+      display: inline-block;
+      vertical-align: top;
+
       ul.contacts {
         li.contact {
           a, a:visited, a:active {
