@@ -11,8 +11,8 @@ class Contact < ApplicationRecord
   scope :active, -> { where(deleted_at: nil) }
   scope :inactive, -> { where.not(deleted_at: nil) }
 
-  def self.display(show = 'active', search_string = nil)
-    [show, display_contacts(show, search_string).order(:name), display_title(show)]
+  def self.display(show = 'active', search_string = nil, order = :name)
+    [show, display_contacts(show, search_string).order(order), display_title(show)]
   end
 
   def destroy
