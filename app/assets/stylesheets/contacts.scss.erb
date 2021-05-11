@@ -1,0 +1,70 @@
+@import 'variables';
+
+  li {
+  }
+
+ul.states {
+
+  li.state {
+    list-style: none;
+    @include rounded-corners(1em);
+    background-image: linear-gradient(to bottom, $brown, darken($brown, 5%));
+    border: 2px outset lighten($brown, 10%);
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    padding: .5em;
+    margin: 0 0 5% 1em;
+    text-align: center;
+
+    .state {
+      line-height: .75em;
+      font-weight: bold;
+      color: $tan;
+    }
+
+    ul.towns {
+      padding-left: 0;
+
+      li.towns_slice {
+        list-style: none;
+
+        ul {
+          padding-left: 0;
+          position: relative;
+          display: table;
+          width: 100%;
+
+          li.town {
+            list-style: none;
+            width: 30%;
+            height: 100%;
+            display: table-cell;
+            vertical-align: top;
+            background-image: linear-gradient(to bottom, $blue, darken($blue, 5%));
+            border: 2px inset lighten($brown, 15%);
+            margin-bottom: 1em;
+            padding-bottom: 1em;
+            text-align: center;
+
+            ul.contacts {
+              padding-left: 0;
+
+              li.contact {
+                list-style: none;
+
+                a, a:visited, a:active {
+                  color: darken($tan, 00%);
+                }
+
+                a:hover {
+                  text-decoration: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
