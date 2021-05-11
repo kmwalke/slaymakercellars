@@ -8,7 +8,7 @@ gem 'bootsnap'
 gem 'jbuilder'
 gem 'pg'
 gem 'puma'
-gem 'rails', '6.1.3.1'
+gem 'rails'
 gem 'sass-rails'
 gem 'turbolinks'
 gem 'vinochipper'
@@ -21,7 +21,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'sprockets', '3.7.2' # greater versions break on windows https://github.com/rails/sprockets/issues/283
+  gem 'sprockets'
 end
 
 group :development do
