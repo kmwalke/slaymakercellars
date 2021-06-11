@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123')
+user1 = User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123')
 User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123')
 
 Product.create(name: 'Traditional', price_point: 10, description: 'This is the description')
@@ -21,6 +21,10 @@ end
 Town.all.each do |town|
   rand(1..6).times do |i|
     contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
-    Contact.create(name: "Contact_#{town.id}_#{i}", town: town, url: contact_url)
+    contact = Contact.create(name: "Contact_#{town.id}_#{i}", town: town, url: contact_url)
+
+    rand(0..3).times do |j|
+      Note.create(body: 'This is a note.', contact: contact, created_by: user1)
+    end
   end
 end
