@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2021_06_11_155044) do
     t.integer "contact_id"
     t.integer "created_by_id"
     t.datetime "resolved_at"
-    t.integer "resolved_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
