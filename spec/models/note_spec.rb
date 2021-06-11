@@ -11,4 +11,14 @@ RSpec.describe Note, type: :model do
   it 'should require a contact' do
     expect(Note.create(contact_id: '').errors).to have_key(:contact_id)
   end
+
+  it 'should be unresolved on creation' do
+    note = Note.create(contact: contact, body: 'this is a note')
+    expect(note.resolved?).to eq(false)
+  end
+
+  it 'should be resolved' do
+    note = Note.create(contact: contact, body: 'this is a note', resolved_at: DateTime.now)
+    expect(note.resolved?).to eq(true)
+  end
 end

@@ -3,4 +3,8 @@ class Note < ApplicationRecord
 
   validates :body, presence: true
   validates :contact_id, presence: true
+
+  def resolved?
+    resolved_at != nil
+  end
 end
