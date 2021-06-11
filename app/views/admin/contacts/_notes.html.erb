@@ -1,0 +1,23 @@
+<h2>Notes</h2>
+
+<p>
+  <%= link_to 'Add Note', new_admin_note_path(contact_id: @contact.id) %>
+</p>
+
+<div class="notes">
+  <% if notes -%>
+    <% notes.each do |note| -%>
+      <div class="note <%= note.resolved? ? 'resolved' : '' %>">
+        <span class="title"><%= note.resolved_by.name %></span>
+        <span class="date"><%= humanize_date note.created_at %></span>
+        <p><%= note.body %></p>
+        <% if note.resolved? -%>
+          <span class="resolved">Resolved on <%= humanize_date note.resolved_at %></span>
+        <% else -%>
+          <%= link_to 'Resolve', admin_note_path(note), class: "resolve", method: :delete %>
+        <% end -%>
+      </div>
+
+    <% end -%>
+  <% end -%>
+</div>
