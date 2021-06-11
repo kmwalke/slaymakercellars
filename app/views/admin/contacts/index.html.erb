@@ -6,39 +6,79 @@
   </legend>
 
   <p class="main_options">
-    <%= @show == "active" ? "Active" : link_to('Active', admin_contacts_path({show: "active"})) %> |
+    <%= @show == "active" ? "Active" : link_to('Active', admin_contacts_path({ show: "active" })) %> |
     <%= @show == "inactive" ? "Deleted" : link_to(
-        'Deleted Contacts', admin_contacts_path({show: "inactive"})
-    ) %>
+      'Deleted Contacts', admin_contacts_path({ show: "inactive" })
+    ) %> |
+    <%= @show == "urgent" ? "Urgent" : link_to('Urgent', admin_contacts_path({show: "urgent"})) %>
   </p>
 </fieldset>
 
-<table>
-  <thead>
-    <tr>
+<div class="wide_wrapper">
+  <table class="crud">
+    <tr class="title">
       <th>Name</th>
+      <th>Town</th>
       <th>Phone</th>
       <th>Email</th>
-      <th>Town</th>
-      <th colspan="3"></th>
+      <th>Last Contact</th>
+      <!--      <th>Last Order</th>-->
+      <th></th>
     </tr>
-  </thead>
 
-  <tbody>
     <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= link_to contact.name, edit_admin_contact_path(contact)%></td>
-        <td><%= link_to contact.phone || '', edit_admin_contact_path(contact)%></td>
-        <td><%= link_to contact.email || '', edit_admin_contact_path(contact)%></td>
-        <td><%= link_to contact.town.name, edit_admin_contact_path(contact)%></td>
+      <tr class="<%= cycle "even", "odd" %><%= contact.unresolved_notes? ? ' unresolved' : '' %>">
         <td>
-          <%= link_to 'X', admin_contact_path(contact), method: :delete, id: "delete_#{contact.id}", data: {confirm: 'Are you sure?' } %>
+          <%= link_to contact.name, edit_admin_contact_path(contact) %>
+        </td>
+        <td>
+          <% if contact.town == nil -%>
+            &nbsp;
+          <% else -%>
+            <%= contact.town.name %>
+          <% end -%>
+        </td>
+        <td>
+          <% unless contact.phone == nil || contact.phone == "" -%>
+            <%= contact.phone %>
+          <% end -%>
+        </td>
+        <td>
+          <% unless contact.email == nil || contact.email == "" -%>
+            <%= link_to "Email", "mailto:#{contact.email}", target: "_blank" %>
+          <% end -%>
+        </td>
+        <td nowrap>
+          <% if contact.notes.empty? -%>
+            &nbsp;
+          <% else -%>
+            <% if contact.unresolved_notes? -%>
+              <%= link_to "#{time_ago_in_words contact.notes.first.created_at} ago",
+                          edit_admin_contact_path(contact)
+              %>
+            <% else -%>
+              <%= time_ago_in_words contact.notes.first.created_at %> ago
+            <% end -%>
+          <% end -%>
+        </td>
+        <!--        <td nowrap>-->
+        <%# if contact.last_order -%>
+        <%#= link_to "#{time_ago_in_words contact.last_order} ago", admin_orders_path({show: contact.id}) %>
+        <%# else -%>
+        <!--            &nbsp;-->
+        <%# end -%>
+        <!--        </td>-->
+        <td>
+          <%= link_to 'X',
+                      admin_contact_path(contact), confirm: 'Are you sure?',
+                      method: :delete,
+                      id: "delete_#{contact.id}" %>
           &nbsp;
         </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+  </table>
+</div>
 
 <br>
 
