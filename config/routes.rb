@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         get :undestroy
       end
     end
+    resources :notes
     resources :products
     resources :states
     resources :towns

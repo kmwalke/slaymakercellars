@@ -2,6 +2,7 @@ class Contact < ApplicationRecord
   include UrlValidator
 
   belongs_to :town
+  has_many :notes
 
   validates :name, presence: true, uniqueness: true
   validates :town_id, presence: true

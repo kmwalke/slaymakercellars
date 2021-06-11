@@ -1,0 +1,17 @@
+<h1>New Issue</h1>
+
+<%= form_for(@note, url: {action: "create"}) do |f| %>
+  <div class="field">
+    <%= f.label :body %><br/>
+    <%= f.text_area :body, rows: 30, cols: 50 %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :contact_id, value: @contact_id %>
+  </div>
+  <div class="field">
+    <%= f.text_field :resolved_by_id, value: @resolved_by_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create Issue", disable_with: "Loading..." %>
+  </div>
+<% end -%>

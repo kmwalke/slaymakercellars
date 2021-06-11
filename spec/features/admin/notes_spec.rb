@@ -5,14 +5,15 @@ RSpec.feature 'Admin::Notes', type: :feature do
     let!(:town) { Town.create(name: 'town', state: State.create(name: 'name', abbreviation: 'AS')) }
     let!(:contact) { Contact.create(name: 'john', town: town) }
     let!(:contact_with_notes) { Contact.create(name: 'john1', town: town) }
-    let!(:note1) { Note.create(body: 'this is note 1', contact: contact_with_notes) }
-    let!(:note2) { Note.create(body: 'this is note 2', contact: contact_with_notes) }
 
     before :each do
       login
     end
 
     scenario 'lists notes' do
+      note1 = Note.create(body: 'this is note 1', contact: contact_with_notes)
+      note2 = Note.create(body: 'this is note 2', contact: contact_with_notes)
+      expect(contact_with_notes.reload.notes).not_to be_empty
       visit admin_contacts_path
       click_link contact_with_notes.name
 
