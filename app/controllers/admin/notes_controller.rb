@@ -3,9 +3,8 @@ module Admin
     before_action :logged_in?
 
     def new
-      @note           = Note.new
-      @contact_id     = params[:contact_id]
-      @resolved_by_id = current_user.id
+      @note       = Note.new
+      @contact_id = params[:contact_id]
 
       respond_to do |format|
         format.html
@@ -13,7 +12,7 @@ module Admin
     end
 
     def create
-      @note = Note.create(note_params)
+      @note = Note.create(note_params.merge(created_by_id: current_user.id))
 
       if @note.save
         redirect_to edit_admin_contact_path(@note.contact_id)
@@ -35,7 +34,7 @@ module Admin
     private
 
     def note_params
-      params.require(:note).permit(:contact_id, :resolved_by_id, :body)
+      params.require(:note).permit(:contact_id, :body)
     end
   end
 end
