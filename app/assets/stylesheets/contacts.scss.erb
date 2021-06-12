@@ -5,11 +5,9 @@ li {
 
 ul.states {
 
+
   li.state {
     list-style: none;
-    @include rounded-corners(1em);
-    background-image: linear-gradient(to bottom, $brown, darken($brown, 5%));
-    border: 2px outset lighten($brown, 10%);
     width: 100%;
     display: inline-block;
     vertical-align: top;
@@ -20,7 +18,7 @@ ul.states {
     .state {
       line-height: .75em;
       font-weight: bold;
-      color: $tan;
+      color: $brown;
     }
 
     ul.towns {
@@ -41,8 +39,7 @@ ul.states {
             height: 100%;
             display: table-cell;
             vertical-align: top;
-            background-image: linear-gradient(to bottom, $blue, darken($blue, 5%));
-            border: 2px inset lighten($brown, 15%);
+            border: 1px solid lighten($brown, 15%);
             margin-bottom: 1em;
             padding-bottom: 1em;
             text-align: center;
