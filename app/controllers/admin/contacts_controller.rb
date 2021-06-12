@@ -11,7 +11,9 @@ module Admin
       @contact = Contact.new
     end
 
-    def edit; end
+    def edit
+      @notes = @contact.notes.order('created_at desc')
+    end
 
     def create
       @contact = Contact.new(contact_params)

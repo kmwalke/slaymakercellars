@@ -1,0 +1,56 @@
+@import 'variables';
+
+$tr-bg: $brown;
+
+table.crud {
+  border: 1px solid $black;
+  border-spacing: 0;
+  color: $blue;
+
+  a {
+    color: $blue;
+  }
+
+  .unresolved {
+    color: $red;
+
+    a {
+      color: $red;
+    }
+  }
+
+  th {
+    background: darken($tr-bg,20);
+    text-align: center;
+    color: $white;
+
+    a {
+      color: $brown;
+    }
+  }
+
+  td {
+    border-top: 1px solid black;
+    padding: 0 2.5em;
+    text-align: center;
+    height: 1.5em;
+    white-space: nowrap;
+  }
+
+  tr {
+    background: $white;
+  }
+
+  tr.odd {
+    background: lighten($tr-bg,50);
+  }
+
+  tr:hover {
+    background: $tr-bg;
+    color: $blue;
+
+    a {
+      color: $blue;
+    }
+  }
+}
