@@ -8,7 +8,7 @@
   <p class="main_options">
     <%= @show == "active" ? "Active" : link_to('Active', admin_contacts_path({ show: "active" })) %> |
     <%= @show == "inactive" ? "Deleted" : link_to(
-      'Deleted Contacts', admin_contacts_path({ show: "inactive" })
+      'Deleted', admin_contacts_path({ show: "inactive" })
     ) %> |
     <%= @show == "urgent" ? "Urgent" : link_to('Urgent', admin_contacts_path({show: "urgent"})) %>
   </p>
