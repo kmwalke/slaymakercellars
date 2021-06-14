@@ -1,72 +1,89 @@
 @import 'variables';
 
-fieldset.view_select {
-  a {
-    color: $blue;
-  }
-}
-
-div.notes {
-  margin-left: 1.5%;
-  margin-bottom: .25em;
-
-  div.resolved {
-    color: darken(grey, 20%)!important;
-    background: lighten( $blue, 50%)!important;
-
-    .date, .title {
-      color: darken(grey, 20%)!important;
+body.contacts {
+  fieldset.view_select {
+    a {
+      color: $blue;
     }
   }
 
-  div.note {
-    position: relative;
+  div.column {
+    width: 45%;
     display: inline-block;
-    border-top: 1px solid $brown;
-    border-right: 1px solid $brown;
-    border-left: 1px solid $brown;
-    background: lighten( $blue, 10%);
-    margin: 0;
-    width: 95%;
-    padding: .5em;
+    vertical-align: top;
 
-    span.title, span.date {
-      color: darken($tan, 40%);
-      font-size: small;
+    div.field {
+      margin-top: 1em;
+
+      label {
+        vertical-align: top;
+      }
+    }
+  }
+
+  div.notes {
+    margin-left: 1.5%;
+    margin-bottom: .25em;
+
+    div.resolved {
+      color: darken(grey, 20%) !important;
+      background: lighten($blue, 50%) !important;
+
+      .date, .title {
+        color: darken(grey, 20%) !important;
+      }
     }
 
-    span.title {
-      float: left;
-    }
-
-    span.date {
-      float: right;
-    }
-
-    p {
-      width: 80%;
+    div.note {
+      position: relative;
       display: inline-block;
-      font-size: .8em;
-      line-height: 1.2em;
-      padding-top: 1em;
-    }
+      border-top: 1px solid $brown;
+      border-right: 1px solid $brown;
+      border-left: 1px solid $brown;
+      background: lighten($blue, 10%);
+      color: $white;
+      margin: 0;
+      width: 95%;
+      padding: .5em;
 
-    a.resolve {
-      text-decoration: none;
-      color: white;
-      background: $brown;
-      font-size: small;
-      padding: 2px;
-      border: 2px $brown outset;
-      vertical-align: top;
-    }
+      span.title, span.date {
+        color: darken($tan, 40%);
+        font-size: small;
+      }
 
-    span.resolved {
-      position: absolute;
-      font-size: small;
-      color: darken($brown, 20%);
-      top: 5px;
-      left: 50%;
+      span.title {
+        float: left;
+      }
+
+      span.date {
+        float: right;
+      }
+
+      p {
+        width: 80%;
+        display: inline-block;
+        font-size: .8em;
+        line-height: 1.2em;
+        padding-top: 1em;
+      }
+
+      a.resolve {
+        text-decoration: none;
+        color: white;
+        background: $brown;
+        font-size: small;
+        padding: 2px;
+        border: 2px $brown outset;
+        vertical-align: top;
+      }
+
+      span.resolved {
+        position: absolute;
+        font-size: small;
+        color: darken($brown, 20%);
+        top: 5px;
+        left: 50%;
+      }
     }
   }
 }

@@ -28,35 +28,39 @@
   <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email %>
-</div>
+  </div>
 
   <div class="field">
     <%= form.label :contact_point %>
     <%= form.text_field :contact_point %>
-</div>
+  </div>
 
   <div class="field">
     <%= form.label :url %>
     <%= form.text_field :url %>
-</div>
+  </div>
 
   <div class="field">
     <%= form.label :address %>
-    <%= form.text_area :address %>
-</div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-</div>
+    <%= form.text_area :address, rows: 4 %>
+  </div>
 
   <div class="field">
     <%= form.label :town %>
     <%= form.collection_select :town_id, Town.order(:name), :id, :name, include_blank: true %>
   </div>
-
 </div>
 
 <div class="column">
-  <%= render partial: "notes", locals: {notes: @notes} %>
+  <div class="field">
+    <%= form.label :pickup_check %>
+    <%= form.check_box :pickup_check %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 8 %>
+  </div>
 </div>
+
+<%= render partial: "notes", locals: { notes: @notes } %>

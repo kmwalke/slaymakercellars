@@ -22,6 +22,7 @@
       <th>Phone</th>
       <th>Email</th>
       <th>Last Contact</th>
+      <th>Pcikup Check?</th>
       <!--      <th>Last Order</th>-->
       <th></th>
     </tr>
@@ -60,6 +61,9 @@
               <%= time_ago_in_words contact.notes.first.created_at %> ago
             <% end -%>
           <% end -%>
+        </td>
+        <td>
+          <%= contact.pickup_check ? 'Y' : '' %>
         </td>
         <!--        <td nowrap>-->
         <%# if contact.last_order -%>
