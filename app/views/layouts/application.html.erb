@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   </head>
 
-  <body class="<%= controller.controller_name%>">
+  <body class="<%= controller.controller_name%><%= current_user ? ' admin' : '' %>">
   <% if controller_name == 'home' && !current_user %>
     <%= render partial: 'layouts/splash_header' %>
   <% else %>
