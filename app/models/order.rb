@@ -50,16 +50,12 @@ class Order < ApplicationRecord
     contact&.name
   end
 
-  # def contact_business=(business)
-  #   self.contact = Contact.find_by_business(business) if business.present?
-  # end
-
   def fulfilled?
     fulfilled_on != nil
   end
 
   def fulfill
-    self.fulfilled_on = Date.today
+    update(fulfilled_on: Date.today)
   end
 
   def unfulfill
