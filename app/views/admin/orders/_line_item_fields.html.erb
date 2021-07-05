@@ -1,20 +1,11 @@
 <div class="nested-fields">
   <span class="field">
-    <%= f.check_box :fulfilled %>
-    <% f.label :fulfilled %>
-  </span>
-  <span class="field">
-    <% f.label :units %>
-    <%= f.number_field :units, step: 'any', class: "li_units", size: 4 %>
-  </span>
-  <span class="field">
-    <% f.label :size %>
-    <%= f.select(:size, LineItem::SIZES) %>
+    <%= f.number_field :quantity %>
   </span>
   <span class="field">
     <% f.label :product_id %>
     <%= f.collection_select(:product_id,
-                            Product.where(in_production: true).order("name ASC"),
+                            Product.all.order("name ASC"),
                             :id,
                             :name,
                             {prompt: "Select Cheese"})
@@ -22,6 +13,6 @@
   </span>
 
   <span>  
-    <%= link_to_remove_association "X", f %>
+    <%#= link_to_remove_association "X", f %>
   </span>
 </div>
