@@ -32,15 +32,5 @@ RSpec.feature 'Admin::Home', type: :feature do
       first(:link, 'Contacts').click
       expect(current_path).to eq(admin_contacts_path)
     end
-
-    scenario 'towns link' do
-      first(:link, 'Towns').click
-      expect(current_path).to eq(admin_towns_path)
-    end
-
-    scenario 'state link' do
-      first(:link, 'States').click
-      expect(current_path).to eq(admin_states_path)
-    end
   end
 end

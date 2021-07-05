@@ -13,7 +13,7 @@ RSpec.feature 'Home', type: :feature do
     expect(current_path).to eq(products_path)
   end
 
-  scenario 'visit link', skip: 'bot implemented' do
+  scenario 'visit link', skip: 'not implemented' do
     visit root_path
     click_link 'Visit Us'
     expect(current_path).to eq(visit_path)
