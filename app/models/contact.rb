@@ -3,6 +3,7 @@ class Contact < ApplicationRecord
 
   belongs_to :town
   has_many :notes
+  has_many :orders
 
   validates :name, presence: true, uniqueness: true
   validates :town_id, presence: true
