@@ -10,15 +10,15 @@
   Contact: <strong><%= contact.name %></strong>
 </p>
 
-<p>
-  Paperless Billing: <strong>
-  <% if contact.paperless_billing -%>
-    Yes
-  <% else -%>
-    No
-  <% end -%>
-</strong>
-</p>
+<!--<p>-->
+<!--  Paperless Billing: <strong>-->
+  <%# if contact.paperless_billing -%>
+<!--    Yes-->
+  <%# else -%>
+<!--    No-->
+  <%# end -%>
+<!--</strong>-->
+<!--</p>-->
 
 <% if contact.phone -%>
   <p>
@@ -33,23 +33,9 @@
 <% end -%>
 
 <p>
-  Wholesale Price Point: <strong><%= contact.price_point %></strong>
-</p>
-
-<% if contact.mark_retail -%>
-  <p>
-    Retail Price per ounce: <strong><%= contact.price_per_ounce %></strong>
-  </p>
-<% end -%>
-
-<p>
-  Distributor: <strong><%= contact.distribution_center.name %></strong>
-</p>
-
-<p>
   Address: <strong><%= contact.address %></strong>
 </p>
 
 <p>
-  <%= contact.comments %>
+  <%= contact.description %>
 </p>

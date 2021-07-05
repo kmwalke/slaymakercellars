@@ -1,8 +1,10 @@
 class Order < ApplicationRecord
+  include SoftDeletable
+
   has_many :line_items
   belongs_to :contact
   belongs_to :created_by, class_name: 'User'
-  belongs_to :updated_by, class_name: 'User'
+  belongs_to :updated_by, class_name: 'User', optional: true
   accepts_nested_attributes_for :line_items,
                                 reject_if: proc { |attributes| attributes['units'].blank? },
                                 allow_destroy: true
@@ -14,9 +16,9 @@ class Order < ApplicationRecord
     where('fulfilled_on is null and delivery_date < ?', Date.today).order('delivery_date asc')
   }
 
-  scope :fulfilled, -> { where('fulfilled_on is not null').order('fulfilled_on DESC') }
-
-  scope :active, -> { where(fulfilled_on: nil).order('delivery_date asc') }
+  scope :fulfilled, -> { where.not(fulfilled_on: nil).order('fulfilled_on DESC') }
+  scope :active, -> { where(fulfilled_on: nil, deleted_at: nil).order('delivery_date asc') }
+  scope :inactive, -> { where.not(deleted_at: nil) }
 
   def self.to_be_fulfilled(day)
     if day == Date.today
@@ -38,6 +40,8 @@ class Order < ApplicationRecord
       [orders.fulfilled, 'Delivered Orders']
     when 'active'
       [orders.active, 'Active Orders']
+    when 'void'
+      [orders.inactive, 'Void Orders']
     else
       contact = Contact.find_by_id(show)
       [contact.orders.order('delivery_date DESC'), "Orders by #{contact.name}"]

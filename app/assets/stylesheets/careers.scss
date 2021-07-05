@@ -1,27 +1,4 @@
 @import 'variables';
 
-.content {
-  line-height: 1.4;
-}
-
-ul {
-  li {
-    //list-style-type: square !important;
-  }
-}
-
-a, a:visited, a:active {
-  color: $blue;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-fieldset {
-  legend {
-    margin: 0 -2em;
-    font-size: x-large;
-  }
-  padding: 0 5em 1em 5em;
+body.careers {
 }

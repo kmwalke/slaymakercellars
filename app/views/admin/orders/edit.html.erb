@@ -11,24 +11,6 @@
 <%= form_for(@order, url: admin_order_path(@order)) do |f| %>
 
   <p>
-    <% if @order.invoice_id -%>
-    <h4>
-      Xero Invoice Status: <%= @invoice.status %>
-      <% if @invoice.sent_to_contact -%>
-        & Sent
-      <% end -%>
-    </h4>
-    <%= link_to 'Open Invoice', xero_invoice_link + @order.invoice_id, target: "_blank" %>
-  <% else -%>
-    <%= link_to 'Create Invoice', invoice_admin_order_path(@order) %>
-    <div class="field">
-      <%= f.label :invoice_id, "Existing Xero Invoice ID" %>
-      <%= f.text_field :invoice_id %>
-    </div>
-  <% end -%>
-  </p>
-
-  <p>
     <%= link_to 'Mark Delivered', fulfill_admin_order_path(@order) %> |
     <%= link_to 'Void', admin_order_path(@order), confirm: 'Are you sure?', method: :delete %>
   </p>
@@ -44,7 +26,7 @@
 
   <fieldset class="column">
     <legend>Order <%= @order.id %></legend>
-    <%= render partial: 'form', locals: {f: f} %>
+    <%= render partial: 'form', locals: { f: f } %>
 
     <p class="actions">
       <%= f.submit 'Update', name: :update, disable_with: "Loading..." %>
@@ -55,11 +37,5 @@
 <% end -%>
 
 <fieldset class="column">
-  <%= render partial: 'contact', locals: {contact: @order.contact} %>
+  <%= render partial: 'contact', locals: { contact: @order.contact } %>
 </fieldset>
-
-<% if @order.contact.mark_retail -%>
-  <fieldset class="column">
-    <%= render partial: 'calculator', locals: {contact: @order.contact} %>
-  </fieldset>
-<% end -%>

@@ -7,7 +7,8 @@
 <p>
   <%= link_to 'Active Orders', admin_orders_path({show: "active"}) %> |
   <%= link_to 'Delivered Orders', admin_orders_path({show: "fulfilled"}) %> |
-  <%= link_to 'Late Orders', admin_orders_path({show: "late"}) %>
+  <%= link_to 'Late Orders', admin_orders_path({show: "late"}) %> |
+  <%= link_to 'Voided Orders', admin_orders_path({show: "void"}) %>
 </p>
 
 <div class="wide_wrapper">

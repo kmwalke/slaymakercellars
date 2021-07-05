@@ -11,16 +11,8 @@
 <% end %>
 
 <div class="field">
-  <%= f.label :contact_name %>
-
-  <% if @contact_name -%>
-    <%= f.text_field :contact_name,
-                     value: @contact_name,
-                     data: {autocomplete_source: Contact.order(:name).map(&:name)}
-    %>
-  <% else -%>
-    <%= f.text_field :contact_name, data: {autocomplete_source: Contact.order(:name).map(&:name)} %>
-  <% end -%>
+  <%= f.label :contact_id, 'Contact' %>
+  <%= f.collection_select :contact_id, Contact.order(:name), :id, :name, include_blank: true %>
 </div>
 
 <div class="field">

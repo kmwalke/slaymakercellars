@@ -1,10 +1,11 @@
 module Admin
   class OrdersController < ApplicationController
-    before_action :set_order, only: [:edit, :update, :destroy, :undestroy]
+    before_action :set_order, only: [:show, :edit, :update, :destroy, :undestroy]
     before_action :logged_in?
 
     def index
       @orders, @title = Order.display_all(params[:show] || 'active')
+      @show = params[:show]
     end
 
     def new
@@ -12,11 +13,11 @@ module Admin
     end
 
     def edit
-      @notes = @order.notes.order('created_at desc')
+      redirect_to admin_order_path(@order) if @order.fulfilled?
     end
 
     def create
-      @order = Order.new(order_params)
+      @order = Order.new(order_params.merge(created_by: current_user))
 
       respond_to do |format|
         if @order.save

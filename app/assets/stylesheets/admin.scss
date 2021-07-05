@@ -3,6 +3,20 @@
 $tr-bg: $brown;
 
 body.admin {
+  .column {
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+
+    div.field {
+      margin-top: 1em;
+
+      label {
+        vertical-align: top;
+      }
+    }
+  }
+
   .wide-wrapper {
     position: relative;
     overflow-x: auto;

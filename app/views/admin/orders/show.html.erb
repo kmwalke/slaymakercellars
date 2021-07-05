@@ -8,18 +8,6 @@
   <% end -%>
 </p>
 
-<p>
-  <% if @order.invoice_id -%>
-  <h4>
-    Xero Invoice Status: <%= @invoice.status %>
-    <% if @invoice.sent_to_contact -%>
-      & Sent
-    <% end -%>
-  </h4>
-  <%= link_to 'Open Invoice', xero_invoice_link + @order.invoice_id, target: "_blank" %>
-<% end %>
-</p>
-
 <% if @order.fulfilled_on -%>
   <h2>Delivered on <%= humanize_date @order.fulfilled_on %></h2>
   <p>
@@ -39,7 +27,7 @@
     <tr class="title">
       <th>Quantity</th>
       <th>Size</th>
-      <th>Cheese</th>
+      <th>Product</th>
     </tr>
 
     <% @order.line_items.each do |line_item| -%>
@@ -59,9 +47,3 @@
 <fieldset class="column">
   <%= render partial: 'contact', locals: {contact: @order.contact} %>
 </fieldset>
-
-<% if @order.contact.mark_retail -%>
-  <fieldset class="column">
-    <%= render partial: 'calculator', locals: {contact: @order.contact} %>
-  </fieldset>
-<% end -%>
