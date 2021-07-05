@@ -5,7 +5,7 @@ module Admin
 
     def index
       @orders, @title = Order.display_all(params[:show] || 'active')
-      @show = params[:show]
+      @show           = params[:show]
     end
 
     def new
