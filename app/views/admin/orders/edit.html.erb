@@ -1,0 +1,41 @@
+<h1>PO <%= @order.id %></h1>
+
+<p>
+  Created by <%= @order.created_by.name %> on <%= humanize_date @order.created_at %>.
+  <% if @order.updated_by -%>
+    <br/>
+    Updated by <%= @order.updated_by.name %> on <%= humanize_date @order.updated_at %>.
+  <% end -%>
+</p>
+
+<%= form_for(@order, url: admin_order_path(@order)) do |f| %>
+
+  <p>
+    <%= link_to 'Mark Delivered', fulfill_admin_order_path(@order) %> |
+    <%= link_to 'Void', admin_order_path(@order), confirm: 'Are you sure?', method: :delete %>
+  </p>
+
+
+  <p class="actions">
+    <%= f.submit 'Update', name: :update, disable_with: "Loading..." %>
+    <%= f.submit 'Save & Finish', name: :save, disable_with: "Loading..." %>
+    <%= link_to 'Cancel', admin_orders_path %>
+  </p>
+
+
+
+  <fieldset class="column">
+    <legend>Order <%= @order.id %></legend>
+    <%= render partial: 'form', locals: { f: f } %>
+
+    <p class="actions">
+      <%= f.submit 'Update', name: :update, disable_with: "Loading..." %>
+      <%= f.submit 'Save & Finish', name: :save, disable_with: "Loading..." %>
+      <%= link_to 'Cancel', admin_orders_path %>
+    </p>
+  </fieldset>
+<% end -%>
+
+<fieldset class="column">
+  <%= render partial: 'contact', locals: { contact: @order.contact } %>
+</fieldset>

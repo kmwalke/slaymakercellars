@@ -4,6 +4,7 @@ $brown: #8c5a4e;
 $red: red;
 $tan: #f3f1df;
 $white: white;
+$grey-light: grey;
 
 @mixin rounded-corners($radius) {
   border-radius: $radius;

@@ -1,0 +1,11 @@
+@import 'variables';
+
+body.orders {
+  .late {
+    color: red;
+  }
+
+  input[type=number] {
+    width: 3em;
+  }
+}
