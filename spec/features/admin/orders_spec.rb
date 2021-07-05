@@ -20,7 +20,7 @@ describe 'Admin::Orders', type: :feature do
     first(:link, 'New Order').click
     expect(current_path).to eq(new_admin_order_path)
 
-    fill_in 'Contact.name', with: order.contact.name
+    select order.contact.name, from: 'order_contact_id'
     fill_in 'Delivery date', with: order.delivery_date
 
     click_button 'Save'
@@ -187,7 +187,7 @@ describe 'Admin::Orders', type: :feature do
     first(:link, 'New Order').click
     expect(current_path).to eq(new_admin_order_path)
 
-    fill_in 'Contact.name', with: order.contact.name
+    select order.contact.name, from: 'order_contact_id'
     fill_in 'Delivery date', with: order.delivery_date
 
     click_link 'add line item'
