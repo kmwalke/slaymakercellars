@@ -5,6 +5,7 @@ ruby '3.0.1'
 
 gem 'bcrypt'
 gem 'bootsnap'
+gem 'cocoon'
 gem 'jbuilder'
 gem 'pg'
 gem 'puma'
