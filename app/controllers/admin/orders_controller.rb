@@ -97,7 +97,7 @@ module Admin
         :comments,
         :created_by_id,
         :updated_by_id,
-        line_items_attributes: [:fulfilled, :units, :size, :product_id, :id, :_destroy]
+        line_items_attributes: [:fulfilled, :quantity, :product_id, :id, :_destroy]
       )
     end
   end
