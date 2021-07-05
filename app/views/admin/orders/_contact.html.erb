@@ -1,0 +1,55 @@
+<legend>
+  <%= link_to contact.business, edit_admin_contact_path(contact) %>
+</legend>
+
+<div style="float:right;">
+  <%= link_to "View all orders by #{contact.business}", admin_orders_path({show: contact.id}) %>
+</div>
+
+<p>
+  Contact: <strong><%= contact.name %></strong>
+</p>
+
+<p>
+  Paperless Billing: <strong>
+  <% if contact.paperless_billing -%>
+    Yes
+  <% else -%>
+    No
+  <% end -%>
+</strong>
+</p>
+
+<% if contact.phone -%>
+  <p>
+    Phone: <strong><%= contact.phone %></strong>
+  </p>
+<% end -%>
+
+<% if contact.email -%>
+  <p>
+    Email: <strong><%= link_to contact.email, "mailto:" + contact.email, target: "_blank" %></strong>
+  </p>
+<% end -%>
+
+<p>
+  Wholesale Price Point: <strong><%= contact.price_point %></strong>
+</p>
+
+<% if contact.mark_retail -%>
+  <p>
+    Retail Price per ounce: <strong><%= contact.price_per_ounce %></strong>
+  </p>
+<% end -%>
+
+<p>
+  Distributor: <strong><%= contact.distribution_center.name %></strong>
+</p>
+
+<p>
+  Address: <strong><%= contact.address %></strong>
+</p>
+
+<p>
+  <%= contact.comments %>
+</p>

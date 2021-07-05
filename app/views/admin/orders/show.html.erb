@@ -1,0 +1,67 @@
+<h1><%= @order.contact.business %></h1>
+
+<p>
+  Created by <%= @order.created_by.name %> on <%= humanize_date @order.created_at %>.
+  <% if @order.updated_by -%>
+    <br/>
+    Updated by <%= @order.updated_by.name %> on <%= humanize_date @order.updated_at %>.
+  <% end -%>
+</p>
+
+<p>
+  <% if @order.invoice_id -%>
+  <h4>
+    Xero Invoice Status: <%= @invoice.status %>
+    <% if @invoice.sent_to_contact -%>
+      & Sent
+    <% end -%>
+  </h4>
+  <%= link_to 'Open Invoice', xero_invoice_link + @order.invoice_id, target: "_blank" %>
+<% end %>
+</p>
+
+<% if @order.fulfilled_on -%>
+  <h2>Delivered on <%= humanize_date @order.fulfilled_on %></h2>
+  <p>
+    <%= link_to 'Undeliver', unfulfill_admin_order_path(@order) %>
+  </p>
+<% else -%>
+  <p>
+    <%= link_to 'Mark Delivered', fulfill_admin_order_path(@order) %> |
+    <%= link_to 'Void', admin_order_path(@order), confirm: 'Are you sure?', method: :delete %>
+  </p>
+<% end %>
+
+<fieldset class="column">
+  <legend>Order #<%= @order.id %></legend>
+
+  <table class="crud">
+    <tr class="title">
+      <th>Quantity</th>
+      <th>Size</th>
+      <th>Cheese</th>
+    </tr>
+
+    <% @order.line_items.each do |line_item| -%>
+      <tr class="<%= cycle "even", "odd" %>">
+        <td style="white-space: nowrap"><%= line_item.units %></td>
+        <td style="white-space: nowrap"><%= line_item.size %></td>
+        <td style="white-space: nowrap"><%= line_item.product.name %></td>
+
+      </tr>
+
+    <% end -%>
+  </table>
+
+  <p><%= @order.comments %></p>
+</fieldset>
+
+<fieldset class="column">
+  <%= render partial: 'contact', locals: {contact: @order.contact} %>
+</fieldset>
+
+<% if @order.contact.mark_retail -%>
+  <fieldset class="column">
+    <%= render partial: 'calculator', locals: {contact: @order.contact} %>
+  </fieldset>
+<% end -%>

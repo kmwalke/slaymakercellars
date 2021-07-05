@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 2021_07_05_164302) do
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.integer "order_id"
-    t.integer "product_id"
-    t.integer "quantity"
+    t.integer "order_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity", null: false
   end
 
   create_table "notes", force: :cascade do |t|
@@ -46,10 +46,15 @@ ActiveRecord::Schema.define(version: 2021_07_05_164302) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "contact_id"
-    t.boolean "delivered", default: false
+    t.integer "contact_id", null: false
+    t.boolean "delivered", default: false, null: false
     t.date "delivery_date"
+    t.date "fulfilled_on"
     t.datetime "deleted_at"
+    t.string "customer_po"
+    t.text "comments"
+    t.integer "created_by_id", null: false
+    t.integer "updated_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

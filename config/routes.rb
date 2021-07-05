@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       end
     end
     resources :notes
+    resources :orders
     resources :products
     resources :states
     resources :towns
