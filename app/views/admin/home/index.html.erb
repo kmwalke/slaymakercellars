@@ -9,46 +9,34 @@
 <!--      </li>-->
       <%# unless @late_orders.size == 0 -%>
 <!--        <li class="urgent">-->
-          <%#= orders_link @late_orders, "late", {show: :late} %>
+          <%#= orders_path @late_orders, "late", {show: :late} %>
 <!--        </li>-->
       <%# end -%>
 <!--      <li>-->
-        <%#= orders_link @todays_orders, "to fulfill today" %>
+        <%#= orders_path @todays_orders, "to fulfill today" %>
 <!--      </li>-->
 <!--      <li>-->
-        <%#= orders_link @orders, "in total" %>
+        <%#= orders_path @orders, "in total" %>
 <!--      </li>-->
 <!--    </ul>-->
 <!--  </fieldset>-->
 
-<!--  <fieldset>-->
-<!--    <legend><%#= link_to "Contacts", admin_contacts_path %></legend>-->
-<!--    <ul>-->
-<!--      <li>-->
-        <%#= link_to 'New Contact', new_admin_contact_path %>
-<!--      </li>-->
-      <%# unless @urgent_contacts.size == 0 -%>
-<!--        <li class="urgent">-->
-          <%#= contacts_link @urgent_contacts, "", {show: :urgent} %>
-<!--        </li>-->
-      <%# end -%>
-<!--      <li>-->
-        <%#= pluralize @contacts, 'contact' %>
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </fieldset>-->
-
-<!--  <fieldset>-->
-<!--    <legend><%#= link_to "News", admin_articles_path %></legend>-->
-<!--    <ul>-->
-<!--      <li>-->
-        <%#= link_to 'New Article', new_admin_article_path %>
-<!--      </li>-->
-<!--      <li>-->
-        <%#= pluralize @articles, 'article' %>
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </fieldset>-->
+  <fieldset>
+    <legend><%= link_to "Contacts", admin_contacts_path %></legend>
+    <ul>
+      <li>
+        <%= link_to 'New Contact', new_admin_contact_path %>
+      </li>
+      <% unless @urgent_contacts.size == 0 -%>
+        <li class="urgent">
+          <%= link_to "#{@urgent_contacts} urgent contacts", admin_contacts_path(show: :urgent) %>
+        </li>
+      <% end -%>
+      <li>
+        <%= pluralize @contacts, 'contact' %>
+      </li>
+    </ul>
+  </fieldset>
 
 <!--  <fieldset>-->
 <!--    <legend><%#= link_to "Products", admin_products_path %></legend>-->
@@ -60,7 +48,7 @@
         <%#= pluralize @products, 'product' %>
 <!--      </li>-->
 <!--      <li>-->
-<!--        <%#= pluralize @active_products, 'product' %> in production-->
+<!--        <%#= pluralize @active_products, 'product' %> active products-->
 <!--      </li>-->
 <!--    </ul>-->
 <!--  </fieldset>-->
@@ -80,21 +68,21 @@
 <!--    </ul>-->
 <!--  </fieldset>-->
 
-<!--  <fieldset>-->
-<!--    <legend><%#= link_to "Locations", admin_states_path %></legend>-->
-<!--    <ul>-->
-<!--      <li>-->
-        <%#= link_to 'New State', new_admin_state_path %>
-<!--      </li>-->
-<!--      <li>-->
-        <%#= pluralize @states, 'State' %>
-<!--      </li>-->
-<!--      <li>-->
-        <%#= link_to 'New Town', new_admin_town_path %>
-<!--      </li>-->
-<!--      <li>-->
-        <%#= pluralize @towns, 'Town' %>
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </fieldset>-->
+  <fieldset>
+    <legend><%= link_to "Locations", admin_states_path %></legend>
+    <ul>
+      <li>
+        <%= link_to 'New State', new_admin_state_path %>
+      </li>
+      <li>
+        <%= pluralize @states, 'State' %>
+      </li>
+      <li>
+        <%= link_to 'New Town', new_admin_town_path %>
+      </li>
+      <li>
+        <%= pluralize @towns, 'Town' %>
+      </li>
+    </ul>
+  </fieldset>
 </div>
