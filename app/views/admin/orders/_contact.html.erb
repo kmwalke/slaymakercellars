@@ -1,9 +1,9 @@
 <legend>
-  <%= link_to contact.business, edit_admin_contact_path(contact) %>
+  <%= link_to contact.name, edit_admin_contact_path(contact) %>
 </legend>
 
 <div style="float:right;">
-  <%= link_to "View all orders by #{contact.business}", admin_orders_path({show: contact.id}) %>
+  <%= link_to "View all orders by #{contact.name}", admin_orders_path({show: contact.id}) %>
 </div>
 
 <p>

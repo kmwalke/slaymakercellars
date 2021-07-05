@@ -8,9 +8,9 @@
     <% end -%>
   </td>
   <% if @show == "fulfilled" || order.invoice_id -%>
-    <td><%= link_to order.contact.business, admin_order_path(order) %></td>
+    <td><%= link_to order.contact.name admin_order_path(order) %></td>
   <% else -%>
-    <td><%= link_to order.contact.business, edit_admin_order_path(order) %></td>
+    <td><%= link_to order.contact.name edit_admin_order_path(order) %></td>
   <% end -%>
   <td class=<%= order.delivery_date < Date.today && !order.fulfilled? ? 'late' : '' %>>
     <% if @show == "fulfilled" -%>

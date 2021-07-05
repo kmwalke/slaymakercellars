@@ -20,7 +20,7 @@ describe 'Admin::Orders', type: :feature do
     first(:link, 'New Order').click
     expect(current_path).to eq(new_admin_order_path)
 
-    fill_in 'Contact business', with: order.contact.business
+    fill_in 'Contact.name', with: order.contact.name
     fill_in 'Delivery date', with: order.delivery_date
 
     click_button 'Save'
@@ -35,7 +35,7 @@ describe 'Admin::Orders', type: :feature do
     new_date = order.delivery_date + 1
     visit admin_orders_path
 
-    click_link order.contact.business
+    click_link order.contact.name
     expect(current_path).to eq(edit_admin_order_path(order_id))
 
     fill_in 'Delivery date', with: new_date
@@ -90,7 +90,7 @@ describe 'Admin::Orders', type: :feature do
     order_id = order.id
     visit admin_orders_path
 
-    click_link order.contact.business
+    click_link order.contact.name
     click_link 'Void'
 
     expect(current_path).to eq(admin_orders_path)
@@ -115,7 +115,7 @@ describe 'Admin::Orders', type: :feature do
     order_id = order.id
     visit admin_orders_path
 
-    click_link order.contact.business
+    click_link order.contact.name
     click_link 'Mark Delivered'
 
     expect(current_path).to eq(admin_orders_path)
@@ -163,7 +163,7 @@ describe 'Admin::Orders', type: :feature do
 
     visit admin_orders_path
     click_link 'Delivered Orders'
-    click_link order.contact.business
+    click_link order.contact.name
     click_link 'Undeliver'
 
     expect(current_path).to eq(edit_admin_order_path(order_id))
@@ -174,7 +174,7 @@ describe 'Admin::Orders', type: :feature do
     login
     visit admin_orders_path
 
-    click_link order.contact.business
+    click_link order.contact.name
     click_link 'View all orders'
 
     expect(current_path).to eq(admin_orders_path)
@@ -187,7 +187,7 @@ describe 'Admin::Orders', type: :feature do
     first(:link, 'New Order').click
     expect(current_path).to eq(new_admin_order_path)
 
-    fill_in 'Contact business', with: order.contact.business
+    fill_in 'Contact.name', with: order.contact.name
     fill_in 'Delivery date', with: order.delivery_date
 
     click_link 'add line item'
@@ -206,7 +206,7 @@ describe 'Admin::Orders', type: :feature do
     visit admin_orders_path
     click_on 'Late Orders'
 
-    expect(page).to have_content(order.contact.business)
+    expect(page).to have_content(order.contact.name)
     expect(page).to have_content(order.id)
   end
 end

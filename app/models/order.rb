@@ -44,13 +44,13 @@ class Order < ApplicationRecord
     end
   end
 
-  def contact_business
-    contact&.business
+  def contact_name
+    contact&.name
   end
 
-  def contact_business=(business)
-    self.contact = Contact.find_by_business(business) if business.present?
-  end
+  # def contact_business=(business)
+  #   self.contact = Contact.find_by_business(business) if business.present?
+  # end
 
   def fulfilled?
     fulfilled_on != nil
