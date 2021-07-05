@@ -19,12 +19,12 @@ RSpec.feature 'Admin::Home', type: :feature do
     end
 
     scenario 'user link' do
-      first(:link,'Users').click
+      first(:link, 'Users').click
       expect(current_path).to eq(admin_users_path)
     end
 
     scenario 'product link' do
-      first(:link,'Products').click
+      first(:link, 'Products').click
       expect(current_path).to eq(admin_products_path)
     end
 
@@ -34,12 +34,12 @@ RSpec.feature 'Admin::Home', type: :feature do
     end
 
     scenario 'towns link' do
-      first(:link,'Towns').click
+      first(:link, 'Towns').click
       expect(current_path).to eq(admin_towns_path)
     end
 
     scenario 'state link' do
-      first(:link,'States').click
+      first(:link, 'States').click
       expect(current_path).to eq(admin_states_path)
     end
   end
