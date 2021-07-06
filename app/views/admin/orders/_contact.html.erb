@@ -3,38 +3,36 @@
 </legend>
 
 <div style="float:right;">
-  <%= link_to "View all orders by #{contact.name}", admin_orders_path({show: contact.id}) %>
+  <%= link_to "View all orders by #{contact.name}", admin_orders_path({ show: contact.id }) %>
 </div>
-
-<p>
-  Contact: <strong><%= contact.name %></strong>
-</p>
 
 <!--<p>-->
 <!--  Paperless Billing: <strong>-->
-  <%# if contact.paperless_billing -%>
+<%# if contact.paperless_billing -%>
 <!--    Yes-->
-  <%# else -%>
+<%# else -%>
 <!--    No-->
-  <%# end -%>
+<%# end -%>
 <!--</strong>-->
 <!--</p>-->
 
-<% if contact.phone -%>
+<% unless contact.phone.blank? -%>
   <p>
     Phone: <strong><%= contact.phone %></strong>
   </p>
 <% end -%>
 
-<% if contact.email -%>
+<% unless contact.email.blank? -%>
   <p>
     Email: <strong><%= link_to contact.email, "mailto:" + contact.email, target: "_blank" %></strong>
   </p>
 <% end -%>
 
-<p>
-  Address: <strong><%= contact.address %></strong>
-</p>
+<% unless contact.address.blank? -%>
+  <p>
+    Address: <strong><%= contact.address %></strong>
+  </p>
+<% end -%>
 
 <p>
   <%= contact.description %>

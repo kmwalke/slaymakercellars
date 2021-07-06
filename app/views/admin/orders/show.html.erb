@@ -26,18 +26,14 @@
   <table class="crud">
     <tr class="title">
       <th>Quantity</th>
-      <th>Size</th>
       <th>Product</th>
     </tr>
 
     <% @order.line_items.each do |line_item| -%>
       <tr class="<%= cycle "even", "odd" %>">
-        <td style="white-space: nowrap"><%= line_item.units %></td>
-        <td style="white-space: nowrap"><%= line_item.size %></td>
+        <td style="white-space: nowrap"><%= line_item.quantity %></td>
         <td style="white-space: nowrap"><%= line_item.product.name %></td>
-
       </tr>
-
     <% end -%>
   </table>
 

@@ -23,19 +23,20 @@
   </p>
 
 
+  <div class="wide-wrapper">
+    <fieldset class="column">
+      <legend>Order <%= @order.id %></legend>
+      <%= render partial: 'form', locals: { f: f } %>
 
-  <fieldset class="column">
-    <legend>Order <%= @order.id %></legend>
-    <%= render partial: 'form', locals: { f: f } %>
-
-    <p class="actions">
-      <%= f.submit 'Update', name: :update, disable_with: "Loading..." %>
-      <%= f.submit 'Save & Finish', name: :save, disable_with: "Loading..." %>
-      <%= link_to 'Cancel', admin_orders_path %>
-    </p>
-  </fieldset>
+      <p class="actions">
+        <%= f.submit 'Update', name: :update, disable_with: "Loading..." %>
+        <%= f.submit 'Save & Finish', name: :save, disable_with: "Loading..." %>
+        <%= link_to 'Cancel', admin_orders_path %>
+      </p>
+    </fieldset>
 <% end -%>
 
 <fieldset class="column">
   <%= render partial: 'contact', locals: { contact: @order.contact } %>
 </fieldset>
+</div>
