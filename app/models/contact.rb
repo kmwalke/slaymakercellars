@@ -1,8 +1,10 @@
 class Contact < ApplicationRecord
   include UrlValidator
+  include SoftDeletable
 
   belongs_to :town
   has_many :notes
+  has_many :orders
 
   validates :name, presence: true, uniqueness: true
   validates :town_id, presence: true
@@ -15,20 +17,6 @@ class Contact < ApplicationRecord
 
   def self.display(show = 'active', search_string = nil, order = :name)
     [show, display_contacts(show, search_string).order(order), display_title(show)]
-  end
-
-  def destroy
-    if deleted_at.present?
-      super
-      'destroyed'
-    else
-      update(deleted_at: DateTime.now)
-      'archived'
-    end
-  end
-
-  def undestroy
-    update(deleted_at: nil)
   end
 
   def unresolved_notes?

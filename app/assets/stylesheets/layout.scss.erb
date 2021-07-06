@@ -152,7 +152,24 @@ html {
       position: relative;
       width: $content-width;
       padding-left: 50%;
-      margin-left: -($content-width/2)
+      margin-left: -($content-width/2);
+      line-height: 1.4;
+
+      a, a:visited, a:active {
+        color: $blue;
+      }
+
+      a:hover {
+        text-decoration: none;
+      }
+
+      fieldset {
+        legend {
+          margin: 0 -2em;
+          font-size: x-large;
+        }
+        padding: 0 5em 1em 5em;
+      }
     }
 
     div.footer {

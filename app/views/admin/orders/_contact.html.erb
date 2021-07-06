@@ -1,0 +1,41 @@
+<legend>
+  <%= link_to contact.name, edit_admin_contact_path(contact) %>
+</legend>
+
+<div style="float:right;">
+  <%= link_to "View all orders by #{contact.name}", admin_orders_path({show: contact.id}) %>
+</div>
+
+<p>
+  Contact: <strong><%= contact.name %></strong>
+</p>
+
+<!--<p>-->
+<!--  Paperless Billing: <strong>-->
+  <%# if contact.paperless_billing -%>
+<!--    Yes-->
+  <%# else -%>
+<!--    No-->
+  <%# end -%>
+<!--</strong>-->
+<!--</p>-->
+
+<% if contact.phone -%>
+  <p>
+    Phone: <strong><%= contact.phone %></strong>
+  </p>
+<% end -%>
+
+<% if contact.email -%>
+  <p>
+    Email: <strong><%= link_to contact.email, "mailto:" + contact.email, target: "_blank" %></strong>
+  </p>
+<% end -%>
+
+<p>
+  Address: <strong><%= contact.address %></strong>
+</p>
+
+<p>
+  <%= contact.description %>
+</p>

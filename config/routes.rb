@@ -18,6 +18,12 @@ Rails.application.routes.draw do
       end
     end
     resources :notes
+    resources :orders do
+      member do
+        get 'fulfill'
+        get 'unfulfill'
+      end
+    end
     resources :products
     resources :states
     resources :towns

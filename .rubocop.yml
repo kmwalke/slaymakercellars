@@ -41,6 +41,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
     - 'Guardfile'
+    - 'config/routes.rb'
 
 Metrics/CyclomaticComplexity:
   Max: 10

@@ -1,0 +1,8 @@
+<h1>New order</h1>
+
+<%= form_for(@order, url: admin_orders_path) do |f| -%>
+  <%= render partial: 'form', locals: {f: f} %>
+  <%= f.submit 'Save', name: :save, disable_with: "Loading..." %>
+<% end -%>
+
+<%= link_to 'Back', admin_orders_path %>
