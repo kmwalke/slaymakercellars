@@ -48,7 +48,7 @@ module Admin
           format.html do
             redirect_to admin_orders_path,
                         notice: 'Order was successfully delivered. <br /><br />' \
-                                "#{"<a href=\"/admin/orders/#{@order.id}\">View Order</a>".html_safe}"
+                                "<a href=\"/admin/orders/#{@order.id}\">View Order</a>"
           end
         else
           format.html { redirect_to admin_orders_path, notice: 'Error' }

@@ -1,19 +1,15 @@
 <tr class="<%= cycle "even", "odd" %>">
   <td><strong><%= order.id.to_s %></strong></td>
   <td>
-    <% if order.customer_po -%>
-      <%= order.customer_po.truncate(15) %>
-    <% else -%>
-      &nbsp;
-    <% end -%>
+    <%= order.customer_po ? order.customer_po.truncate(15) : '&nbsp;' %>
   </td>
-  <% if @show == "fulfilled" -%>
+  <% if order.fulfilled? -%>
     <td><%= link_to order.contact.name, admin_order_path(order) %></td>
   <% else -%>
     <td><%= link_to order.contact.name, edit_admin_order_path(order) %></td>
   <% end -%>
   <td class=<%= order.delivery_date < Date.today && !order.fulfilled? ? 'late' : '' %>>
-    <% if @show == "fulfilled" -%>
+    <% if order.fulfilled? -%>
       <%= humanize_date order.fulfilled_on %>
     <% else -%>
       <%= humanize_date order.delivery_date %>
