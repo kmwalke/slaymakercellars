@@ -18,11 +18,7 @@
 <div class="field">
   <%= f.label :delivery_date %>
 
-  <% if @order.delivery_date -%>
-    <%= f.text_field :delivery_date, class: "datepicker", value: @order.delivery_date.strftime("%d-%m-%Y") %>
-  <% else -%>
-    <%= f.text_field :delivery_date, class: "datepicker" %>
-  <% end -%>
+  <%= f.date_field :delivery_date, class: "datepicker", value: @order.delivery_date %>
 </div>
 
 <div class="field">
