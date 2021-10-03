@@ -67,7 +67,7 @@ div.categories {
   .link {
     position: relative;
 
-    a {
+    a, a:visited {
       font-size: $sort_font_size;
       display: block;
       font-variant: small-caps;
