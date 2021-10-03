@@ -16,6 +16,11 @@
 </div>
 
 <div class="field">
+  <%= form.label :category %>
+  <%= form.select :category, Product::CATEGORIES %>
+</div>
+
+<div class="field">
   <%= form.label :price_point %>
   <%= form.text_field :price_point %>
 </div>
