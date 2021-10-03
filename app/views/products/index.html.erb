@@ -4,9 +4,7 @@
   <% Product::CATEGORIES.each do |category| -%>
     <div class="link">
       <%= link_to category, products_path({ category: category }), class: active_sort(category, @category) %>
-      <span class="arrow">
-        >
-      </span>
+      <span class="arrow">></span>
     </div>
   <% end -%>
 </div>
