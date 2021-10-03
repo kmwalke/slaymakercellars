@@ -4,7 +4,7 @@ module Admin
     before_action :logged_in?
 
     def index
-      @products = Product.all
+      @products = Product.all.order(:category, :name)
     end
 
     def new
