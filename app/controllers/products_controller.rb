@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @category = params[:category] || Product::CATEGORIES.first
+    @products = Product.where(category: @category, is_public: true).order(:name)
   end
 end
