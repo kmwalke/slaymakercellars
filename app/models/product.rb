@@ -6,5 +6,5 @@ class Product < ApplicationRecord
     flagship: 'Flagship',
     mazer: 'Mazer Series',
     dessert: 'Dessert'
-  }
+  }.freeze
 end
