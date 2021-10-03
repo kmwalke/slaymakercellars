@@ -6,14 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user1 = User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123')
+description = 'This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description'
+user1       = User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123')
 User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123')
 
 Product::CATEGORIES.each do |category|
-  Product.create(name: "#{category}_1", price_point: 10, description: 'This is the description', category: category)
-  Product.create(name: "#{category}_2", price_point: 12, description: 'This is the description', category: category)
-  Product.create(name: "#{category}_3", price_point: 12, description: 'This is the description', category: category)
-  Product.create(name: "#{category}_4", price_point: 14, description: 'This is the description', category: category)
+  Product.create(name: "#{category}_1", price_point: 10, description: description, category: category)
+  Product.create(name: "#{category}_2", price_point: 12, description: description, category: category)
+  Product.create(name: "#{category}_3", price_point: 12, description: description, category: category)
+  Product.create(name: "#{category}_4", price_point: 14, description: description, category: category)
 end
 
 co = State.create(name: 'Colorado', abbreviation: 'CO')
