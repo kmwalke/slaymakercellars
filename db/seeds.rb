@@ -15,6 +15,8 @@ Product::CATEGORIES.each do |category|
   Product.create(name: "#{category}_2", price_point: 12, description: description, category: category)
   Product.create(name: "#{category}_3", price_point: 12, description: description, category: category)
   Product.create(name: "#{category}_4", price_point: 14, description: description, category: category)
+
+  Award.create(name: "#{category}_award", product: Product.last)
 end
 
 co = State.create(name: 'Colorado', abbreviation: 'CO')
