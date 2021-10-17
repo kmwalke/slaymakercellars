@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-description = 'This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. This is the description'
+description = 'This is the description. ' * 20
 user1       = User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123')
 User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123')
 
@@ -15,6 +15,8 @@ Product::CATEGORIES.each do |category|
   Product.create(name: "#{category}_2", price_point: 12, description: description, category: category)
   Product.create(name: "#{category}_3", price_point: 12, description: description, category: category)
   Product.create(name: "#{category}_4", price_point: 14, description: description, category: category)
+
+  Award.create(name: "2021 #{category}_award", product: Product.last)
 end
 
 co = State.create(name: 'Colorado', abbreviation: 'CO')

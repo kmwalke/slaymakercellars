@@ -9,6 +9,7 @@ RSpec.feature 'Products', type: :feature do
     Product.create(name: 'product_1', price_point: 14, description: 'This is the description',
                    category: Product::CATEGORIES.first, is_public: false)
   end
+  let!(:award) { Award.create(name: 'award_name', product: product) }
 
   it 'shows the product page' do
     visit products_path
@@ -34,5 +35,12 @@ RSpec.feature 'Products', type: :feature do
     click_link product_private.category
 
     expect(page).not_to have_content(product_private.name)
+  end
+
+  it 'shows the awards for a product' do
+    visit products_path
+    click_link product.category
+
+    expect(page).to have_content(award.name)
   end
 end
