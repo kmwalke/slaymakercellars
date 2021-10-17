@@ -37,7 +37,7 @@ ul.mead-list {
 
   li {
     list-style-type: none;
-    width: 30%;
+    width: 48%;
     margin-left: 1%;
     display: inline-block;
     vertical-align: top;
@@ -55,6 +55,20 @@ ul.mead-list {
     h5 {
       font-family: 'Montserrat', sans-serif;
       line-height: 1em;
+    }
+
+    ul.awards {
+      display: inline-block;
+
+      li {
+        list-style-type: none;
+        width: 100%;
+        margin: 0;
+        display: inline-block;
+        background-color: $blue;
+        color: $tan;
+        padding: .4em .3em;
+      }
     }
   }
 }
