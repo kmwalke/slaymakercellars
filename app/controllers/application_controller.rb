@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  XERO_TOKEN_ENDPOINT = 'https://identity.xero.com/connect/token'.freeze
+
   helper_method :current_user, :logged_in?
 
   def wine_list
@@ -37,26 +39,11 @@ class ApplicationController < ActionController::Base
   private
 
   def token_expired?
-    return unless current_user
-
     Time.now.to_i >= current_user.xeroTokenExpiresAt.to_i
   end
 
   def refresh_token
-    return unless current_user
-
-    xero_token_endpoint       = 'https://identity.xero.com/connect/token'
-    refresh_request_body_hash = {
-      grant_type: 'refresh_token',
-      refresh_token: current_user.xeroRefreshToken
-    }
-
-    resp = Faraday.post(xero_token_endpoint) do |req|
-      req.headers['Authorization'] =
-        "Basic #{Base64.strict_encode64("#{ENV['XERO_ID']}:#{ENV['XERO_SECRET']}")}"
-      req.headers['Content-Type']  = 'application/x-www-form-urlencoded'
-      req.body                     = URI.encode_www_form(refresh_request_body_hash)
-    end
+    resp = xero_token
 
     if resp.status == 200
       save_xero_info(resp)
@@ -68,9 +55,22 @@ class ApplicationController < ActionController::Base
   def save_xero_info(response)
     resp_hash = JSON.parse(response.body)
 
-    current_user.xeroAccessToken    = resp_hash['access_token']
-    current_user.xeroRefreshToken   = resp_hash['refresh_token']
-    current_user.xeroTokenExpiresAt = Time.now.to_i + resp_hash['expires_in']
-    current_user.save
+    current_user.update_columns(
+      xeroAccessToken: resp_hash['access_token'],
+      xeroRefreshToken: resp_hash['refresh_token'],
+      xeroTokenExpiresAt: Time.now.to_i + resp_hash['expires_in']
+    )
+  end
+
+  def xero_token
+    Faraday.post(XERO_TOKEN_ENDPOINT) do |req|
+      req.headers['Authorization'] =
+        "Basic #{Base64.strict_encode64("#{ENV['XERO_ID']}:#{ENV['XERO_SECRET']}")}"
+      req.headers['Content-Type']  = 'application/x-www-form-urlencoded'
+      req.body                     = URI.encode_www_form(
+        grant_type: 'refresh_token',
+        refresh_token: current_user.xeroRefreshToken
+      )
+    end
   end
 end
