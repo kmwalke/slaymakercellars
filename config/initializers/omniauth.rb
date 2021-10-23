@@ -1,8 +1,8 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider(
     :xero_oauth2,
-    ENV['xero_api_client_id'],
-    ENV['xero_api_client_secret'],
+    ENV['XERO_ID'],
+    ENV['XERO_SECRET'],
     scope: %w[
       openid
       profile
