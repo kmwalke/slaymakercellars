@@ -2,24 +2,24 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    auth_hash = request.env['omniauth.auth']
-
-    user                    = User.find_or_create_by(xeroUid: auth_hash['uid'],
-                                                     name: auth_hash['info']['name'],
-                                                     email: auth_hash['info']['email'])
-    user.xeroAccessToken    = auth_hash['credentials']['token']
-    user.xeroRefreshToken   = auth_hash['credentials']['refresh_token']
-    user.xeroTenantId       = auth_hash['extra']['xero_tenants'][0]['tenantId']
-    user.xeroTokenExpiresAt = auth_hash['credentials']['expires_at']
-    user.save
-
-    session[:user_id] = user.id
-
-    redirect_to '/admin', notice: 'Logged in!', xeroUid: user.xeroUid
+    user = User.find_by_email(params[:email])
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
+      if session[:orig_destination]
+        orig                       = session[:orig_destination]
+        session[:orig_destination] = nil
+        redirect_to orig, notice: 'Logged in!'
+      else
+        redirect_to '/admin', notice: 'Logged in!'
+      end
+    else
+      flash.now[:alert] = 'Email or password is invalid'
+      render 'new'
+    end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path notice: 'Logged out'
+    redirect_to root_path notice: 'Logged out!'
   end
 end
