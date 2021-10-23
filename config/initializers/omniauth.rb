@@ -22,5 +22,3 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     ].join(' ')
   )
 end
-
-# by default the redirect_uri is set to /auth/xero_oauth2/callback
