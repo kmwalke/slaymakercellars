@@ -21,32 +21,35 @@ class ApplicationController < ActionController::Base
     redirect_to login_path
   end
 
-  def xero_api_get(xero_endpoint, user)
-    refresh_token(user) if token_expired?(user)
+  def xero_api_get(xero_endpoint)
+    return unless current_user
+    refresh_token if token_expired?
 
     Faraday.get(xero_endpoint) do |req|
-      req.headers['Authorization']  = "Bearer #{user.xeroAccessToken}"
+      req.headers['Authorization']  = "Bearer #{current_user.xeroAccessToken}"
       req.headers['Accept']         = 'application/json'
       req.headers['Content-Type']   = 'application/json'
-      req.headers['xero-tenant-id'] = user.xeroTenantId
+      req.headers['xero-tenant-id'] = current_user.xeroTenantId
     end
   end
 
   private
 
-  def token_expired?(user)
+  def token_expired?
+    return unless current_user
     system_time       = Time.now.to_i
-    token_expiry_time = user.xeroTokenExpiresAt.to_i
+    token_expiry_time = current_user.xeroTokenExpiresAt.to_i
 
     (system_time >= token_expiry_time)
   end
 
-  def refresh_token(user)
+  def refresh_token
+    return unless current_user
     system_time               = Time.now.to_i
     xero_token_endpoint       = 'https://identity.xero.com/connect/token'
     refresh_request_body_hash = {
       grant_type: 'refresh_token',
-      refresh_token: user.xeroRefreshToken
+      refresh_token: current_user.xeroRefreshToken
     }
 
     resp = Faraday.post(xero_token_endpoint) do |req|
@@ -59,10 +62,10 @@ class ApplicationController < ActionController::Base
     if resp.status == 200
       resp_hash = JSON.parse(resp.body)
 
-      user.xeroAccessToken    = resp_hash['access_token']
-      user.xeroRefreshToken   = resp_hash['refresh_token']
-      user.xeroTokenExpiresAt = system_time + resp_hash['expires_in']
-      user.save
+      current_user.xeroAccessToken    = resp_hash['access_token']
+      current_user.xeroRefreshToken   = resp_hash['refresh_token']
+      current_user.xeroTokenExpiresAt = system_time + resp_hash['expires_in']
+      current_user.save
     else
       redirect_to controller: 'home', action: 'index'
     end
