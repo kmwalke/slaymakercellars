@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
 
   def xero_api_get(xero_endpoint)
     return unless current_user
+
     refresh_token if token_expired?
 
     Faraday.get(xero_endpoint) do |req|
@@ -37,15 +38,13 @@ class ApplicationController < ActionController::Base
 
   def token_expired?
     return unless current_user
-    system_time       = Time.now.to_i
-    token_expiry_time = current_user.xeroTokenExpiresAt.to_i
 
-    (system_time >= token_expiry_time)
+    Time.now.to_i >= current_user.xeroTokenExpiresAt.to_i
   end
 
   def refresh_token
     return unless current_user
-    system_time               = Time.now.to_i
+
     xero_token_endpoint       = 'https://identity.xero.com/connect/token'
     refresh_request_body_hash = {
       grant_type: 'refresh_token',
@@ -60,14 +59,18 @@ class ApplicationController < ActionController::Base
     end
 
     if resp.status == 200
-      resp_hash = JSON.parse(resp.body)
-
-      current_user.xeroAccessToken    = resp_hash['access_token']
-      current_user.xeroRefreshToken   = resp_hash['refresh_token']
-      current_user.xeroTokenExpiresAt = system_time + resp_hash['expires_in']
-      current_user.save
+      save_xero_info(resp)
     else
       redirect_to controller: 'home', action: 'index'
     end
+  end
+
+  def save_xero_info(response)
+    resp_hash = JSON.parse(response.body)
+
+    current_user.xeroAccessToken    = resp_hash['access_token']
+    current_user.xeroRefreshToken   = resp_hash['refresh_token']
+    current_user.xeroTokenExpiresAt = Time.now.to_i + resp_hash['expires_in']
+    current_user.save
   end
 end
