@@ -13,6 +13,8 @@ class SessionsController < ApplicationController
     user.xeroTokenExpiresAt = auth_hash['credentials']['expires_at']
     user.save
 
+    session[:user_id] = user.id
+
     redirect_to '/admin', notice: 'Logged in!', xeroUid: user.xeroUid
   end
 end
