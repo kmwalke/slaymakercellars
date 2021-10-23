@@ -16,15 +16,15 @@ module Admin
     def xero
       auth_hash = request.env['omniauth.auth']
 
-      user                    = current_user
-      user.xeroUid            = auth_hash['uid']
-      user.xeroAccessToken    = auth_hash['credentials']['token']
-      user.xeroRefreshToken   = auth_hash['credentials']['refresh_token']
-      user.xeroTenantId       = auth_hash['extra']['xero_tenants'][0]['tenantId']
-      user.xeroTokenExpiresAt = auth_hash['credentials']['expires_at']
-      user.save
+      current_user.update_columns(
+        xeroUid: auth_hash['uid'],
+        xeroAccessToken: auth_hash['credentials']['token'],
+        xeroRefreshToken: auth_hash['credentials']['refresh_token'],
+        xeroTenantId: auth_hash['extra']['xero_tenants'][0]['tenantId'],
+        xeroTokenExpiresAt: auth_hash['credentials']['expires_at']
+      )
 
-      redirect_to '/admin', notice: 'Xero Connected!', xeroUid: user.xeroUid
+      redirect_to '/admin', notice: 'Xero Connected!'
     end
   end
 end
