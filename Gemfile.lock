@@ -176,6 +176,9 @@ GEM
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
+    omniauth-rails_csrf_protection (1.0.0)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     omniauth-xero-oauth2 (1.0.2)
       omniauth (~> 2.0.0)
       omniauth-oauth2 (~> 1.7.1)
@@ -351,6 +354,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder
   listen
+  omniauth-rails_csrf_protection
   omniauth-xero-oauth2
   pg
   pry-rails

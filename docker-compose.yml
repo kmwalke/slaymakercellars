@@ -25,6 +25,8 @@ services:
       DB_HOST: db
       DB_TEST: smc-test
       DB_USERNAME: postgres
+      xero_api_client_id: '26A4CA022A074485A758D9D8AF9A0E66'
+      xero_api_client_secret: '72aW5Ozh96a20qLRY0dr7-_i_4Xp2PiKnyq3WYgGc-N6HnfF'
 
   db:
     image: postgres:11.5

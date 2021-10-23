@@ -8,6 +8,7 @@ gem 'bootsnap'
 gem 'cocoon'
 gem 'faraday' #for making http calls
 gem 'jbuilder'
+gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-xero-oauth2'
 gem 'pg'
 gem 'puma'
