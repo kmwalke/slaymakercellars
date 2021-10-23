@@ -6,7 +6,7 @@ ruby '3.0.2'
 gem 'bcrypt'
 gem 'bootsnap'
 gem 'cocoon'
-gem 'faraday' #for making http calls
+gem 'faraday'
 gem 'jbuilder'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-xero-oauth2'
