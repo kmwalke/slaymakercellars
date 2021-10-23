@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   XERO_TOKEN_ENDPOINT = 'https://identity.xero.com/connect/token'.freeze
+  XERO_API_URL        = 'https://api.xero.com/api.xro/2.0/'.freeze
 
   helper_method :current_user, :logged_in?
 
@@ -23,12 +24,12 @@ class ApplicationController < ActionController::Base
     redirect_to login_path
   end
 
-  def xero_api_get(xero_endpoint)
+  def xero_api_get(endpoint)
     return unless current_user
 
     refresh_token if token_expired?
 
-    Faraday.get(xero_endpoint) do |req|
+    Faraday.get(XERO_API_URL + endpoint) do |req|
       req.headers['Authorization']  = "Bearer #{current_user.xeroAccessToken}"
       req.headers['Accept']         = 'application/json'
       req.headers['Content-Type']   = 'application/json'
