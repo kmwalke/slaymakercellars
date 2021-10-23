@@ -1,7 +1,9 @@
 <h1>Administration</h1>
+<% unless current_user.xeroUid -%>
 <p><%= form_tag('/auth/xero_oauth2', method: 'post') do %>
     <button type='submit'>Connect to Xero</button>
   <% end %></p>
+<% end -%>
 
 <div class="c_panel">
   <fieldset>
