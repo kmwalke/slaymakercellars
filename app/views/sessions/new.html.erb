@@ -1,8 +1,5 @@
 <p id=”alert”><%= alert %></p>
 <h1>Login</h1>
-<p><%= form_tag('/auth/xero_oauth2', method: 'post') do %>
-    <button type='submit'>Connect to Xero</button>
-  <% end %></p>
 <%= form_tag sessions_path do |form| %>
   <div class=”field”>
     <%= label_tag :email %>
