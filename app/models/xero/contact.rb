@@ -1,13 +1,25 @@
-class Xero::Contact < Xero::BaseRecord
-  def self.create(user, contact)
-    Xero::Contact.new(xero_api_post_contact(user, contact))
-  end
+module Xero
+  class Contact < Xero::BaseRecord
+    ENDPOINT = 'Contacts'.freeze
 
-  def initialize(response)
-    @id = JSON.parse(response.body)['Contacts'][0]['ContactID']
-  end
+    def self.create(user, contact)
+      Xero::Contact.new(
+        xero_api_post(
+          user,
+          ENDPOINT,
+          {
+            name: contact.name,
+            contactId: contact.xero_id
+          }
+        )
+      )
+    end
 
-  def id
-    @id
+    def initialize(response)
+      super
+      @id = JSON.parse(response.body)['Contacts'][0]['ContactID']
+    end
+
+    attr_reader :id
   end
 end
