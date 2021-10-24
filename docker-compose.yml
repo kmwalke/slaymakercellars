@@ -25,6 +25,8 @@ services:
       DB_HOST: db
       DB_TEST: smc-test
       DB_USERNAME: postgres
+      XERO_ID: ${XERO_ID}
+      XERO_SECRET: ${XERO_SECRET}
 
   db:
     image: postgres:11.5
