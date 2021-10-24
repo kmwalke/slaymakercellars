@@ -9,22 +9,19 @@ namespace :xero_sync do
 
     user = User.find_by(name: 'kent')
 
-    if user.nil?
-      log('Could not find user named \'kent\'')
-    end
+    log('Could not find user named \'kent\'') if user.nil?
 
-    contacts = Contact.where(xero_id: nil)
+    contacts     = Contact.where(xero_id: nil)
     num_contacts = contacts.count
 
     contacts.each_with_index do |contact, i|
       xero_contact = Xero::Contact.create(user, contact)
       contact.update_columns(xero_id: xero_contact.id)
       log("Local Id: #{contact.id} Xero Id: #{contact.reload.xero_id}")
-      log("Contact Sync: #{((i.to_f/num_contacts.to_f)*100).to_i}%")
+      log("Contact Sync: #{((i.to_f / num_contacts) * 100).to_i}%")
       sleep 1
     end
 
     log('Finished connecting contacts to xero!')
   end
-
 end
