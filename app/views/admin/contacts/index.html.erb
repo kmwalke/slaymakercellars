@@ -27,6 +27,7 @@
       <th>Email</th>
       <th>Last Contact</th>
       <th>Pickup Check?</th>
+      <th>Synced?</th>
       <!--      <th>Last Order</th>-->
       <th></th>
     </tr>
@@ -68,6 +69,9 @@
         </td>
         <td>
           <%= contact.pickup_check ? 'Y' : '' %>
+        </td>
+        <td>
+          <span><%= contact.xero_sync_errors.empty? ? '✓' : 'X' %></span>
         </td>
         <!--        <td nowrap>-->
         <%# if contact.last_order -%>
