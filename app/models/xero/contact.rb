@@ -9,32 +9,7 @@ module Xero
         xero_api_post(
           user,
           ENDPOINT,
-          {
-            contactId: contact.xero_id,
-            name: contact.name,
-            emailAddress: contact.email,
-            firstName: contact.contact_point,
-            phones: [
-              {
-                phoneType: 'DEFAULT',
-                phoneNumber: contact.phone,
-              },
-            ],
-            addresses: [
-              {
-                addressType: 'POBOX',
-                addressLine1: contact.address,
-                city: contact.town.name,
-                region: contact.town.state.name,
-              },
-              {
-                addressType: 'STREET',
-                addressLine1: contact.address,
-                city: contact.town.name,
-                region: contact.town.state.name,
-              },
-            ]
-          }
+          post_body(contact)
         )
       )
     end
@@ -45,5 +20,40 @@ module Xero
     end
 
     attr_reader :id
+  end
+
+  private
+
+  def post_body(contact)
+    {
+      contactId: contact.xero_id,
+      name: contact.name,
+      emailAddress: contact.email,
+      firstName: contact.contact_point,
+      phones: [
+        {
+          phoneType: 'DEFAULT',
+          phoneNumber: contact.phone
+        }
+      ],
+      addresses: post_body_addresses(contact)
+    }
+  end
+
+  def post_body_addresses(contact)
+    [
+      {
+        addressType: 'POBOX',
+        addressLine1: contact.address,
+        city: contact.town.name,
+        region: contact.town.state.name
+      },
+      {
+        addressType: 'STREET',
+        addressLine1: contact.address,
+        city: contact.town.name,
+        region: contact.town.state.name
+      }
+    ]
   end
 end
