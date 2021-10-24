@@ -41,7 +41,13 @@ module Xero
 
     def initialize(response)
       super
-      @id = JSON.parse(response.body)['Contacts'][0]['ContactID']
+      body = JSON.parse(response.body)
+      if response.status == 400
+        puts body['Elements'][0]['ValidationErrors']
+        return
+      end
+
+      @id = body['Contacts'][0]['ContactID']
     end
 
     attr_reader :id
