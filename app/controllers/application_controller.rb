@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
     if resp.status == 200
       save_xero_info(resp)
     else
-      redirect_to controller: 'home', action: 'index'
+      redirect_to controller: 'home', action: 'index', notice: "Xero Error: #{resp.status}"
     end
   end
 
