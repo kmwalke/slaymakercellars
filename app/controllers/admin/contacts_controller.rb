@@ -2,6 +2,7 @@ module Admin
   class ContactsController < ApplicationController
     before_action :set_contact, only: [:edit, :update, :destroy, :undestroy]
     before_action :logged_in?
+    after_action :sync_to_xero, only: [:update, :create]
 
     def index
       @show, @contacts, @title = Contact.display(params[:show], params[:search])
@@ -70,6 +71,11 @@ module Admin
         :town_id,
         :pickup_check
       )
+    end
+
+    def sync_to_xero
+      xero_id = Xero::Contact.create(current_user, @contact).id
+      @contact.update(xero_id: xero_id) if @contact.xero_id.nil?
     end
   end
 end

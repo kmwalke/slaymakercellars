@@ -51,6 +51,8 @@ Metrics/PerceivedComplexity:
 
 Metrics/MethodLength:
   Max: 20
+  Exclude:
+    - 'app/models/xero/*'
 
 Style/AccessorGrouping:
   Enabled: true
