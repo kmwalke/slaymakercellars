@@ -2,6 +2,7 @@ module Admin
   class ContactsController < ApplicationController
     before_action :set_contact, only: [:edit, :update, :destroy, :undestroy]
     before_action :logged_in?
+    after_action :sync_to_xero, only: [:update, :create]
 
     def index
       @show, @contacts, @title = Contact.display(params[:show], params[:search])
@@ -20,7 +21,6 @@ module Admin
 
       respond_to do |format|
         if @contact.save
-          sync_to_xero
           format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully created.' }
         else
           format.html { render :new }
@@ -31,7 +31,6 @@ module Admin
     def update
       respond_to do |format|
         if @contact.update(contact_params)
-          sync_to_xero
           format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully updated.' }
         else
           format.html { render :edit }
