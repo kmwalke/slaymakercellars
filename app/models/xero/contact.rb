@@ -3,6 +3,8 @@ module Xero
     ENDPOINT = 'Contacts'.freeze
 
     def self.create(user, contact)
+      return NullContact.new if Rails.env == 'test'
+
       Xero::Contact.new(
         xero_api_post(
           user,
