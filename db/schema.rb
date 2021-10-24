@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_23_165607) do
+ActiveRecord::Schema.define(version: 2021_10_24_133037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,13 +26,15 @@ ActiveRecord::Schema.define(version: 2021_10_23_165607) do
     t.string "email"
     t.string "contact_point"
     t.text "address"
-    t.text "description"
+    t.text "internal_notes"
     t.datetime "deleted_at"
     t.integer "town_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "url"
     t.boolean "pickup_check", default: false, null: false
+    t.string "xero_id"
+    t.text "external_notes"
   end
 
   create_table "line_items", force: :cascade do |t|

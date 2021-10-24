@@ -29,7 +29,8 @@ module Admin
 
     def update
       respond_to do |format|
-        if @contact.update(contact_params)
+        xero_id = Xero::Contact.create(current_user, @contact)
+        if @contact.update(contact_params.merge(xero_id: xero_id || @contact.xero_id))
           format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully updated.' }
         else
           format.html { render :edit }
@@ -65,7 +66,8 @@ module Admin
         :url,
         :contact_point,
         :address,
-        :description,
+        :external_notes,
+        :internal_notes,
         :deleted_at,
         :town_id,
         :pickup_check
