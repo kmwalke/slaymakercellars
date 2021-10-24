@@ -9,7 +9,7 @@ namespace :xero_sync do
 
     user = User.find_by(name: 'kent')
 
-    log('Could not find user named \'kent\'') if user.nil?
+    log('Could not find user named \'kent\'') && return if user.nil?
 
     contacts     = Contact.where(xero_id: nil)
     num_contacts = contacts.count
