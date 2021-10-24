@@ -20,6 +20,8 @@ module Admin
 
       respond_to do |format|
         if @contact.save
+          xero_id = Xero::Contact.create(current_user, @contact).id
+          @contact.update_columns(xero_id: xero_id)
           format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully created.' }
         else
           format.html { render :new }
