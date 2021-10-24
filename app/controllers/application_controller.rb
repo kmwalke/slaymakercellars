@@ -47,13 +47,13 @@ class ApplicationController < ActionController::Base
     resp = xero_token
 
     if resp.status == 200
-      save_xero_info(resp)
+      save_token(resp)
     else
       redirect_to controller: 'home', action: 'index', notice: "Xero Error: #{resp.status}"
     end
   end
 
-  def save_xero_info(response)
+  def save_token(response)
     resp_hash = JSON.parse(response.body)
 
     current_user.update_columns(
