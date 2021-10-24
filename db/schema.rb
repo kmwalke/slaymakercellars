@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2021_10_24_133037) do
     t.string "email"
     t.string "contact_point"
     t.text "address"
-    t.text "internal_notes"
+    t.text "description"
     t.datetime "deleted_at"
     t.integer "town_id"
     t.datetime "created_at", precision: 6, null: false
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2021_10_24_133037) do
     t.string "url"
     t.boolean "pickup_check", default: false, null: false
     t.string "xero_id"
-    t.text "external_notes"
   end
 
   create_table "line_items", force: :cascade do |t|

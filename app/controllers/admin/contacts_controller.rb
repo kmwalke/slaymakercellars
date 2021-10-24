@@ -67,8 +67,7 @@ module Admin
         :url,
         :contact_point,
         :address,
-        :external_notes,
-        :internal_notes,
+        :description,
         :deleted_at,
         :town_id,
         :pickup_check
