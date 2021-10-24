@@ -20,8 +20,7 @@ module Admin
 
       respond_to do |format|
         if @contact.save
-          xero_id = Xero::Contact.create(current_user, @contact).id
-          @contact.update_columns(xero_id: xero_id)
+          sync_to_xero
           format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully created.' }
         else
           format.html { render :new }
@@ -32,8 +31,7 @@ module Admin
     def update
       respond_to do |format|
         if @contact.update(contact_params)
-          xero_id = Xero::Contact.create(current_user, @contact).id
-          @contact.update_columns(xero_id: xero_id) if @contact.xero_id.nil?
+          sync_to_xero
           format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully updated.' }
         else
           format.html { render :edit }
@@ -74,6 +72,11 @@ module Admin
         :town_id,
         :pickup_check
       )
+    end
+
+    def sync_to_xero
+      xero_id = Xero::Contact.create(current_user, @contact).id
+      @contact.update_columns(xero_id: xero_id) if @contact.xero_id.nil?
     end
   end
 end
