@@ -15,7 +15,7 @@ class Xero::BaseRecord
 
   def self.xero_api_post_contact(user, contact)
     refresh_token(user) if token_expired?(user)
-    Faraday.put(XERO_API_URL + "Contacts/#{contact.xero_id}") do |req|
+    Faraday.post(XERO_API_URL + "Contacts") do |req|
       req.headers['Authorization']  = "Bearer #{user.xeroAccessToken}"
       req.headers['Accept']         = 'application/json'
       req.headers['Content-Type']   = 'application/json'
@@ -23,7 +23,7 @@ class Xero::BaseRecord
 
       req.body = {
         name: contact.name,
-        id: contact.xero_id
+        contactId: contact.xero_id
       }.to_json
     end
   end

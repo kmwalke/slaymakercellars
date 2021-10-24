@@ -29,8 +29,9 @@ module Admin
 
     def update
       respond_to do |format|
-        xero_id = Xero::Contact.create(current_user, @contact)
-        if @contact.update(contact_params.merge(xero_id: xero_id || @contact.xero_id))
+        if @contact.update(contact_params)
+          xero_id = Xero::Contact.create(current_user, @contact).id
+          @contact.update_columns(xero_id: xero_id) if @contact.xero_id.nil?
           format.html { redirect_to admin_contacts_path, notice: 'Contact was successfully updated.' }
         else
           format.html { render :edit }
