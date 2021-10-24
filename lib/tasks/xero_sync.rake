@@ -16,7 +16,7 @@ namespace :xero_sync do
 
     contacts.each_with_index do |contact, i|
       xero_contact = Xero::Contact.create(user, contact)
-      contact.update_columns(xero_id: xero_contact.id)
+      contact.update(xero_id: xero_contact.id)
       log("Local Id: #{contact.id} Xero Id: #{contact.reload.xero_id}")
       log("Contact Sync: #{((i.to_f / num_contacts) * 100).to_i}%")
       sleep 1

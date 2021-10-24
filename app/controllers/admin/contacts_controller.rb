@@ -76,7 +76,7 @@ module Admin
 
     def sync_to_xero
       xero_id = Xero::Contact.create(current_user, @contact).id
-      @contact.update_columns(xero_id: xero_id) if @contact.xero_id.nil?
+      @contact.update(xero_id: xero_id) if @contact.xero_id.nil?
     end
   end
 end
