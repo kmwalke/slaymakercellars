@@ -1,5 +1,5 @@
 <h1>Administration</h1>
-<% unless current_user.xeroUid -%>
+<% unless current_user.xero_connected? -%>
 <p>
   <%= form_tag('/auth/xero_oauth2', method: 'post') do %>
     <button type='submit'>Connect to Xero</button>
