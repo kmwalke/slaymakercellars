@@ -5,7 +5,11 @@ module Xero
     def self.create(user, contact)
       return NullContact.new if Rails.env == 'test'
 
-      Xero::Contact.new(
+      contact.xero_sync_errors.each do |error|
+        error.destroy
+      end
+
+      xero_contact = Xero::Contact.new(
         xero_api_post(
           user,
           ENDPOINT,
@@ -37,19 +41,26 @@ module Xero
           }
         )
       )
+
+      xero_contact.errors&.each do |error|
+        puts error
+        contact.xero_sync_errors << XeroSyncError.new(message: error['Message'])
+      end
+
+      xero_contact
     end
 
     def initialize(response)
       super
       body = JSON.parse(response.body)
       if response.status == 400
-        puts body['Elements'][0]['ValidationErrors']
+        @errors = body['Elements'][0]['ValidationErrors']
         return
       end
 
       @id = body['Contacts'][0]['ContactID']
     end
 
-    attr_reader :id
+    attr_reader :id, :errors
   end
 end
