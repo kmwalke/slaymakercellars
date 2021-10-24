@@ -10,8 +10,30 @@ module Xero
           user,
           ENDPOINT,
           {
+            contactId: contact.xero_id,
             name: contact.name,
-            contactId: contact.xero_id
+            emailAddress: contact.email,
+            firstName: contact.contact_point,
+            phones: [
+              {
+                phoneType: 'DEFAULT',
+                phoneNumber: contact.phone,
+              },
+            ],
+            addresses: [
+              {
+                addressType: 'POBOX',
+                addressLine1: contact.address,
+                city: contact.town.name,
+                region: contact.town.state.name,
+              },
+              {
+                addressType: 'STREET',
+                addressLine1: contact.address,
+                city: contact.town.name,
+                region: contact.town.state.name,
+              },
+            ]
           }
         )
       )
