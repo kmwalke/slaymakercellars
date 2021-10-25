@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_24_133037) do
+ActiveRecord::Schema.define(version: 2021_10_24_222906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,15 @@ ActiveRecord::Schema.define(version: 2021_10_24_133037) do
     t.string "xeroTenantId"
     t.string "xeroTokenExpiresAt"
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "xero_sync_errors", force: :cascade do |t|
+    t.string "message"
+    t.string "syncable_type"
+    t.bigint "syncable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["syncable_type", "syncable_id"], name: "index_xero_sync_errors_on_syncable"
   end
 
 end

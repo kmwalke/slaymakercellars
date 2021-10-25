@@ -12,8 +12,17 @@
   <%= link_to 'Back', admin_contacts_path %>
 </p>
 
+<% unless @contact.xero_sync_errors.empty? -%>
+  <h3>Xero Sync Errors:</h3>
+  <ul>
+    <% @contact.xero_sync_errors.each do |error| -%>
+      <li><%= error.message %></li>
+    <% end -%>
+  </ul>
+<% end -%>
 
-<%= form_for(@contact, url: admin_contact_path(@contact), html: {multipart: true}) do |form| %>
+
+<%= form_for(@contact, url: admin_contact_path(@contact), html: { multipart: true }) do |form| %>
   <%= render 'form', contact: @contact, form: form %>
 <% end %>
 

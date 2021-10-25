@@ -78,6 +78,18 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       expect(current_path).to eq(admin_contacts_path)
       expect(page).to have_content(contact.name)
     end
+
+    describe 'sync' do
+      scenario 'shows xero sync errors' do
+        message = 'bad email'
+        contact.xero_sync_errors << XeroSyncError.new(message: message)
+
+        visit admin_contacts_path
+
+        click_link contact.name
+        expect(page).to have_content(message)
+      end
+    end
   end
 
   def fill_in_form(contact)
