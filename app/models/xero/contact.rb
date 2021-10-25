@@ -8,8 +8,6 @@ module Xero
     end
 
     def self.create(user, contact)
-      return NullContact.new if Rails.env == 'test'
-
       contact.xero_sync_errors.each(&:destroy)
       save_xero_errors(contact, Xero::Contact.new(xero_api_post(user, ENDPOINT, body_params(contact))))
     end

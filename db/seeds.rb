@@ -11,10 +11,14 @@ user1       = User.create(email: 'kent@slaymakercellars.com', name: 'kent', pass
 User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123')
 
 Product::CATEGORIES.each do |category|
-  Product.create(name: "#{category}_1", price_point: 10, description: description, category: category)
-  Product.create(name: "#{category}_2", price_point: 12, description: description, category: category)
-  Product.create(name: "#{category}_3", price_point: 12, description: description, category: category)
-  Product.create(name: "#{category}_4", price_point: 14, description: description, category: category)
+  Product.create(name: "#{category}_1", price_point: 10, description: description, category: category,
+                 xero_id: "#{category}_1"[-6..].upcase)
+  Product.create(name: "#{category}_2", price_point: 12, description: description, category: category,
+                 xero_id: "#{category}_2"[-6..].upcase)
+  Product.create(name: "#{category}_3", price_point: 12, description: description, category: category,
+                 xero_id: "#{category}_3"[-6..].upcase)
+  Product.create(name: "#{category}_4", price_point: 14, description: description, category: category,
+                 xero_id: "#{category}_4"[-6..].upcase)
 
   Award.create(name: "2021 #{category}_award", product: Product.last)
 end
