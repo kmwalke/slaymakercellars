@@ -1,6 +1,7 @@
 class Contact < ApplicationRecord
   include UrlValidator
   include SoftDeletable
+  include Xero::Syncable
 
   belongs_to :town
   has_many :notes

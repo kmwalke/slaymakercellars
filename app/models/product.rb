@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
+  include Xero::Syncable
+
   validates :name, presence: true, uniqueness: true
-  validates :xero_id, presence: true, uniqueness: true
+  validates :xero_code, presence: true, uniqueness: true
   validates :price_point, presence: true
 
   has_many :awards
