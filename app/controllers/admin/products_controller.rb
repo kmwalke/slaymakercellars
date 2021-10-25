@@ -50,7 +50,7 @@ module Admin
     end
 
     def product_params
-      params.require(:product).permit(:name, :category, :case_size, :price_point, :description, :xero_code)
+      params.require(:product).permit(:name, :category, :case_size, :price_point, :description, :xero_code, :is_public)
     end
 
     def sync_to_xero

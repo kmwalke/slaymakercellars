@@ -11,6 +11,7 @@ module Admin
       @states          = State.count
       @towns           = Town.count
       @products        = Product.count
+      @active_products = Product.where(is_public: true).count
     end
 
     def xero

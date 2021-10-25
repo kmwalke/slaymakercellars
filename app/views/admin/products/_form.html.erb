@@ -11,6 +11,11 @@
 <% end %>
 
 <div class="field">
+  <%= form.check_box :is_public %>
+  <%= form.label :is_public, "Show on 'Meads' Page" %>
+</div>
+
+<div class="field">
   <%= form.label :name %>
   <%= form.text_field :name %>
 </div>
