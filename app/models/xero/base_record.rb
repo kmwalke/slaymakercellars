@@ -3,11 +3,12 @@ module Xero
     XERO_TOKEN_ENDPOINT = 'https://identity.xero.com/connect/token'.freeze
     XERO_API_URL        = 'https://api.xero.com/api.xro/2.0/'.freeze
 
-    attr_reader :id, :body, :errors
+    attr_reader :id, :response, :errors
 
     def initialize(response)
-      @body   = JSON.parse(response.body)
-      @errors = @body['Elements'][0]['ValidationErrors'] if response.status == 400
+      @response   = JSON.parse(response.body)
+      puts @response
+      @errors     = @response['Elements'][0]['ValidationErrors'] if response.status == 400
     end
 
     def self.create

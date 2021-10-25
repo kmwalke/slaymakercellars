@@ -4,7 +4,7 @@ module Xero
 
     def initialize(response)
       super(response)
-      @id = @body['Contacts'][0]['ContactID']
+      @id = @response['Contacts'][0]['ContactID']
     end
 
     def self.create(user, contact)
