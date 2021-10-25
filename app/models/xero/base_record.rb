@@ -5,6 +5,10 @@ module Xero
 
     def initialize(response); end
 
+    def self.create
+      raise NotImplementedError
+    end
+
     def self.xero_api_get(user, endpoint)
       refresh_token(user) if token_expired?(user)
 
