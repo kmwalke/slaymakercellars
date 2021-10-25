@@ -57,7 +57,7 @@ module Xero
     def self.refresh_token(user)
       resp = xero_token(user)
 
-      raise StandardError, "Xero Error: #{resp.status}" unless resp.status == 200
+      raise Xero::NotConnectedError if resp.status == 400
 
       save_token(user, resp)
     end
