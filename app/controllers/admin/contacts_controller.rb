@@ -74,12 +74,10 @@ module Admin
     end
 
     def sync_to_xero
-      begin
-        xero_id = Xero::Contact.create(current_user, @contact).id
-        @contact.update(xero_id: xero_id) if @contact.xero_id.nil?
-      rescue Xero::NotConnectedError => e
-        log_error(current_user.name + ' ' + e.message)
-      end
+      xero_id = Xero::Contact.create(current_user, @contact).id
+      @contact.update(xero_id: xero_id) if @contact.xero_id.nil?
+    rescue Xero::NotConnectedError => e
+      log_error("#{current_user.name} #{e.message}")
     end
   end
 end
