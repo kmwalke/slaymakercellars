@@ -2,6 +2,11 @@ module Xero
   class Contact < Xero::BaseRecord
     ENDPOINT = 'Contacts'.freeze
 
+    def initialize(response)
+      super(response)
+      @id = @body['Contacts'][0]['ContactID']
+    end
+
     def self.create(user, contact)
       return NullContact.new if Rails.env == 'test'
 

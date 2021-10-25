@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 2021_10_25_164445) do
     t.string "category", default: "Flagship", null: false
     t.boolean "is_public", default: true, null: false
     t.integer "case_size", default: 12, null: false
-    t.string "xero_code", null: false
-    t.index ["xero_code"], name: "index_products_on_xero_code", unique: true
+    t.string "xero_id", null: false
+    t.index ["xero_id"], name: "index_products_on_xero_id", unique: true
   end
 
   create_table "states", force: :cascade do |t|
