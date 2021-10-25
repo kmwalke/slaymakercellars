@@ -25,4 +25,11 @@ class ApplicationController < ActionController::Base
   def log_error(message)
     Rails.logger.error(message)
   end
+
+  def sync_to_xero(syncable, xero_class)
+    xero_id = xero_class.create(current_user, syncable).id
+    syncable.update(xero_id: xero_id) if syncable.xero_id.nil?
+  rescue Xero::NotConnectedError => e
+    log_error("#{current_user.name} #{e.message}")
+  end
 end

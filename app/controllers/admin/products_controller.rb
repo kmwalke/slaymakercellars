@@ -2,6 +2,7 @@ module Admin
   class ProductsController < ApplicationController
     before_action :set_product, only: [:edit, :update, :destroy]
     before_action :logged_in?
+    after_action :sync_to_xero, only: [:update, :create]
 
     def index
       @products = Product.all.order(:category, :name)
@@ -49,7 +50,11 @@ module Admin
     end
 
     def product_params
-      params.require(:product).permit(:name, :category, :price_point, :description)
+      params.require(:product).permit(:name, :category, :case_size, :price_point, :description, :xero_code)
+    end
+
+    def sync_to_xero
+      super(@product, Xero::Item)
     end
   end
 end

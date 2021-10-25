@@ -71,7 +71,7 @@
           <%= contact.pickup_check ? 'Y' : '' %>
         </td>
         <td>
-          <span><%= contact.xero_sync_errors.empty? ? '✓' : 'X' %></span>
+          <span><%= contact.synced? ? '✓' : 'X' %></span>
         </td>
         <!--        <td nowrap>-->
         <%# if contact.last_order -%>

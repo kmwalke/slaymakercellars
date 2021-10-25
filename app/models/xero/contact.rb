@@ -2,9 +2,12 @@ module Xero
   class Contact < Xero::BaseRecord
     ENDPOINT = 'Contacts'.freeze
 
-    def self.create(user, contact)
-      return NullContact.new if Rails.env == 'test'
+    def initialize(response)
+      super(response)
+      @id = @response['Contacts'][0]['ContactID']
+    end
 
+    def self.create(user, contact)
       contact.xero_sync_errors.each(&:destroy)
       save_xero_errors(contact, Xero::Contact.new(xero_api_post(user, ENDPOINT, body_params(contact))))
     end
