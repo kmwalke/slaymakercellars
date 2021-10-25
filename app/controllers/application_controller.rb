@@ -20,4 +20,9 @@ class ApplicationController < ActionController::Base
     session[:orig_destination] = request.path
     redirect_to login_path
   end
+
+  # TODO: Send an email or something
+  def log_error(message)
+    Rails.logger.error(message)
+  end
 end

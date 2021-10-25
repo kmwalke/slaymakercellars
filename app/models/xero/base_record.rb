@@ -3,7 +3,29 @@ module Xero
     XERO_TOKEN_ENDPOINT = 'https://identity.xero.com/connect/token'.freeze
     XERO_API_URL        = 'https://api.xero.com/api.xro/2.0/'.freeze
 
-    def initialize(response); end
+    attr_reader :id, :errors
+
+    def initialize(response)
+      body = JSON.parse(response.body)
+      if response.status == 400
+        @errors = body['Elements'][0]['ValidationErrors']
+        return
+      end
+
+      @id = body['Contacts'][0]['ContactID']
+    end
+
+    def self.create
+      raise NotImplementedError
+    end
+
+    def self.save_xero_errors(object, xero_object)
+      xero_object.errors&.each do |error|
+        object.xero_sync_errors << XeroSyncError.new(message: error['Message'])
+      end
+
+      xero_object
+    end
 
     def self.xero_api_get(user, endpoint)
       refresh_token(user) if token_expired?(user)
@@ -35,7 +57,7 @@ module Xero
     def self.refresh_token(user)
       resp = xero_token(user)
 
-      raise StandardError, "Xero Error: #{resp.status}" unless resp.status == 200
+      raise Xero::NotConnectedError if resp.status == 400
 
       save_token(user, resp)
     end
