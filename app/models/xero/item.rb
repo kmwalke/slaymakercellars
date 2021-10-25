@@ -16,9 +16,11 @@ module Xero
       {
         code: item.xero_code,
         name: item.name,
-        description: item.description,
-        purchaseDescription: item.description,
-        unitPrice: item.price_point
+        description: "#{item.name} - #{item.category}",
+        purchaseDescription: "#{item.name} - #{item.category}",
+        salesDetails: {
+          unitPrice: item.price_point
+        }
       }
     end
   end
