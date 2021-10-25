@@ -21,7 +21,6 @@
   </ul>
 <% end -%>
 
-
 <%= form_for(@contact, url: admin_contact_path(@contact), html: { multipart: true }) do |form| %>
   <%= render 'form', contact: @contact, form: form %>
 <% end %>

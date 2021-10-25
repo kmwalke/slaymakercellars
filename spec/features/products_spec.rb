@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.feature 'Products', type: :feature do
   let!(:product) do
     Product.create(name: 'product_1', price_point: 14, description: 'This is the description',
-                   category: Product::CATEGORIES.last)
+                   category: Product::CATEGORIES.last, xero_code: 'duct_1')
   end
   let!(:product_private) do
-    Product.create(name: 'product_1', price_point: 14, description: 'This is the description',
-                   category: Product::CATEGORIES.first, is_public: false)
+    Product.create(name: 'product_2', price_point: 14, description: 'This is the description',
+                   category: Product::CATEGORIES.first, is_public: false, xero_code: 'duct_2')
   end
   let!(:award) { Award.create(name: 'award_name', product: product) }
 

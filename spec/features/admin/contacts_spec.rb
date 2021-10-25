@@ -89,6 +89,21 @@ RSpec.feature 'Admin::Contacts', type: :feature do
         click_link contact.name
         expect(page).to have_content(message)
       end
+
+      scenario 'does not show xero link for unsynced' do
+        visit admin_contacts_path
+
+        click_link contact.name
+        expect(page).not_to have_content('View in Xero')
+      end
+
+      scenario 'shows xero link for synced' do
+        contact.update(xero_id: 'abc123')
+        visit admin_contacts_path
+
+        click_link contact.name
+        expect(page).to have_content('View in Xero')
+      end
     end
   end
 

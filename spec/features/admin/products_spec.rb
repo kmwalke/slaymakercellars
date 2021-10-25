@@ -9,7 +9,9 @@ RSpec.feature 'Admin::Products', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:product) { Product.create(name: 'name1', price_point: 10, description: 'this is the description') }
+    let!(:product) do
+      Product.create(name: 'name1', price_point: 10, description: 'this is the description', xero_code: 'name1')
+    end
 
     before :each do
       login
@@ -21,7 +23,7 @@ RSpec.feature 'Admin::Products', type: :feature do
     end
 
     scenario 'create a product' do
-      product2 = Product.new(name: 'name2', price_point: 10, description: 'this is the description')
+      product2 = Product.new(name: 'name2', price_point: 10, description: 'this is the description', xero_code: 'name2')
       visit admin_products_path
 
       click_link 'New Product'
@@ -52,11 +54,39 @@ RSpec.feature 'Admin::Products', type: :feature do
       expect(current_path).to eq(admin_products_path)
       expect(Product.find_by_id(product_id)).to be_nil
     end
+
+    describe 'sync' do
+      scenario 'shows xero sync errors' do
+        message = 'bad email'
+        product.xero_sync_errors << XeroSyncError.new(message: message)
+
+        visit admin_products_path
+
+        click_link product.name
+        expect(page).to have_content(message)
+      end
+
+      scenario 'does not show xero link for unsynced' do
+        visit admin_products_path
+
+        click_link product.name
+        expect(page).not_to have_content('View in Xero')
+      end
+
+      scenario 'shows xero link for synced' do
+        product.update(xero_id: 'abc123')
+        visit admin_products_path
+
+        click_link product.name
+        expect(page).to have_content('View in Xero')
+      end
+    end
   end
 
   def fill_in_form(product)
     fill_in 'Name', with: product.name
     fill_in 'Price point', with: product.price_point
     fill_in 'Description', with: product.description
+    fill_in 'Xero Code', with: product.xero_code
   end
 end

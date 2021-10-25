@@ -16,6 +16,11 @@
 </div>
 
 <div class="field">
+  <%= form.label :xero_code, 'Xero Code' %>
+  <%= form.text_field :xero_code %>
+</div>
+
+<div class="field">
   <%= form.label :category %>
   <%= form.select :category, Product::CATEGORIES %>
 </div>
