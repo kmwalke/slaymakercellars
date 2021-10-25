@@ -54,6 +54,18 @@ RSpec.feature 'Admin::Products', type: :feature do
       expect(current_path).to eq(admin_products_path)
       expect(Product.find_by_id(product_id)).to be_nil
     end
+
+    describe 'sync' do
+      scenario 'shows xero sync errors' do
+        message = 'bad email'
+        product.xero_sync_errors << XeroSyncError.new(message: message)
+
+        visit admin_products_path
+
+        click_link product.name
+        expect(page).to have_content(message)
+      end
+    end
   end
 
   def fill_in_form(product)

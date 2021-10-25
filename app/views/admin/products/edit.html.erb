@@ -1,5 +1,15 @@
 <h1>Editing Product</h1>
 
+
+<% unless @product.xero_sync_errors.empty? -%>
+  <h3>Xero Sync Errors:</h3>
+  <ul>
+    <% @product.xero_sync_errors.each do |error| -%>
+      <li><%= error.message %></li>
+    <% end -%>
+  </ul>
+<% end -%>
+
 <%= form_for(@product, url: admin_product_path(@product), html: {multipart: true}) do |form| %>
   <%= render 'form', product: @product, form: form %>
 <% end -%>

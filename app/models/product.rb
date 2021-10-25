@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :xero_id, presence: true, uniqueness: true
   validates :price_point, presence: true
 
   has_many :awards
