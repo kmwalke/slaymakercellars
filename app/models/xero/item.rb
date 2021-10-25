@@ -16,6 +16,10 @@ module Xero
     def self.body_params(item)
       {
         code: item.xero_id,
+        name: item.name,
+        description: item.description,
+        purchaseDescription: item.description,
+        unitPrice: item.price_point
       }
     end
   end

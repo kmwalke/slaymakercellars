@@ -6,10 +6,8 @@ module Xero
     attr_reader :id, :body, :errors
 
     def initialize(response)
-      @body = JSON.parse(response.body)
-      if response.status == 400
-        @errors = @body['Elements'][0]['ValidationErrors']
-      end
+      @body   = JSON.parse(response.body)
+      @errors = @body['Elements'][0]['ValidationErrors'] if response.status == 400
     end
 
     def self.create

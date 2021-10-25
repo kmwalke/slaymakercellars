@@ -4,7 +4,7 @@ class AddXeroToProducts < ActiveRecord::Migration[6.1]
     add_column :products, :xero_id, :string
 
     Product.all.each do |product|
-      product.update(xero_id: product.name[-6..-1].upcase)
+      product.update(xero_id: product.name[-6..].upcase)
     end
 
     change_column :products, :xero_id, :string, null: false
