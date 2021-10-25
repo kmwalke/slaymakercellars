@@ -65,6 +65,21 @@ RSpec.feature 'Admin::Products', type: :feature do
         click_link product.name
         expect(page).to have_content(message)
       end
+
+      scenario 'does not show xero link for unsynced' do
+        visit admin_products_path
+
+        click_link product.name
+        expect(page).not_to have_content('View in Xero')
+      end
+
+      scenario 'shows xero link for synced' do
+        product.update(xero_id: 'abc123')
+        visit admin_products_path
+
+        click_link product.name
+        expect(page).to have_content('View in Xero')
+      end
     end
   end
 
