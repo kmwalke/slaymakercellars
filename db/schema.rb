@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_24_222906) do
+ActiveRecord::Schema.define(version: 2021_10_25_164445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,9 @@ ActiveRecord::Schema.define(version: 2021_10_24_222906) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "category", default: "Flagship", null: false
     t.boolean "is_public", default: true, null: false
+    t.integer "case_size", default: 12, null: false
+    t.string "xero_code", null: false
+    t.index ["xero_code"], name: "index_products_on_xero_code", unique: true
   end
 
   create_table "states", force: :cascade do |t|
