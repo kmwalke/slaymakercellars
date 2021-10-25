@@ -8,6 +8,7 @@ module Xero
     def initialize(response)
       body = JSON.parse(response.body)
       if response.status == 400
+        puts body
         @errors = body['Elements'][0]['ValidationErrors']
         return
       end
@@ -19,7 +20,7 @@ module Xero
       raise NotImplementedError
     end
 
-    def self.body_params(syncable)
+    def self.body_params(*)
       raise NotImplementedError
     end
 
