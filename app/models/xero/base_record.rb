@@ -19,6 +19,10 @@ module Xero
       raise NotImplementedError
     end
 
+    def self.body_params(syncable)
+      raise NotImplementedError
+    end
+
     def self.save_xero_errors(object, xero_object)
       xero_object.errors&.each do |error|
         object.xero_sync_errors << XeroSyncError.new(message: error['Message'])
