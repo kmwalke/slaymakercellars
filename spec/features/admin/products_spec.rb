@@ -10,7 +10,7 @@ RSpec.feature 'Admin::Products', type: :feature do
 
   describe 'logged in' do
     let!(:product) do
-      Product.create(name: 'name1', price_point: 10, description: 'this is the description', xero_id: 'name1')
+      Product.create(name: 'name1', price_point: 10, description: 'this is the description', xero_code: 'name1')
     end
 
     before :each do
@@ -23,7 +23,7 @@ RSpec.feature 'Admin::Products', type: :feature do
     end
 
     scenario 'create a product' do
-      product2 = Product.new(name: 'name2', price_point: 10, description: 'this is the description', xero_id: 'name2')
+      product2 = Product.new(name: 'name2', price_point: 10, description: 'this is the description', xero_code: 'name2')
       visit admin_products_path
 
       click_link 'New Product'
@@ -72,6 +72,6 @@ RSpec.feature 'Admin::Products', type: :feature do
     fill_in 'Name', with: product.name
     fill_in 'Price point', with: product.price_point
     fill_in 'Description', with: product.description
-    fill_in 'Xero Code', with: product.xero_id
+    fill_in 'Xero Code', with: product.xero_code
   end
 end
