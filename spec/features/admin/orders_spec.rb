@@ -186,11 +186,28 @@ describe 'Admin::Orders', type: :feature do
     end
 
     scenario 'shows xero link for synced' do
-      contact.update(xero_id: 'abc123')
-      visit edit_admin_order_path(order)
+      order.update(xero_id: 'abc123')
+      visit admin_order_path(order)
 
       expect(page).to have_content('View in Xero')
       expect(page).not_to have_content('Create Invoice')
+    end
+
+    scenario 'does not allow editing of orders with an invoice' do
+      order.update(xero_id: 'abc123')
+
+      visit edit_admin_order_path(order)
+
+      expect(current_path).to eq(admin_order_path(order))
+    end
+
+    scenario 'links to show page when invoice is created' do
+      order.update(xero_id: 'abc123')
+
+      visit admin_orders_path
+      click_link order.contact.name
+
+      expect(current_path).to eq(admin_order_path(order))
     end
   end
 end
