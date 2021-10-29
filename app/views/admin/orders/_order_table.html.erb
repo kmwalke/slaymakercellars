@@ -3,7 +3,7 @@
   <td>
     <%= order.customer_po ? order.customer_po.truncate(15) : '&nbsp;' %>
   </td>
-  <% if order.fulfilled? -%>
+  <% if order.fulfilled? || order.synced? -%>
     <td><%= link_to order.contact.name, admin_order_path(order) %></td>
   <% else -%>
     <td><%= link_to order.contact.name, edit_admin_order_path(order) %></td>

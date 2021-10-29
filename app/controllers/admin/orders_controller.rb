@@ -13,7 +13,7 @@ module Admin
     end
 
     def edit
-      redirect_to admin_order_path(@order) if @order.fulfilled?
+      redirect_to admin_order_path(@order) if @order.fulfilled? || @order.synced?
     end
 
     def create
