@@ -1,6 +1,7 @@
 module Admin
   class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :edit, :update, :destroy, :undestroy]
+    before_action :set_xero_invoice_url, only: [:show, :edit]
     before_action :logged_in?
 
     def index
@@ -87,6 +88,10 @@ module Admin
 
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def set_xero_invoice_url
+      @xero_invoice_url = 'https://go.xero.com/AccountsReceivable/View.aspx?InvoiceID='
     end
 
     def order_params

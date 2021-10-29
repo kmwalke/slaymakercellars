@@ -182,10 +182,17 @@ describe 'Admin::Orders', type: :feature do
       expect(page).to have_content(message)
     end
 
-    scenario 'does not show xero link for unsynced' do
+    scenario 'does not show xero link for unsynced on edit' do
       visit edit_admin_order_path(order)
 
-      expect(page).not_to have_content('View in Xero')
+      expect(page).not_to have_content('Open Invoice')
+      expect(page).to have_content('Create Invoice')
+    end
+
+    scenario 'does not show xero link for unsynced on show' do
+      visit admin_order_path(order)
+
+      expect(page).not_to have_content('Open Invoice')
       expect(page).to have_content('Create Invoice')
     end
 
@@ -193,7 +200,7 @@ describe 'Admin::Orders', type: :feature do
       order.update(xero_id: 'abc123')
       visit admin_order_path(order)
 
-      expect(page).to have_content('View in Xero')
+      expect(page).to have_content('Open Invoice')
       expect(page).not_to have_content('Create Invoice')
     end
 

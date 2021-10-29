@@ -11,6 +11,7 @@
 <%= form_for(@order, url: admin_order_path(@order)) do |f| %>
 
   <p>
+    <%= link_to 'Create Invoice', invoice_admin_order_path(@order) %> |
     <%= link_to 'Mark Delivered', fulfill_admin_order_path(@order) %> |
     <%= link_to 'Void', admin_order_path(@order), confirm: 'Are you sure?', method: :delete %>
   </p>
