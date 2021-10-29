@@ -6,7 +6,6 @@ class Contact < ApplicationRecord
   belongs_to :town
   has_many :notes
   has_many :orders
-  has_many :xero_sync_errors, as: :syncable
 
   validates :name, presence: true, uniqueness: true
   validates :town_id, presence: true

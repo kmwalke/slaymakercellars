@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   include SoftDeletable
+  include Xero::Syncable
 
   has_many :line_items, inverse_of: :order
   belongs_to :contact

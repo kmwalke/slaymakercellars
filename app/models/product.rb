@@ -6,7 +6,6 @@ class Product < ApplicationRecord
   validates :price_point, presence: true
 
   has_many :awards
-  has_many :xero_sync_errors, as: :syncable
 
   CATEGORIES = [
     'Flagship',
