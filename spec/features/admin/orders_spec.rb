@@ -169,6 +169,10 @@ describe 'Admin::Orders', type: :feature do
   end
 
   describe 'sync' do
+    before :each do
+      login
+    end
+
     scenario 'shows xero sync errors' do
       message = 'bad email'
       order.xero_sync_errors << XeroSyncError.new(message: message)
