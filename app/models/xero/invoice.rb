@@ -16,6 +16,8 @@ module Xero
       {
         type: 'ACCREC',
         contact: { contactId: order.contact.xero_id },
+        date: order.delivery_date,
+        dueDate: order.delivery_date + 30,
         lineItems:
           order.line_items.map do |line_item|
             {
