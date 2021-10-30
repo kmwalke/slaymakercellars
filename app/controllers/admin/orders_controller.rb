@@ -1,6 +1,7 @@
 module Admin
   class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :edit, :update, :destroy, :undestroy]
+    before_action :set_xero_invoice_url, only: [:show, :edit, :index]
     before_action :logged_in?
 
     def index
@@ -8,12 +9,23 @@ module Admin
       @show           = params[:show]
     end
 
+    def invoice
+      @order = Order.find(params[:id])
+      sync_to_xero(@order.contact, Xero::Contact)
+      sync_to_xero(@order, Xero::Invoice)
+
+      path = admin_order_path(@order)
+      path = edit_admin_order_path(@order) if @order.reload.xero_sync_errors.any?
+
+      redirect_to path
+    end
+
     def new
       @order = Order.new
     end
 
     def edit
-      redirect_to admin_order_path(@order) if @order.fulfilled?
+      redirect_to admin_order_path(@order) if @order.fulfilled? || @order.synced?
     end
 
     def create
@@ -87,6 +99,10 @@ module Admin
 
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def set_xero_invoice_url
+      @xero_invoice_url = 'https://go.xero.com/AccountsReceivable/View.aspx?InvoiceID='
     end
 
     def order_params
