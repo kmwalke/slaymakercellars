@@ -43,4 +43,12 @@ class Contact < ApplicationRecord
   def self.search(search)
     search ? where('lower(name) LIKE lower(?) ODER BY town_id', "%#{search}%") : all.order(:town_id)
   end
+
+  def town_name
+    town&.name
+  end
+
+  def town_name=(name)
+    self.town = Town.find_by(name: name)
+  end
 end

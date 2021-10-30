@@ -109,7 +109,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
 
   def fill_in_form(contact)
     fill_in 'Name', with: contact.name
-    select contact.town.name, from: 'contact_town_id'
+    fill_in 'Town', with: contact.town.name
     fill_in 'Description', with: contact.description
   end
 end

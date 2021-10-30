@@ -68,7 +68,7 @@ module Admin
         :address,
         :description,
         :deleted_at,
-        :town_id,
+        :town_name,
         :pickup_check
       )
     end
