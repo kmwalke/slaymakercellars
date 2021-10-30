@@ -107,7 +107,7 @@ module Admin
 
     def order_params
       params.require(:order).permit(
-        :contact_id,
+        :contact_name,
         :delivery_date,
         :customer_po,
         :comments,

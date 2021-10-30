@@ -52,6 +52,10 @@ class Order < ApplicationRecord
     contact&.name
   end
 
+  def contact_name=(name)
+    self.contact = Contact.find_by(name: name)
+  end
+
   def fulfilled?
     fulfilled_on != nil
   end

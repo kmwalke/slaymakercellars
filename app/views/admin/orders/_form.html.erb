@@ -11,8 +11,8 @@
 <% end %>
 
 <div class="field">
-  <%= f.label :contact_id, 'Contact' %>
-  <%= f.collection_select :contact_id, Contact.order(:name), :id, :name, include_blank: true %>
+  <%= f.label :contact_name, 'Contact' %>
+  <%= f.text_field :contact_name %>
 </div>
 
 <div class="field">
