@@ -1,6 +1,6 @@
 <h1>New Product</h1>
 
-<%= form_for(@product, url: admin_products_path, html: {multipart: true}) do |form| -%>
+<%= form_for(@product, url: admin_products_path, html: { multipart: true, autocomplete: 'off' }) do |form| -%>
   <%= render 'form', product: @product, form: form %>
 <% end -%>
 

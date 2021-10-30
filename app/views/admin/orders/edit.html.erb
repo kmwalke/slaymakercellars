@@ -8,7 +8,7 @@
   <% end -%>
 </p>
 
-<%= form_for(@order, url: admin_order_path(@order)) do |f| %>
+<%= form_for(@order, url: admin_order_path(@order), html: { autocomplete: 'off' }) do |f| %>
 
   <p>
     <%= link_to 'Create Invoice', invoice_admin_order_path(@order) %> |
