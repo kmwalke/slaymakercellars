@@ -1,7 +1,7 @@
 module Admin
   class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :edit, :update, :destroy, :undestroy]
-    before_action :set_xero_invoice_url, only: [:show, :edit]
+    before_action :set_xero_invoice_url, only: [:show, :edit, :index]
     before_action :logged_in?
 
     def index
