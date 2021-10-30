@@ -19,10 +19,11 @@ module Xero
         lineItems:
           order.line_items.map do |line_item|
             {
-              description: 'desc',
-              quantity: 1,
-              unitAmount: 12.99,
-              itemCode: line_item.product.xero_code
+              description: "#{line_item.product.name} - #{line_item.product.category}",
+              quantity: line_item.quantity,
+              unitAmount: line_item.product.price_point,
+              itemCode: line_item.product.xero_code,
+              accountCode: "400"
             }
           end
       }
