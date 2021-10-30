@@ -10,7 +10,7 @@ module Admin
     end
 
     def invoice
-      @order  = Order.find(params[:id])
+      @order = Order.find(params[:id])
       sync_to_xero(@order.contact, Xero::Contact)
       sync_to_xero(@order, Xero::Invoice)
 
