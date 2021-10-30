@@ -23,7 +23,7 @@ module Xero
               quantity: line_item.quantity,
               unitAmount: line_item.product.price_point,
               itemCode: line_item.product.xero_code,
-              accountCode: "400"
+              accountCode: '400'
             }
           end
       }
