@@ -14,38 +14,10 @@ module Admin
       sync_to_xero(@order.contact, Xero::Contact)
       sync_to_xero(@order, Xero::Invoice)
 
-      # invoice = XeroCreateInvoice.new(xero_contact, @order.customer_po)
-      #
-      # if @order.line_items.empty?
-      #   flash[:notice] = 'Please create some Line Items.  Your invoice was NOT saved.'
-      #   redirect_to admin_order_path(@order)
-      #   return
-      # end
-      #
-      # @order.line_items.each do |line_item|
-      #   if line_item.product.nil?
-      #     flash[:notice] = 'Please select a cheese in your Line Items.  Your invoice was NOT saved.'
-      #     redirect_to admin_order_path(@order)
-      #   end
-      #   invoice.add_line_item(
-      #     item_code: line_item.product.xero_item_code,
-      #     description: line_item.units.to_s + 'x ' + line_item.size + ' ' + line_item.product.name,
-      #     quantity: 1,
-      #     account_code: LineItem::ACCOUNT_CODES[line_item.size],
-      #     unit_amount: rails_contact.price_point
-      #   )
-      # end
-      #
-      # if invoice.save
-      #   flash[:notice]    = 'A new invoice was created in Xero'
-      #   @order.invoice_id = invoice.invoice_id
-      #   @order.save
-      # else
-      #   flash[:notice] = "#{invoice.inspect}An error occurred.  Your invoice was NOT saved."
-      # end
-      # end
+      path = admin_order_path(@order)
+      path = edit_admin_order_path(@order) if @order.reload.xero_sync_errors.any?
 
-      redirect_to admin_order_path(@order)
+      redirect_to path
     end
 
     def new

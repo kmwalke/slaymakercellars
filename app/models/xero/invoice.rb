@@ -4,7 +4,7 @@ module Xero
 
     def initialize(response)
       super(response)
-      @id = @response['Invoices'][0]['InvoiceID']
+      @id = @response['Invoices'][0]['InvoiceID'] if errors.nil?
     end
 
     def self.create(user, order)

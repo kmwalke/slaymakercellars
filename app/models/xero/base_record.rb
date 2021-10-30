@@ -7,7 +7,6 @@ module Xero
 
     def initialize(response)
       @response   = JSON.parse(response.body)
-      puts @response
       @errors     = @response['Elements'][0]['ValidationErrors'] if response.status == 400
     end
 
