@@ -167,4 +167,58 @@ describe 'Admin::Orders', type: :feature do
     expect(page).to have_content(order.contact.name)
     expect(page).to have_content(order.id)
   end
+
+  describe 'sync' do
+    before :each do
+      login
+    end
+
+    scenario 'shows xero sync errors' do
+      message = 'bad email'
+      order.xero_sync_errors << XeroSyncError.new(message: message)
+
+      visit edit_admin_order_path(order)
+
+      expect(page).to have_content(message)
+    end
+
+    scenario 'does not show xero link for unsynced on edit' do
+      visit edit_admin_order_path(order)
+
+      expect(page).not_to have_content('Open Invoice')
+      expect(page).to have_content('Create Invoice')
+    end
+
+    scenario 'does not show xero link for unsynced on show' do
+      visit admin_order_path(order)
+
+      expect(page).not_to have_content('Open Invoice')
+      expect(page).to have_content('Create Invoice')
+    end
+
+    scenario 'shows xero link for synced' do
+      order.update(xero_id: 'abc123')
+      visit admin_order_path(order)
+
+      expect(page).to have_content('Open Invoice')
+      expect(page).not_to have_content('Create Invoice')
+    end
+
+    scenario 'does not allow editing of orders with an invoice' do
+      order.update(xero_id: 'abc123')
+
+      visit edit_admin_order_path(order)
+
+      expect(current_path).to eq(admin_order_path(order))
+    end
+
+    scenario 'links to show page when invoice is created' do
+      order.update(xero_id: 'abc123')
+
+      visit admin_orders_path
+      click_link order.contact.name
+
+      expect(current_path).to eq(admin_order_path(order))
+    end
+  end
 end

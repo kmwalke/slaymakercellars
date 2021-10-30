@@ -11,6 +11,7 @@
 <%= form_for(@order, url: admin_order_path(@order)) do |f| %>
 
   <p>
+    <%= link_to 'Create Invoice', invoice_admin_order_path(@order) %> |
     <%= link_to 'Mark Delivered', fulfill_admin_order_path(@order) %> |
     <%= link_to 'Void', admin_order_path(@order), confirm: 'Are you sure?', method: :delete %>
   </p>
@@ -22,6 +23,14 @@
     <%= link_to 'Cancel', admin_orders_path %>
   </p>
 
+  <% unless @order.xero_sync_errors.empty? -%>
+    <h3>Xero Sync Errors:</h3>
+    <ul>
+      <% @order.xero_sync_errors.each do |error| -%>
+        <li><%= error.message %></li>
+      <% end -%>
+    </ul>
+  <% end -%>
 
   <div class="wide-wrapper">
     <fieldset class="column">

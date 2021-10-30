@@ -3,7 +3,7 @@
   <td>
     <%= order.customer_po ? order.customer_po.truncate(15) : '&nbsp;' %>
   </td>
-  <% if order.fulfilled? -%>
+  <% if order.fulfilled? || order.synced? -%>
     <td><%= link_to order.contact.name, admin_order_path(order) %></td>
   <% else -%>
     <td><%= link_to order.contact.name, edit_admin_order_path(order) %></td>
@@ -13,6 +13,11 @@
       <%= humanize_date order.fulfilled_on %>
     <% else -%>
       <%= humanize_date order.delivery_date %>
+    <% end -%>
+  </td>
+  <td>
+    <% if order.synced? -%>
+      <%= link_to 'Open Invoice', @xero_invoice_url + order.xero_id, target: "_blank" %>
     <% end -%>
   </td>
   <% if order.fulfilled? -%>

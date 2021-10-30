@@ -1,7 +1,9 @@
 class Order < ApplicationRecord
   include SoftDeletable
+  include Xero::Syncable
 
   has_many :line_items, inverse_of: :order
+  has_many :xero_sync_errors, as: :syncable
   belongs_to :contact
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User', optional: true

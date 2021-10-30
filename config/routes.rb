@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       member do
         get 'fulfill'
         get 'unfulfill'
+        get 'invoice'
       end
     end
     resources :products
