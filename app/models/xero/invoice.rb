@@ -12,8 +12,6 @@ module Xero
       save_xero_errors(order, Xero::Invoice.new(xero_api_post(user, ENDPOINT, body_params(order))))
     end
 
-    private
-
     def self.body_params(order)
       {
         type: 'ACCREC',
@@ -24,7 +22,7 @@ module Xero
               description: 'desc',
               quantity: 1,
               unitAmount: 12.99,
-              itemCode: line_item.product.xero_code,
+              itemCode: line_item.product.xero_code
             }
           end
       }

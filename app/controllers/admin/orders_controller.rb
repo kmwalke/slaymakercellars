@@ -14,7 +14,6 @@ module Admin
       sync_to_xero(@order.contact, Xero::Contact)
       sync_to_xero(@order, Xero::Invoice)
 
-
       # invoice = XeroCreateInvoice.new(xero_contact, @order.customer_po)
       #
       # if @order.line_items.empty?
