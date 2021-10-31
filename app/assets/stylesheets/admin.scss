@@ -16,13 +16,14 @@ body.admin {
     width: 30%;
     display: inline-block;
     vertical-align: top;
+  }
 
-    div.field {
-      margin-top: 1em;
+  div.field {
+    margin-top: 1em;
 
-      label {
-        vertical-align: top;
-      }
+    label {
+      vertical-align: top;
+      display: block;
     }
   }
 

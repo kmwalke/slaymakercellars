@@ -15,7 +15,7 @@
   </ul>
 <% end -%>
 
-<%= form_for(@product, url: admin_product_path(@product), html: { multipart: true }) do |form| %>
+<%= form_for(@product, url: admin_product_path(@product), html: { multipart: true, autocomplete: 'off' }) do |form| %>
   <%= render 'form', product: @product, form: form %>
 <% end -%>
 
