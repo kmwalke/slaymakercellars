@@ -1,3 +1,4 @@
+
 <% if @order.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
@@ -11,8 +12,14 @@
 <% end %>
 
 <div class="field">
-  <%= f.label :contact_id, 'Contact' %>
-  <%= f.collection_select :contact_id, Contact.order(:name), :id, :name, include_blank: true %>
+  <%= f.label :contact_name, 'Contact' %>
+  <%= f.text_field :contact_name, list: 'contacts' %>
+
+  <datalist id="contacts">
+    <% Contact.active.each do |contact| %>
+      <option value="<%= contact.name %>">
+    <% end %>
+  </datalist>
 </div>
 
 <div class="field">
@@ -39,5 +46,5 @@
 
 <div class="field">
   <%= f.label :comments %><br/>
-  <%= f.text_area :comments, rows: 15, cols: 50 %>
+  <%= f.text_area :comments, rows: 5, cols: 50 %>
 </div>

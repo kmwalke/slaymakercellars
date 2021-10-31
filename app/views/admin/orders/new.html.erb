@@ -1,6 +1,6 @@
 <h1>New order</h1>
 
-<%= form_for(@order, url: admin_orders_path) do |f| -%>
+<%= form_for(@order, url: admin_orders_path, html: { autocomplete: 'off' }) do |f| -%>
   <%= render partial: 'form', locals: {f: f} %>
   <%= f.submit 'Save', name: :save, disable_with: "Loading..." %>
 <% end -%>

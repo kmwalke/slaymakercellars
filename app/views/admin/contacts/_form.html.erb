@@ -17,7 +17,18 @@
 <div class="column">
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, autofocus: 'autofocus' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :town_name, 'Town' %>
+    <%= form.text_field :town_name, list: 'towns' %>
+
+    <datalist id="towns">
+      <% Town.all.each do |town| %>
+        <option value="<%= town.name %>">
+      <% end %>
+    </datalist>
   </div>
 
   <div class="field">
@@ -42,12 +53,7 @@
 
   <div class="field">
     <%= form.label :address %>
-    <%= form.text_area :address, rows: 4 %>
-  </div>
-
-  <div class="field">
-    <%= form.label :town %>
-    <%= form.collection_select :town_id, Town.order(:name), :id, :name, include_blank: true %>
+    <%= form.text_area :address, rows: 4, cols: 50 %>
   </div>
 </div>
 
