@@ -60,16 +60,17 @@ module Admin
 
     def contact_params
       params.require(:contact).permit(
+        :address,
+        :contact_point,
+        :deleted_at,
+        :description,
+        :email,
         :name,
         :phone,
-        :email,
-        :url,
-        :contact_point,
-        :address,
-        :description,
-        :deleted_at,
+        :paperless_billing,
+        :pickup_check,
         :town_name,
-        :pickup_check
+        :url
       )
     end
 

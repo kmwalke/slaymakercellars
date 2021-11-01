@@ -107,13 +107,19 @@ module Admin
 
     def order_params
       params.require(:order).permit(
-        :contact_name,
-        :delivery_date,
-        :customer_po,
         :comments,
+        :contact_name,
         :created_by_id,
+        :customer_po,
+        :delivery_date,
         :updated_by_id,
-        line_items_attributes: [:fulfilled, :quantity, :product_id, :id, :_destroy]
+        line_items_attributes: [
+          :fulfilled,
+          :id,
+          :product_id,
+          :quantity,
+          :_destroy
+        ]
       )
     end
   end

@@ -6,15 +6,13 @@
   <%= link_to "View all orders by #{contact.name}", admin_orders_path({ show: contact.id }) %>
 </div>
 
-<!--<p>-->
-<!--  Paperless Billing: <strong>-->
-<%# if contact.paperless_billing -%>
-<!--    Yes-->
-<%# else -%>
-<!--    No-->
-<%# end -%>
-<!--</strong>-->
-<!--</p>-->
+<p>
+  Pickup Check: <strong><%= contact.pickup_check ? 'Yes' : 'No' -%></strong>
+</p>
+
+<p>
+  Paperless Billing: <strong><%= contact.paperless_billing ? 'Yes' : 'No' -%></strong>
+</p>
 
 <% unless contact.phone.blank? -%>
   <p>
