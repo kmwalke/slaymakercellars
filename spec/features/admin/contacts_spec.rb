@@ -79,6 +79,16 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       expect(page).to have_content(contact.name)
     end
 
+    it 'views all orders by a contact' do
+      login
+      visit admin_contacts_path
+
+      click_link contact.name
+      click_link 'View all orders'
+
+      expect(current_path).to eq(admin_orders_path)
+    end
+
     describe 'sync' do
       scenario 'shows xero sync errors' do
         message = 'bad email'
