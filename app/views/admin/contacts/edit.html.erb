@@ -4,12 +4,12 @@
   <% if @contact.xero_id -%>
     <%= link_to 'View in Xero', "https://go.xero.com/Contacts/View/#{@contact.xero_id}", target: '_blank' %> |
   <% end -%>
+  <%= link_to "View all orders", admin_orders_path({ show: @contact.id }) %> |
   <% if @contact.deleted_at -%>
     <%= link_to 'Activate Contact', undestroy_admin_contact_path(@contact), confirm: 'Are you sure?' %> |
   <% else -%>
     <%= link_to 'Delete Contact', admin_contact_path(@contact), confirm: 'Are you sure?', method: :delete %> |
   <% end -%>
-  <%= link_to "View all orders", admin_orders_path({ show: @contact.id }) %> |
   <%= link_to 'Back', admin_contacts_path %>
 </p>
 
