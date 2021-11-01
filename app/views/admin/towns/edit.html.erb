@@ -1,4 +1,4 @@
-<h1>Editing Town</h1>
+<h1>Editing <%= @town.name %></h1>
 
 <%= form_for(@town, url: admin_town_path(@town), html: { multipart: true, autocomplete: 'off' }) do |form| %>
   <%= render 'form', town: @town, form: form %>

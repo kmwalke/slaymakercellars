@@ -46,6 +46,9 @@ Metrics/BlockLength:
     - 'Guardfile'
     - 'config/routes.rb'
 
+Metrics/ClassLength:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Max: 10
 

@@ -59,8 +59,13 @@
 
 <div class="column">
   <div class="field">
-    <%= form.label :pickup_check %>
     <%= form.check_box :pickup_check %>
+    <%= form.label :pickup_check, class: :inline %>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :paperless_billing %>
+    <%= form.label :paperless_billing, class: :inline %>
   </div>
 
   <div class="field">
