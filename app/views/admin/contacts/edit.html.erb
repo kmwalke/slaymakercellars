@@ -1,4 +1,4 @@
-<h1>Editing Contact</h1>
+<h1>Editing <%= @contact.name %></h1>
 
 <p>
   <% if @contact.xero_id -%>
@@ -9,6 +9,7 @@
   <% else -%>
     <%= link_to 'Delete Contact', admin_contact_path(@contact), confirm: 'Are you sure?', method: :delete %> |
   <% end -%>
+  <%= link_to "View all orders", admin_orders_path({ show: @contact.id }) %> |
   <%= link_to 'Back', admin_contacts_path %>
 </p>
 

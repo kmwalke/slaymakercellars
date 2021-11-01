@@ -70,7 +70,7 @@ module Admin
         :paperless_billing,
         :pickup_check,
         :town_name,
-        :url,
+        :url
       )
     end
 
