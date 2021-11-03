@@ -1,1 +1,0 @@
-require("@nathanvda/cocoon")
