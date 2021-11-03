@@ -33,7 +33,8 @@ module Admin
 
       respond_to do |format|
         if @order.save
-          format.html { redirect_to admin_orders_path, notice: 'Order was successfully created.' }
+          path = params[:save] ? admin_orders_url : edit_admin_order_url(@order)
+          format.html { redirect_to path, notice: 'Order was successfully created.' }
         else
           format.html { render :new }
         end
@@ -41,9 +42,9 @@ module Admin
     end
 
     def update
-      path = params[:save] ? admin_orders_url : edit_admin_order_url(@order)
       respond_to do |format|
         if @order.update(order_params.merge(updated_by: current_user))
+          path = params[:save] ? admin_orders_url : edit_admin_order_url(@order)
           format.html { redirect_to path, notice: 'Order was successfully updated.' }
         else
           format.html { render :edit }

@@ -10,36 +10,45 @@
   </div>
 <% end %>
 
-<div class="field">
-  <%= form.check_box :is_public %>
-  <%= form.label :is_public, "Show on 'Meads' Page", class: :inline %>
-</div>
-
-<div class="field">
-  <%= form.label :name %>
-  <%= form.text_field :name, autofocus: 'autofocus' %>
-</div>
-
-<div class="field">
-  <%= form.label :xero_code, 'Xero Code' %>
-  <%= form.text_field :xero_code %>
-</div>
-
-<div class="field">
-  <%= form.label :category %>
-  <%= form.select :category, Product::CATEGORIES %>
-</div>
-
-<div class="field">
-  <%= form.label :price_point %>
-  <%= form.text_field :price_point %>
-</div>
-
-<div class="field">
-  <%= form.label :description %>
-  <%= form.text_area :description %>
-</div>
-
 <div class="actions">
   <%= form.submit %>
+</div>
+
+<div class="column">
+  <div class="field">
+    <%= form.check_box :is_public %>
+    <%= form.label :is_public, "Show on 'Meads' Page", class: :inline %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, autofocus: 'autofocus' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :xero_code, 'Xero Code' %>
+    <%= form.text_field :xero_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category %>
+    <%= form.select :category, Product::CATEGORIES %>
+  </div>
+</div>
+
+<div class="column">
+  <div class="field">
+    <%= form.label :price_point %>
+    <%= form.text_field :price_point %>
+  </div>
+
+  <div class="field">
+    <%= form.label :case_size %>
+    <%= form.text_field :case_size %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
 </div>
