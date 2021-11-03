@@ -33,7 +33,6 @@ module Admin
 
       respond_to do |format|
         if @order.save
-          path = params[:save] ? admin_orders_url : edit_admin_order_url(@order)
           format.html { redirect_to path, notice: 'Order was successfully created.' }
         else
           format.html { render :new }
@@ -44,7 +43,6 @@ module Admin
     def update
       respond_to do |format|
         if @order.update(order_params.merge(updated_by: current_user))
-          path = params[:save] ? admin_orders_url : edit_admin_order_url(@order)
           format.html { redirect_to path, notice: 'Order was successfully updated.' }
         else
           format.html { render :edit }
@@ -104,6 +102,10 @@ module Admin
 
     def set_xero_invoice_url
       @xero_invoice_url = 'https://go.xero.com/AccountsReceivable/View.aspx?InvoiceID='
+    end
+
+    def path
+      params[:save] ? admin_orders_url : edit_admin_order_url(@order)
     end
 
     def order_params
