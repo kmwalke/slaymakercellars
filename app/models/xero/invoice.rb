@@ -18,6 +18,7 @@ module Xero
         contact: { contactId: order.contact.xero_id },
         date: order.delivery_date,
         dueDate: order.delivery_date + 30,
+        status: 'AUTHORISED',
         lineItems:
           order.line_items.map do |line_item|
             {
