@@ -19,9 +19,9 @@ class Order < ApplicationRecord
 
   def self.to_be_fulfilled(day)
     if day == Date.today
-      Order.where('fulfilled_on is NULL AND delivery_date <= ?', Date.today)
+      Order.active.where('delivery_date <= ?', Date.today)
     else
-      Order.where(fulfilled_on: nil, delivery_date: day)
+      Order.active.where(delivery_date: day)
     end
   end
 
