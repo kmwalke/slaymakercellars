@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   scope :active, -> { where(fulfilled_on: nil, deleted_at: nil).order('delivery_date asc') }
   scope :fulfilled, -> { where.not(fulfilled_on: nil).order('fulfilled_on DESC') }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :late, -> { where('fulfilled_on is null and delivery_date < ?', Date.today).order('delivery_date asc') }
+  scope :late, -> { active.where('delivery_date < ?', Date.today).order('delivery_date asc') }
 
   def self.to_be_fulfilled(day)
     if day == Date.today
