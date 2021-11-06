@@ -15,6 +15,7 @@
       <%= humanize_date order.delivery_date %>
     <% end -%>
   </td>
+  <td><%= order.contact.town.name %></td>
   <td>
     <% if order.synced? -%>
       <%= link_to 'Open Invoice', @xero_invoice_url + order.xero_id, target: "_blank" %>

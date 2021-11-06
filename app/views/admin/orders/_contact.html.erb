@@ -26,11 +26,13 @@
   </p>
 <% end -%>
 
-<% unless contact.address.blank? -%>
-  <p>
-    Address: <strong><%= contact.address %></strong>
-  </p>
-<% end -%>
+<p>
+  Address:
+  <% unless contact.address.blank? -%>
+    <strong><%= contact.address %>,</strong>
+  <% end -%>
+  <strong><%= contact.town.name %></strong>
+</p>
 
 <p>
   <%= contact.description %>
