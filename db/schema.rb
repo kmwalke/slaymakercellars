@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_161816) do
+ActiveRecord::Schema.define(version: 2021_11_07_192350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_161816) do
     t.boolean "pickup_check", default: false, null: false
     t.string "xero_id"
     t.boolean "paperless_billing", default: false, null: false
+    t.boolean "always_gets_case_deal", default: false, null: false
   end
 
   create_table "line_items", force: :cascade do |t|

@@ -24,22 +24,12 @@ module Xero
             {
               description: "#{line_item.product.name} - #{line_item.product.category}",
               quantity: line_item.quantity,
-              unitAmount: price_point(line_item),
+              unitAmount: line_item.price_point,
               itemCode: line_item.product.xero_code,
               accountCode: '400'
             }
           end
       }
-    end
-
-    def self.price_point(line_item)
-      return line_item.product.price_point if line_item.quantity < line_item.product.case_size
-
-      case_price(line_item)
-    end
-
-    def self.case_price(line_item)
-      (line_item.product.price_point * (line_item.product.case_size - 1)) / line_item.product.case_size
     end
   end
 end

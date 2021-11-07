@@ -69,6 +69,11 @@
   </div>
 
   <div class="field">
+    <%= form.check_box :always_gets_case_deal %>
+    <%= form.label :always_gets_case_deal, class: :inline %>
+  </div>
+
+  <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description, rows: 8, cols: 48 %>
   </div>
