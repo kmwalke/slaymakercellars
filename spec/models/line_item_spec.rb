@@ -34,7 +34,7 @@ RSpec.describe LineItem, type: :model do
       special_contact = Contact.create(name: 'john', town: town, always_gets_case_deal: true)
       order.update(contact: special_contact)
 
-      expect(case_line_item.price_point < product.price_point).to be true
+      expect(partial_line_item.price_point < product.price_point).to be true
     end
 
     it 'should respect non-case pricing' do
