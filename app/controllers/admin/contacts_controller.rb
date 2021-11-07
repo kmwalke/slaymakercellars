@@ -61,6 +61,7 @@ module Admin
     def contact_params
       params.require(:contact).permit(
         :address,
+        :always_gets_case_deal,
         :contact_point,
         :deleted_at,
         :description,
