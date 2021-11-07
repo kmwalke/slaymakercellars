@@ -10,6 +10,8 @@ class LineItem < ApplicationRecord
     case_price
   end
 
+  private
+
   def case_price
     (product.price_point * (product.case_size - 1)) / product.case_size
   end
