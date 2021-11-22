@@ -74,6 +74,11 @@
   </div>
 
   <div class="field">
+    <%= form.check_box :is_public %>
+    <%= form.label :is_public, class: :inline %>
+  </div>
+
+  <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description, rows: 8, cols: 48 %>
   </div>
