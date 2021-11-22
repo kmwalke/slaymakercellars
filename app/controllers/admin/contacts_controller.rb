@@ -66,6 +66,7 @@ module Admin
         :deleted_at,
         :description,
         :email,
+        :is_public,
         :name,
         :phone,
         :paperless_billing,

@@ -14,7 +14,7 @@
                 <li class="town">
                   <h3 class="town"><%= town.name %></h3>
                   <ul class="contacts">
-                    <% town.contacts.where(deleted_at: nil).each_slice(3) do |contacts_slice| -%>
+                    <% town.contacts.where(deleted_at: nil, is_public: true).each_slice(3) do |contacts_slice| -%>
                       <% contacts_slice.each do |contact| %>
                         <li class="contact">
                           <% if contact.url.blank? -%>
