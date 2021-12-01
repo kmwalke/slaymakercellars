@@ -59,11 +59,11 @@
             &nbsp;
           <% else -%>
             <% if contact.unresolved_notes? -%>
-              <%= link_to "#{time_ago_in_words contact.notes.first.created_at} ago",
+              <%= link_to "#{time_ago_in_words contact.last_contacted} ago",
                           edit_admin_contact_path(contact)
               %>
             <% else -%>
-              <%= time_ago_in_words contact.notes.first.created_at %> ago
+              <%= time_ago_in_words contact.last_contacted %> ago
             <% end -%>
           <% end -%>
         </td>
