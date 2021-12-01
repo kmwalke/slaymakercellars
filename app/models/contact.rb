@@ -25,6 +25,10 @@ class Contact < ApplicationRecord
     notes.where('resolved_at is null').any?
   end
 
+  def last_contacted
+    notes.last.created_at
+  end
+
   def self.display_contacts(show, search_string)
     case show
     when 'inactive'

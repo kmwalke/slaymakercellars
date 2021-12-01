@@ -4,6 +4,7 @@ RSpec.describe Contact, type: :model do
   let!(:town) { Town.create(name: 'town', state: State.create(name: 'name', abbreviation: 'AS')) }
   let!(:contact) { Contact.create(name: 'john', town: town) }
   let(:deleted_contact) { Contact.create(name: 'deleted', town: town, deleted_at: DateTime.now) }
+  let!(:user) { User.create(name: 'name1', email: 'name1@place.com', password: '123') }
 
   it 'should require a name' do
     expect(Contact.create(name: '').errors).to have_key(:name)
@@ -43,6 +44,13 @@ RSpec.describe Contact, type: :model do
   it 'should hard delete' do
     expect(deleted_contact.destroy).to eq('destroyed')
     expect { deleted_contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'should show last contacted' do
+    Note.create(contact: contact, body: 'this is a note', created_by: user, created_at: 5.days.ago)
+    note2 = Note.create(contact: contact, body: 'this is a note', created_by: user)
+
+    expect(contact.last_contacted).to eq(note2.created_at)
   end
 
   describe 'display' do
