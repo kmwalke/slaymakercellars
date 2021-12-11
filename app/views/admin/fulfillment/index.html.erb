@@ -1,0 +1,22 @@
+<h1>Fulfillment</h1>
+<p>All numbers are bottles, not cases</p>
+
+<% @fulfillment.keys.each do |date| -%>
+  <h2><%= humanize_date date %></h2>
+
+  <table class="crud fulfillment">
+    <tr class="title">
+      <th></th>
+    </tr>
+
+    <% @fulfillment[date].keys.each do |p| -%>
+      <tr>
+        <td><%= p %></td>
+        <td class=<%= @fulfillment[date][p] > 0 ? 'active' : 'inactive' %>>
+          <%= @fulfillment[date][p] %>
+        </td>
+      </tr>
+    <% end -%>
+
+  </table>
+<% end -%>
