@@ -37,5 +37,14 @@ Town.all.each do |town|
     rand(0..3).times do
       Note.create(body: 'This is a note.', contact: contact, created_by: user1)
     end
+
+    rand(0..1).times do
+      order = Order.create(contact: contact, delivery_date: rand(-1..14).days.from_now, created_by: user1)
+
+      rand(1..3).times do
+        product = Product.all.sample
+        LineItem.create(order: order, product: product, quantity: rand(1..3) * product.case_size)
+      end
+    end
   end
 end
