@@ -1,6 +1,5 @@
 <h1>Fulfillment</h1>
-
-<%= @fulfillment.plan %>
+<p>All numbers are bottles, not cases.</p>
 
 <% @fulfillment.days.each do |date| -%>
   <div class="day">
@@ -12,11 +11,11 @@
         <th>Bottles</th>
       </tr>
 
-      <% @fulfillment.day_plan(date).keys.each do |product| -%>
+      <% @fulfillment.product_names.each do |product| -%>
         <tr>
           <td><%= product %></td>
-          <td class=<%= @fulfillment.day_plan(date)[product] > 0 ? 'active' : 'inactive' %>>
-            <%= @fulfillment.day_plan(date)[product] %>
+          <td class=<%= @fulfillment.amount(date, product) > 0 ? 'active' : 'inactive' %>>
+            <%= @fulfillment.amount(date, product) %>
           </td>
         </tr>
       <% end -%>

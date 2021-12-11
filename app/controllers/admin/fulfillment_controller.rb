@@ -12,15 +12,20 @@ class FulfillmentPlan
   attr_reader :days
 
   def initialize
-    @plan = {}
-    @days = Date.today...Date.today + 7
+    @plan     = {}
+    @days     = Date.today...Date.today + 7
+    @products = Product.all
     fill_plan
 
     super
   end
 
-  def day_plan(date)
-    @plan[date]
+  def product_names
+    @products.pluck(:name)
+  end
+
+  def amount(date, product)
+    @plan[date][product]
   end
 
   private
@@ -29,7 +34,7 @@ class FulfillmentPlan
     days.each do |day|
       @plan[day] = {}
 
-      Product.all.each do |product|
+      @products.each do |product|
         @plan[day][product.name.to_s] = 0
 
         Order.to_be_fulfilled(day).each do |order|
