@@ -50,23 +50,16 @@ class FulfillmentPlan
   end
 
   def line_items(product, day)
-    if day
-      LineItem.joins(:order).where(
-        product: product,
-        orders: {
-          fulfilled_on: nil,
-          deleted_at: nil,
-          delivery_date: day.beginning_of_day..day.end_of_day
-        }
-      )
-    else
-      LineItem.joins(:order).where(
-        product: product,
-        orders: {
-          fulfilled_on: nil,
-          deleted_at: nil
-        }
-      )
-    end
+    LineItem.joins(:order).where(
+      product: product,
+      orders: orders_query(day)
+    )
+  end
+
+  def orders_query(day)
+    hash                 = { fulfilled_on: nil, deleted_at: nil }
+    hash[:delivery_date] = day.beginning_of_day..day.end_of_day if day
+
+    hash
   end
 end
