@@ -1,0 +1,22 @@
+<div class="day">
+
+  <h2><%= title %></h2>
+
+  <table class="crud fulfillment">
+    <tr class="title">
+      <th>Type</th>
+      <th>Bottles</th>
+    </tr>
+
+    <% @fulfillment.product_names.each do |product| -%>
+      <% amount = date.nil? ? @fulfillment.total_amount(product) : @fulfillment.amount(product, date) -%>
+      <tr>
+        <td><%= product %></td>
+        <td class=<%= amount > 0 ? 'active' : 'inactive' %>>
+          <%= amount %>
+        </td>
+      </tr>
+    <% end -%>
+
+  </table>
+</div>

@@ -1,45 +1,7 @@
 <h1>Fulfillment</h1>
-<p>All numbers are bottles, not cases.</p>
 
-<div class="day">
-  <h2>Total</h2>
+<%= render partial: 'fulfillment_div', locals: {title: 'Total', date: nil} %>
 
-  <table class="crud fulfillment">
-    <tr class="title">
-      <th>Type</th>
-      <th>Bottles</th>
-    </tr>
-
-    <% @fulfillment.product_names.each do |product| -%>
-      <tr>
-        <td><%= product %></td>
-        <td class=<%= @fulfillment.total_amount(product) > 0 ? 'active' : 'inactive' %>>
-          <%= @fulfillment.total_amount(product) %>
-        </td>
-      </tr>
-    <% end -%>
-
-  </table>
-</div>
 <% @fulfillment.days.each do |date| -%>
-  <div class="day">
-    <h2><%= humanize_date date %></h2>
-
-    <table class="crud fulfillment">
-      <tr class="title">
-        <th>Type</th>
-        <th>Bottles</th>
-      </tr>
-
-      <% @fulfillment.product_names.each do |product| -%>
-        <tr>
-          <td><%= product %></td>
-          <td class=<%= @fulfillment.amount(product, date) > 0 ? 'active' : 'inactive' %>>
-            <%= @fulfillment.amount(product, date) %>
-          </td>
-        </tr>
-      <% end -%>
-
-    </table>
-  </div>
+  <%= render partial: 'fulfillment_div', locals: {title: humanize_date(date), date: date} %>
 <% end -%>
