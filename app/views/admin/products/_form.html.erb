@@ -21,6 +21,11 @@
   </div>
 
   <div class="field">
+    <%= form.check_box :in_production %>
+    <%= form.label :in_production, class: :inline %>
+  </div>
+
+  <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name, autofocus: 'autofocus' %>
   </div>

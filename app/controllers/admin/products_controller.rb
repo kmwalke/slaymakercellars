@@ -54,6 +54,7 @@ module Admin
         :category,
         :case_size,
         :description,
+        :in_production,
         :is_public,
         :name,
         :price_point,

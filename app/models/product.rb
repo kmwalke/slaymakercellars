@@ -8,6 +8,8 @@ class Product < ApplicationRecord
   has_many :awards
   has_many :xero_sync_errors, as: :syncable
 
+  scope :in_production, -> { where(in_production: true) }
+
   CATEGORIES = [
     'Flagship',
     'Mazer Series',

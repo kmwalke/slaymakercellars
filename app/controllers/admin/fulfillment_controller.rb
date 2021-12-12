@@ -14,7 +14,7 @@ class FulfillmentPlan
   def initialize
     @plan     = {}
     @days     = Date.today...Date.today + 7
-    @products = Product.all
+    @products = Product.in_production.order(:name)
     fill_plan
 
     super
