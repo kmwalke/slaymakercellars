@@ -2,8 +2,8 @@ class FulfillmentPlan
   attr_reader :days
 
   def initialize
-    @plan = { total: {} }
-    @days = Date.current...Date.current + 7
+    @plan     = { total: {} }
+    @days     = Date.current...Date.current + 7
     @products = Product.in_production.order(:name)
     fill_plan
 
