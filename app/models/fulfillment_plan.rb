@@ -46,18 +46,20 @@ class FulfillmentPlan
   end
 
   def fill_totals
-    @products.each do |product|
-      @plan[:total][product.name.to_s] = quantity(product)
-    end
+    fill_products(:total)
   end
 
   def fill_days
     days.each do |day|
       @plan[day] = {}
 
-      @products.each do |product|
-        @plan[day][product.name.to_s] = quantity(product, day)
-      end
+      fill_products(day, day)
+    end
+  end
+
+  def fill_products(key, day = nil)
+    @products.each do |product|
+      @plan[key][product.name.to_s] = quantity(product, day)
     end
   end
 
