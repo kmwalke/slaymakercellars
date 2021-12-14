@@ -5,6 +5,7 @@ class FulfillmentPlan
     @plan     = { total: {} }
     @days     = Date.current...Date.current + 7
     @products = Product.in_production.order(:name)
+    @orders   = active_orders
     fill_plan
 
     super
@@ -22,7 +23,22 @@ class FulfillmentPlan
     @plan[date][product]
   end
 
+  def to_a
+    @plan
+  end
+
   private
+
+  def active_orders
+    Order.includes(:line_items)
+         .where(
+           fulfilled_on: nil,
+           deleted_at: nil,
+           line_items: {
+             product: @products
+           }
+         )
+  end
 
   def fill_plan
     fill_totals
@@ -46,20 +62,18 @@ class FulfillmentPlan
   end
 
   def quantity(product, day = nil)
-    line_items(product, day).map(&:quantity).sum
+    orders(day).map(&:line_items).flatten.select { |li| li.product_id == product.id }.map(&:quantity).sum
   end
 
-  def line_items(product, day)
-    LineItem.joins(:order).where(
-      product: product,
-      orders: orders_query(day)
-    )
-  end
-
-  def orders_query(day)
-    hash                 = { fulfilled_on: nil, deleted_at: nil }
-    hash[:delivery_date] = day.beginning_of_day..day.end_of_day if day
-
-    hash
+  def orders(day = nil)
+    if day
+      if day == Date.today
+        @orders.select { |o| o.delivery_date <= day }
+      else
+        @orders.select { |o| o.delivery_date == day }
+      end
+    else
+      @orders
+    end
   end
 end
