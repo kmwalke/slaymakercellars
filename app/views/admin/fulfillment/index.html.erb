@@ -1,0 +1,7 @@
+<h1>Fulfillment</h1>
+
+<%= render partial: 'fulfillment_div', locals: {title: 'Total', date: nil} %>
+
+<% @fulfillment.days.each do |date| -%>
+  <%= render partial: 'fulfillment_div', locals: {title: humanize_date(date), date: date} %>
+<% end -%>
