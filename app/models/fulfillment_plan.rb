@@ -7,8 +7,6 @@ class FulfillmentPlan
     @products = Product.in_production.order(:name)
     @orders   = active_orders
     fill_plan
-
-    super
   end
 
   def product_names
