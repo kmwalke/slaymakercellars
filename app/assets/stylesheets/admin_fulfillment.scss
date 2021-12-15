@@ -1,0 +1,14 @@
+@import 'variables';
+
+body.fulfillment {
+  div.day {
+    display: inline-block;
+
+    table.fulfillment {
+      td.active {
+        background-color: $white ;
+        color: $red;
+      }
+    }
+  }
+}

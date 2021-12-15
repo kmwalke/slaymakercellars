@@ -24,12 +24,14 @@
   </p>
 
   <% unless @order.xero_sync_errors.empty? -%>
-    <h3>Xero Sync Errors:</h3>
-    <ul>
-      <% @order.xero_sync_errors.each do |error| -%>
-        <li><%= error.message %></li>
-      <% end -%>
-    </ul>
+    <div class="xero_errors">
+      <h3>Xero Sync Errors:</h3>
+      <ul>
+        <% @order.xero_sync_errors.each do |error| -%>
+          <li><%= error.message %></li>
+        <% end -%>
+      </ul>
+    </div>
   <% end -%>
 
   <div class="wide-wrapper">
