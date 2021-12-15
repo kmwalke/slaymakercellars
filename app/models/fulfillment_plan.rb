@@ -64,7 +64,11 @@ class FulfillmentPlan
   end
 
   def quantity(product, day = nil)
-    orders(day).map(&:line_items).flatten.select { |li| li.product_id == product.id }.map(&:quantity).sum
+    line_items(product, day).map(&:quantity).sum
+  end
+
+  def line_items(product, day = nil)
+    orders(day).map(&:line_items).flatten.select { |li| li.product_id == product.id }
   end
 
   def orders(day = nil)
