@@ -5,6 +5,7 @@
   <table class="crud fulfillment">
     <tr class="title">
       <th>Type</th>
+      <th>Cases</th>
       <th>Bottles</th>
     </tr>
 
@@ -12,8 +13,11 @@
       <% amount = date.nil? ? @fulfillment.total_amount(product) : @fulfillment.amount(product, date) -%>
       <tr>
         <td><%= product %></td>
-        <td class=<%= amount > 0 ? 'active' : 'inactive' %>>
-          <%= amount %>
+        <td class=<%= amount[:cases] > 0 ? 'active' : 'inactive' %>>
+          <%= amount[:cases] %>
+        </td>
+        <td class=<%= amount[:bottles] > 0 ? 'active' : 'inactive' %>>
+          <%= amount[:bottles] %>
         </td>
       </tr>
     <% end -%>
