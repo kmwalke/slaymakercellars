@@ -9,7 +9,7 @@ RSpec.feature 'Admin::Users', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:user) { User.create(name: 'name1', email: 'name1@place.com', password: '123') }
+    let!(:user) { FactoryBot.create(:user) }
 
     before :each do
       login
@@ -22,7 +22,7 @@ RSpec.feature 'Admin::Users', type: :feature do
     end
 
     scenario 'create a user' do
-      user2 = User.new(name: 'name2', email: 'name2@place.com', password: '123')
+      user2 = FactoryBot.build(:user)
       visit admin_users_path
 
       click_link 'New User'

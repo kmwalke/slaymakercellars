@@ -9,9 +9,7 @@ RSpec.feature 'Admin::Products', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:product) do
-      Product.create(name: 'name1', price_point: 10, description: 'this is the description', xero_code: 'name1')
-    end
+    let!(:product) { FactoryBot.create(:product) }
 
     before :each do
       login
@@ -23,7 +21,7 @@ RSpec.feature 'Admin::Products', type: :feature do
     end
 
     scenario 'create a product' do
-      product2 = Product.new(name: 'name2', price_point: 10, description: 'this is the description', xero_code: 'name2')
+      product2 = FactoryBot.build(:product)
       visit admin_products_path
 
       click_link 'New Product'

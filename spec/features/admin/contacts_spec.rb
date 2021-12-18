@@ -9,9 +9,8 @@ RSpec.feature 'Admin::Contacts', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:town) { Town.create(name: 'town', state: State.create(name: 'name', abbreviation: 'AS')) }
-    let!(:contact) { Contact.create(name: 'john', town: town) }
-    let!(:deleted_contact) { Contact.create(name: 'deleted contact', town: town, deleted_at: DateTime.now) }
+    let!(:contact) { FactoryBot.create(:contact) }
+    let!(:deleted_contact) { FactoryBot.create(:contact, deleted_at: DateTime.now) }
 
     before :each do
       login
@@ -31,7 +30,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
     end
 
     scenario 'create a contact' do
-      contact2 = Contact.new(name: 'name2', town: town)
+      contact2 = FactoryBot.build(:contact, town: FactoryBot.create(:town))
       visit admin_contacts_path
 
       click_link 'New Contact'
