@@ -29,6 +29,10 @@ co = State.create(name: 'Colorado', abbreviation: 'CO')
   Town.create(name: "Town #{i}", state: co)
 end
 
+def order_quantity(product)
+  (rand(1..3) * product.case_size) + rand(0..6)
+end
+
 Town.all.each do |town|
   rand(1..6).times do |i|
     contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
@@ -43,7 +47,7 @@ Town.all.each do |town|
 
       rand(1..3).times do
         product = Product.all.sample
-        LineItem.create(order: order, product: product, quantity: (rand(1..3) * product.case_size) + rand(0..6))
+        LineItem.create(order: order, product: product, quantity: order_quantity(product))
       end
     end
   end
