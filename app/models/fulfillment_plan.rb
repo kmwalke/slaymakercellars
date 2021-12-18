@@ -63,9 +63,13 @@ class FulfillmentPlan
 
   def quantity(product, day = nil)
     convert_to_cases(
-      line_items(product, day).map(&:quantity).sum,
+      sum_line_items(line_items(product, day)),
       product.case_size
     )
+  end
+
+  def sum_line_items(line_items)
+    line_items.map(&:quantity).sum
   end
 
   def convert_to_cases(quantity, case_size)
