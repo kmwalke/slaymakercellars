@@ -43,7 +43,7 @@ Town.all.each do |town|
 
       rand(1..3).times do
         product = Product.all.sample
-        LineItem.create(order: order, product: product, quantity: (rand(1..3) * product.case_size) + rand(0..6) )
+        LineItem.create(order: order, product: product, quantity: (rand(1..3) * product.case_size) + rand(0..6))
       end
     end
   end
