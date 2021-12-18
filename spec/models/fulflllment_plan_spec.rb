@@ -26,10 +26,8 @@ RSpec.describe FulfillmentPlan, type: :model do
     it 'returns total amount' do
       expect(fulfillment_plan.total_amount(product.name)).to(
         eq(
-          {
-            cases: 2,
-            bottles: 1
-          }
+          cases: 2,
+          bottles: 1
         )
       )
     end
@@ -37,10 +35,8 @@ RSpec.describe FulfillmentPlan, type: :model do
     it 'returns amount for a day' do
       expect(fulfillment_plan.amount(product.name, Date.current)).to(
         eq(
-          {
-            cases: 1,
-            bottles: 0
-          }
+          cases: 1,
+          bottles: 0
         )
       )
     end
