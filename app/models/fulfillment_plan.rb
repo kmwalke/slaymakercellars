@@ -84,14 +84,12 @@ class FulfillmentPlan
   end
 
   def orders(day = nil)
-    if day
-      if day == Date.today
-        @orders.select { |o| o.delivery_date <= day }
-      else
-        @orders.select { |o| o.delivery_date == day }
-      end
+    return @orders if day.nil?
+
+    if day == Date.today
+      @orders.select { |o| o.delivery_date <= day }
     else
-      @orders
+      @orders.select { |o| o.delivery_date == day }
     end
   end
 end
