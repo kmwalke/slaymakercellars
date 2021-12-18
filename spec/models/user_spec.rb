@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'should require email uniqueness' do
-    User.create(email: 'email', name: 'name', password: '123')
-    expect(User.create(email: 'email').errors).to have_key(:email)
+    user = FactoryBot.create(:user)
+    expect { FactoryBot.create(:user, email: user.email) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 end
