@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Award, type: :model do
   it 'should require a name' do
-    expect(Award.create(name: '').errors).to have_key(:name)
+    expect { FactoryBot.create(:award, name: '') }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should require a product' do
-    expect(Award.create(product_id: '').errors).to have_key(:product_id)
+    expect { FactoryBot.create(:award, product: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 end
