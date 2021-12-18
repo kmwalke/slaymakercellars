@@ -11,7 +11,7 @@
 
     <% @fulfillment.product_names.each do |product| -%>
       <% amount = date.nil? ? @fulfillment.total_amount(product) : @fulfillment.amount(product, date) -%>
-      <tr>
+      <tr class="<%= cycle "even", "odd" %>">
         <td><%= product %></td>
         <td class=<%= amount[:cases] > 0 ? 'active' : 'inactive' %>>
           <%= amount[:cases] %>
