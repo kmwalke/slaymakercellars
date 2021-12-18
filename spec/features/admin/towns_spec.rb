@@ -9,8 +9,7 @@ RSpec.feature 'Admin::Towns', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:state) { State.create(name: 'Colorado', abbreviation: 'CO') }
-    let!(:town) { Town.create(name: 'Idaho Springs', state: state) }
+    let!(:town) { FactoryBot.create(:town) }
 
     before :each do
       login
@@ -22,7 +21,7 @@ RSpec.feature 'Admin::Towns', type: :feature do
     end
 
     scenario 'create a town' do
-      town2 = Town.new(name: 'Denver', state: state)
+      town2 = FactoryBot.build(:town, state: FactoryBot.create(:state))
       visit admin_towns_path
 
       click_link 'New Town'
