@@ -1,7 +1,7 @@
 <tr class="<%= cycle "even", "odd" %>">
   <td><strong><%= order.id.to_s %></strong></td>
   <td>
-    <%= order.customer_po ? order.customer_po.truncate(15) : '&nbsp;' %>
+    <%= order.customer_po ? order.customer_po.truncate(15) : '' %>
   </td>
   <% if order.fulfilled? || order.synced? -%>
     <td><%= link_to order.contact.name, admin_order_path(order) %></td>
