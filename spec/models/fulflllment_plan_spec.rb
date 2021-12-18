@@ -15,7 +15,7 @@ RSpec.describe FulfillmentPlan, type: :model do
   let!(:order) { Order.create(contact: contact, delivery_date: Date.current, created_by: user) }
   let!(:case_line_item) { LineItem.create(quantity: product.case_size, order: order, product: product) }
   let!(:order2) { Order.create(contact: contact, delivery_date: Date.current + 1, created_by: user) }
-  let!(:case_line_item2) { LineItem.create(quantity: product.case_size, order: order2, product: product) }
+  let!(:case_line_item2) { LineItem.create(quantity: product.case_size + 1, order: order2, product: product) }
   let!(:fulfillment_plan) { FulfillmentPlan.new }
 
   describe 'methods' do
@@ -24,11 +24,25 @@ RSpec.describe FulfillmentPlan, type: :model do
     end
 
     it 'returns total amount' do
-      expect(fulfillment_plan.total_amount(product.name)).to eq(product.case_size * 2)
+      expect(fulfillment_plan.total_amount(product.name)).to(
+        eq(
+          {
+            cases: 2,
+            bottles: 1
+          }
+        )
+      )
     end
 
     it 'returns amount for a day' do
-      expect(fulfillment_plan.amount(product.name, Date.current)).to eq(product.case_size)
+      expect(fulfillment_plan.amount(product.name, Date.current)).to(
+        eq(
+          {
+            cases: 1,
+            bottles: 0
+          }
+        )
+      )
     end
   end
 end
