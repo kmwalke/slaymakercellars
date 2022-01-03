@@ -26,7 +26,7 @@ RSpec.describe Contact, type: :model do
   end
 
   it 'should allow a full url' do
-    expect { FactoryBot.create(:contact, url: 'http://www.google.com') }.not_to raise_error(ActiveRecord::RecordInvalid)
+    expect { FactoryBot.create(:contact, url: 'http://www.google.com') }.not_to raise_error
   end
 
   it 'should soft delete' do
