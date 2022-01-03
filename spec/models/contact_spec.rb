@@ -1,33 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
-  let!(:town) { Town.create(name: 'town', state: State.create(name: 'name', abbreviation: 'AS')) }
-  let!(:contact) { Contact.create(name: 'john', town: town) }
-  let(:deleted_contact) { Contact.create(name: 'deleted', town: town, deleted_at: DateTime.now) }
-  let!(:user) { User.create(name: 'name1', email: 'name1@place.com', password: '123') }
+  let!(:contact) { FactoryBot.create(:contact) }
+  let(:deleted_contact) { FactoryBot.create(:contact, deleted_at: DateTime.now) }
+  let!(:user) { FactoryBot.create(:user) }
 
   it 'should require a name' do
-    expect(Contact.create(name: '').errors).to have_key(:name)
+    expect { FactoryBot.create(:contact, name: '') }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should require a unique name' do
-    expect(Contact.create(name: 'john', town: town).errors).to have_key(:name)
+    expect { FactoryBot.create(:contact, name: contact.name) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should require a town' do
-    expect(Contact.create(town_id: '').errors).to have_key(:town_id)
+    expect { FactoryBot.create(:contact, town: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should require a valid url' do
-    expect(Contact.create(url: 'not a url').errors).to have_key(:url)
+    expect { FactoryBot.create(:contact, url: 'not a url') }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should require a full url' do
-    expect(Contact.create(url: 'www.google.com').errors).to have_key(:url)
+    expect { FactoryBot.create(:contact, url: 'www.google.com') }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'should allow a full url' do
-    expect(Contact.create(url: 'http://www.google.com').errors).not_to have_key(:url)
+    expect { FactoryBot.create(:contact, url: 'http://www.google.com') }.not_to raise_error
   end
 
   it 'should soft delete' do
@@ -47,8 +46,8 @@ RSpec.describe Contact, type: :model do
   end
 
   it 'should show last contacted' do
-    Note.create(contact: contact, body: 'this is a note', created_by: user, created_at: 5.days.ago)
-    note2 = Note.create(contact: contact, body: 'this is a note', created_by: user)
+    FactoryBot.create(:note, contact: contact, created_at: 5.days.ago)
+    note2 = FactoryBot.create(:note, contact: contact)
 
     expect(contact.last_contacted).to eq(note2.created_at)
   end

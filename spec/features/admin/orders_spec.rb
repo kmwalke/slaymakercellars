@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 describe 'Admin::Orders', type: :feature do
-  let!(:town) { Town.create(name: 'town', state: State.create(name: 'name', abbreviation: 'AS')) }
-  let!(:contact) { Contact.create(name: 'john', town: town) }
-  let!(:user) { User.create(name: 'name1', email: 'name1@place.com', password: '123') }
-  let!(:order) { Order.create(contact: contact, delivery_date: 1.week.from_now, created_by: user) }
+  let!(:order) { FactoryBot.create(:order) }
 
   it 'opens Admin::Orders' do
     login
@@ -21,7 +18,7 @@ describe 'Admin::Orders', type: :feature do
     first(:link, 'New Order').click
     expect(current_path).to eq(new_admin_order_path)
 
-    fill_in 'Contact', with: contact.name
+    fill_in 'Contact', with: order.contact.name
     fill_in 'Delivery date', with: order.delivery_date
 
     click_button 'Save'
@@ -54,7 +51,7 @@ describe 'Admin::Orders', type: :feature do
     visit edit_admin_order_path(order.id)
 
     expect(page).to have_content('Created by')
-    expect(page).to have_content(user.name)
+    expect(page).to have_content(order.created_by.name)
   end
 
   it 'records users updating orders' do

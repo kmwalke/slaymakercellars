@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_002822) do
     t.string "contact_point"
     t.text "address"
     t.text "description"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: 6
     t.integer "town_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_002822) do
     t.text "body"
     t.integer "contact_id"
     t.integer "created_by_id"
-    t.datetime "resolved_at"
+    t.datetime "resolved_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_002822) do
     t.boolean "delivered", default: false, null: false
     t.date "delivery_date"
     t.date "fulfilled_on"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: 6
     t.string "customer_po"
     t.text "comments"
     t.integer "created_by_id", null: false

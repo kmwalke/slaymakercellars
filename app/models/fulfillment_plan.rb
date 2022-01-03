@@ -62,7 +62,21 @@ class FulfillmentPlan
   end
 
   def quantity(product, day = nil)
-    line_items(product, day).map(&:quantity).sum
+    convert_to_cases(
+      sum_line_items(line_items(product, day)),
+      product.case_size
+    )
+  end
+
+  def sum_line_items(line_items)
+    line_items.map(&:quantity).sum
+  end
+
+  def convert_to_cases(quantity, case_size)
+    {
+      cases: (quantity / case_size).floor,
+      bottles: quantity % case_size
+    }
   end
 
   def line_items(product, day = nil)
@@ -70,14 +84,12 @@ class FulfillmentPlan
   end
 
   def orders(day = nil)
-    if day
-      if day == Date.today
-        @orders.select { |o| o.delivery_date <= day }
-      else
-        @orders.select { |o| o.delivery_date == day }
-      end
+    return @orders if day.nil?
+
+    if day == Date.today
+      @orders.select { |o| o.delivery_date <= day }
     else
-      @orders
+      @orders.select { |o| o.delivery_date == day }
     end
   end
 end
