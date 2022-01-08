@@ -1,5 +1,9 @@
 <h1><%= @title %></h1>
 
+<p>
+  <%= link_to 'New Contact', new_admin_contact_path %>
+</p>
+
 <fieldset class="view_select">
   <legend>
     Select Contacts to View
@@ -14,15 +18,20 @@
   </p>
 </fieldset>
 
-<p>
-  <%= link_to 'New Contact', new_admin_contact_path %>
-</p>
+<%= form_tag admin_contacts_path, method: 'get' do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", name: nil %>
+  </p>
+<% end %>
 
 <div class="wide-wrapper">
   <table class="crud">
     <tr class="title">
-      <th>Name</th>
-      <th>Town</th>
+      <th><%= sortable('Name') %></th>
+      <th><%= sortable('Town') %></th>
       <th>Phone</th>
       <th>Email</th>
       <th>Last Contact</th>
