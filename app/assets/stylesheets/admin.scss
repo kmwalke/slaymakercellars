@@ -61,8 +61,8 @@ body.admin {
       text-align: center;
       color: $white;
 
-      a {
-        color: $brown;
+      a, a:visited, a:active {
+        color: $white;
       }
     }
 
@@ -88,6 +88,12 @@ body.admin {
 
       a {
         color: $blue;
+      }
+    }
+
+    tr.title:hover {
+      a {
+        color: $white;
       }
     }
   }

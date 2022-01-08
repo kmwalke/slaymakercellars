@@ -5,7 +5,7 @@ module Admin
     after_action :sync_to_xero, only: [:update, :create]
 
     def index
-      @show, @contacts, @title = Contact.display(params[:show], params[:search])
+      @show, @contacts, @title = Contact.display(params[:show], params[:search], params[:sort])
     end
 
     def new
