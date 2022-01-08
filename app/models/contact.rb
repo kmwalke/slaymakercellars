@@ -15,10 +15,10 @@ class Contact < ApplicationRecord
 
   scope :active, -> { where(deleted_at: nil) }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :urgent, -> { where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
+  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
 
-  def self.display(show = 'active', search_string = nil, order = :name)
-    [show, display_contacts(show, search_string).order(order), display_title(show)]
+  def self.display(show, search_string, order, direction)
+    [show, display_contacts(show, search_string, order, direction), display_title(show)]
   end
 
   def unresolved_notes?
@@ -29,7 +29,19 @@ class Contact < ApplicationRecord
     notes.last.created_at
   end
 
-  def self.display_contacts(show, search_string)
+  def town_name
+    town&.name
+  end
+
+  def town_name=(name)
+    self.town = Town.find_by(name: name)
+  end
+
+  def self.display_contacts(show, search_string, order, direction)
+    order_contacts(search_contacts(show, search_string), order, direction)
+  end
+
+  def self.search_contacts(show, search_string)
     case show
     when 'inactive'
       Contact.inactive.search(search_string)
@@ -40,19 +52,20 @@ class Contact < ApplicationRecord
     end
   end
 
+  def self.order_contacts(contacts, order, direction)
+    case order
+    when 'town'
+      contacts.joins(:town).order("towns.name #{direction}")
+    else
+      contacts.order("#{order} #{direction}")
+    end
+  end
+
   def self.display_title(show)
     show == 'inactive' ? 'Deleted Contacts' : 'Active Contacts'
   end
 
   def self.search(search)
-    search ? where('lower(name) LIKE lower(?) ODER BY town_id', "%#{search}%") : all.order(:town_id)
-  end
-
-  def town_name
-    town&.name
-  end
-
-  def town_name=(name)
-    self.town = Town.find_by(name: name)
+    search ? where('lower(contacts.name) LIKE lower(?)', "%#{search}%") : all
   end
 end
