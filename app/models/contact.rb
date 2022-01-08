@@ -57,7 +57,7 @@ class Contact < ApplicationRecord
     when 'town'
       contacts.joins(:town).order("towns.name #{direction}")
     else
-      contacts.order(order || :name)
+      contacts.order(order || 'contacts.name')
     end
   end
 
@@ -66,6 +66,6 @@ class Contact < ApplicationRecord
   end
 
   def self.search(search)
-    search ? where('lower(name) LIKE lower(?)', "%#{search}%") : all
+    search ? where('lower(contacts.name) LIKE lower(?)', "%#{search}%") : all
   end
 end
