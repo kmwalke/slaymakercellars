@@ -64,6 +64,14 @@ body.admin {
       a, a:visited, a:active {
         color: $white;
       }
+
+      a.up::after {
+        content: "↑";
+      }
+
+      a.down::after {
+        content: "↓";
+      }
     }
 
     td {
