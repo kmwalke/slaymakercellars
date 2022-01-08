@@ -78,14 +78,62 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       expect(page).to have_content(contact.name)
     end
 
-    it 'views all orders by a contact' do
-      login
+    scenario 'views all orders by a contact' do
       visit admin_contacts_path
 
       click_link contact.name
       click_link 'View all orders'
 
       expect(current_path).to eq(admin_orders_path)
+    end
+
+    describe 'sorting & searching' do
+      let!(:a_contact) { FactoryBot.create(:contact, name: 'aaaa', town: FactoryBot.create(:town, name: 'cccc')) }
+      let!(:b_contact) { FactoryBot.create(:contact, name: 'bbbb', town: FactoryBot.create(:town, name: 'dddd')) }
+
+      scenario 'sorts by name' do
+        visit admin_contacts_path
+
+        click_link 'Name'
+
+        expect(page.body).to match(/aaaa.*bbbb/m)
+      end
+
+      scenario 'reverse sorts by name' do
+        visit admin_contacts_path
+
+        click_link 'Name'
+        click_link 'Name'
+
+        expect(page.body).to match(/bbbb.*aaaa/m)
+      end
+
+      scenario 'sorts by town' do
+        visit admin_contacts_path
+
+        click_link 'Town'
+
+        expect(page.body).to match(/aaaa.*bbbb/m)
+      end
+
+      scenario 'reverse sorts by town' do
+        visit admin_contacts_path
+
+        click_link 'Town'
+        click_link 'Town'
+
+        expect(page.body).to match(/bbbb.*aaaa/m)
+      end
+
+      scenario 'searches by name' do
+        visit admin_contacts_path
+
+        fill_in 'search', with: 'aa'
+        click_button 'Search'
+
+        expect(page).to have_content(a_contact.name)
+        expect(page).not_to have_content(b_contact.name)
+      end
     end
 
     describe 'sync' do
