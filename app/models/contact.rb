@@ -37,17 +37,19 @@ class Contact < ApplicationRecord
     self.town = Town.find_by(name: name)
   end
 
-  private
   def self.display_contacts(show, search_string, order)
+    order_contacts(search_contacts(show, search_string), order)
+  end
+
+  def self.search_contacts(show, search_string)
     case show
     when 'inactive'
-      contacts = Contact.inactive.search(search_string)
+      Contact.inactive.search(search_string)
     when 'urgent'
-      contacts = Contact.urgent.search(search_string)
+      Contact.urgent.search(search_string)
     else
-      contacts = Contact.active.search(search_string)
+      Contact.active.search(search_string)
     end
-    order_contacts(contacts, order)
   end
 
   def self.order_contacts(contacts, order)
@@ -55,7 +57,7 @@ class Contact < ApplicationRecord
     when 'town'
       contacts.joins(:town).order('towns.name')
     else
-      contacts.order(order)
+      contacts.order(order || :name)
     end
   end
 
@@ -66,5 +68,4 @@ class Contact < ApplicationRecord
   def self.search(search)
     search ? where('lower(name) LIKE lower(?)', "%#{search}%") : all
   end
-
 end
