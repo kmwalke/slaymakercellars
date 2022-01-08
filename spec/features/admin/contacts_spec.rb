@@ -29,6 +29,14 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       expect(page).to have_content(deleted_contact.name)
     end
 
+    scenario 'list urgent contacts' do
+      urgent_contact = FactoryBot.create(:note).contact
+      visit admin_contacts_path
+      click_link 'Urgent'
+      expect(page).not_to have_content(contact.name)
+      expect(page).to have_content(urgent_contact.name)
+    end
+
     scenario 'create a contact' do
       contact2 = FactoryBot.build(:contact, town: FactoryBot.create(:town))
       visit admin_contacts_path
