@@ -15,9 +15,9 @@ class Contact < ApplicationRecord
 
   scope :active, -> { where(deleted_at: nil) }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :urgent, -> { where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
+  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
 
-  def self.display(show = 'active', search_string, order, direction)
+  def self.display(show, search_string, order, direction)
     [show, display_contacts(show, search_string, order, direction), display_title(show)]
   end
 
@@ -57,7 +57,6 @@ class Contact < ApplicationRecord
     when 'town'
       contacts.joins(:town).order("towns.name #{direction}")
     else
-      order = 'contacts.name' if order.blank?
       contacts.order("#{order} #{direction}")
     end
   end

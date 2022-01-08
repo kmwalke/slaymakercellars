@@ -81,7 +81,8 @@ module Admin
     end
 
     def sort_by
-      params[:sort] || 'contacts.name'
+      return 'contacts.name' if params[:sort].blank?
+      params[:sort]
     end
 
     def sort_direction
