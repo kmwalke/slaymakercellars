@@ -57,7 +57,7 @@ class Contact < ApplicationRecord
     when 'town'
       contacts.joins(:town).order("towns.name #{direction}")
     else
-      order ||= 'contacts.name'
+      order = 'contacts.name' if order.blank?
       contacts.order("#{order} #{direction}")
     end
   end
