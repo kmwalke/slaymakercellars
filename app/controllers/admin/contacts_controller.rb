@@ -5,7 +5,7 @@ module Admin
     after_action :sync_to_xero, only: [:update, :create]
 
     def index
-      @show, @contacts, @title = Contact.display(params[:show], params[:search], params[:sort])
+      @show, @contacts, @title = Contact.display(params[:show], params[:search], params[:sort], sort_direction)
     end
 
     def new
@@ -78,6 +78,10 @@ module Admin
 
     def sync_to_xero
       super(@contact, Xero::Contact)
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
     end
   end
 end

@@ -17,8 +17,8 @@ class Contact < ApplicationRecord
   scope :inactive, -> { where.not(deleted_at: nil) }
   scope :urgent, -> { where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
 
-  def self.display(show = 'active', search_string = nil, order = :name)
-    [show, display_contacts(show, search_string, order), display_title(show)]
+  def self.display(show = 'active', search_string, order, direction)
+    [show, display_contacts(show, search_string, order, direction), display_title(show)]
   end
 
   def unresolved_notes?
@@ -37,8 +37,8 @@ class Contact < ApplicationRecord
     self.town = Town.find_by(name: name)
   end
 
-  def self.display_contacts(show, search_string, order)
-    order_contacts(search_contacts(show, search_string), order)
+  def self.display_contacts(show, search_string, order, direction)
+    order_contacts(search_contacts(show, search_string), order, direction)
   end
 
   def self.search_contacts(show, search_string)
@@ -52,10 +52,10 @@ class Contact < ApplicationRecord
     end
   end
 
-  def self.order_contacts(contacts, order)
+  def self.order_contacts(contacts, order, direction)
     case order
     when 'town'
-      contacts.joins(:town).order('towns.name')
+      contacts.joins(:town).order("towns.name #{direction}")
     else
       contacts.order(order || :name)
     end
