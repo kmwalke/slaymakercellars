@@ -37,6 +37,33 @@ class Contact < ApplicationRecord
     self.town = Town.find_by(name: name)
   end
 
+  def last_order_date
+    order = orders.order('fulfilled_on desc').first
+
+    order.fulfilled_on || Date.today if order
+  end
+
+  def repeat_last_order
+    if orders.empty?
+      new_order               = Order.new
+      new_order.contact_id    = id
+      new_order.delivery_date = Date.today
+      new_order.save
+    else
+      order                   = orders.order('fulfilled_on desc').first
+      new_order               = order.dup
+      new_order.xero_id       = nil
+      new_order.fulfilled_on  = nil
+      new_order.delivery_date = Date.today
+      new_order.save
+      order.line_items.each do |item|
+        new_order.line_items.create(item.dup.attributes)
+      end
+
+    end
+    new_order
+  end
+
   def self.display_contacts(show, search_string, order, direction)
     order_contacts(search_contacts(show, search_string), order, direction)
   end
