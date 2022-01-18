@@ -11,10 +11,8 @@
 
   <p class="main_options">
     <%= @show == "active" ? "Active" : link_to('Active', admin_contacts_path({ show: "active" })) %> |
-    <%= @show == "inactive" ? "Deleted" : link_to(
-      'Deleted', admin_contacts_path({ show: "inactive" })
-    ) %> |
-    <%= @show == "urgent" ? "Urgent" : link_to('Urgent', admin_contacts_path({show: "urgent"})) %>
+    <%= @show == "inactive" ? "Deleted" : link_to('Deleted', admin_contacts_path({ show: "inactive" })) %> |
+    <%= @show == "urgent" ? "Urgent" : link_to('Urgent', admin_contacts_path({ show: "urgent" })) %>
   </p>
 </fieldset>
 
@@ -37,7 +35,7 @@
       <th>Last Contact</th>
       <th>Pickup Check?</th>
       <th>Synced?</th>
-      <!--      <th>Last Order</th>-->
+      <th>Last Order</th>
       <th></th>
     </tr>
 
@@ -68,11 +66,11 @@
             &nbsp;
           <% else -%>
             <% if contact.unresolved_notes? -%>
-              <%= link_to "#{time_ago_in_words contact.last_contacted} ago",
+              <%= link_to "#{days_ago_in_words contact.last_contacted}",
                           edit_admin_contact_path(contact)
               %>
             <% else -%>
-              <%= time_ago_in_words contact.last_contacted %> ago
+              <%= days_ago_in_words contact.last_contacted %>
             <% end -%>
           <% end -%>
         </td>
@@ -82,13 +80,13 @@
         <td>
           <span><%= contact.synced? ? '✓' : 'X' %></span>
         </td>
-        <!--        <td nowrap>-->
-        <%# if contact.last_order -%>
-        <%#= link_to "#{time_ago_in_words contact.last_order} ago", admin_orders_path({show: contact.id}) %>
-        <%# else -%>
-        <!--            &nbsp;-->
-        <%# end -%>
-        <!--        </td>-->
+        <td nowrap>
+          <% if contact.last_order_date -%>
+            <%= link_to "#{days_ago_in_words contact.last_order_date}", admin_orders_path({ show: contact.id }) %>
+          <% else -%>
+            &nbsp;
+          <% end -%>
+        </td>
         <td>
           <%= link_to 'X',
                       admin_contact_path(contact), confirm: 'Are you sure?',
