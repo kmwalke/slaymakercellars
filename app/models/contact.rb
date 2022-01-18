@@ -37,7 +37,7 @@ class Contact < ApplicationRecord
     self.town = Town.find_by(name: name)
   end
 
-  def last_order
+  def last_order_date
     order = orders.order('fulfilled_on desc').first
 
     order.fulfilled_on || Date.today if order

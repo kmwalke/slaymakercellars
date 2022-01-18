@@ -56,18 +56,18 @@ RSpec.describe Contact, type: :model do
     FactoryBot.create(:order, contact: contact, fulfilled_on: 14.days.ago)
     last_order_date = FactoryBot.create(:order, contact: contact, fulfilled_on: 7.days.ago).fulfilled_on
 
-    expect(contact.last_order).to eq(last_order_date)
+    expect(contact.last_order_date).to eq(last_order_date)
   end
 
   it 'should get todays date on unfulfilled orders' do
     FactoryBot.create(:order, contact: contact)
     FactoryBot.create(:order, contact: contact, fulfilled_on: 7.days.ago).fulfilled_on
 
-    expect(contact.last_order).to eq(Date.today)
+    expect(contact.last_order_date).to eq(Date.today)
   end
 
   it 'should get nil on contacts with no orders' do
-    expect(contact.last_order).to eq(nil)
+    expect(contact.last_order_date).to eq(nil)
   end
 
   it 'should repeat last order', skip: 'not implemented' do
