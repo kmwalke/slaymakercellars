@@ -70,7 +70,13 @@ RSpec.describe Contact, type: :model do
     expect(contact.last_order_date).to eq(nil)
   end
 
-  it 'should repeat last order', skip: 'not implemented' do
-    expect(true).to eq(false)
+  it 'should repeat last order' do
+    FactoryBot.create(:order, contact: contact)
+
+    expect(contact.repeat_last_order).to be_kind_of(Order)
+  end
+
+  it 'should not repeat last order for new contacts' do
+    expect(contact.repeat_last_order).to be_nil
   end
 end

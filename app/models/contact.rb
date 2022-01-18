@@ -44,23 +44,18 @@ class Contact < ApplicationRecord
   end
 
   def repeat_last_order
-    if orders.empty?
-      new_order               = Order.new
-      new_order.contact_id    = id
-      new_order.delivery_date = Date.today
-      new_order.save
-    else
-      order                   = orders.order('fulfilled_on desc').first
-      new_order               = order.dup
-      new_order.xero_id       = nil
-      new_order.fulfilled_on  = nil
-      new_order.delivery_date = Date.today
-      new_order.save
-      order.line_items.each do |item|
-        new_order.line_items.create(item.dup.attributes)
-      end
+    return if orders.empty?
 
+    order                   = orders.order('fulfilled_on desc').first
+    new_order               = order.dup
+    new_order.xero_id       = nil
+    new_order.fulfilled_on  = nil
+    new_order.delivery_date = Date.today
+    new_order.save
+    order.line_items.each do |item|
+      new_order.line_items.create(item.dup.attributes)
     end
+
     new_order
   end
 

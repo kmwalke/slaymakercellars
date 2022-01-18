@@ -95,6 +95,23 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       expect(current_path).to eq(admin_orders_path)
     end
 
+    scenario 'it repeats last order' do
+      FactoryBot.create(:order, contact: contact)
+
+      visit admin_contacts_path
+
+      click_link contact.name
+      click_link 'Repeat last order'
+      expect(current_path).to eq(edit_admin_order_path(contact.orders.last))
+    end
+
+    scenario 'it hides repeat option for new contacts' do
+      visit admin_contacts_path
+
+      click_link contact.name
+      expect(page).not_to have_content('Repeat last order')
+    end
+
     describe 'sorting & searching' do
       let!(:a_contact) { FactoryBot.create(:contact, name: 'aaaa', town: FactoryBot.create(:town, name: 'cccc')) }
       let!(:b_contact) { FactoryBot.create(:contact, name: 'bbbb', town: FactoryBot.create(:town, name: 'dddd')) }

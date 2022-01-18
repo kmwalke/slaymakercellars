@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :contacts do
       member do
         get :undestroy
+        get :repeat_last_order
       end
     end
     resources :notes

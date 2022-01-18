@@ -1,6 +1,6 @@
 module Admin
   class ContactsController < ApplicationController
-    before_action :set_contact, only: [:edit, :update, :destroy, :undestroy]
+    before_action :set_contact, only: [:edit, :update, :destroy, :undestroy, :repeat_last_order]
     before_action :logged_in?
     after_action :sync_to_xero, only: [:update, :create]
 
@@ -50,6 +50,11 @@ module Admin
       respond_to do |format|
         format.html { redirect_to admin_contacts_path, notice: 'Contact was made active.' }
       end
+    end
+
+    def repeat_last_order
+      new_order = @contact.repeat_last_order
+      redirect_to edit_admin_order_path(new_order)
     end
 
     private
