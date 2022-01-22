@@ -14,7 +14,7 @@
         <% if note.resolved? -%>
           <span class="resolved">Resolved on <%= humanize_date note.resolved_at %></span>
         <% else -%>
-          <%= link_to 'Resolve', admin_note_path(note), class: "resolve", method: :delete %>
+          <%= link_to 'Resolve', resolve_admin_note_path(note), class: "resolve" %>
         <% end -%>
       </div>
 

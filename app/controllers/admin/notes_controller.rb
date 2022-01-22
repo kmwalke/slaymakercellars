@@ -21,7 +21,7 @@ module Admin
       end
     end
 
-    def destroy
+    def resolve
       @note             = Note.find(params[:id])
       @note.resolved_at = DateTime.now
       @note.save
