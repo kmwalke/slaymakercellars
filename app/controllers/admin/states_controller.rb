@@ -4,7 +4,7 @@ module Admin
     before_action :logged_in?
 
     def index
-      @states = State.all
+      @states = State.all.order(:name)
     end
 
     def new

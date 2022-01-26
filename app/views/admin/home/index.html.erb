@@ -82,10 +82,18 @@
         <%= link_to 'New State', new_admin_state_path %>
       </li>
       <li>
-        <%= pluralize @states, 'State' %>
+        <%= link_to 'View States', admin_states_path %>
       </li>
       <li>
+        <%= pluralize @states, 'State' %>
+      </li>
+    </ul>
+    <ul>
+      <li>
         <%= link_to 'New Town', new_admin_town_path %>
+      </li>
+      <li>
+        <%= link_to 'View Towns', admin_towns_path %>
       </li>
       <li>
         <%= pluralize @towns, 'Town' %>
