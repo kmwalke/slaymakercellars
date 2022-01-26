@@ -4,7 +4,7 @@ module Admin
     before_action :logged_in?
 
     def index
-      @towns = Town.all
+      @towns = Town.all.includes(:state).order(:state_id, :name)
     end
 
     def show; end
