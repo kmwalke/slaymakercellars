@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
   def index
-    @states = State.all.includes(:towns)
+    @states = State.with_active_towns
   end
 end
