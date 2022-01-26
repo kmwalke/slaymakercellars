@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_12_002822) do
+ActiveRecord::Schema.define(version: 2022_01_26_183402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_002822) do
   create_table "towns", force: :cascade do |t|
     t.string "name"
     t.integer "state_id"
+    t.index ["name", "state_id"], name: "index_towns_on_name_and_state_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

@@ -11,11 +11,13 @@ RSpec.describe Town, type: :model do
 
   it 'should require name/state uniqueness' do
     town = FactoryBot.create(:town)
-    expect { FactoryBot.create(:town, name: town.name, state: town.state) }.to raise_error(ActiveRecord::RecordInvalid)
+    expect do
+      FactoryBot.create(:town, name: town.name, state: town.state)
+    end.to raise_error(ActiveRecord::RecordNotUnique)
   end
 
   it 'should allow duplicate names in other states' do
     town = FactoryBot.create(:town)
-    expect { FactoryBot.create(:town, name: town.name) }.not_to raise_error(ActiveRecord::RecordInvalid)
+    expect { FactoryBot.create(:town, name: town.name) }.not_to raise_error(ActiveRecord::RecordNotUnique)
   end
 end
