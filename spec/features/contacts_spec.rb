@@ -17,4 +17,24 @@ RSpec.feature 'Contacts', type: :feature do
     click_link 'Where to Buy'
     expect(page).not_to have_content(contact.name)
   end
+
+  scenario 'list towns' do
+    visit root_path
+    click_link 'Where to Buy'
+    expect(page).to have_content(contact.town.name).once
+  end
+
+  scenario 'do not list empty towns' do
+    town = FactoryBot.create(:town)
+    visit root_path
+    click_link 'Where to Buy'
+    expect(page).not_to have_content(town.name)
+  end
+
+  scenario 'do not list inactive towns' do
+    contact.update(is_public: false)
+    visit root_path
+    click_link 'Where to Buy'
+    expect(page).not_to have_content(contact.town.name)
+  end
 end
