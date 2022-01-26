@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
   def index
-    @states = State.with_active_towns
+    @states = State.all.includes(towns: :contacts)
+                   .where(contacts: { is_public: true, deleted_at: nil })
+                   .order('states.name ASC, towns.name ASC, contacts.name ASC')
   end
 end
