@@ -1,10 +1,15 @@
 <h1>Users</h1>
 
-<table>
+<p>
+  <%= link_to 'New User', new_admin_user_path %>
+</p>
+
+<table class="crud">
   <thead>
     <tr>
       <th>Email</th>
       <th>Name</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -23,5 +28,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New User', new_admin_user_path %>
