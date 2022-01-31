@@ -1,9 +1,14 @@
 <h1>Towns</h1>
 
-<table>
+<p>
+  <%= link_to 'New Town', new_admin_town_path %>
+</p>
+
+<table class="crud">
   <thead>
     <tr>
       <th>Name</th>
+      <th>State</th>
       <th></th>
     </tr>
   </thead>
@@ -12,6 +17,7 @@
     <% @towns.each do |town| %>
       <tr>
         <td><%= link_to town.name, edit_admin_town_path(town)%></td>
+        <td><%= link_to town.state.name, edit_admin_town_path(town) %></td>
         <td>
           <%= link_to 'X', admin_town_path(town), method: :delete, id: "delete_#{town.id}", data: {confirm: 'Are you sure?' } %>
           &nbsp;
@@ -22,5 +28,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Town', new_admin_town_path %>

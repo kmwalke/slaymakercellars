@@ -7,14 +7,14 @@
     <li class="state">
       <h1 class="state"><%= state.name %></h1>
       <ul class="towns">
-        <% state.towns.order(:name).each_slice(3) do |towns_slice| -%>
+        <% state.towns.each_slice(3) do |towns_slice| -%>
           <li class="towns_slice">
             <ul>
               <% towns_slice.each do |town| %>
                 <li class="town">
                   <h3 class="town"><%= town.name %></h3>
                   <ul class="contacts">
-                    <% town.contacts.where(deleted_at: nil, is_public: true).each_slice(3) do |contacts_slice| -%>
+                    <% town.contacts.each_slice(3) do |contacts_slice| -%>
                       <% contacts_slice.each do |contact| %>
                         <li class="contact">
                           <% if contact.url.blank? -%>

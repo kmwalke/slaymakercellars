@@ -4,7 +4,7 @@ module Admin
     before_action :logged_in?
 
     def index
-      @users = User.all
+      @users = User.all.order(:name)
     end
 
     def new
