@@ -98,6 +98,14 @@ class Contact < ApplicationRecord
   end
 
   def google_maps_param
-    (address || name).gsub(' ', '+')
+    address_or_name.gsub(' ', '+')
+  end
+
+  def address_or_name
+    address.blank? ? partial_address : address
+  end
+
+  def partial_address
+    "#{name}, #{town.name}, #{town.state.abbreviation}"
   end
 end
