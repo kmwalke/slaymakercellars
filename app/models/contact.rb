@@ -97,6 +97,8 @@ class Contact < ApplicationRecord
     search ? where('lower(contacts.name) LIKE lower(?)', "%#{search}%") : all
   end
 
+  private
+
   def google_maps_param
     full_address.gsub(' ', '+')
   end
