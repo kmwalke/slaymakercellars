@@ -79,4 +79,14 @@ RSpec.describe Contact, type: :model do
   it 'should not repeat last order for new contacts' do
     expect(contact.repeat_last_order).to be_nil
   end
+
+  it 'should return google maps link' do
+    contact.update(address: '2036 virginia st, idaho springs, co')
+    expect(contact.reload.google_maps_url).to eq('https://www.google.com/maps?q=2036+virginia+st,+idaho+springs,+co')
+  end
+
+  it 'should return google maps link with no address' do
+    contact.update(name: 'slaymaker cellars')
+    expect(contact.reload.google_maps_url).to eq('https://www.google.com/maps?q=slaymaker+cellars')
+  end
 end
