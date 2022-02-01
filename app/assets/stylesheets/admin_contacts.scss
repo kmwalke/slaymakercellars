@@ -16,7 +16,7 @@ body.contacts {
       color: darken(grey, 20%) !important;
       background: lighten($blue, 50%) !important;
 
-      .date, .title {
+      .title {
         color: darken(grey, 20%) !important;
       }
     }
@@ -33,25 +33,21 @@ body.contacts {
       width: 95%;
       padding: .5em;
 
-      span.title, span.date {
+      div.column {
+        width: 45%;
+        margin-left: 2%;
+      }
+
+      .title {
         color: darken($tan, 40%);
-        font-size: small;
-      }
-
-      span.title {
-        float: left;
-      }
-
-      span.date {
-        float: right;
       }
 
       p {
-        width: 80%;
         display: inline-block;
         font-size: .8em;
         line-height: 1.2em;
         padding-top: 1em;
+        vertical-align: top;
       }
 
       a.resolve {
@@ -62,6 +58,7 @@ body.contacts {
         padding: 2px;
         border: 2px $brown outset;
         vertical-align: top;
+        float: right;
       }
 
       span.resolved {
@@ -69,7 +66,7 @@ body.contacts {
         font-size: small;
         color: darken($brown, 20%);
         top: 5px;
-        left: 50%;
+        left: 45%;
       }
     }
   }

@@ -21,7 +21,12 @@ Rails.application.routes.draw do
         get :repeat_last_order
       end
     end
-    resources :notes
+    resources :notes do
+      member do
+        get 'close'
+        patch 'resolve'
+      end
+    end
     resources :orders do
       member do
         get 'fulfill'
