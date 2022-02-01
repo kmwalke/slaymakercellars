@@ -8,14 +8,18 @@
   <% if notes -%>
     <% notes.each do |note| -%>
       <div class="note <%= note.resolved? ? 'resolved' : '' %>">
-        <span class="title"><%= note.created_by.name %></span>
-        <span class="date"><%= humanize_date note.created_at %></span>
-        <p><%= note.body %></p>
-        <% if note.resolved? -%>
-          <span class="resolved">Resolved on <%= humanize_date note.resolved_at %></span>
-        <% else -%>
-          <%= link_to 'Resolve', resolve_admin_note_path(note), class: "resolve" %>
-        <% end -%>
+        <div class="column">
+          <h3 class="title"><%= note.created_by.name %> - <%= humanize_date note.created_at %></h3>
+          <p><%= note.body %></p>
+        </div>
+        <div class="column">
+          <% if note.resolved? -%>
+            <h3 class="resolved">Resolved on <%= humanize_date note.resolved_at %></h3>
+            <p><%= note.resolution %></p>
+          <% else -%>
+            <%= link_to 'Resolve', close_admin_note_path(note), class: "resolve" %>
+          <% end -%>
+        </div>
       </div>
 
     <% end -%>

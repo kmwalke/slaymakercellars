@@ -23,7 +23,8 @@ Rails.application.routes.draw do
     end
     resources :notes do
       member do
-        get 'resolve'
+        get 'close'
+        patch 'resolve'
       end
     end
     resources :orders do

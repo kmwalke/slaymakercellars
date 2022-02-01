@@ -21,9 +21,14 @@ module Admin
       end
     end
 
+    def close
+      @note = Note.find(params[:id])
+    end
+
     def resolve
       @note             = Note.find(params[:id])
       @note.resolved_at = DateTime.now
+      @note.resolution  = note_params[:resolution]
       @note.save
 
       respond_to do |format|
@@ -34,7 +39,7 @@ module Admin
     private
 
     def note_params
-      params.require(:note).permit(:contact_id, :body)
+      params.require(:note).permit(:contact_id, :body, :resolution)
     end
   end
 end
