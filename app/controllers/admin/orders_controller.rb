@@ -12,7 +12,7 @@ module Admin
     def invoice
       @order = Order.find(params[:id])
       sync_to_xero(@order.contact, Xero::Contact)
-      sync_to_xero(@order, Xero::Invoice)
+      sync_to_xero(@order, Xero::Invoice) unless @order.synced?
 
       path = admin_order_path(@order)
       path = edit_admin_order_path(@order) if @order.reload.xero_sync_errors.any?
