@@ -7,8 +7,8 @@ module Xero
 
     def initialize(response, endpoint)
       @response = JSON.parse(response.body)
-      @id       = @response["#{endpoint}s"][0]["#{endpoint}ID"]
       set_errors(response)
+      set_id(endpoint)
       Rails.logger.info("Xero Response Status: #{response.status}")
       Rails.logger.info("Xero Response: #{@response}")
     end
@@ -90,6 +90,10 @@ module Xero
 
     def set_errors(response)
       @errors = @response['Elements'][0]['ValidationErrors'] if response.status == 400
+    end
+
+    def set_id(endpoint)
+      @id = @response["#{endpoint}s"][0]["#{endpoint}ID"] if @errors.nil?
     end
   end
 end
