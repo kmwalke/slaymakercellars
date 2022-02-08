@@ -1,10 +1,9 @@
 module Xero
   class Contact < Xero::BaseRecord
-    ENDPOINT = 'Contacts'.freeze
+    ENDPOINT = 'Contact'.freeze
 
     def initialize(response)
-      super(response)
-      @id = @response['Contacts'][0]['ContactID']
+      super(response, ENDPOINT)
     end
 
     def self.create(user, contact)

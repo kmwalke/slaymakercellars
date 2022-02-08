@@ -8,13 +8,4 @@ body.orders {
   input[type=number] {
     width: 3em;
   }
-
-  div.xero_errors {
-    width: 40%;
-    padding: 0 1em;
-    margin: 1em 0;
-    border: 1px solid $red;
-    color: red;
-    background-color: lighten($red, 50%);
-  }
 }
