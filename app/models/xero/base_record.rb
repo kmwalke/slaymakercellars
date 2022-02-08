@@ -5,9 +5,10 @@ module Xero
 
     attr_reader :id, :response, :errors
 
-    def initialize(response)
+    def initialize(response, endpoint)
       @response = JSON.parse(response.body)
-      @id       = @response["#{ENDPOINT}s"][0]["#{ENDPOINT}ID"]
+      @id       = @response["#{endpoint}s"][0]["#{endpoint}ID"]
+      set_errors(response)
       Rails.logger.info("Xero Response Status: #{response.status}")
       Rails.logger.info("Xero Response: #{@response}")
     end
@@ -87,7 +88,7 @@ module Xero
 
     private
 
-    def set_errors
+    def set_errors(response)
       @errors = @response['Elements'][0]['ValidationErrors'] if response.status == 400
     end
   end

@@ -2,6 +2,10 @@ module Xero
   class Invoice < Xero::BaseRecord
     ENDPOINT = 'Invoice'.freeze
 
+    def initialize(response)
+      super(response, ENDPOINT)
+    end
+
     def self.create(user, order)
       order.xero_sync_errors.each(&:destroy)
       save_xero_errors(order, Xero::Invoice.new(xero_api_post(user, ENDPOINT, body_params(order))))

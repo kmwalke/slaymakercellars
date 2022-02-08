@@ -2,6 +2,10 @@ module Xero
   class Contact < Xero::BaseRecord
     ENDPOINT = 'Contact'.freeze
 
+    def initialize(response)
+      super(response, ENDPOINT)
+    end
+
     def self.create(user, contact)
       contact.xero_sync_errors.each(&:destroy)
       save_xero_errors(contact, Xero::Contact.new(xero_api_post(user, ENDPOINT, body_params(contact))))
