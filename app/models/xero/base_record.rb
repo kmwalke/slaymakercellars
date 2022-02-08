@@ -8,7 +8,8 @@ module Xero
     def initialize(response)
       @response   = JSON.parse(response.body)
       @errors     = @response['Elements'][0]['ValidationErrors'] if response.status == 400
-      Rails.logger.info(response)
+      Rails.logger.info("Xero Response Status: #{response.status}")
+      Rails.logger.info("Xero Response: #{@response}")
     end
 
     def self.create
