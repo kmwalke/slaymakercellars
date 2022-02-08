@@ -1,11 +1,6 @@
 module Xero
   class Invoice < Xero::BaseRecord
-    ENDPOINT = 'Invoices'.freeze
-
-    def initialize(response)
-      super(response)
-      @id = @response['Invoices'][0]['InvoiceID'] if errors.nil?
-    end
+    ENDPOINT = 'Invoice'.freeze
 
     def self.create(user, order)
       order.xero_sync_errors.each(&:destroy)

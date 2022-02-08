@@ -7,6 +7,7 @@ module Xero
 
     def initialize(response)
       @response = JSON.parse(response.body)
+      @id       = @response["#{ENDPOINT}s"][0]["#{ENDPOINT}ID"]
       Rails.logger.info("Xero Response Status: #{response.status}")
       Rails.logger.info("Xero Response: #{@response}")
     end
