@@ -1,15 +1,19 @@
 module Xero
   class BaseRecord
-    XERO_TOKEN_ENDPOINT = 'https://identity.xero.com/connect/token'.freeze
-    XERO_API_URL        = 'https://api.xero.com/api.xro/2.0/'.freeze
+    XERO_TOKEN_ENDPOINT   = 'https://identity.xero.com/connect/token'.freeze
+    XERO_API_URL          = 'https://api.xero.com/api.xro/2.0/'.freeze
+    UNKNOWN_ERROR_MESSAGE = 'An Unknown error has occurred. Have Kent check the logs.'.freeze
 
     attr_reader :id, :response, :errors
 
-    def initialize(response)
-      @response   = JSON.parse(response.body)
-      @errors     = @response['Elements'][0]['ValidationErrors'] if response.status == 400
+    def initialize(response, endpoint)
+      @response = JSON.parse(response.body)
+      @errors   = parse_errors(response)
+      @id       = parse_id(endpoint)
+    rescue StandardError
       Rails.logger.info("Xero Response Status: #{response.status}")
       Rails.logger.info("Xero Response: #{@response}")
+      @errors = [{ 'Message' => UNKNOWN_ERROR_MESSAGE }]
     end
 
     def self.create
@@ -83,6 +87,14 @@ module Xero
           refresh_token: user.xeroRefreshToken
         )
       end
+    end
+
+    def parse_errors(response)
+      @response['Elements'][0]['ValidationErrors'] if response.status == 400
+    end
+
+    def parse_id(endpoint)
+      @response["#{endpoint}s"][0]["#{endpoint}ID"] if @errors.nil?
     end
   end
 end

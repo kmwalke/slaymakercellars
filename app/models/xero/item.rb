@@ -3,8 +3,7 @@ module Xero
     ENDPOINT = 'Item'.freeze
 
     def initialize(response)
-      super(response)
-      @id = @response['Items'][0]['ItemID']
+      super(response, ENDPOINT)
     end
 
     def self.create(user, item)
