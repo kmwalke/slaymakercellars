@@ -18,6 +18,7 @@ module Xero
         date: order.delivery_date,
         dueDate: order.delivery_date + 30,
         status: 'AUTHORISED',
+        reference: order.customer_po,
         lineItems:
           order.line_items.map do |line_item|
             {
