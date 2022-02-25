@@ -124,4 +124,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_25_201207) do
     t.index ["syncable_type", "syncable_id"], name: "index_xero_sync_errors_on_syncable"
   end
 
+  add_foreign_key "users", "roles", column: "role", primary_key: "name"
 end
