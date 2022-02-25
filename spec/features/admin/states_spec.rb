@@ -12,7 +12,7 @@ RSpec.feature 'Admin::States', type: :feature do
     let!(:state) { FactoryBot.create(:state) }
 
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'list states' do

@@ -4,13 +4,13 @@ RSpec.feature 'Sessions', type: :feature do
   scenario 'redirects to requested admin page' do
     visit admin_users_path
     expect(current_path).to eq(login_path)
-    login
+    login_as_admin
     expect(current_path).to eq(admin_users_path)
   end
 
   describe 'logged in' do
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'logs in' do

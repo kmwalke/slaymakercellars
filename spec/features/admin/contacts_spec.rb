@@ -13,7 +13,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
     let!(:deleted_contact) { FactoryBot.create(:contact, deleted_at: DateTime.now) }
 
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'list contacts' do

@@ -12,7 +12,7 @@ RSpec.feature 'Admin::Products', type: :feature do
     let!(:product) { FactoryBot.create(:product) }
 
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'list products' do

@@ -10,7 +10,7 @@ RSpec.feature 'Admin::Home', type: :feature do
 
   describe 'logged in' do
     before :each do
-      login
+      login_as_admin
       visit '/admin'
     end
 

@@ -4,7 +4,7 @@ describe 'Admin::Orders', type: :feature do
   let!(:order) { FactoryBot.create(:order) }
 
   it 'opens Admin::Orders' do
-    login
+    login_as_admin
     visit admin_orders_path
 
     expect(current_path).to eq(admin_orders_path)
@@ -12,7 +12,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'creates an order' do
-    login
+    login_as_admin
     visit admin_orders_path
 
     first(:link, 'New Order').click
@@ -27,7 +27,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'updates an order' do
-    login
+    login_as_admin
     new_date = order.delivery_date + 1
     visit admin_orders_path
 
@@ -47,7 +47,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'records users creating orders' do
-    login
+    login_as_admin
     visit edit_admin_order_path(order.id)
 
     expect(page).to have_content('Created by')
@@ -55,7 +55,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'records users updating orders' do
-    user2 = login
+    user2 = login_as_admin
 
     visit edit_admin_order_path(order.id)
     new_date = order.delivery_date + 1
@@ -69,7 +69,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'deletes an order from index' do
-    login
+    login_as_admin
     visit admin_orders_path
 
     click_link "void_#{order.id}"
@@ -79,7 +79,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'deletes an order from order page' do
-    login
+    login_as_admin
     visit admin_orders_path
 
     click_link order.contact.name
@@ -90,7 +90,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'delivers an order from index' do
-    login
+    login_as_admin
     visit admin_orders_path
 
     click_link "deliver_#{order.id}"
@@ -100,7 +100,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'delivers an order from order page' do
-    login
+    login_as_admin
     visit admin_orders_path
 
     click_link order.contact.name
@@ -112,7 +112,7 @@ describe 'Admin::Orders', type: :feature do
 
   it 'shows delivered orders' do
     order.fulfill
-    login
+    login_as_admin
     visit admin_orders_path
 
     click_link 'Delivered Orders'
@@ -122,7 +122,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'shows a delivered order' do
-    login
+    login_as_admin
     order.fulfill
     visit edit_admin_order_path(order.id)
 
@@ -132,7 +132,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'undelivers an order' do
-    login
+    login_as_admin
     order.fulfill
 
     visit admin_orders_path
@@ -145,7 +145,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'views all orders by a contact' do
-    login
+    login_as_admin
     visit admin_orders_path
 
     click_link order.contact.name
@@ -155,7 +155,7 @@ describe 'Admin::Orders', type: :feature do
   end
 
   it 'shows late orders' do
-    login
+    login_as_admin
     order.update(delivery_date: Date.yesterday)
 
     visit admin_orders_path
@@ -167,7 +167,7 @@ describe 'Admin::Orders', type: :feature do
 
   describe 'sync' do
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'shows xero sync errors' do

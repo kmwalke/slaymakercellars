@@ -94,8 +94,12 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
 end
 
-def login
+def login_as_admin
   login_as(User::ROLES[:admin])
+end
+
+def login_as_customer
+  login_as(User::ROLES[:customer])
 end
 
 def login_as(role)

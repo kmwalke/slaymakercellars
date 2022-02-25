@@ -19,7 +19,7 @@ describe 'Admin::Fulfillment', type: :feature do
     end
 
     it 'opens Admin::Fulfillment' do
-      login
+      login_as_admin
       visit admin_fulfillment_path
 
       expect(current_path).to eq(admin_fulfillment_path)

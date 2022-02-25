@@ -12,7 +12,7 @@ RSpec.feature 'Admin::Towns', type: :feature do
     let!(:town) { FactoryBot.create(:town) }
 
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'list towns' do
