@@ -6,10 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-admin       = 'Admin'.freeze
-customer    = 'Customer'.freeze
-Role.create(name: admin)
-Role.create(name: customer)
+Role.create(name: User::ROLES[:admin])
+Role.create(name: User::ROLES[:customer])
 description = 'This is the description. ' * 20
 user1       = User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123', role: admin)
 User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123', role: admin)

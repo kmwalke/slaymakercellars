@@ -3,7 +3,7 @@ class AddRoleToUser < ActiveRecord::Migration[7.0]
     add_column :users, :role, :string
     add_foreign_key :users, :roles, column: :role, primary_key: :name
 
-    User.update_all(role: 'Customer')
+    User.update_all(role: User::ROLES[:customer])
 
     change_column :users, :role, :string, null: false
   end

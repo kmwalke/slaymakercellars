@@ -3,6 +3,6 @@ FactoryBot.define do
     sequence(:name) { |n| "User_#{n}" }
     email { "#{name}@email.com" }
     password { '123' }
-    role { 'Admin' }
+    role { User::ROLES[:admin] }
   end
 end

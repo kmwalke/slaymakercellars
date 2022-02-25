@@ -95,7 +95,7 @@ RSpec.configure do |config|
 end
 
 def login
-  login_as('Admin')
+  login_as(User::ROLES[:admin])
 end
 
 def login_as(role)
