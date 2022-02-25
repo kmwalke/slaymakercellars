@@ -53,7 +53,8 @@ module Admin
         :email,
         :name,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        :role
       )
     end
   end

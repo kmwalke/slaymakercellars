@@ -95,7 +95,11 @@ RSpec.configure do |config|
 end
 
 def login
-  user = FactoryBot.create(:user)
+  login_as('Admin')
+end
+
+def login_as(role)
+  user = FactoryBot.create(:user, role: role)
   visit login_path
   fill_in 'Email', with: user.email
   fill_in 'Password', with: user.password

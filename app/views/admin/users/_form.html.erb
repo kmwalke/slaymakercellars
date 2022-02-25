@@ -33,3 +33,8 @@
   <%= form.label :name %>
   <%= form.text_field :name %>
 </div>
+
+<div class="field">
+  <%= form.label :role %>
+  <%= form.collection_select :role, Role.order(:name), :name, :name, include_blank: true %>
+</div>
