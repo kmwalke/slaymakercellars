@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::Home', type: :feature do
+RSpec.feature 'Customer::Home', type: :feature do
   describe 'logged out' do
-    scenario 'must be logged in to view admin page' do
-      visit '/admin'
+    scenario 'must be logged in to view customer page' do
+      visit '/customer'
       expect(current_path).to eq(login_path)
     end
 
-    scenario 'customers cannot view admin page' do
-      login_as_customer
-      visit '/admin'
-      expect(current_path).to eq(customer_path)
+    scenario 'admins cannot view customer page' do
+      login_as_admin
+      visit customer_path
+      expect(current_path).to eq(admin_path)
     end
   end
 

@@ -3,14 +3,14 @@ require 'rails_helper'
 describe 'Admin::Orders', type: :feature do
   describe 'logged out' do
     scenario 'must be logged in to view admin page' do
-      visit '/admin'
+      visit admin_orders_path
       expect(current_path).to eq(login_path)
     end
 
     scenario 'customers cannot view admin page' do
       login_as_customer
-      visit admin_contacts_path
-      expect(current_path).to eq(login_path)
+      visit admin_orders_path
+      expect(current_path).to eq(customer_path)
     end
   end
 

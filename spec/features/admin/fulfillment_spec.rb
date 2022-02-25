@@ -9,8 +9,8 @@ describe 'Admin::Fulfillment', type: :feature do
 
     scenario 'customers cannot manage fulfillment' do
       login_as_customer
-      visit admin_contacts_path
-      expect(current_path).to eq(login_path)
+      visit admin_fulfillment_path
+      expect(current_path).to eq(customer_path)
     end
   end
 

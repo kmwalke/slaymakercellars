@@ -9,8 +9,8 @@ RSpec.feature 'Admin::Towns', type: :feature do
 
     scenario 'customers cannot view admin page' do
       login_as_customer
-      visit admin_contacts_path
-      expect(current_path).to eq(login_path)
+      visit admin_towns_path
+      expect(current_path).to eq(customer_path)
     end
   end
 
