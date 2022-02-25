@@ -6,6 +6,12 @@ RSpec.feature 'Admin::Contacts', type: :feature do
       visit admin_contacts_path
       expect(current_path).to eq(login_path)
     end
+
+    scenario 'customers cannot manage contacts' do
+      login_as_customer
+      visit admin_contacts_path
+      expect(current_path).to eq(login_path)
+    end
   end
 
   describe 'logged in' do

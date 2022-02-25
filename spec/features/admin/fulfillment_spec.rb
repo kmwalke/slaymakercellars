@@ -6,6 +6,12 @@ describe 'Admin::Fulfillment', type: :feature do
       visit admin_fulfillment_path
       expect(current_path).to eq(login_path)
     end
+
+    scenario 'customers cannot manage fulfillment' do
+      login_as_customer
+      visit admin_contacts_path
+      expect(current_path).to eq(login_path)
+    end
   end
 
   describe 'logged out' do
