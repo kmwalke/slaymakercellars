@@ -8,7 +8,7 @@ class User < ApplicationRecord
   ROLES = {
     admin: 'Admin',
     customer: 'Customer'
-  }
+  }.freeze
 
   def xero_connected?
     !xeroUid.nil?
