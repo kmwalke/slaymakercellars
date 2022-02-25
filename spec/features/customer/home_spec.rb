@@ -23,5 +23,19 @@ RSpec.feature 'Customer::Home', type: :feature do
     scenario 'display page' do
       expect(page).to have_content('Customer Portal')
     end
+
+    scenario 'display past invoices' do
+      expect(true).to be false
+    end
+
+    scenario 'display open invoice status' do
+      expect(true).to be false
+    end
+
+    scenario 'link to xero invoice' do
+      expect(true).to be false
+      #https://developer.xero.com/documentation/api/accounting/invoices/#retrieving-the-online-invoice-url
+      # Probably should save that link in the db.  Maybe
+    end
   end
 end
