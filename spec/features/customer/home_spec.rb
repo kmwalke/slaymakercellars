@@ -25,13 +25,20 @@ RSpec.feature 'Customer::Home', type: :feature do
     end
 
     scenario 'display past orders' do
-      expect(page).to have_contect(@current_user.contact.orders.last.id)
+      FactoryBot.create(:order, contact: @current_user.contact)
+      expect(page).to have_content(@current_user.contact.orders.last.id)
     end
 
     scenario 'does not display voided orders' do
       deleted_order = FactoryBot.create(:order, contact: @current_user.contact, deleted_at: DateTime.now)
       visit '/customer'
       expect(page).not_to have_content(deleted_order.id)
+    end
+
+    scenario 'does not display other customers orders' do
+      other_order = FactoryBot.create(:order)
+      visit '/customer'
+      expect(page).not_to have_content(other_order.id)
     end
 
     scenario 'display open order status' do

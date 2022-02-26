@@ -1,6 +1,11 @@
 <h1>Customer Portal</h1>
 
 <% if current_user.customer_activated? -%>
+  <div class="wide_wrapper">
+    <table class="crud">
+      <%= render "order_table", order: @order %>
+    </table>
+  </div>
 <% else -%>
   <p>
     You account has not been activated. We will reach out to you shortly in order to activate it.
