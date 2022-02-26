@@ -1,0 +1,25 @@
+<h1><%= @order.contact.name %></h1>
+
+<% if @order.fulfilled_on -%>
+  <h2>Delivered on <%= humanize_date @order.fulfilled_on %></h2>
+<% end %>
+
+<fieldset class="column">
+  <legend>Order #<%= @order.id %></legend>
+
+  <table class="crud">
+    <tr class="title">
+      <th>Quantity</th>
+      <th>Product</th>
+    </tr>
+
+    <% @order.line_items.each do |line_item| -%>
+      <tr class="<%= cycle "even", "odd" %>">
+        <td style="white-space: nowrap"><%= line_item.quantity %></td>
+        <td style="white-space: nowrap"><%= line_item.product.name %></td>
+      </tr>
+    <% end -%>
+  </table>
+
+  <p><%= @order.comments %></p>
+</fieldset>

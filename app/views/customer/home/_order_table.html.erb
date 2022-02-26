@@ -10,7 +10,7 @@
 
 <% @orders.each do |order| -%>
   <tr class="<%= cycle "even", "odd" %>">
-    <td><strong><%= order.id.to_s %></strong></td>
+    <td><strong><%= link_to order.id.to_s, customer_order_path(order) %></strong></td>
     <td>
       <%= order.customer_po ? order.customer_po.truncate(15) : '' %>
     </td>
@@ -24,6 +24,7 @@
         <%= humanize_date order.delivery_date %>
       <% end -%>
     </td>
+    <td><strong><%= link_to 'View Order', customer_order_path(order) %></strong></td>
     <td>
       <% if order.synced? -%>
         <%= link_to 'View Invoice', 'xero link', target: "_blank" %>
