@@ -24,7 +24,11 @@ RSpec.feature 'Customer::Home', type: :feature do
       expect(page).to have_content('Customer Portal')
     end
 
-    scenario 'display past invoices' do
+    scenario 'display past orders' do
+      expect(true).to be false
+    end
+
+    scenario 'display open order status' do
       expect(true).to be false
     end
 
