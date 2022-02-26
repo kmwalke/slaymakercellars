@@ -16,7 +16,7 @@ RSpec.feature 'Customer::Home', type: :feature do
 
   describe 'logged in' do
     before :each do
-      login_as_customer
+      @current_user = login_as_customer
       visit '/customer'
     end
 
@@ -25,11 +25,27 @@ RSpec.feature 'Customer::Home', type: :feature do
     end
 
     scenario 'display past orders' do
-      expect(true).to be false
+      expect(page).to have_contect(@current_user.contact.orders.last.id)
+    end
+
+    scenario 'does not display voided orders' do
+      deleted_order = FactoryBot.create(:order, contact: @current_user.contact, deleted_at: DateTime.now)
+      visit '/customer'
+      expect(page).not_to have_content(deleted_order.id)
     end
 
     scenario 'display open order status' do
-      expect(true).to be false
+      open_order = FactoryBot.create(:order, contact: @current_user.contact)
+      visit '/customer'
+      expect(page).to have_content(open_order.id)
+      expect(page).to have_content(open_order.delivery_date)
+    end
+
+    scenario 'display delivered order status' do
+      delivered_order = FactoryBot.create(:order, contact: @current_user.contact, delivery_date: Date.yesterday, fulfilled_on: Date.today)
+      visit '/customer'
+      expect(page).to have_content(delivered_order.id)
+      expect(page).to have_content("Delivered on #{delivered_order.fulfilled_on}")
     end
 
     scenario 'display open invoice status' do
