@@ -30,8 +30,6 @@ RSpec.feature 'Customer::SignUp', type: :feature do
     end
 
     scenario 'shows an info page for unactivated customers' do
-      # Users with customer role but no contact_id are unactivated.
-      # Must be connected to a contact by an admin
       login_as(FactoryBot.create(:customer, contact: nil))
       expect(current_path).to eq(customer_path)
       expect(page).to have_content('has not been activated')

@@ -4,7 +4,7 @@ module Admin
     before_action :must_be_admin
 
     def index
-      @users = User.all.order(:name)
+      @users = User.all.order(:role, :name)
     end
 
     def new
@@ -51,6 +51,7 @@ module Admin
     def user_params
       params.require(:user).permit(
         :email,
+        :contact_id,
         :name,
         :password,
         :password_confirmation,

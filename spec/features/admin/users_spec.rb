@@ -25,6 +25,7 @@ RSpec.feature 'Admin::Users', type: :feature do
       visit admin_users_path
       expect(page).to have_content(user.name)
       expect(page).to have_content(user.email)
+      expect(page).to have_content(user.role)
     end
 
     scenario 'create a user' do
@@ -61,8 +62,16 @@ RSpec.feature 'Admin::Users', type: :feature do
     end
 
     scenario 'activates a customer account' do
-      expect(true).to be false
-      # connect a customer account to a contact
+      contact  = FactoryBot.create(:contact)
+      customer = FactoryBot.create(:customer, contact: nil)
+      visit admin_users_path
+
+      click_link customer.name
+      select contact.name, from: 'Contact'
+      click_button 'Update User'
+
+
+      expect(customer.reload.contact_id).to eq(contact.id)
     end
   end
 
