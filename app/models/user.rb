@@ -26,9 +26,9 @@ class User < ApplicationRecord
   private
 
   def admin_cannot_have_contact
-    if role == ROLES[:admin] && !contact_id.nil?
-      update(contact_id: nil)
-      errors.add(:contact, 'cannot be added to admins.')
-    end
+    return unless role == ROLES[:admin] && !contact_id.nil?
+
+    update(contact_id: nil)
+    errors.add(:contact, 'cannot be added to admins.')
   end
 end

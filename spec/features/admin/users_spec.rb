@@ -70,7 +70,6 @@ RSpec.feature 'Admin::Users', type: :feature do
       select contact.name, from: 'Contact'
       click_button 'Update User'
 
-
       expect(customer.reload.contact_id).to eq(contact.id)
     end
   end

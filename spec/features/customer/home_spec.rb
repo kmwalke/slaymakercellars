@@ -26,6 +26,7 @@ RSpec.feature 'Customer::Home', type: :feature do
 
     scenario 'display past orders' do
       FactoryBot.create(:order, contact: @current_user.contact)
+      visit '/customer'
       expect(page).to have_content(@current_user.contact.orders.last.id)
     end
 
