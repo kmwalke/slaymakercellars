@@ -42,5 +42,7 @@ Rails.application.routes.draw do
 
   namespace :customer do
     get '/', to: 'home#index'
+    get '/signup', to: 'signup#new'
+    post '/signup', to: 'signup#create'
   end
 end

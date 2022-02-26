@@ -56,7 +56,7 @@ RSpec.feature 'Customer::Home', type: :feature do
     scenario 'do not show xero link when invoice not created' do
       FactoryBot.create(:order, contact: @current_user.contact)
       visit '/customer'
-      expect(page).not_to have_content("View Invoice")
+      expect(page).not_to have_content('View Invoice')
     end
 
     scenario 'display open invoice status' do
