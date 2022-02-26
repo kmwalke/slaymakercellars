@@ -1,7 +1,7 @@
 module Admin
   class ContactsController < ApplicationController
     before_action :set_contact, only: [:edit, :update, :destroy, :undestroy, :repeat_last_order]
-    before_action :logged_in?
+    before_action :logged_in_as_admin?
     after_action :sync_to_xero, only: [:update, :create]
 
     def index

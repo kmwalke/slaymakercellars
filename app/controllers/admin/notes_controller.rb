@@ -1,6 +1,6 @@
 module Admin
   class NotesController < ApplicationController
-    before_action :logged_in?
+    before_action :logged_in_as_admin?
 
     def new
       @note       = Note.new

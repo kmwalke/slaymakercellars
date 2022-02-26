@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in_as_admin?
 
   def wine_list
     @wine_list || Vinochipper.wine_list(3005)
@@ -13,12 +13,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def logged_in?
-    return true unless current_user.nil?
+  def logged_in_as_admin?
+    logged_in_as?(User::ROLES[:admin])
+  end
+
+  def logged_in_as_customer?
+    logged_in_as?(User::ROLES[:customer])
+  end
+
+  def logged_in_as?(role)
+    return true unless current_user.nil? || current_user.role != role
+    path = login_path
+    path = "/#{current_user.role.downcase}" unless current_user.nil?
 
     flash[:notice]             = 'You must log in to see this page.'
     session[:orig_destination] = request.path
-    redirect_to login_path
+    redirect_to path
   end
 
   # TODO: Send an email or something!

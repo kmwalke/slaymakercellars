@@ -39,4 +39,8 @@ Rails.application.routes.draw do
     resources :towns
     resources :users
   end
+
+  namespace :customer do
+    get '/', to: 'home#index'
+  end
 end

@@ -1,7 +1,7 @@
 module Admin
   class TownsController < ApplicationController
     before_action :set_town, only: [:edit, :update, :destroy]
-    before_action :logged_in?
+    before_action :logged_in_as_admin?
 
     def index
       @towns = Town.all.includes(:state).order('states.name, towns.name')

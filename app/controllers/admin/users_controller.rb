@@ -1,7 +1,7 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: [:edit, :update, :destroy]
-    before_action :logged_in?
+    before_action :logged_in_as_admin?
 
     def index
       @users = User.all.order(:name)
