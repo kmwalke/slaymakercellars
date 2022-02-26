@@ -1,15 +1,8 @@
 <tr class="title">
-  <th>PO</th>
-  <th>Cust PO</th>
-  <th>Business</th>
-  <th>
-    <% if @show == "fulfilled" -%>
-      Fulfilled On
-    <% else -%>
-      Delivery Date
-    <% end -%>
-  </th>
-  <th>Town</th>
+  <th>Order #</th>
+  <th>Your PO #</th>
+  <th>Status</th>
+  <th>Delivery Date</th>
   <th></th>
   <th></th>
   <th></th>
@@ -22,17 +15,18 @@
       <%= order.customer_po ? order.customer_po.truncate(15) : '' %>
     </td>
     <td>
-      <%= link_to order.contact.name, admin_order_path(order) %>
+      <%= order.fulfilled? ? 'Delivered' : 'In Process' %>
     </td>
     <td>
-      <%= humanize_date order.fulfilled_on %>
-    </td>
-    <td>
-      <%= humanize_date order.delivery_date %>
+      <% if order.fulfilled? -%>
+        <%= humanize_date order.fulfilled_on %>
+      <% else -%>
+        <%= humanize_date order.delivery_date %>
+      <% end -%>
     </td>
     <td>
       <% if order.synced? -%>
-        <%= link_to 'Open Invoice', @xero_invoice_url + order.xero_id, target: "_blank" %>
+        <%= link_to 'View Invoice', 'xero link', target: "_blank" %>
       <% end -%>
     </td>
   </tr>

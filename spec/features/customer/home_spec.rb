@@ -46,7 +46,7 @@ RSpec.feature 'Customer::Home', type: :feature do
       open_order = FactoryBot.create(:order, contact: @current_user.contact)
       visit '/customer'
       expect(page).to have_content(open_order.id)
-      expect(page).to have_content(open_order.delivery_date)
+      expect(page).to have_content('In Process')
     end
 
     scenario 'display delivered order status' do
@@ -58,7 +58,7 @@ RSpec.feature 'Customer::Home', type: :feature do
       )
       visit '/customer'
       expect(page).to have_content(delivered_order.id)
-      expect(page).to have_content("Delivered on #{delivered_order.fulfilled_on}")
+      expect(page).to have_content('Delivered')
     end
 
     scenario 'do not show xero link when invoice not created' do
