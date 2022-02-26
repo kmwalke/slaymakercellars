@@ -42,10 +42,21 @@ RSpec.feature 'Customer::Home', type: :feature do
     end
 
     scenario 'display delivered order status' do
-      delivered_order = FactoryBot.create(:order, contact: @current_user.contact, delivery_date: Date.yesterday, fulfilled_on: Date.today)
+      delivered_order = FactoryBot.create(
+        :order,
+        contact: @current_user.contact,
+        delivery_date: Date.yesterday,
+        fulfilled_on: Date.today
+      )
       visit '/customer'
       expect(page).to have_content(delivered_order.id)
       expect(page).to have_content("Delivered on #{delivered_order.fulfilled_on}")
+    end
+
+    scenario 'do not show xero link when invoice not created' do
+      FactoryBot.create(:order, contact: @current_user.contact)
+      visit '/customer'
+      expect(page).not_to have_content("View Invoice")
     end
 
     scenario 'display open invoice status' do
@@ -54,7 +65,7 @@ RSpec.feature 'Customer::Home', type: :feature do
 
     scenario 'link to xero invoice' do
       expect(true).to be false
-      #https://developer.xero.com/documentation/api/accounting/invoices/#retrieving-the-online-invoice-url
+      # https://developer.xero.com/documentation/api/accounting/invoices/#retrieving-the-online-invoice-url
       # Probably should save that link in the db.  Maybe
     end
   end
