@@ -84,11 +84,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_25_201207) do
     t.index ["xero_code"], name: "index_products_on_xero_code", unique: true
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.index ["name"], name: "index_roles_on_name", unique: true
-  end
-
   create_table "states", force: :cascade do |t|
     t.string "name"
     t.string "abbreviation"
@@ -124,5 +119,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_25_201207) do
     t.index ["syncable_type", "syncable_id"], name: "index_xero_sync_errors_on_syncable"
   end
 
-  add_foreign_key "users", "roles", column: "role", primary_key: "name"
 end
