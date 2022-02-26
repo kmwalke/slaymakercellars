@@ -15,7 +15,7 @@ RSpec.feature 'Admin::Users', type: :feature do
   end
 
   describe 'logged in' do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { FactoryBot.create(:admin) }
 
     before :each do
       login_as_admin
@@ -28,7 +28,7 @@ RSpec.feature 'Admin::Users', type: :feature do
     end
 
     scenario 'create a user' do
-      user2 = FactoryBot.build(:user)
+      user2 = FactoryBot.build(:admin)
       visit admin_users_path
 
       click_link 'New User'

@@ -95,24 +95,25 @@ RSpec.configure do |config|
 end
 
 def login_as_admin
-  login_as(User::ROLES[:admin])
+  login_as(FactoryBot.create(:admin))
 end
 
 def login_as_customer
-  login_as(User::ROLES[:customer])
+  login_as(FactoryBot.create(:customer))
 end
 
-def login_as(role)
-  user = FactoryBot.create(:user, role: role)
+def logout
+  visit root_path
+  click_link 'Log Out'
+end
+
+private
+
+def login_as(user)
   visit login_path
   fill_in 'Email', with: user.email
   fill_in 'Password', with: user.password
   click_button 'Log In'
 
   user
-end
-
-def logout
-  visit root_path
-  click_link 'Log Out'
 end
