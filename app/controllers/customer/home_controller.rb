@@ -1,6 +1,6 @@
 module Customer
   class HomeController < ApplicationController
-    before_action :logged_in_as_customer?
+    before_action :must_be_customer
 
     def index
     end

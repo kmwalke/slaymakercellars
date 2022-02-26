@@ -1,7 +1,7 @@
 module Admin
   class ProductsController < ApplicationController
     before_action :set_product, only: [:edit, :update, :destroy]
-    before_action :logged_in_as_admin?
+    before_action :must_be_admin
     after_action :sync_to_xero, only: [:update, :create]
 
     def index

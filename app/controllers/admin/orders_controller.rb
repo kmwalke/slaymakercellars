@@ -2,7 +2,7 @@ module Admin
   class OrdersController < ApplicationController
     before_action :set_order, only: [:show, :edit, :update, :destroy, :undestroy]
     before_action :set_xero_invoice_url, only: [:show, :edit, :index]
-    before_action :logged_in_as_admin?
+    before_action :must_be_admin
 
     def index
       @orders, @title = Order.display_all(params[:show] || 'active')

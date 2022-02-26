@@ -1,7 +1,7 @@
 module Admin
   class StatesController < ApplicationController
     before_action :set_state, only: [:edit, :update, :destroy]
-    before_action :logged_in_as_admin?
+    before_action :must_be_admin
 
     def index
       @states = State.all.order(:name)
