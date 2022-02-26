@@ -67,11 +67,11 @@ RSpec.feature 'Customer::Home', type: :feature do
       expect(page).not_to have_content('View Invoice')
     end
 
-    scenario 'display open invoice status' do
+    scenario 'display open invoice status', skip: 'not implemented' do
       expect(true).to be false
     end
 
-    scenario 'link to xero invoice' do
+    scenario 'link to xero invoice', skip: 'not implemented' do
       expect(true).to be false
       # https://developer.xero.com/documentation/api/accounting/invoices/#retrieving-the-online-invoice-url
       # Probably should save that link in the db.  Maybe
