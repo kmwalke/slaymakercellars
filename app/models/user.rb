@@ -17,4 +17,8 @@ class User < ApplicationRecord
   def xero_connected?
     !xeroUid.nil?
   end
+
+  def customer_activated?
+    !contact_id.nil?
+  end
 end

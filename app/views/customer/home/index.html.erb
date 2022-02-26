@@ -1,1 +1,10 @@
 <h1>Customer Portal</h1>
+
+<% if current_user.customer_activated? -%>
+<% else -%>
+  <p>
+    You account has not been activated. We will reach out to you shortly in order to activate it.
+    Feel from to contact us at <a href="tel:720-432-0133">720-432-0133</a> or
+    <a href="mailto:kent@slaymakercellars.com">Kent@SlaymakerCellars.com</a> for more information.
+  </p>
+<% end -%>
