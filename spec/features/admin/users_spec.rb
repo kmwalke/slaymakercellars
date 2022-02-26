@@ -59,6 +59,11 @@ RSpec.feature 'Admin::Users', type: :feature do
       expect(current_path).to eq(admin_users_path)
       expect(User.find_by_id(user_id)).to be_nil
     end
+
+    scenario 'activates a customer account' do
+      expect(true).to be false
+      # connect a customer account to a contact
+    end
   end
 
   def fill_in_form(user)

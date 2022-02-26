@@ -102,13 +102,6 @@ def login_as_customer
   login_as(FactoryBot.create(:customer))
 end
 
-def logout
-  visit root_path
-  click_link 'Log Out'
-end
-
-private
-
 def login_as(user)
   visit login_path
   fill_in 'Email', with: user.email
@@ -116,4 +109,9 @@ def login_as(user)
   click_button 'Log In'
 
   user
+end
+
+def logout
+  visit root_path
+  click_link 'Log Out'
 end
