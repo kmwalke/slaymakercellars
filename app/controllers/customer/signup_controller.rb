@@ -9,6 +9,7 @@ module Customer
 
       respond_to do |format|
         if @user.save
+          CustomerMailer.with(user: @user).welcome.deliver_later
           format.html { redirect_to customer_path }
         else
           format.html { render :new }
