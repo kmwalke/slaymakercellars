@@ -38,7 +38,6 @@ class ApplicationController < ActionController::Base
   def must_be(role)
     return if logged_in_as?(role)
 
-    flash[:notice]             = 'You must log in to see this page.'
     session[:orig_destination] = request.path
     redirect_to redirect_path
   end
