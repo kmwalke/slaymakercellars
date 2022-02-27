@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Contact, type: :model do
   let!(:contact) { FactoryBot.create(:contact) }
   let(:deleted_contact) { FactoryBot.create(:contact, deleted_at: DateTime.now) }
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { FactoryBot.create(:admin) }
 
   it 'should require a name' do
     expect { FactoryBot.create(:contact, name: '') }.to raise_error(ActiveRecord::RecordInvalid)

@@ -1,0 +1,16 @@
+<% if current_user.customer_activated? -%>
+  <h1>Customer Portal for <%= current_user.contact.name %></h1>
+
+  <h2>Your Orders</h2>
+  <div class="wide_wrapper">
+    <table class="crud">
+      <%= render "order_table", order: @order %>
+    </table>
+  </div>
+<% else -%>
+  <p>
+    You account has not been activated. We will reach out to you shortly in order to activate it.
+    Feel from to contact us at <a href="tel:720-432-0133">720-432-0133</a> or
+    <a href="mailto:kent@slaymakercellars.com">Kent@SlaymakerCellars.com</a> for more information.
+  </p>
+<% end -%>

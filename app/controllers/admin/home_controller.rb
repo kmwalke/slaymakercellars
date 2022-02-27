@@ -1,6 +1,6 @@
 module Admin
   class HomeController < ApplicationController
-    before_action :logged_in?
+    before_action :must_be_admin
 
     def index
       @late_orders     = Order.late.count

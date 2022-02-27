@@ -10,10 +10,6 @@
   </div>
 <% end %>
 
-<div class="actions">
-  <%= form.submit %>
-</div>
-
 <div class="field">
   <%= form.label :email, autofocus: 'autofocus' %>
   <%= form.text_field :email %>
@@ -32,4 +28,19 @@
 <div class="field">
   <%= form.label :name %>
   <%= form.text_field :name %>
+</div>
+
+<div class="field">
+  <%= form.label :role %>
+  <%= form.collection_select :role, User::ROLE_NAMES, :to_s, :to_s, include_blank: true %>
+</div>
+
+<div class="field">
+  <%= form.label :contact_id %>
+  <%= form.collection_select :contact_id, Contact.all.order(:name), :id, :name, include_blank: true %>
+</div>
+
+<br />
+<div class="actions">
+  <%= form.submit %>
 </div>

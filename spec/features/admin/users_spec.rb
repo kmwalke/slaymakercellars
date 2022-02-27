@@ -6,23 +6,30 @@ RSpec.feature 'Admin::Users', type: :feature do
       visit admin_users_path
       expect(current_path).to eq(login_path)
     end
+
+    scenario 'customers cannot view admin page' do
+      login_as_customer
+      visit admin_users_path
+      expect(current_path).to eq(customer_path)
+    end
   end
 
   describe 'logged in' do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { FactoryBot.create(:admin) }
 
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'list users' do
       visit admin_users_path
       expect(page).to have_content(user.name)
       expect(page).to have_content(user.email)
+      expect(page).to have_content(user.role)
     end
 
     scenario 'create a user' do
-      user2 = FactoryBot.build(:user)
+      user2 = FactoryBot.build(:admin)
       visit admin_users_path
 
       click_link 'New User'
@@ -53,6 +60,18 @@ RSpec.feature 'Admin::Users', type: :feature do
       expect(current_path).to eq(admin_users_path)
       expect(User.find_by_id(user_id)).to be_nil
     end
+
+    scenario 'activates a customer account' do
+      contact  = FactoryBot.create(:contact)
+      customer = FactoryBot.create(:customer, contact: nil)
+      visit admin_users_path
+
+      click_link customer.name
+      select contact.name, from: 'Contact'
+      click_button 'Update User'
+
+      expect(customer.reload.contact_id).to eq(contact.id)
+    end
   end
 
   def fill_in_form(user)
@@ -60,5 +79,6 @@ RSpec.feature 'Admin::Users', type: :feature do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     fill_in 'Password confirmation', with: user.password
+    select user.role, from: 'user_role'
   end
 end

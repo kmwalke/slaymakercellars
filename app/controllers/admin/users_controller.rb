@@ -1,10 +1,10 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: [:edit, :update, :destroy]
-    before_action :logged_in?
+    before_action :must_be_admin
 
     def index
-      @users = User.all.order(:name)
+      @users = User.all.order(:role, :name)
     end
 
     def new
@@ -51,9 +51,11 @@ module Admin
     def user_params
       params.require(:user).permit(
         :email,
+        :contact_id,
         :name,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        :role
       )
     end
   end
