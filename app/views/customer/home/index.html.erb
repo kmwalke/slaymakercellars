@@ -1,8 +1,6 @@
 <% if current_user.customer_activated? -%>
   <h1>Customer Portal for <%= current_user.contact.name %></h1>
-<% end -%>
 
-<% if current_user.customer_activated? -%>
   <h2>Your Orders</h2>
   <div class="wide_wrapper">
     <table class="crud">
