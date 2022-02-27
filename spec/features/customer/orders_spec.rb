@@ -22,7 +22,7 @@ RSpec.feature 'Customer::Orders', type: :feature do
 
     scenario 'display page' do
       visit customer_path
-      click_link @order.id
+      click_link @order.id.to_s
 
       expect(current_path).to eq(customer_order_path(@order))
       expect(page).to have_content(@order.id)
