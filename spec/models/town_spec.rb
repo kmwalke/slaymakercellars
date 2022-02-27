@@ -18,6 +18,6 @@ RSpec.describe Town, type: :model do
 
   it 'should allow duplicate names in other states' do
     town = FactoryBot.create(:town)
-    expect { FactoryBot.create(:town, name: town.name) }.not_to raise_error(ActiveRecord::RecordNotUnique)
+    expect { FactoryBot.create(:town, name: town.name) }.not_to raise_error
   end
 end
