@@ -39,4 +39,11 @@ Rails.application.routes.draw do
     resources :towns
     resources :users
   end
+
+  namespace :customer do
+    get '/', to: 'home#index'
+    get '/signup', to: 'signup#new'
+    post '/signup', to: 'signup#create'
+    get '/orders/:id', to: 'orders#show', as: 'order'
+  end
 end

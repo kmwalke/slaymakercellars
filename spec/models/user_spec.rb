@@ -10,7 +10,16 @@ RSpec.describe User, type: :model do
   end
 
   it 'should require email uniqueness' do
-    user = FactoryBot.create(:user)
-    expect { FactoryBot.create(:user, email: user.email) }.to raise_error(ActiveRecord::RecordInvalid)
+    user = FactoryBot.create(:admin)
+    expect { FactoryBot.create(:admin, email: user.email) }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  it 'should not allow admins to have a contact' do
+    user    = FactoryBot.create(:admin)
+    contact = FactoryBot.create(:contact)
+
+    user.update(contact_id: contact.id)
+
+    expect(user.reload.contact_id).to be_nil
   end
 end

@@ -94,8 +94,15 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
 end
 
-def login
-  user = FactoryBot.create(:user)
+def login_as_admin
+  login_as(FactoryBot.create(:admin))
+end
+
+def login_as_customer
+  login_as(FactoryBot.create(:customer))
+end
+
+def login_as(user)
   visit login_path
   fill_in 'Email', with: user.email
   fill_in 'Password', with: user.password

@@ -6,11 +6,17 @@ RSpec.feature 'Admin::Home', type: :feature do
       visit '/admin'
       expect(current_path).to eq(login_path)
     end
+
+    scenario 'customers cannot view admin page' do
+      login_as_customer
+      visit '/admin'
+      expect(current_path).to eq(customer_path)
+    end
   end
 
   describe 'logged in' do
     before :each do
-      login
+      login_as_admin
       visit '/admin'
     end
 

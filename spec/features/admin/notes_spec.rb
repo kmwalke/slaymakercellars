@@ -5,7 +5,7 @@ RSpec.feature 'Admin::Notes', type: :feature do
   let!(:note) { FactoryBot.create(:note, contact: contact) }
 
   before :each do
-    login
+    login_as_admin
   end
 
   it 'shows notes' do

@@ -1,0 +1,52 @@
+@import 'variables';
+
+@media print {
+  @page {
+    size: portrait
+  }
+
+  div.header, div.footer {
+    display: none;
+  }
+
+  ul.towns {
+    padding-left: 0;
+
+    li.towns_slice {
+      list-style: none;
+
+      ul {
+        padding-left: 0;
+        position: relative;
+        display: table;
+        width: 100%;
+
+        li.town {
+          list-style: none;
+          width: 30%;
+          height: 100%;
+          display: table-cell;
+          vertical-align: top;
+          border: 1px solid lighten($brown, 15%);
+          margin-bottom: 1em;
+          padding-bottom: 1em;
+          text-align: center;
+
+          ul.contacts {
+            padding-left: 0;
+
+            li.contact {
+              list-style: none;
+
+              a, a:visited, a:active {
+                color: $black;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

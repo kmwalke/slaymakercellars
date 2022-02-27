@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_31_203850) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_160903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,10 +26,10 @@ ActiveRecord::Schema.define(version: 2022_01_31_203850) do
     t.string "contact_point"
     t.text "address"
     t.text "description"
-    t.datetime "deleted_at", precision: 6
+    t.datetime "deleted_at"
     t.integer "town_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "url"
     t.boolean "pickup_check", default: false, null: false
     t.string "xero_id"
@@ -49,9 +48,9 @@ ActiveRecord::Schema.define(version: 2022_01_31_203850) do
     t.text "body"
     t.integer "contact_id"
     t.integer "created_by_id"
-    t.datetime "resolved_at", precision: 6
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "resolved_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "resolution"
   end
 
@@ -60,13 +59,13 @@ ActiveRecord::Schema.define(version: 2022_01_31_203850) do
     t.boolean "delivered", default: false, null: false
     t.date "delivery_date"
     t.date "fulfilled_on"
-    t.datetime "deleted_at", precision: 6
+    t.datetime "deleted_at"
     t.string "customer_po"
     t.text "comments"
     t.integer "created_by_id", null: false
     t.integer "updated_by_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "xero_id"
   end
 
@@ -74,8 +73,8 @@ ActiveRecord::Schema.define(version: 2022_01_31_203850) do
     t.string "name"
     t.float "price_point"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "category", default: "Flagship", null: false
     t.boolean "is_public", default: true, null: false
     t.integer "case_size", default: 12, null: false
@@ -100,13 +99,15 @@ ActiveRecord::Schema.define(version: 2022_01_31_203850) do
     t.string "email"
     t.string "password_digest"
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "xeroUid"
     t.string "xeroAccessToken"
     t.string "xeroRefreshToken"
     t.string "xeroTenantId"
     t.string "xeroTokenExpiresAt"
+    t.string "role", null: false
+    t.integer "contact_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -114,8 +115,8 @@ ActiveRecord::Schema.define(version: 2022_01_31_203850) do
     t.string "message"
     t.string "syncable_type"
     t.bigint "syncable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["syncable_type", "syncable_id"], name: "index_xero_sync_errors_on_syncable"
   end
 

@@ -6,13 +6,19 @@ RSpec.feature 'Admin::Products', type: :feature do
       visit admin_products_path
       expect(current_path).to eq(login_path)
     end
+
+    scenario 'customers cannot view admin page' do
+      login_as_customer
+      visit admin_products_path
+      expect(current_path).to eq(customer_path)
+    end
   end
 
   describe 'logged in' do
     let!(:product) { FactoryBot.create(:product) }
 
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'list products' do

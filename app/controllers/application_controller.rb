@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :must_be_admin
 
   def wine_list
     @wine_list || Vinochipper.wine_list(3005)
@@ -13,12 +13,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def logged_in?
-    return true unless current_user.nil?
+  def must_be_admin
+    must_be(User::ROLES[:admin])
+  end
 
-    flash[:notice]             = 'You must log in to see this page.'
-    session[:orig_destination] = request.path
-    redirect_to login_path
+  def must_be_customer
+    must_be(User::ROLES[:customer])
   end
 
   # TODO: Send an email or something!
@@ -31,5 +31,24 @@ class ApplicationController < ActionController::Base
     syncable.update(xero_id: xero_id) if syncable.xero_id.nil?
   rescue Xero::NotConnectedError => e
     log_error("#{current_user.name} #{e.message}")
+  end
+
+  private
+
+  def must_be(role)
+    return if logged_in_as?(role)
+
+    session[:orig_destination] = request.path
+    redirect_to redirect_path
+  end
+
+  def logged_in_as?(role)
+    !current_user.nil? && current_user.role == role
+  end
+
+  def redirect_path
+    return "/#{current_user.role.downcase}" unless current_user.nil?
+
+    login_path
   end
 end

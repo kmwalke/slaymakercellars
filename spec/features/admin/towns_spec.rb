@@ -6,13 +6,19 @@ RSpec.feature 'Admin::Towns', type: :feature do
       visit admin_towns_path
       expect(current_path).to eq(login_path)
     end
+
+    scenario 'customers cannot view admin page' do
+      login_as_customer
+      visit admin_towns_path
+      expect(current_path).to eq(customer_path)
+    end
   end
 
   describe 'logged in' do
     let!(:town) { FactoryBot.create(:town) }
 
     before :each do
-      login
+      login_as_admin
     end
 
     scenario 'list towns' do

@@ -3,7 +3,8 @@
 </legend>
 
 <div style="float:right;">
-  <%= link_to "View all orders by #{contact.name}", admin_orders_path({ show: contact.id }) %>
+  <%= link_to "View all orders by #{contact.name}", admin_orders_path({ show: contact.id }) %> |
+  <%= link_to 'View on map', contact.google_maps_url, target: '_blank' %>
 </div>
 
 <p>
