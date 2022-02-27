@@ -7,8 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 description = 'This is the description. ' * 20
-user1       = User.create(email: 'kent@slaymakercellars.com', name: 'kent', password: '123', role: User::ROLES[:admin])
-User.create(email: 'cris@slaymakercellars.com', name: 'cris', password: '123', role: User::ROLES[:admin])
+user1       = User.create(email: 'kent@slaymakercellars.com', name: 'Kent', password: '123', role: User::ROLES[:admin])
+User.create(email: 'cris@slaymakercellars.com', name: 'Cris', password: '123', role: User::ROLES[:admin])
+User.create(email: 'manager@meadbuyer.com', name: 'Bob', password: '123', role: User::ROLES[:customer])
 
 Product::CATEGORIES.each do |category|
   Product.create(name: "#{category}_1", price_point: 10, description: description, category: category,
@@ -52,3 +53,11 @@ Town.all.each do |town|
     end
   end
 end
+
+User.create(
+  email: 'manager@winebar.com',
+  name: 'Sally',
+  password: '123',
+  role: User::ROLES[:customer],
+  contact: Contact.first
+)
