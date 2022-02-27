@@ -28,11 +28,5 @@ RSpec.feature 'Customer::SignUp', type: :feature do
       expect(customer.role).to eq(User::ROLES[:customer])
       expect(customer.contact_id).to be_nil
     end
-
-    scenario 'shows an info page for unactivated customers' do
-      login_as(FactoryBot.create(:customer, contact: nil))
-      expect(current_path).to eq(customer_path)
-      expect(page).to have_content('has not been activated')
-    end
   end
 end

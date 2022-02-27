@@ -14,6 +14,14 @@ RSpec.feature 'Customer::Home', type: :feature do
     end
   end
 
+  describe 'logged in but unactivated' do
+    scenario 'shows an info page for unactivated customers' do
+      login_as(FactoryBot.create(:customer, contact: nil))
+      expect(current_path).to eq(customer_path)
+      expect(page).to have_content('has not been activated')
+    end
+  end
+
   describe 'logged in' do
     before :each do
       @current_user = login_as_customer
