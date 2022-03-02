@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_26_160903) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_02_171338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_26_160903) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url"
-    t.boolean "pickup_check", default: false, null: false
+    t.boolean "pickup_check", default: true, null: false
     t.string "xero_id"
     t.boolean "paperless_billing", default: false, null: false
     t.boolean "always_gets_case_deal", default: false, null: false
