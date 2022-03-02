@@ -173,7 +173,7 @@ describe 'Admin::Orders', type: :feature do
     describe 'sync' do
       scenario 'shows xero sync errors' do
         message = 'bad email'
-        order.xero_sync_errors << XeroSyncError.new(message: message)
+        order.xero_sync_errors << XeroSyncError.new(message:)
 
         visit edit_admin_order_path(order)
 

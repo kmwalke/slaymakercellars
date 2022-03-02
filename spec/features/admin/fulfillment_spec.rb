@@ -18,10 +18,10 @@ describe 'Admin::Fulfillment', type: :feature do
     let!(:product) { FactoryBot.create(:product) }
     let!(:product2) { FactoryBot.create(:product) }
     let!(:order) { FactoryBot.create(:order) }
-    let!(:case_line_item) { FactoryBot.create(:line_item, order: order, product: product) }
+    let!(:case_line_item) { FactoryBot.create(:line_item, order:, product:) }
     let!(:order2) { FactoryBot.create(:order, delivery_date: Date.current + 1) }
     let!(:case_line_item2) do
-      FactoryBot.create(:line_item, quantity: product.case_size + 1, order: order2, product: product)
+      FactoryBot.create(:line_item, quantity: product.case_size + 1, order: order2, product:)
     end
 
     it 'opens Admin::Fulfillment' do
