@@ -40,6 +40,11 @@
   <%= form.collection_select :contact_id, Contact.all.order(:name), :id, :name, include_blank: true %>
 </div>
 
+<div class="field">
+  <%= form.check_box :receives_emails %>
+  <%= form.label :receives_emails %>
+</div>
+
 <br />
 <div class="actions">
   <%= form.submit %>
