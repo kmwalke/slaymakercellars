@@ -8,9 +8,10 @@ class User < ApplicationRecord
   validates :role, presence: true
   validate :admin_cannot_have_contact
 
+  # after_create :send_new_customer_emails
   before_update :send_customer_activation_email
 
-  scope :emailable_admins, -> { where(role: ROLES[:admin], receives_email: true) }
+  scope :emailable_admins, -> { where(role: ROLES[:admin], receives_emails: true) }
 
   ROLES = {
     admin: 'Admin',
@@ -41,4 +42,5 @@ class User < ApplicationRecord
 
     CustomerMailer.with(user: self).account_activated.deliver_later
   end
+
 end
