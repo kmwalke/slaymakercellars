@@ -22,4 +22,16 @@ RSpec.describe User, type: :model do
 
     expect(user.reload.contact_id).to be_nil
   end
+
+  it 'should scope email admins' do
+    no_email_admin = FactoryBot.create(:admin, receives_emails: false)
+    email_admin = FactoryBot.create(:admin, receives_emails: true)
+    customer = FactoryBot.create(:customer)
+
+    admins = User.emailable_admins
+
+    expect(admins).to include(email_admin)
+    expect(admins).not_to include(no_email_admin)
+    expect(admins).not_to include(customer)
+  end
 end
