@@ -31,5 +31,18 @@ module Xero
           end
       }
     end
+
+    def self.public_url(order)
+      parse_url_response(xero_api_get(User.find_sole_by(email: 'kent@slaymakercellars.com'),
+                                      public_url_endpoint(order)))
+    end
+
+    def self.public_url_endpoint(order)
+      "Invoices/#{order.xero_id}/OnlineInvoice"
+    end
+
+    def self.parse_url_response(response)
+      JSON.parse(response.body)['OnlineInvoices'][0]['OnlineInvoiceUrl']
+    end
   end
 end
