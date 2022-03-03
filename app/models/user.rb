@@ -42,5 +42,4 @@ class User < ApplicationRecord
 
     CustomerMailer.with(user: self).account_activated.deliver_later
   end
-
 end
