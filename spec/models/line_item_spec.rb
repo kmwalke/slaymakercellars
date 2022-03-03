@@ -15,8 +15,8 @@ RSpec.describe LineItem, type: :model do
 
   describe 'methods' do
     let!(:product) { FactoryBot.create(:product) }
-    let!(:partial_line_item) { FactoryBot.create(:line_item, quantity: 1, product: product) }
-    let!(:case_line_item) { FactoryBot.create(:line_item, quantity: product.case_size, product: product) }
+    let!(:partial_line_item) { FactoryBot.create(:line_item, quantity: 1, product:) }
+    let!(:case_line_item) { FactoryBot.create(:line_item, quantity: product.case_size, product:) }
 
     it 'should respect case pricing' do
       expect(case_line_item.price_point < product.price_point).to be true

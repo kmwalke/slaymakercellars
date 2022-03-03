@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Admin::Notes', type: :feature do
   let!(:contact) { FactoryBot.create(:contact) }
-  let!(:note) { FactoryBot.create(:note, contact: contact) }
+  let!(:note) { FactoryBot.create(:note, contact:) }
 
   before :each do
     login_as_admin

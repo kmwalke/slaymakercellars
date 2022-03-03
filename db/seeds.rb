@@ -12,13 +12,13 @@ User.create(email: 'cris@slaymakercellars.com', name: 'Cris', password: '123', r
 User.create(email: 'manager@meadbuyer.com', name: 'Bob', password: '123', role: User::ROLES[:customer])
 
 Product::CATEGORIES.each do |category|
-  Product.create(name: "#{category}_1", price_point: 10, description: description, category: category,
+  Product.create(name: "#{category}_1", price_point: 10, description:, category:,
                  xero_code: "#{category}_1"[-6..].upcase)
-  Product.create(name: "#{category}_2", price_point: 12, description: description, category: category,
+  Product.create(name: "#{category}_2", price_point: 12, description:, category:,
                  xero_code: "#{category}_2"[-6..].upcase)
-  Product.create(name: "#{category}_3", price_point: 12, description: description, category: category,
+  Product.create(name: "#{category}_3", price_point: 12, description:, category:,
                  xero_code: "#{category}_3"[-6..].upcase)
-  Product.create(name: "#{category}_4", price_point: 14, description: description, category: category,
+  Product.create(name: "#{category}_4", price_point: 14, description:, category:,
                  xero_code: "#{category}_4"[-6..].upcase)
 
   Award.create(name: "2021 #{category}_award", product: Product.last)
@@ -37,18 +37,18 @@ end
 Town.all.each do |town|
   rand(1..6).times do |i|
     contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
-    contact     = Contact.create(name: "Contact_#{town.id}_#{i}", town: town, url: contact_url)
+    contact     = Contact.create(name: "Contact_#{town.id}_#{i}", town:, url: contact_url)
 
     rand(0..3).times do
-      Note.create(body: 'This is a note.', contact: contact, created_by: user1)
+      Note.create(body: 'This is a note.', contact:, created_by: user1)
     end
 
     rand(0..1).times do
-      order = Order.create(contact: contact, delivery_date: rand(-1..14).days.from_now, created_by: user1)
+      order = Order.create(contact:, delivery_date: rand(-1..14).days.from_now, created_by: user1)
 
       rand(1..3).times do
         product = Product.all.sample
-        LineItem.create(order: order, product: product, quantity: order_quantity(product))
+        LineItem.create(order:, product:, quantity: order_quantity(product))
       end
     end
   end

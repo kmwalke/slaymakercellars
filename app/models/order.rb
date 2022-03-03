@@ -50,7 +50,7 @@ class Order < ApplicationRecord
   end
 
   def contact_name=(name)
-    self.contact = Contact.find_by(name: name)
+    self.contact = Contact.find_by(name:)
   end
 
   def fulfilled?

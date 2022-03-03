@@ -37,7 +37,7 @@ class Contact < ApplicationRecord
   end
 
   def town_name=(name)
-    self.town = Town.find_by(name: name)
+    self.town = Town.find_by(name:)
   end
 
   def last_order_date
