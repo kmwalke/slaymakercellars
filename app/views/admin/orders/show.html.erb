@@ -11,15 +11,20 @@
 <% if @order.fulfilled_on -%>
   <h2>Delivered on <%= humanize_date @order.fulfilled_on %></h2>
   <p>
+    <% if @order.synced? -%>
+      <%= link_to 'Open Invoice', @xero_invoice_url + @order.xero_id, target: "_blank" %> |
+    <% else -%>
+      <%= link_to 'Create Invoice', invoice_admin_order_path(@order) %> |
+    <% end -%>
     <%= link_to 'Undeliver', unfulfill_admin_order_path(@order) %>
   </p>
 <% else -%>
   <p>
     <% if @order.synced? -%>
-    <%= link_to 'Open Invoice', @xero_invoice_url + @order.xero_id, target: "_blank" %> |
-  <% else -%>
-    <%= link_to 'Create Invoice', invoice_admin_order_path(@order) %> |
-  <% end -%>
+      <%= link_to 'Open Invoice', @xero_invoice_url + @order.xero_id, target: "_blank" %> |
+    <% else -%>
+      <%= link_to 'Create Invoice', invoice_admin_order_path(@order) %> |
+    <% end -%>
     <%= link_to 'Mark Delivered', fulfill_admin_order_path(@order) %> |
     <%= link_to 'Void', admin_order_path(@order), confirm: 'Are you sure?', method: :delete %>
   </p>
@@ -46,5 +51,5 @@
 </fieldset>
 
 <fieldset class="column">
-  <%= render partial: 'contact', locals: {contact: @order.contact} %>
+  <%= render partial: 'contact', locals: { contact: @order.contact } %>
 </fieldset>
