@@ -4,6 +4,12 @@
   <h2>Delivered on <%= humanize_date @order.fulfilled_on %></h2>
 <% end %>
 
+<% if @order.synced? -%>
+  <p>
+    <%= link_to 'View Invoice', Xero::Invoice.public_url(@order), target: "_blank" %>
+  </p>
+<% end -%>
+
 <fieldset class="column">
   <legend>Order #<%= @order.id %></legend>
 

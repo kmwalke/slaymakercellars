@@ -26,7 +26,7 @@
     <td><strong><%= link_to 'View Order', customer_order_path(order) %></strong></td>
     <td>
       <% if order.synced? -%>
-        <%= link_to 'View Invoice', 'xero link', target: "_blank" %>
+        <%= link_to 'View Invoice', Xero::Invoice.public_url(order), target: "_blank" %>
       <% end -%>
     </td>
   </tr>
