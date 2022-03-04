@@ -102,7 +102,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
     end
 
     scenario 'it repeats last order' do
-      FactoryBot.create(:order, contact: contact)
+      FactoryBot.create(:order, contact:)
 
       visit admin_contacts_path
 
@@ -170,7 +170,7 @@ RSpec.feature 'Admin::Contacts', type: :feature do
     describe 'sync' do
       scenario 'shows xero sync errors' do
         message = 'bad email'
-        contact.xero_sync_errors << XeroSyncError.new(message: message)
+        contact.xero_sync_errors << XeroSyncError.new(message:)
 
         visit admin_contacts_path
 

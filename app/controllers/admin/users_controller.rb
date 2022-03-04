@@ -55,6 +55,7 @@ module Admin
         :name,
         :password,
         :password_confirmation,
+        :receives_emails,
         :role
       )
     end

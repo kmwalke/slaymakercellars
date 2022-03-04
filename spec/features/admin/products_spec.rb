@@ -62,7 +62,7 @@ RSpec.feature 'Admin::Products', type: :feature do
     describe 'sync' do
       scenario 'shows xero sync errors' do
         message = 'bad email'
-        product.xero_sync_errors << XeroSyncError.new(message: message)
+        product.xero_sync_errors << XeroSyncError.new(message:)
 
         visit admin_products_path
 
