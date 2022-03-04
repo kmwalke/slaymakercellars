@@ -22,6 +22,7 @@
         width: 100%;
 
         li.town {
+          break-inside: avoid;
           list-style: none;
           width: 30%;
           height: 100%;
