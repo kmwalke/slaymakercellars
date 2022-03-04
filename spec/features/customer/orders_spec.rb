@@ -27,11 +27,5 @@ RSpec.feature 'Customer::Orders', type: :feature do
       expect(current_path).to eq(customer_order_path(@order))
       expect(page).to have_content(@order.id)
     end
-
-    scenario 'link to xero invoice', skip: 'not implemented' do
-      expect(true).to be false
-      # https://developer.xero.com/documentation/api/accounting/invoices/#retrieving-the-online-invoice-url
-      # Probably should save that link in the db.  Maybe
-    end
   end
 end

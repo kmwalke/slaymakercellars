@@ -74,11 +74,5 @@ RSpec.feature 'Customer::Home', type: :feature do
       visit '/customer'
       expect(page).not_to have_content('View Invoice')
     end
-
-    scenario 'link to xero invoice' do
-      FactoryBot.create(:order, contact: @current_user.contact, xero_id: '123')
-      visit '/customer'
-      expect(page).to have_content('View Invoice')
-    end
   end
 end
