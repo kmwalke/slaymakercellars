@@ -6,7 +6,7 @@ module Admin
       @late_orders     = Order.late.count
       @orders          = Order.active.count
       @todays_orders   = Order.to_be_fulfilled(Date.today).count
-      @contacts        = Contact.count
+      @contacts        = Contact.active.count
       @urgent_contacts = Contact.urgent.count
       @states          = State.count
       @towns           = Town.count
