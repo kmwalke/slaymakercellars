@@ -38,78 +38,62 @@ html {
       width: 100%;
       margin: 0;
       display: flex;
+      background-color: $blue;
 
-      div.left, div.right {
-        overflow-x: hidden;
+      div.links {
+        position: absolute;
+        right: 3%;
+        top: 1em;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+        a {
+          line-height: 2em;
+          margin-right: 2em;
+          font-size: x-large;
+          float: right;
+        }
+
+        a, a:visited {
+          color: $tan;
+          text-decoration: none;
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
+
+        img {
+          margin-left: 2em;
+        }
+
       }
 
-      div.left {
-        flex: 0 0 30%;
-        background-color: $brown;
-        overflow-x: visible;
-        position: relative;
-
-        div.image-wrapper {
-          width: 200%;
-          height: $splash-header-height;
-          position: absolute;
-          left: 0;
-
-          img {
-            margin-top: 8%;
-            width: 30%;
-            margin-left: -6.6%;
-          }
-        }
-      }
-
-      div.right {
-        flex: 1;
-        background-color: $blue;
-        color: $brown;
-        padding-left: 20%;
-
-        div.links {
-          position: absolute;
-          left: 40%;
-          top: 1em;
-          width: 60%;
-          margin: 0;
-          padding: 0;
-
-          a {
-            line-height: 2em;
-            margin-right: 2em;
-            font-size: x-large;
-          }
-
-          a, a:visited {
-            color: $tan;
-            text-decoration: none;
-          }
-
-          a:hover {
-            text-decoration: underline;
-          }
-
-          img {
-            float: right;
-            margin-right: 10%;
-          }
-        }
+      div.splash-image {
+        margin-top: 5em;
+        width: 100%;
+        background-image: url(<%= asset_path('peach.jpg') %>);
+        background-repeat: no-repeat;
+        background-size: 100%;
 
         div.header-text {
-          padding-top: $splash-header-height/3;
+          float: right;
+          margin-right: 25%;
+          padding-top: $splash-header-height/4;
 
           h1 {
             font-size: 4em;
             line-height: 0.5em;
-            color: $brown;
+            color: $tan;
+            text-shadow: 2px 2px 5px $black;
           }
 
           span {
+            color: $tan;
             font-size: 1.5em;
             display: block;
+            text-shadow: 2px 2px 5px $black;
           }
 
           div.link-wrapper {
@@ -132,10 +116,6 @@ html {
               text-align: center;
             }
 
-            a:hover {
-              text-decoration: underline;
-            }
-
             a.box-shadow {
               left: 0.75em;
               top: 0.75em;
@@ -144,11 +124,17 @@ html {
               border: 1px solid $tan;
             }
           }
+
+          div.link-wrapper:hover {
+            a {
+              text-decoration: underline;
+            }
+          }
         }
       }
     }
 
-    div.content{
+    div.content {
       position: relative;
       width: $content-width;
       padding-left: 50%;
@@ -168,6 +154,7 @@ html {
           margin: 0 -2em;
           font-size: x-large;
         }
+
         padding: 0 5em 1em 5em;
       }
 
