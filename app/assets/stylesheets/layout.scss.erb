@@ -1,6 +1,5 @@
 @import 'variables';
 
-$splash-header-height: 50em;
 $header-height: 5em;
 $content-width: 60%;
 
@@ -27,7 +26,11 @@ html {
     }
 
     div.splash-header {
-      height: $splash-header-height;
+      height: 0;
+      padding-bottom: 40%;
+      background-image: url(<%= asset_path('peach.jpg') %>);
+      background-repeat: no-repeat;
+      background-size: 100%;
     }
 
     div.header {
@@ -37,8 +40,9 @@ html {
     div.splash-header, div.header {
       width: 100%;
       margin: 0;
-      display: flex;
+      display: inline-block;
       background-color: $blue;
+      vertical-align: top;
 
       div.links {
         position: absolute;
@@ -71,16 +75,13 @@ html {
       }
 
       div.splash-image {
-        margin-top: 5em;
         width: 100%;
-        background-image: url(<%= asset_path('peach.jpg') %>);
-        background-repeat: no-repeat;
-        background-size: 100%;
 
         div.header-text {
           float: right;
           margin-right: 25%;
-          padding-top: $splash-header-height/4;
+          height: 0;
+          padding-top: 10%;
 
           h1 {
             font-size: 4em;
