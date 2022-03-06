@@ -8,6 +8,7 @@ body.admin {
   div.content {
     position: inherit;
     width: $content-width;
+    max-width: $content-width;
     padding-left: 50%;
     margin-left: -($content-width/2);
   }
@@ -34,135 +35,133 @@ body.admin {
   .wide-wrapper {
     position: relative;
     overflow-x: auto;
-    width: 90vw;
-    margin-left: -45vw;
-    left: 50%;
-  }
+    width: 100%;
 
-  table.crud {
-    border: 1px solid $black;
-    border-spacing: 0;
-    color: $blue;
-
-    a {
+    table.crud {
+      border: 1px solid $black;
+      border-spacing: 0;
       color: $blue;
-    }
-
-    .unresolved {
-      color: $red;
 
       a {
+        color: $blue;
+      }
+
+      .unresolved {
         color: $red;
+
+        a {
+          color: $red;
+        }
       }
-    }
 
-    th {
-      background: darken($tr-bg, 20);
-      text-align: center;
-      color: $white;
-
-      a, a:visited, a:active {
+      th {
+        background: darken($tr-bg, 20);
+        text-align: center;
         color: $white;
+
+        a, a:visited, a:active {
+          color: $white;
+        }
+
+        a.up::after {
+          content: "↑";
+        }
+
+        a.down::after {
+          content: "↓";
+        }
       }
 
-      a.up::after {
-        content: "↑";
+      td {
+        border-top: 1px solid black;
+        padding: 0 2.5em;
+        text-align: center;
+        height: 1.5em;
+        white-space: nowrap;
       }
 
-      a.down::after {
-        content: "↓";
+      tr {
+        background: $white;
       }
-    }
 
-    td {
-      border-top: 1px solid black;
-      padding: 0 2.5em;
-      text-align: center;
-      height: 1.5em;
-      white-space: nowrap;
-    }
+      tr.odd {
+        background: lighten($tr-bg, 50);
+      }
 
-    tr {
-      background: $white;
-    }
-
-    tr.odd {
-      background: lighten($tr-bg, 50);
-    }
-
-    tr:hover {
-      background: $tr-bg;
-      color: $white;
-
-      a {
+      tr:hover {
+        background: $tr-bg;
         color: $white;
-      }
-    }
-
-    tr.title:hover {
-      a {
-        color: $white;
-      }
-    }
-  }
-
-  div.c_panel {
-    a {
-      text-decoration: none;
-    }
-
-    fieldset {
-      width: 25%;
-      display: inline-block;
-      height: 12em;
-      vertical-align: top;
-      border: 2px ridge $grey-light;
-      margin-bottom: 2em;
-      color: $black;
-
-      legend {
-        font-weight: bold;
-        font-size: x-large;
-        border: 2px ridge $grey-light;
-        color: $brown;
-        background-color: $blue;
-        background: -webkit-linear-gradient($brown, $blue); /* For Safari 5.1 to 6.0 */
-        background: -o-linear-gradient($brown, $blue); /* For Opera 11.1 to 12.0 */
-        background: -moz-linear-gradient($brown, $blue); /* For Firefox 3.6 to 15 */
-        background: linear-gradient($brown, $blue); /* Standard syntax */
 
         a {
           color: $white;
         }
-
-        a:hover {
-          color: $grey-light;
-        }
       }
 
-      ul {
-        list-style: none;
-        line-height: 2em;
-        display: inline-block;
+      tr.title:hover {
+        a {
+          color: $white;
+        }
+      }
+    }
 
-        li {
+    div.c-panel {
+      a {
+        text-decoration: none;
+      }
+
+      fieldset {
+        width: 25%;
+        display: inline-block;
+        height: 12em;
+        vertical-align: top;
+        border: 2px ridge $grey-light;
+        margin-bottom: 2em;
+        color: $black;
+
+        legend {
+          font-weight: bold;
+          font-size: x-large;
+          border: 2px ridge $grey-light;
+          color: $brown;
+          background-color: $blue;
+          background: -webkit-linear-gradient($brown, $blue); /* For Safari 5.1 to 6.0 */
+          background: -o-linear-gradient($brown, $blue); /* For Opera 11.1 to 12.0 */
+          background: -moz-linear-gradient($brown, $blue); /* For Firefox 3.6 to 15 */
+          background: linear-gradient($brown, $blue); /* Standard syntax */
+
           a {
-            color: $black;
-            border: 2px outset $grey-light;
-            background: $white;
-            padding: 2px;
+            color: $white;
           }
 
-          a:active {
-            border: 2px inset $grey-light;
+          a:hover {
+            color: $grey-light;
           }
         }
 
-        li.urgent {
-          a {
-            border: 2px outset #c00;
-            background: #d00;
-            color: $white;
+        ul {
+          list-style: none;
+          line-height: 2em;
+          display: inline-block;
+
+          li {
+            a {
+              color: $black;
+              border: 2px outset $grey-light;
+              background: $white;
+              padding: 2px;
+            }
+
+            a:active {
+              border: 2px inset $grey-light;
+            }
+          }
+
+          li.urgent {
+            a {
+              border: 2px outset #c00;
+              background: #d00;
+              color: $white;
+            }
           }
         }
       }
