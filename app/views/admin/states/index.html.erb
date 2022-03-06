@@ -4,25 +4,27 @@
   <%= link_to 'New State', new_admin_state_path %>
 </p>
 
-<table class="crud">
-  <thead>
+<div class="wide-wrapper">
+  <table class="crud">
+    <thead>
     <tr>
       <th>Name</th>
       <th></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @states.each do |state| %>
       <tr>
-        <td><%= link_to state.name, edit_admin_state_path(state)%></td>
+        <td><%= link_to state.name, edit_admin_state_path(state) %></td>
         <td>
-          <%= link_to 'X', admin_state_path(state), method: :delete, id: "delete_#{state.id}", data: {confirm: 'Are you sure?' } %>
+          <%= link_to 'X', admin_state_path(state), method: :delete, id: "delete_#{state.id}", data: { confirm: 'Are you sure?' } %>
           &nbsp;
         </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 
-<br>
+<br/>

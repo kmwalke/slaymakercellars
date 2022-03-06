@@ -4,29 +4,31 @@
   <%= link_to 'New User', new_admin_user_path %>
 </p>
 
-<table class="crud">
-  <thead>
+<div class="wide-wrapper">
+  <table class="crud">
+    <thead>
     <tr>
       <th>Email</th>
       <th>Name</th>
       <th>Role</th>
       <th></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, edit_admin_user_path(user)%></td>
-        <td><%= link_to user.email, edit_admin_user_path(user)%></td>
-        <td><%= link_to user.role, edit_admin_user_path(user)%></td>
+        <td><%= link_to user.name, edit_admin_user_path(user) %></td>
+        <td><%= link_to user.email, edit_admin_user_path(user) %></td>
+        <td><%= link_to user.role, edit_admin_user_path(user) %></td>
         <td>
-          <%= link_to 'X', admin_user_path(user), method: :delete, id: "delete_#{user.id}", data: {confirm: 'Are you sure?' } %>
+          <%= link_to 'X', admin_user_path(user), method: :delete, id: "delete_#{user.id}", data: { confirm: 'Are you sure?' } %>
           &nbsp;
         </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 
-<br>
+<br/>
