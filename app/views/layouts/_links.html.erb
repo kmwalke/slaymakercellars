@@ -9,12 +9,13 @@
       <%= render partial: 'layouts/customer_links' %>
     <% else %>
       <ul class="links">
-        <li><%= link_to image_tag('small_tan_logo.png'), root_path %></li>
+        <li class="home_image"><%= link_to image_tag('small_tan_logo.png'), root_path %></li>
         <li><%= link_to 'Visit Us', visit_path %></li>
         <li><%= link_to 'Order', 'https://vinoshipper.com/shop/slaymaker_cellars', target: '_blank' %></li>
         <li><%= link_to 'Meads', products_path %></li>
         <li><%= link_to 'Where to Buy', contacts_path %></li>
         <li><%= link_to 'Our Story', root_path(anchor: 'story') %></li>
+        <li class="home_text"><%= link_to 'Home', root_path %></li>
         <!--    <li><%#= link_to 'Careers', careers_path %></li>-->
       </ul>
     <% end %>
