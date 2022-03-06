@@ -1,4 +1,7 @@
 <button class="hamburger-menu">
+  <span class="hamburger">_</span>
+  <span class="hamburger">_</span>
+  <span class="hamburger">_</span>
   <nav class="sidebar-menu">
     <% if current_user&.role == User::ROLES[:admin] %>
       <%= render partial: 'layouts/admin_links' %>
