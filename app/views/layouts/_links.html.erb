@@ -1,15 +1,19 @@
-<% if current_user&.role == User::ROLES[:admin] %>
-  <%= render partial: 'layouts/admin_links' %>
-<% elsif current_user&.role == User::ROLES[:customer] %>
-  <%= render partial: 'layouts/customer_links' %>
-<% else %>
-  <div class="links">
-    <%= link_to image_tag('small_tan_logo.png'), root_path %>
-    <%= link_to 'Visit Us', visit_path %>
-    <%= link_to 'Order', 'https://vinoshipper.com/shop/slaymaker_cellars', target: '_blank' %>
-    <%= link_to 'Meads', products_path %>
-    <%= link_to 'Where to Buy', contacts_path %>
-    <%= link_to 'Our Story', root_path(anchor: 'story') %>
-    <%#= link_to 'Careers', careers_path %>
-  </div>
-<% end %>
+<button class="hamburger-menu">
+  <nav class="sidebar-menu">
+    <% if current_user&.role == User::ROLES[:admin] %>
+      <%= render partial: 'layouts/admin_links' %>
+    <% elsif current_user&.role == User::ROLES[:customer] %>
+      <%= render partial: 'layouts/customer_links' %>
+    <% else %>
+      <ul class="links">
+        <li><%= link_to image_tag('small_tan_logo.png'), root_path %></li>
+        <li><%= link_to 'Visit Us', visit_path %></li>
+        <li><%= link_to 'Order', 'https://vinoshipper.com/shop/slaymaker_cellars', target: '_blank' %></li>
+        <li><%= link_to 'Meads', products_path %></li>
+        <li><%= link_to 'Where to Buy', contacts_path %></li>
+        <li><%= link_to 'Our Story', root_path(anchor: 'story') %></li>
+        <!--    <li><%#= link_to 'Careers', careers_path %></li>-->
+      </ul>
+    <% end %>
+  </nav>
+</button>

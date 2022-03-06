@@ -44,34 +44,47 @@ html {
       background-color: $blue;
       vertical-align: top;
 
-      div.links {
-        position: absolute;
-        right: 3%;
-        top: 1em;
-        width: 100%;
-        margin: 0;
-        padding: 0;
+      button.hamburger-menu {
+        font-family: 'Courier Prime', monospace;
+        border: none;
+        background: none;
 
-        a {
-          line-height: 2em;
-          margin-right: 2em;
-          font-size: x-large;
-          float: right;
+        nav {
+
+          ul.links {
+            position: absolute;
+            right: 3%;
+            top: 1em;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            li {
+              text-decoration: none;
+              display: inline;
+
+              a {
+                line-height: 2em;
+                margin-right: 2em;
+                font-size: x-large;
+                float: right;
+              }
+
+              a, a:visited {
+                color: $tan;
+                text-decoration: none;
+              }
+
+              a:hover {
+                text-decoration: underline;
+              }
+
+              img {
+                margin-left: 2em;
+              }
+            }
+          }
         }
-
-        a, a:visited {
-          color: $tan;
-          text-decoration: none;
-        }
-
-        a:hover {
-          text-decoration: underline;
-        }
-
-        img {
-          margin-left: 2em;
-        }
-
       }
 
       div.splash-image {
