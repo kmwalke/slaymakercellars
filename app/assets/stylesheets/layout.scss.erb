@@ -17,7 +17,7 @@ html {
     background-image: url(<%= asset_path('bg_texture.png') %>);
     background-color: $tan;
     color: $brown;
-
+    font-size: 1em;
     font-family: 'Courier Prime', monospace;
 
     h1, h2, h3, h4, h5 {
@@ -165,6 +165,67 @@ html {
 
       .float-left {
         float: left;
+      }
+
+      div.spacer {
+        height: 5em;
+      }
+
+      div.section {
+        clear: both;
+
+        h1 {
+          width: 8em;
+          color: $blue;
+          font-size: 3em;
+        }
+
+        p, ul {
+          margin: 0 0 2em 15%;
+          width: 60%;
+          line-height: 1.5em;
+        }
+
+        h1.right {
+          margin-left: 30%;
+        }
+
+        div.section-title {
+          display: block;
+          width: $page-title-size;
+          height: $page-title-size;
+          background: $tan;
+          margin: 0;
+          padding: 0;
+
+          h2 {
+            color: $brown;
+            display: block;
+            width: $page-title-size * 2/3;
+            text-align: center;
+            line-height: $page-title-size * 2/3;
+            margin: 0;
+            padding: 0;
+            font-size: 1.5em;
+          }
+
+          img {
+            margin-top: -$page-title-size*3/5;
+            margin-left: $page-title-size*3/7;
+            transform: rotate(90deg);
+
+            span {
+              color: $black;
+              display: block;
+              margin: 0 0 0 $page-title-size/2*3/4;
+              padding: 0;
+              font-weight: bold;
+              font-size: 1.25em;
+              line-height: .75em;
+            }
+          }
+        }
+
       }
     }
 
