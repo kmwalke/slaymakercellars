@@ -2,7 +2,7 @@
   <h1>Customer Portal for <%= current_user.contact.name %></h1>
 
   <h2>Your Orders</h2>
-  <div class="wide_wrapper">
+  <div class="wide-wrapper">
     <table class="crud">
       <%= render "order_table", order: @order %>
     </table>

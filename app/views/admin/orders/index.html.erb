@@ -11,7 +11,7 @@
   <%= link_to 'Voided Orders', admin_orders_path({show: "void"}) %>
 </p>
 
-<div class="wide_wrapper">
+<div class="wide-wrapper">
   <table class="crud">
     <%= render "table_head" %>
     <% @orders.each do |order| -%>

@@ -2,32 +2,34 @@
 
 <%= link_to 'New Product', new_admin_product_path %>
 
-<br />
-<br />
+<br/>
+<br/>
 
-<table class="crud">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Category</th>
-    <th>Synced?</th>
-    <th></th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @products.each do |product| %>
-    <tr class="<%= cycle "even", "odd" %>">
-      <td><%= link_to product.name, edit_admin_product_path(product) %></td>
-      <td><%= product.category %></td>
-      <td>
-        <span><%= product.synced? ? '✓' : 'X' %></span>
-      </td>
-      <td>
-        <%= link_to 'X', admin_product_path(product), method: :delete, id: "delete_#{product.id}", data: { confirm: 'Are you sure?' } %>
-        &nbsp;
-      </td>
+<div class="wide-wrapper">
+  <table class="crud">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Synced?</th>
+      <th></th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+    <% @products.each do |product| %>
+      <tr class="<%= cycle "even", "odd" %>">
+        <td><%= link_to product.name, edit_admin_product_path(product) %></td>
+        <td><%= product.category %></td>
+        <td>
+          <span><%= product.synced? ? '✓' : 'X' %></span>
+        </td>
+        <td>
+          <%= link_to 'X', admin_product_path(product), method: :delete, id: "delete_#{product.id}", data: { confirm: 'Are you sure?' } %>
+          &nbsp;
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
