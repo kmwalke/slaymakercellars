@@ -1,7 +1,7 @@
 @import 'variables';
 
 $header-height: 5em;
-$content-width: 60%;
+$content-width: 65em;
 
 html {
   margin: 0;
@@ -17,7 +17,7 @@ html {
     background-image: url(<%= asset_path('bg_texture.png') %>);
     background-color: $tan;
     color: $brown;
-
+    font-size: 1em;
     font-family: 'Courier Prime', monospace;
 
     h1, h2, h3, h4, h5 {
@@ -44,34 +44,51 @@ html {
       background-color: $blue;
       vertical-align: top;
 
-      div.links {
-        position: absolute;
-        right: 3%;
-        top: 1em;
-        width: 100%;
-        margin: 0;
-        padding: 0;
+      button.hamburger-menu {
+        font-family: 'Courier Prime', monospace;
+        border: none;
+        background: none;
 
-        a {
-          line-height: 2em;
-          margin-right: 2em;
-          font-size: x-large;
-          float: right;
+        nav {
+
+          ul.links {
+            position: absolute;
+            right: 3%;
+            top: 1em;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+
+            li.home_text {
+              display: none;
+            }
+
+            li {
+              text-decoration: none;
+              display: inline;
+
+              a {
+                line-height: 2em;
+                margin-right: 2em;
+                font-size: x-large;
+                float: right;
+              }
+
+              a, a:visited {
+                color: $tan;
+                text-decoration: none;
+              }
+
+              a:hover {
+                text-decoration: underline;
+              }
+
+              img {
+                margin-left: 2em;
+              }
+            }
+          }
         }
-
-        a, a:visited {
-          color: $tan;
-          text-decoration: none;
-        }
-
-        a:hover {
-          text-decoration: underline;
-        }
-
-        img {
-          margin-left: 2em;
-        }
-
       }
 
       div.splash-image {
@@ -137,7 +154,7 @@ html {
 
     div.content {
       position: relative;
-      width: $content-width;
+      max-width: $content-width;
       padding-left: 50%;
       margin-left: -($content-width/2);
       line-height: 1.4;
@@ -165,6 +182,67 @@ html {
 
       .float-left {
         float: left;
+      }
+
+      div.spacer {
+        height: 5em;
+      }
+
+      div.section {
+        clear: both;
+
+        h1 {
+          width: 8em;
+          color: $blue;
+          font-size: 3em;
+        }
+
+        p, ul {
+          margin: 0 0 2em 15%;
+          width: 60%;
+          line-height: 1.5em;
+        }
+
+        h1.right {
+          margin-left: 30%;
+        }
+
+        div.section-title {
+          display: block;
+          width: $page-title-size;
+          height: $page-title-size;
+          background: $tan;
+          margin: 0;
+          padding: 0;
+
+          h2 {
+            color: $brown;
+            display: block;
+            width: $page-title-size * 2/3;
+            text-align: center;
+            line-height: $page-title-size * 2/3;
+            margin: 0;
+            padding: 0;
+            font-size: 1.5em;
+          }
+
+          img {
+            margin-top: -$page-title-size*3/5;
+            margin-left: $page-title-size*3/7;
+            transform: rotate(90deg);
+
+            span {
+              color: $black;
+              display: block;
+              margin: 0 0 0 $page-title-size/2*3/4;
+              padding: 0;
+              font-weight: bold;
+              font-size: 1.25em;
+              line-height: .75em;
+            }
+          }
+        }
+
       }
     }
 

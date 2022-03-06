@@ -7,6 +7,8 @@ $white: white;
 $grey: grey;
 $grey-light: grey;
 
+$page-title-size: 7em;
+
 @mixin rounded-corners($radius) {
   border-radius: $radius;
   -moz-border-radius: $radius;
