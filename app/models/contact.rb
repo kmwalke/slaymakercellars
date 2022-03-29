@@ -29,7 +29,10 @@ class Contact < ApplicationRecord
   end
 
   def last_contacted
-    last_note_date
+    return last_order_date if last_note_date.nil?
+    return last_note_date if last_order_date.nil?
+
+    last_note_date > last_order_date ? last_note_date : last_order_date
   end
 
   def town_name
@@ -40,7 +43,7 @@ class Contact < ApplicationRecord
     self.town = Town.find_by(name:)
   end
 
-  def last_order_date
+  def last_fulfilled_order_date
     order = orders.order('fulfilled_on desc').first
 
     order.fulfilled_on || Date.today if order
@@ -114,5 +117,9 @@ class Contact < ApplicationRecord
 
   def last_note_date
     notes.last&.created_at
+  end
+
+  def last_order_date
+    orders.last&.fulfilled_on || orders.last&.created_at
   end
 end
