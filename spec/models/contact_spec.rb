@@ -117,15 +117,15 @@ RSpec.describe Contact, type: :model do
     contact.update(address: '2036 virginia st')
     expect(contact.reload.google_maps_url)
       .to eq(
-            "https://www.google.com/maps?q=2036+virginia+st,+#{contact.town.name},+#{contact.town.state.abbreviation}"
-          )
+        "https://www.google.com/maps?q=2036+virginia+st,+#{contact.town.name},+#{contact.town.state.abbreviation}"
+      )
   end
 
   it 'should return google maps link with no address' do
     contact.update(name: 'slaymaker cellars', address: '')
     expect(contact.reload.google_maps_url)
       .to eq(
-            "https://www.google.com/maps?q=slaymaker+cellars,+#{contact.town.name},+#{contact.town.state.abbreviation}"
-          )
+        "https://www.google.com/maps?q=slaymaker+cellars,+#{contact.town.name},+#{contact.town.state.abbreviation}"
+      )
   end
 end
