@@ -29,7 +29,7 @@ class Contact < ApplicationRecord
   end
 
   def last_contacted
-    notes.last.created_at
+    last_note_date
   end
 
   def town_name
@@ -110,5 +110,9 @@ class Contact < ApplicationRecord
 
   def address_or_name
     address.blank? ? name : address
+  end
+
+  def last_note_date
+    notes.last&.created_at
   end
 end

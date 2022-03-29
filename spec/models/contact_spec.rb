@@ -45,11 +45,45 @@ RSpec.describe Contact, type: :model do
     expect { deleted_contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  it 'should show last contacted' do
-    FactoryBot.create(:note, contact:, created_at: 5.days.ago)
-    note2 = FactoryBot.create(:note, contact:)
+  describe 'last_contacted' do
+    it 'should show nil last contacted for new contacts' do
+      expect(contact.last_contacted).to be_nil
+    end
 
-    expect(contact.last_contacted).to eq(note2.created_at)
+    it 'should use note date for last contacted' do
+      FactoryBot.create(:note, contact:, created_at: 5.days.ago)
+      note2 = FactoryBot.create(:note, contact:)
+
+      expect(contact.last_contacted).to eq(note2.created_at)
+    end
+
+    it 'should use order date for last contacted when order newer' do
+      FactoryBot.create(:note, contact:, created_at: 14.days.ago)
+      order = FactoryBot.create(:order, contact:, created_at: 5.days.ago)
+      FactoryBot.create(:note, contact:)
+
+      expect(contact.last_contacted).to eq(order.created_at)
+    end
+
+    it 'should use note date for last contacted when note newer' do
+      FactoryBot.create(:note, contact:, created_at: 5.days.ago)
+      FactoryBot.create(:order, contact:, created_at: 14.days.ago)
+      note2 = FactoryBot.create(:note, contact:)
+
+      expect(contact.last_contacted).to eq(note2.created_at)
+    end
+
+    it 'should use create order date for last contacted' do
+      order = FactoryBot.create(:order, contact:, created_at: 14.days.ago)
+
+      expect(contact.last_contacted).to eq(order.created_at)
+    end
+
+    it 'should use order date for last contacted' do
+      order = FactoryBot.create(:order, contact:, fulfilled_on: 14.days.ago)
+
+      expect(contact.last_contacted).to eq(order.fulfilled_on)
+    end
   end
 
   it 'should get last order fulfilled date' do
@@ -84,15 +118,15 @@ RSpec.describe Contact, type: :model do
     contact.update(address: '2036 virginia st')
     expect(contact.reload.google_maps_url)
       .to eq(
-        "https://www.google.com/maps?q=2036+virginia+st,+#{contact.town.name},+#{contact.town.state.abbreviation}"
-      )
+            "https://www.google.com/maps?q=2036+virginia+st,+#{contact.town.name},+#{contact.town.state.abbreviation}"
+          )
   end
 
   it 'should return google maps link with no address' do
     contact.update(name: 'slaymaker cellars', address: '')
     expect(contact.reload.google_maps_url)
       .to eq(
-        "https://www.google.com/maps?q=slaymaker+cellars,+#{contact.town.name},+#{contact.town.state.abbreviation}"
-      )
+            "https://www.google.com/maps?q=slaymaker+cellars,+#{contact.town.name},+#{contact.town.state.abbreviation}"
+          )
   end
 end
