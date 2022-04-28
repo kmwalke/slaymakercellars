@@ -80,7 +80,7 @@ module Xero
     def self.xero_token(user)
       Faraday.post(XERO_TOKEN_ENDPOINT) do |req|
         req.headers['Authorization'] =
-          "Basic #{Base64.strict_encode64("#{ENV['XERO_ID']}:#{ENV['XERO_SECRET']}")}"
+          "Basic #{Base64.strict_encode64("#{ENV.fetch('XERO_ID', nil)}:#{ENV.fetch('XERO_SECRET', nil)}")}"
         req.headers['Content-Type']  = 'application/x-www-form-urlencoded'
         req.body                     = URI.encode_www_form(
           grant_type: 'refresh_token',
