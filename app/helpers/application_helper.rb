@@ -1,4 +1,6 @@
 module ApplicationHelper
+  MENU_URL = 'https://docs.google.com/document/d/e/2PACX-1vQcDtRD40btM88GS0rU0soRtGhddFJ3e47nQ--Z8H_Aslg663kMZTEDwQL7LJ_3JA6Yiu1l7Jyotc4W/pub'.freeze
+
   def humanize_time(time)
     time&.strftime('%I:%M %p')
   end
