@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe LineItem, type: :model do
   it 'should require an order' do
-    expect { FactoryBot.create(:line_item, order: nil) }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { FactoryBot.create(:line_item, order: nil) }.to raise_error(ActiveRecord::NotNullViolation)
   end
 
   it 'should require a product' do
-    expect { FactoryBot.create(:line_item, product_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { FactoryBot.create(:line_item, product_id: nil) }.to raise_error(ActiveRecord::NotNullViolation)
   end
 
   it 'should require a quantity' do
-    expect { FactoryBot.create(:line_item, order_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { FactoryBot.create(:line_item, order_id: nil) }.to raise_error(ActiveRecord::NotNullViolation)
   end
 
   describe 'methods' do

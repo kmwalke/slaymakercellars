@@ -9,8 +9,6 @@ Bundler.require(*Rails.groups)
 
 class App
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
     config.time_zone = 'Mountain Time (US & Canada)'
 
     config.active_record.legacy_connection_handling = false
