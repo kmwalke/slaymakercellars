@@ -116,10 +116,10 @@ class Contact < ApplicationRecord
   end
 
   def last_note_date
-    notes.last&.created_at
+    notes.last&.created_at&.to_date
   end
 
   def last_order_date
-    orders.last&.fulfilled_on || orders.last&.created_at
+    orders.last&.fulfilled_on || orders.last&.created_at&.to_date
   end
 end
