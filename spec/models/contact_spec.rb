@@ -54,14 +54,14 @@ RSpec.describe Contact, type: :model do
       FactoryBot.create(:note, contact:, created_at: 5.days.ago)
       note2 = FactoryBot.create(:note, contact:)
 
-      expect(contact.last_contacted).to eq(note2.created_at)
+      expect(contact.last_contacted).to eq(note2.created_at.to_date)
     end
 
     it 'should use order date for last contacted when order newer' do
       FactoryBot.create(:note, contact:, created_at: 14.days.ago)
       order = FactoryBot.create(:order, contact:, created_at: 5.days.ago)
 
-      expect(contact.last_contacted).to eq(order.created_at)
+      expect(contact.last_contacted).to eq(order.created_at.to_date)
     end
 
     it 'should use note date for last contacted when note newer' do
@@ -69,13 +69,13 @@ RSpec.describe Contact, type: :model do
       FactoryBot.create(:order, contact:, created_at: 14.days.ago)
       note2 = FactoryBot.create(:note, contact:)
 
-      expect(contact.last_contacted).to eq(note2.created_at)
+      expect(contact.last_contacted).to eq(note2.created_at.to_date)
     end
 
     it 'should use create order date for last contacted' do
       order = FactoryBot.create(:order, contact:, created_at: 14.days.ago)
 
-      expect(contact.last_contacted).to eq(order.created_at)
+      expect(contact.last_contacted).to eq(order.created_at.to_date)
     end
 
     it 'should use order date for last contacted' do
