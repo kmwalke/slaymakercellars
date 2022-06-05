@@ -13,6 +13,7 @@ class Product < ApplicationRecord
   CATEGORIES = [
     'Flagship',
     'Mazer Series',
-    'Dessert'
+    'Dessert',
+    'Hydromel'
   ].freeze
 end
