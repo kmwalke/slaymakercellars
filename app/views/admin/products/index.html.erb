@@ -12,6 +12,8 @@
       <th>Name</th>
       <th>Category</th>
       <th>Synced?</th>
+      <th>In Production?</th>
+      <th>Public?</th>
       <th></th>
     </tr>
     </thead>
@@ -23,6 +25,12 @@
         <td><%= product.category %></td>
         <td>
           <span><%= product.synced? ? '✓' : 'X' %></span>
+        </td>
+        <td>
+          <span><%= product.in_production? ? '✓' : 'X' %></span>
+        </td>
+        <td>
+          <span><%= product.is_public? ? '✓' : 'X' %></span>
         </td>
         <td>
           <%= link_to 'X', admin_product_path(product), method: :delete, id: "delete_#{product.id}", data: { confirm: 'Are you sure?' } %>
