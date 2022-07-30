@@ -1,10 +1,10 @@
 <h1>PO <%= @order.id %></h1>
 
 <p>
-  Created by <%= @order.created_by.name %> on <%= humanize_date @order.created_at %>.
+  Created by <%= @order.created_by&.name %> on <%= humanize_date @order.created_at %>.
   <% if @order.updated_by -%>
     <br/>
-    Updated by <%= @order.updated_by.name %> on <%= humanize_date @order.updated_at %>.
+    Updated by <%= @order.updated_by&.name %> on <%= humanize_date @order.updated_at %>.
   <% end -%>
 </p>
 
