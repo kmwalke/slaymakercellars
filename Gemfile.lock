@@ -380,7 +380,6 @@ DEPENDENCIES
   guard-rspec
   jbuilder
   listen
-  oauth2
   omniauth-rails_csrf_protection
   omniauth-xero-oauth2
   pg
