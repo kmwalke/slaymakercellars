@@ -15,8 +15,8 @@ module Xero
       {
         type: 'ACCREC',
         contact: { contactId: order.contact.xero_id },
-        date: order.delivery_date,
-        dueDate: order.delivery_date + 30,
+        date: delivery_date(order),
+        dueDate: delivery_date(order) + 30,
         status: 'AUTHORISED',
         reference: order.customer_po,
         lineItems:
@@ -43,6 +43,12 @@ module Xero
 
     def self.parse_url_response(response)
       JSON.parse(response.body)['OnlineInvoices'][0]['OnlineInvoiceUrl']
+    end
+
+    private_class_method def self.delivery_date(order)
+      return Date.today if order.delivery_date < Date.today
+
+      order.delivery_date
     end
   end
 end
