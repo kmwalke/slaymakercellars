@@ -22,6 +22,12 @@ RSpec.describe LineItem, type: :model do
       expect(case_line_item.price_point < product.price_point).to be true
     end
 
+    it 'should calculate price point for kegs' do
+      product.update(case_size: 1)
+
+      expect(case_line_item.price_point).to eq(product.price_point)
+    end
+
     it 'should respect special customer pricing' do
       partial_line_item.order.contact.update(always_gets_case_deal: true)
 
