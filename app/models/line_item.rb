@@ -13,6 +13,8 @@ class LineItem < ApplicationRecord
   private
 
   def case_price
+    return product.price_point if product.case_size <= 1
+
     (product.price_point * (product.case_size - 1)) / product.case_size
   end
 
