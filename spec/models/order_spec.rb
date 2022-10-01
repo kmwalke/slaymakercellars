@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  let(:user) { FactoryBot.create(:admin) }
   let!(:order) { FactoryBot.create(:order) }
 
   it 'should require a contact' do
