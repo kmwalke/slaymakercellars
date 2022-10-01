@@ -110,13 +110,13 @@ module Admin
 
     def order_params
       params.require(:order).permit(
+        :assigned_to_id,
         :comments,
         :contact_name,
         :created_by_id,
         :customer_po,
         :delivery_date,
         :updated_by_id,
-        :user_id,
         line_items_attributes: [
           :fulfilled,
           :id,

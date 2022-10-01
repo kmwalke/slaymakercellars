@@ -67,7 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_01_001321) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "xero_id"
-    t.integer "user_id"
+    t.integer "assigned_to_id"
   end
 
   create_table "products", force: :cascade do |t|

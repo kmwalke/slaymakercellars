@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   belongs_to :contact
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User', optional: true
-  belongs_to :user, optional: true
+  belongs_to :assigned_to, class_name: 'User', optional: true
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
   validates :contact_id, presence: true
@@ -71,8 +71,8 @@ class Order < ApplicationRecord
   private
 
   def send_assigned_order_email
-    return unless !user.nil? && user_id_changed?
+    return unless !assigned_to.nil? && assigned_to_id_changed?
 
-    OrderMailer.with(order: self, user:).assigned.deliver_later
+    OrderMailer.with(order: self, user: assigned_to).assigned.deliver_later
   end
 end

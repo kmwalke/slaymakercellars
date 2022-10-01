@@ -174,10 +174,10 @@ describe 'Admin::Orders', type: :feature do
       admin = User.admins.first
       visit edit_admin_order_path(order.id)
 
-      select admin.name, from: 'order_user_id'
+      select admin.name, from: 'order_assigned_to_id'
       first(:button, 'Update').click
 
-      expect(order.reload.user).to eq(admin)
+      expect(order.reload.assigned_to).to eq(admin)
     end
 
     describe 'sync' do

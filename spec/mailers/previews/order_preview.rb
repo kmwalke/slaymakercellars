@@ -2,7 +2,7 @@
 class OrderPreview < ActionMailer::Preview
   def assigned
     user  = FactoryBot.build(:admin)
-    order = FactoryBot.build(:order, user: user)
-    OrderMailer.with(user: user, order: order).assigned
+    order = FactoryBot.build(:order, user:)
+    OrderMailer.with(user:, order:).assigned
   end
 end

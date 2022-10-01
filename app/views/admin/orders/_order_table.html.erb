@@ -1,7 +1,7 @@
 <tr class="<%= cycle "even", "odd" %>">
   <td><strong><%= order.id.to_s %></strong></td>
   <td>
-    <%= order.user&.name %>
+    <%= order.assigned_to&.name %>
   </td>
   <% if order.fulfilled? || order.synced? -%>
     <td><%= link_to order.contact.name, admin_order_path(order) %></td>

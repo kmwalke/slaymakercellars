@@ -1,10 +1,10 @@
 <h1><%= @order.contact.name %></h1>
 
 <table>
-  <% if @order.user -%>
+  <% if @order.assigned_to -%>
     <tr>
       <td>
-        Assigned to <strong><%= @order.user&.name %></strong>
+        Assigned to <strong><%= @order.assigned_to&.name %></strong>
       </td>
     </tr>
   <% end -%>
