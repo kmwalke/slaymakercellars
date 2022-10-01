@@ -10,13 +10,13 @@
   <% end -%>
   <tr>
     <td>
-      Created by <%= @order.created_by&.name %> on <%= humanize_date @order.created_at %>.
+      Created by <strong><%= @order.created_by&.name %></strong> on <%= humanize_date @order.created_at %>.
     </td>
   </tr>
   <% if @order.updated_by -%>
     <tr>
       <td>
-        Updated by <%= @order.updated_by&.name %> on <%= humanize_date @order.updated_at %>.
+        Updated by <strong><%= @order.updated_by&.name %></strong> on <%= humanize_date @order.updated_at %>.
       </td>
     </tr>
   <% end -%>

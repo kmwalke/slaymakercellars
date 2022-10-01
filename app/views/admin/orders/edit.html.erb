@@ -1,12 +1,26 @@
 <h1>PO <%= @order.id %></h1>
 
-<p>
-  Created by <%= @order.created_by&.name %> on <%= humanize_date @order.created_at %>.
-  <% if @order.updated_by -%>
-    <br/>
-    Updated by <%= @order.updated_by&.name %> on <%= humanize_date @order.updated_at %>.
+<table>
+  <% if @order.user -%>
+    <tr>
+      <td>
+        Assigned to <strong><%= @order.user&.name %></strong>
+      </td>
+    </tr>
   <% end -%>
-</p>
+  <tr>
+    <td>
+      Created by <strong><%= @order.created_by&.name %></strong> on <%= humanize_date @order.created_at %>.
+    </td>
+  </tr>
+  <% if @order.updated_by -%>
+    <tr>
+      <td>
+        Updated by <strong><%= @order.updated_by&.name %></strong> on <%= humanize_date @order.updated_at %>.
+      </td>
+    </tr>
+  <% end -%>
+</table>
 
 <%= form_for(@order, url: admin_order_path(@order), html: { autocomplete: 'off' }) do |f| %>
 
