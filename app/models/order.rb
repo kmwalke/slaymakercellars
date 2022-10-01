@@ -71,8 +71,8 @@ class Order < ApplicationRecord
   private
 
   def send_assigned_order_email
-    return unless !assigned_to.nil? && assigned_to_id_changed?
+    return if assigned_to.nil?
 
-    OrderMailer.with(order: self, user: assigned_to).assigned.deliver_later
+    OrderMailer.with(order: self).assigned.deliver_later
   end
 end
