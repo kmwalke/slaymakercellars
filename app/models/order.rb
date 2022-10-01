@@ -7,6 +7,7 @@ class Order < ApplicationRecord
   belongs_to :contact
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User', optional: true
+  belongs_to :user, optional: true
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
   validates :contact_id, presence: true

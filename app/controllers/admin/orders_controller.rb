@@ -116,6 +116,7 @@ module Admin
         :customer_po,
         :delivery_date,
         :updated_by_id,
+        :user_id,
         line_items_attributes: [
           :fulfilled,
           :id,

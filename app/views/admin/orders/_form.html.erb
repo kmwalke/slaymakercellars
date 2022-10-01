@@ -29,6 +29,11 @@
 </div>
 
 <div class="field">
+  <%= f.label :user, 'Assigned To' %>
+  <%= f.collection_select :user_id, User.admins.order(:name), :id, :name, include_blank: true %>
+</div>
+
+<div class="field">
   <%= f.label :customer_po, "Customer PO" %>
   <%= f.text_field :customer_po %>
 </div>
