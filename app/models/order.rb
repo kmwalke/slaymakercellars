@@ -7,10 +7,13 @@ class Order < ApplicationRecord
   belongs_to :contact
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User', optional: true
+  belongs_to :assigned_to, class_name: 'User', optional: true
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
   validates :contact_id, presence: true
   validates :delivery_date, presence: true
+
+  after_commit :send_assigned_order_email
 
   scope :active, -> { where(fulfilled_on: nil, deleted_at: nil).order('delivery_date asc') }
   scope :fulfilled, -> { where.not(fulfilled_on: nil).order('fulfilled_on DESC') }
@@ -63,5 +66,13 @@ class Order < ApplicationRecord
 
   def unfulfill
     self.fulfilled_on = nil
+  end
+
+  private
+
+  def send_assigned_order_email
+    return unless !assigned_to.nil? && assigned_to_id_changed?
+
+    OrderMailer.with(order: self, user: assigned_to).assigned.deliver_later
   end
 end
