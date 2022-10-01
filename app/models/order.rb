@@ -13,6 +13,8 @@ class Order < ApplicationRecord
   validates :contact_id, presence: true
   validates :delivery_date, presence: true
 
+  after_commit :send_assigned_order_email
+
   scope :active, -> { where(fulfilled_on: nil, deleted_at: nil).order('delivery_date asc') }
   scope :fulfilled, -> { where.not(fulfilled_on: nil).order('fulfilled_on DESC') }
   scope :inactive, -> { where.not(deleted_at: nil) }
@@ -64,5 +66,13 @@ class Order < ApplicationRecord
 
   def unfulfill
     self.fulfilled_on = nil
+  end
+
+  private
+
+  def send_assigned_order_email
+    return unless user != nil && user_id_changed?
+
+    OrderMailer.with(order: self, user: user).assigned.deliver_later
   end
 end
