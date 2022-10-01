@@ -1,4 +1,4 @@
-# Preview all emails at http://localhost:3000/rails/mailers/customer
+# Preview all emails at http://localhost:3000/rails/mailers
 class CustomerPreview < ActionMailer::Preview
   def welcome
     CustomerMailer.with(user: FactoryBot.build(:customer)).welcome

@@ -7,6 +7,12 @@
   </p>
 <% end -%>
 
+<% if Rails.env == 'development' -%>
+  <p>
+    <%= link_to 'Mailers', 'rails/mailers', target: '_blank'  %>
+  </p>
+<% end -%>
+
 <div class="wide-wrapper">
   <div class="c-panel">
     <fieldset>

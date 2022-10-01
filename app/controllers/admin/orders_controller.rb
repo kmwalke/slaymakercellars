@@ -110,6 +110,7 @@ module Admin
 
     def order_params
       params.require(:order).permit(
+        :assigned_to_id,
         :comments,
         :contact_name,
         :created_by_id,
