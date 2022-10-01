@@ -170,6 +170,16 @@ describe 'Admin::Orders', type: :feature do
       expect(page).to have_content(order.id)
     end
 
+    it 'assigns orders to a user' do
+      admin = User.admins.first
+      visit edit_admin_order_path(order.id)
+
+      select admin.name, from: 'order_user_id'
+      first(:button, 'Update').click
+
+      expect(order.reload.user).to eq(admin)
+    end
+
     describe 'sync' do
       scenario 'shows xero sync errors' do
         message = 'bad email'
