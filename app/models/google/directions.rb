@@ -31,7 +31,21 @@ module Google
     end
 
     def self.api_string(waypoints)
-      "#{GOOGLE_API_URL}origin=#{waypoints.first}&destination=#{waypoints.last}&key=#{ENV.fetch('GOOGLE_API_KEY', nil)}"
+      "#{GOOGLE_API_URL}origin=#{waypoints.first}&destination=#{waypoints.last}#{waypoints_string(waypoints)}&key=#{ENV.fetch('GOOGLE_API_KEY', nil)}"
+    end
+
+    def self.waypoints_string(waypoints)
+      return if waypoints.length < 3
+
+      result = '&waypoints={'
+      waypoints[1..-2].each do |w|
+        result += w
+        unless w == waypoints[-2]
+          result += '|'
+        end
+      end
+
+      "#{result}}"
     end
   end
 end
