@@ -13,11 +13,11 @@ module Google
       api_string(waypoints)
     end
 
-    def self.api_string(waypoints)
+    private_class_method def self.api_string(waypoints)
       "#{GOOGLE_DIR_URL}&origin=#{HOME}&destination=#{HOME}#{waypoints_string(waypoints)}"
     end
 
-    def self.waypoints_string(waypoints)
+    private_class_method def self.waypoints_string(waypoints)
       result = "&waypoints=#{LEFT_CURL_BRACE_CHAR}"
       waypoints.each_with_index do |w, i|
         result += w.gsub(' ', '+')
