@@ -14,9 +14,7 @@ module Google
     end
 
     def self.api_string(waypoints)
-      "#{GOOGLE_DIR_URL}&origin=#{HOME}&destination=#{HOME}#{waypoints_string(waypoints)}&key=#{ENV.fetch(
-        'GOOGLE_API_KEY', nil
-      )}"
+      "#{GOOGLE_DIR_URL}&origin=#{HOME}&destination=#{HOME}#{waypoints_string(waypoints)}"
     end
 
     def self.waypoints_string(waypoints)
