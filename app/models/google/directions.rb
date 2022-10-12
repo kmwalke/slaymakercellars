@@ -2,7 +2,10 @@ module Google
   class Directions
     GOOGLE_DIR_URL        = 'https://www.google.com/maps/dir/?api=1'.freeze
     UNKNOWN_ERROR_MESSAGE = 'An Unknown error has occurred. Have Kent check the logs.'.freeze
-    HOME                  = '2036+Virginia+St,+Idaho+Springs,+CO'
+    HOME                  = '2036+Virginia+St,+Idaho+Springs,+CO'.freeze
+    PIPE_CHAR             = '%7C'.freeze
+    LEFT_CURL_BRACE_CHAR  = '%7B'.freeze
+    RIGHT_CURL_BRACE_CHAR = '%7D'.freeze
 
     def self.get_directions_url(waypoints)
       raise Google::InvalidWaypointsError if waypoints.size < 2
@@ -10,25 +13,22 @@ module Google
       api_string(waypoints)
     end
 
-
-    private
-
     def self.api_string(waypoints)
-      "#{GOOGLE_DIR_URL}&origin=#{HOME}&destination=#{HOME}#{waypoints_string(waypoints)}&key=#{ENV.fetch('GOOGLE_API_KEY', nil)}"
+      "#{GOOGLE_DIR_URL}&origin=#{HOME}&destination=#{HOME}#{waypoints_string(waypoints)}&key=#{ENV.fetch(
+        'GOOGLE_API_KEY', nil
+      )}"
     end
 
     def self.waypoints_string(waypoints)
       return if waypoints.length < 3
 
-      result = '&waypoints=%7B'
+      result = "&waypoints=#{LEFT_CURL_BRACE_CHAR}"
       waypoints.each do |w|
         result += w.gsub(' ', '+')
-        unless w == waypoints.last
-          result += '%7C'
-        end
+        result += PIPE_CHAR unless w == waypoints.last
       end
 
-      "#{result}%7D"
+      "#{result}#{RIGHT_CURL_BRACE_CHAR}"
     end
   end
 end
