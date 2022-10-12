@@ -8,7 +8,7 @@ module Google
     RIGHT_CURL_BRACE_CHAR = '%7D'.freeze
 
     def self.get_directions_url(waypoints)
-      raise Google::InvalidWaypointsError if waypoints.size < 2
+      raise Google::InvalidWaypointsError if waypoints.empty?
 
       api_string(waypoints)
     end
@@ -20,8 +20,6 @@ module Google
     end
 
     def self.waypoints_string(waypoints)
-      return if waypoints.length < 3
-
       result = "&waypoints=#{LEFT_CURL_BRACE_CHAR}"
       waypoints.each do |w|
         result += w.gsub(' ', '+')
