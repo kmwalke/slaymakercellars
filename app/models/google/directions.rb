@@ -1,7 +1,6 @@
 module Google
   class Directions
     GOOGLE_DIR_URL        = 'https://www.google.com/maps/dir/?api=1'.freeze
-    UNKNOWN_ERROR_MESSAGE = 'An Unknown error has occurred. Have Kent check the logs.'.freeze
     HOME                  = '2036+Virginia+St,+Idaho+Springs,+CO'.freeze
     PIPE_CHAR             = '%7C'.freeze
     LEFT_CURL_BRACE_CHAR  = '%7B'.freeze
