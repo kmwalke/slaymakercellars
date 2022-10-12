@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_194614) do
     t.string "phone"
     t.string "email"
     t.string "contact_point"
-    t.text "address"
+    t.string "address", null: false
     t.text "description"
     t.datetime "deleted_at"
     t.integer "town_id"
