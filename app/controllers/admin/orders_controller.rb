@@ -100,7 +100,7 @@ module Admin
     def build_directions_url
       return if @orders.empty?
 
-      Google::Directions.get_directions_url(@orders.map{|o| "#{o.contact.google_maps_param}" })
+      Google::Directions.get_directions_url(@orders.map { |o| o.contact.google_maps_param.to_s })
     end
 
     def set_order
