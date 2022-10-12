@@ -21,7 +21,7 @@ module Google
       result = "&waypoints=#{LEFT_CURL_BRACE_CHAR}"
       waypoints.each_with_index do |w, i|
         result += w.gsub(' ', '+')
-        result += PIPE_CHAR unless i == waypoints.length-1
+        result += PIPE_CHAR unless i == waypoints.length - 1
       end
 
       "#{result}#{RIGHT_CURL_BRACE_CHAR}"
