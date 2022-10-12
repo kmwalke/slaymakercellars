@@ -101,11 +101,11 @@ class Contact < ApplicationRecord
     search ? where('lower(contacts.name) LIKE lower(?)', "%#{search}%") : all
   end
 
+  private
+
   def google_maps_param
     full_address.gsub(' ', '+')
   end
-
-  private
 
   def full_address
     "#{address_or_name}, #{town.name}, #{town.state.abbreviation}"
