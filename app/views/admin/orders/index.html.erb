@@ -11,13 +11,6 @@
   <%= link_to 'Voided Orders', admin_orders_path({show: "void"}) %>
 </p>
 
-<% unless @orders.empty? -%>
-<p>
-  <%= link_to 'View Delivery Route', @directions_url, target: '_blank' %>
-</p>
-<% end -%>
-
-
 <div class="wide-wrapper">
   <table class="crud">
     <%= render "table_head" %>
