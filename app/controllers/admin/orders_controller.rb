@@ -7,6 +7,7 @@ module Admin
     def index
       @orders, @title = Order.display_all(params[:show] || 'active')
       @show           = params[:show]
+      @directions_url = build_directions_url
     end
 
     def invoice
@@ -95,6 +96,12 @@ module Admin
     end
 
     private
+
+    def build_directions_url
+      return if @orders.empty?
+
+      Google::Directions.get_directions_url(@orders.map{|o| "#{o.contact.google_maps_param}" })
+    end
 
     def set_order
       @order = Order.find(params[:id])
