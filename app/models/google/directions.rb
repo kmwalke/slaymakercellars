@@ -1,51 +1,34 @@
 module Google
   class Directions
-    GOOGLE_API_URL        = 'https://maps.googleapis.com/maps/api/directions/json?'.freeze
+    GOOGLE_DIR_URL        = 'https://www.google.com/maps/dir/?api=1'.freeze
     UNKNOWN_ERROR_MESSAGE = 'An Unknown error has occurred. Have Kent check the logs.'.freeze
+    HOME                  = '2036+Virginia+St,+Idaho+Springs,+CO'
 
-    attr_reader :id, :response, :errors
-
-    def initialize(response, endpoint)
-      @response = JSON.parse(response.body)
-      @errors   = parse_errors(response)
-      @id       = parse_id(endpoint)
-    rescue StandardError
-      Rails.logger.info("Google Response Status: #{response.status}")
-      Rails.logger.info("Google Response: #{@response}")
-      @errors = [{ 'Message' => UNKNOWN_ERROR_MESSAGE }]
-    end
-
-    def self.get_directions(waypoints)
+    def self.get_directions_url(waypoints)
       raise Google::InvalidWaypointsError if waypoints.size < 2
 
-      response = JSON.parse(Faraday.get(api_string(waypoints)).body)
-      return response unless response['status'] =='OK'
-      response
+      api_string(waypoints)
     end
 
 
     private
 
-    def self.parse_errors(response)
-      return if response['error_message'].nil?
-    end
-
     def self.api_string(waypoints)
-      "#{GOOGLE_API_URL}origin=#{waypoints.first}&destination=#{waypoints.last}#{waypoints_string(waypoints)}&key=#{ENV.fetch('GOOGLE_API_KEY', nil)}"
+      "#{GOOGLE_DIR_URL}&origin=#{HOME}&destination=#{HOME}#{waypoints_string(waypoints)}&key=#{ENV.fetch('GOOGLE_API_KEY', nil)}"
     end
 
     def self.waypoints_string(waypoints)
       return if waypoints.length < 3
 
-      result = '&waypoints={'
-      waypoints[1..-2].each do |w|
-        result += w
-        unless w == waypoints[-2]
-          result += '|'
+      result = '&waypoints=%7B'
+      waypoints.each do |w|
+        result += w.gsub(' ', '+')
+        unless w == waypoints.last
+          result += '%7C'
         end
       end
 
-      "#{result}}"
+      "#{result}%7D"
     end
   end
 end
