@@ -19,9 +19,9 @@ module Google
 
     def self.waypoints_string(waypoints)
       result = "&waypoints=#{LEFT_CURL_BRACE_CHAR}"
-      waypoints.each do |w|
+      waypoints.each_with_index do |w, i|
         result += w.gsub(' ', '+')
-        result += PIPE_CHAR unless w == waypoints.last
+        result += PIPE_CHAR unless i == waypoints.length-1
       end
 
       "#{result}#{RIGHT_CURL_BRACE_CHAR}"
