@@ -7,6 +7,10 @@ module Google
     LEFT_CURL_BRACE_CHAR  = '%7B'.freeze
     RIGHT_CURL_BRACE_CHAR = '%7D'.freeze
 
+    def self.query_url
+      raise NotImplementedError
+    end
+
     private_class_method def self.sanitize(string)
       string.gsub(' ', '+').gsub('|', PIPE_CHAR).gsub('{', LEFT_CURL_BRACE_CHAR).gsub('}', RIGHT_CURL_BRACE_CHAR)
     end
