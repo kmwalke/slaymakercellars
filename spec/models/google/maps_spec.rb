@@ -8,6 +8,6 @@ RSpec.describe Google::Maps, type: :model do
                  "+#{contact.town.name}," \
                  "+#{contact.town.state.abbreviation}".gsub(' ', '+')
 
-    expect(Google::Maps.get_map_url(contact)).to eq(proper_url)
+    expect(Google::Maps.map_query_url(contact)).to eq(proper_url)
   end
 end

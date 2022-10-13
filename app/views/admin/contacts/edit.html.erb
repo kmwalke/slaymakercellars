@@ -8,7 +8,7 @@
     <%= link_to "Repeat last order", repeat_last_order_admin_contact_path(@contact) %> |
   <% end -%>
   <%= link_to "View all orders", admin_orders_path({ show: @contact.id }) %> |
-  <%= link_to 'View on map', Google::Maps.get_map_url(@contact), target: '_blank' %>
+  <%= link_to 'View on map', Google::Maps.map_query_url(@contact), target: '_blank' %>
 </div>
 <p>
   <% if @contact.deleted_at -%>

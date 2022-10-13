@@ -6,7 +6,7 @@ module Google
     GOOGLE_DIR_URL = 'https://www.google.com/maps/dir/?api=1'.freeze
     HOME           = '2036+Virginia+St,+Idaho+Springs,+CO'.freeze
 
-    def self.get_directions_url(waypoints)
+    def self.directions_url(waypoints)
       raise Google::InvalidWaypointsError if waypoints.empty?
 
       api_string(waypoints)
