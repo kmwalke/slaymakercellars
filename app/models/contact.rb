@@ -3,8 +3,6 @@ class Contact < ApplicationRecord
   include SoftDeletable
   include Xero::Syncable
 
-  GOOGLE_MAPS_BASE_URL = 'https://www.google.com/maps?q='.freeze
-
   belongs_to :town
   has_many :notes
   has_many :orders
@@ -48,10 +46,6 @@ class Contact < ApplicationRecord
     order = orders.order('fulfilled_on desc').first
 
     order.fulfilled_on || Date.today if order
-  end
-
-  def google_maps_url
-    GOOGLE_MAPS_BASE_URL + google_maps_param
   end
 
   def repeat_last_order
@@ -103,14 +97,6 @@ class Contact < ApplicationRecord
   end
 
   private
-
-  def google_maps_param
-    full_address.gsub(' ', '+')
-  end
-
-  def full_address
-    "#{address}, #{town.name}, #{town.state.abbreviation}"
-  end
 
   def last_note_date
     notes.last&.created_at&.to_date

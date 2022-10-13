@@ -1,3 +1,6 @@
+## This uses Google's URL Params Library.
+# https://developers.google.com/maps/documentation/urls/get-started#directions-action
+
 module Google
   class Directions
     GOOGLE_DIR_URL        = 'https://www.google.com/maps/dir/?api=1'.freeze
