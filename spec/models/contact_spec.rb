@@ -17,6 +17,14 @@ RSpec.describe Contact, type: :model do
     expect { FactoryBot.create(:contact, town: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
+  it 'should require an address' do
+    expect { FactoryBot.create(:contact, address: nil) }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
+  it 'should require a non-blank address' do
+    expect { FactoryBot.create(:contact, address: '') }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
   it 'should require a valid url' do
     expect { FactoryBot.create(:contact, url: 'not a url') }.to raise_error(ActiveRecord::RecordInvalid)
   end
@@ -118,14 +126,6 @@ RSpec.describe Contact, type: :model do
     expect(contact.reload.google_maps_url)
       .to eq(
         "https://www.google.com/maps?q=2036+virginia+st,+#{contact.town.name},+#{contact.town.state.abbreviation}"
-      )
-  end
-
-  it 'should return google maps link with no address' do
-    contact.update(name: 'slaymaker cellars', address: '')
-    expect(contact.reload.google_maps_url)
-      .to eq(
-        "https://www.google.com/maps?q=slaymaker+cellars,+#{contact.town.name},+#{contact.town.state.abbreviation}"
       )
   end
 end

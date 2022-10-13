@@ -26,9 +26,12 @@ end
 
 co = State.create(name: 'Colorado', abbreviation: 'CO')
 
-20.times do |i|
-  Town.create(name: "Town #{i}", state: co)
-end
+Town.create(name: 'Idaho Springs', state: co)
+Town.create(name: 'Colorado Springs', state: co)
+Town.create(name: 'Denver', state: co)
+Town.create(name: 'Ft. Collins', state: co)
+Town.create(name: 'Eagle', state: co)
+Town.create(name: 'Lakewood', state: co)
 
 def order_quantity(product)
   (rand(1..3) * product.case_size) + rand(0..6)

@@ -25,6 +25,7 @@ services:
       DB_HOST: db
       DB_TEST: smc-test
       DB_USERNAME: postgres
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
       XERO_ID: ${XERO_ID}
       XERO_SECRET: ${XERO_SECRET}
 

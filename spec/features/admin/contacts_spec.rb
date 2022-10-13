@@ -199,5 +199,6 @@ RSpec.feature 'Admin::Contacts', type: :feature do
     fill_in 'Name', with: contact.name
     fill_in 'Town', with: contact.town.name
     fill_in 'Description', with: contact.description
+    fill_in 'Address', with: contact.address
   end
 end
