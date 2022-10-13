@@ -21,6 +21,16 @@
   </div>
 
   <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_number %>
+    <%= form.text_field :unit_number %>
+  </div>
+
+  <div class="field">
     <%= form.label :town_name, 'Town' %>
     <%= form.text_field :town_name, list: 'towns' %>
 
@@ -39,26 +49,6 @@
   <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :contact_point %>
-    <%= form.text_field :contact_point %>
-  </div>
-
-  <div class="field">
-    <%= form.label :url %>
-    <%= form.text_field :url %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
-  </div>
-
-  <div class="field">
-    <%= form.label :unit_number %>
-    <%= form.text_field :unit_number %>
   </div>
 </div>
 
@@ -81,6 +71,16 @@
   <div class="field">
     <%= form.check_box :is_public %>
     <%= form.label :is_public, class: :inline %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact_point %>
+    <%= form.text_field :contact_point %>
+  </div>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
   </div>
 
   <div class="field">
