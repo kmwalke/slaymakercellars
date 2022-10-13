@@ -26,9 +26,12 @@ end
 
 co = State.create(name: 'Colorado', abbreviation: 'CO')
 
-20.times do |i|
-  Town.create(name: "Town #{i}", state: co)
-end
+Town.create(name: 'Idaho Springs', state: co)
+Town.create(name: 'Colorado Springs', state: co)
+Town.create(name: 'Denver', state: co)
+Town.create(name: 'Ft. Collins', state: co)
+Town.create(name: 'Eagle', state: co)
+Town.create(name: 'Lakewood', state: co)
 
 def order_quantity(product)
   (rand(1..3) * product.case_size) + rand(0..6)
@@ -37,7 +40,7 @@ end
 Town.all.each do |town|
   rand(1..6).times do |i|
     contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
-    contact     = Contact.create(name: "Contact_#{town.id}_#{i}", town:, url: contact_url)
+    contact     = Contact.create(name: "Contact_#{town.id}_#{i}", town:, address: '123 Main St', url: contact_url)
 
     rand(0..3).times do
       Note.create(body: 'This is a note.', contact:, created_by: user1)

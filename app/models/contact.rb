@@ -12,6 +12,7 @@ class Contact < ApplicationRecord
   has_one :user
 
   validates :name, presence: true, uniqueness: true
+  validates :address, presence: true
   validates :town_id, presence: true
 
   validate :proper_url
@@ -108,11 +109,7 @@ class Contact < ApplicationRecord
   end
 
   def full_address
-    "#{address_or_name}, #{town.name}, #{town.state.abbreviation}"
-  end
-
-  def address_or_name
-    address.blank? ? name : address
+    "#{address}, #{town.name}, #{town.state.abbreviation}"
   end
 
   def last_note_date
