@@ -40,7 +40,7 @@ end
 Town.all.each do |town|
   rand(1..6).times do |i|
     contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
-    contact     = Contact.create(name: "Contact_#{town.id}_#{i}", town:, url: contact_url)
+    contact     = Contact.create(name: "Contact_#{town.id}_#{i}", town:, address: '123 Main St', url: contact_url)
 
     rand(0..3).times do
       Note.create(body: 'This is a note.', contact:, created_by: user1)
