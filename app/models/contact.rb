@@ -42,6 +42,10 @@ class Contact < ApplicationRecord
     self.town = Town.find_by(name:)
   end
 
+  def full_address
+    "#{address}, #{town.name}, #{town.state.abbreviation}"
+  end
+
   def last_fulfilled_order_date
     order = orders.order('fulfilled_on desc').first
 
