@@ -111,17 +111,19 @@ body.admin {
     }
 
     fieldset {
-      width: 25%;
+      width: 33%;
       display: inline-block;
       height: 12em;
       vertical-align: top;
       border: 2px ridge $grey-light;
       margin-bottom: 2em;
+      padding: 1em;
       color: $black;
 
       legend {
         font-weight: bold;
         font-size: x-large;
+        margin-left: 1em;
         border: 2px ridge $grey-light;
         color: $brown;
         background-color: $blue;
