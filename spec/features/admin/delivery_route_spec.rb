@@ -40,7 +40,16 @@ describe 'Admin::DeliveryRoute', type: :feature do
 
     it 'creates a delivery route' do
       visit admin_delivery_route_path
-      expect(true).to eq(false)
+
+      Order.all[1..5].each do |order|
+        page.check("order_#{order.id}")
+      end
+
+      click_button 'Create'
+
+      expect(current_path).to eq(admin_delivery_route_path)
+
+      expect(page).to have_content('Your Delivery Route')
     end
   end
 end

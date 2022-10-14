@@ -1,1 +1,24 @@
 <h1>Create a Delivery Route</h1>
+
+<%= form_with do |form| %>
+
+  <%= fields_for 'order' do |f| %>
+  <ul>
+    <% @orders.each do |order| -%>
+    <li>
+      <%= f.check_box order.id, {id: "order_#{order.id}"} %>
+      <label for="<%= "order_#{order.id}" %>" >
+        <span><%= order.id %></span>
+        <span><%= order.contact.name %></span>
+        <span><%= humanize_date order.delivery_date %></span>
+        <span><%= order.contact.town.name %></span>
+      </label>
+    </li>
+    <% end -%>
+  </ul>
+
+  <% end %>
+  <%= form.submit 'Create', name: :show, disable_with: "Loading..." %>
+<% end -%>
+
+<%= link_to 'Back', admin_path %>

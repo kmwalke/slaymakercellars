@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get '/', to: 'home#index'
     get 'fulfillment', to: 'fulfillment#index'
     get 'delivery_route', to: 'delivery_route#index'
+    post 'delivery_route', to: 'delivery_route#show'
     resources :contacts do
       member do
         get :undestroy
