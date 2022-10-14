@@ -3,48 +3,26 @@
 <%= form_with do |form| %>
 
   <%= fields_for 'order' do |f| %>
-    <table class="delivery_route crud">
-      <tr class="header">
-        <th></th>
-        <th>PO</th>
-        <th>Assigned To</th>
-        <th>Business</th>
-        <th>Delivery Date</th>
-        <th>Town</th>
-      </tr>
+    <ul class="delivery_route crud">
+      <li class="header"><span>
+        </span><span>
+        PO</span><span>
+        Assigned To</span><span>
+        Business</span><span>
+        Delivery Date</span><span>
+        Town</span>
+      </li>
       <% @orders.each do |order| -%>
-        <tr class="<%= cycle "even", "odd" %>">
-          <td>
-            <%= f.check_box order.id, { id: "order_#{order.id}" } %>
-          </td>
-          <td>
-            <label for="<%= "order_#{order.id}" %>">
-              <%= order.id %>
-            </label>
-          </td>
-          <td>
-            <label for="<%= "order_#{order.id}" %>">
-              <%= order.assigned_to&.name %>
-            </label>
-          </td>
-          <td>
-            <label for="<%= "order_#{order.id}" %>">
-              <%= order.contact.name %>
-            </label>
-          </td>
-          <td>
-            <label for="<%= "order_#{order.id}" %>">
-              <%= humanize_date order.delivery_date %>
-            </label>
-          </td>
-          <td>
-            <label for="<%= "order_#{order.id}" %>">
-              <%= order.contact.town.name %>
-            </label>
-          </td>
-        </tr>
+        <li class="<%= cycle "even", "odd" %>"><%= f.check_box order.id, { id: "order_#{order.id}" } %><label for="<%= "order_#{order.id}" %>"><span>
+        </span><span>
+          <%= order.id %></span><span>
+          <%= order.assigned_to&.name %></span><span>
+          <%= order.contact.name %></span><span>
+          <%= humanize_date order.delivery_date %></span><span>
+          <%= order.contact.town.name %></span></label>
+        </li>
       <% end -%>
-    </table>
+    </ul>
 
   <% end %>
   <%= form.submit 'Create', name: :show, disable_with: "Loading..." %>
