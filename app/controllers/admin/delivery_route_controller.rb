@@ -3,7 +3,7 @@ module Admin
     before_action :must_be_admin
 
     def index
-      @orders = Order.active.includes(contact: :town)
+      @orders = Order.active.includes(contact: :town).includes(:assigned_to)
     end
 
     def show

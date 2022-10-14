@@ -1,0 +1,31 @@
+@import 'variables';
+
+body.delivery_route {
+  table.delivery_route {
+
+    input {
+      display: none;
+    }
+
+    input:checked {
+      display: block;
+    }
+
+    tr:target {
+      background: red;
+    }
+
+    td {
+      label {
+        width: 100%;
+        display: inline-block;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      label:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
