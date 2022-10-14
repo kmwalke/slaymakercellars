@@ -1,0 +1,84 @@
+@import 'variables';
+
+body.delivery_route {
+  ul.delivery_route {
+    border: 1px solid black;
+    width: 100%;
+    padding: 0;
+    color: $blue;
+
+    li {
+      text-decoration: underline;
+      list-style: none;
+      border-top: 1px solid black;
+      padding: 0;
+      text-align: left;
+      height: 1.5em;
+      white-space: nowrap;
+      position: relative;
+
+      input {
+        position: absolute;
+        top:0;
+        left: 0;
+        visibility: hidden;
+      }
+
+      input:checked {
+        visibility: visible;
+
+        + label {
+          background: $blue;
+          color: $white;
+        }
+      }
+
+      label {
+        cursor: pointer;
+        margin: 0;
+        display: block;
+        padding: 0;
+        height: 1.5em;
+      }
+
+      span {
+        display: inline-block;
+        width: 10em;
+        margin-right: 2em;
+        overflow: clip;
+      }
+
+      span:first-child {
+        width: 2em;
+      }
+
+      span:nth-child(2) {
+        width: 4em;
+      }
+
+      label:hover {
+        text-decoration: none;
+      }
+    }
+
+    li.odd {
+      background: lighten($tan, 50);
+    }
+
+    li:hover {
+      background: $brown;
+
+      label {
+        background: $brown;
+        color: white;
+      }
+    }
+
+    li.header {
+      background: darken($brown, 20);
+      text-align: left;
+      color: $white;
+      font-weight: bold;
+    }
+  }
+}

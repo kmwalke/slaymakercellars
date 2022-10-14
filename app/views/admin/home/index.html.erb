@@ -21,6 +21,12 @@
         <li>
           <%= link_to "New Order", new_admin_order_path %>
         </li>
+        <li>
+          <%= link_to "Create a Delivery Route", admin_delivery_route_path %>
+        </li>
+        <li>&nbsp;</li>
+      </ul>
+      <ul>
         <% unless @late_orders.size == 0 -%>
           <li class="urgent">
             <%= link_to "#{@late_orders} late", admin_orders_path(show: :late) %>

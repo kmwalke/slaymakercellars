@@ -5,8 +5,8 @@ module Google
   class Maps < UrlParams
     GOOGLE_MAPS_BASE_URL = 'https://www.google.com/maps?q='.freeze
 
-    def self.query_url(contact)
-      GOOGLE_MAPS_BASE_URL + sanitize(contact.full_address)
+    def self.query_url(address)
+      GOOGLE_MAPS_BASE_URL + sanitize(address)
     end
   end
 end
