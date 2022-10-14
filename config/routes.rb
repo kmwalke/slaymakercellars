@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'home#index'
     get 'fulfillment', to: 'fulfillment#index'
+    get 'delivery_route', to: 'delivery_route#index'
     resources :contacts do
       member do
         get :undestroy

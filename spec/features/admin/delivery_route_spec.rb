@@ -39,6 +39,7 @@ describe 'Admin::DeliveryRoute', type: :feature do
     end
 
     it 'creates a delivery route' do
+      visit admin_delivery_route_path
       expect(true).to eq(false)
     end
   end
