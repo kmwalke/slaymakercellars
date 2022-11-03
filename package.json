@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "Slaymaker_Cellars",
   "private": true,
   "dependencies": {
     "@nathanvda/cocoon": "^1.2.14",
@@ -11,6 +11,9 @@
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
+  "engines": {
+    "node": "18.x"
+  },
   "devDependencies": {
     "webpack-dev-server": "^4.11.1"
   }
