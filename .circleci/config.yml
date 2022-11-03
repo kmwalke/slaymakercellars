@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: Apt Install
-          command: apt install nodejs=12.22.12
+          command: sudo apt install nodejs=12.22.12
       - run:
           name: Install bundler
           command: gem install bundler
