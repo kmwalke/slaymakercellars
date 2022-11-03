@@ -38,6 +38,9 @@ jobs:
           name: Install yarn
           command: sudo apt-get install yarn
       - run:
+          name: Check current version of yarn
+          command: yarn -v
+      - run:
           name: Install bundler
           command: gem install bundler
       # Which version of bundler?
