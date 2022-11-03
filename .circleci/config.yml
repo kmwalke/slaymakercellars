@@ -26,6 +26,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Apt Install
+          command: apt update && apt list -a nodejs
+      - run:
           name: Install bundler
           command: gem install bundler
       # Which version of bundler?
