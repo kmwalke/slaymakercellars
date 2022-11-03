@@ -29,6 +29,10 @@ jobs:
           name: uname
           command: uname -a
       - run:
+      - run:
+          name: Install Node
+          command: sudo apt list nodejs -a
+      - run:
             name: Check current version of node
             command: node -v
       - run:
