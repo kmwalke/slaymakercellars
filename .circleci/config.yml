@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run:
           name: Apt Install
-          command: apt update && apt list -a nodejs
+          command: apt list -a nodejs
       - run:
           name: Install bundler
           command: gem install bundler
