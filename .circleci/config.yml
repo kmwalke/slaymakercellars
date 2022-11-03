@@ -2,7 +2,7 @@ version: 2
 
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
-    image: cimg/ruby:3.1.2
+    image: cimg/ruby:3.1.2-node
     environment:
       BUNDLE_JOBS: 3
       BUNDLE_RETRY: 3
@@ -26,8 +26,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Apt Install
-          command: sudo apt install nodejs=12.22.12
+            name: Check current version of node
+            command: node -v
       - run:
           name: Install bundler
           command: gem install bundler
