@@ -35,6 +35,9 @@ jobs:
             name: Check current version of node
             command: node -v
       - run:
+          name: Install yarn
+          command: sudo apt-get install yarn
+      - run:
           name: Install bundler
           command: gem install bundler
       # Which version of bundler?
