@@ -2,7 +2,7 @@ version: 2
 
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
-    image: cimg/ruby:3.1.2-node
+    image: cimg/ruby:3.1.2
     environment:
       BUNDLE_JOBS: 3
       BUNDLE_RETRY: 3
@@ -25,6 +25,12 @@ jobs:
       - *default_docker_ruby_executor
     steps:
       - checkout
+      - run:
+          name: Install Node
+          command: curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&sudo apt-get install -y nodejs
+      - run:
+          name: Install yarn
+          command: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install yarn
       - run:
           name: Install bundler
           command: gem install bundler
@@ -72,6 +78,12 @@ jobs:
           keys:
             - smc-bundle-v2-{{ checksum "Gemfile.lock" }}
             - smc-bundle-v2-
+      - run:
+          name: Install Node
+          command: curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - &&sudo apt-get install -y nodejs
+      - run:
+          name: Install yarn
+          command: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install yarn
       - run:
           name: Bundle Install
           command: bundle check || bundle install
