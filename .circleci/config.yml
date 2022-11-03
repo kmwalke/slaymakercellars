@@ -26,20 +26,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: uname
-          command: uname -a
-      - run:
           name: Install Node
           command: curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash - &&sudo apt-get install -y nodejs
       - run:
-            name: Check current version of node
-            command: node -v
-      - run:
           name: Install yarn
           command: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install yarn
-      - run:
-          name: Check current version of yarn
-          command: yarn -v
       - run:
           name: Install bundler
           command: gem install bundler
@@ -87,6 +78,12 @@ jobs:
           keys:
             - smc-bundle-v2-{{ checksum "Gemfile.lock" }}
             - smc-bundle-v2-
+      - run:
+          name: Install Node
+          command: curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash - &&sudo apt-get install -y nodejs
+      - run:
+          name: Install yarn
+          command: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install yarn
       - run:
           name: Bundle Install
           command: bundle check || bundle install
