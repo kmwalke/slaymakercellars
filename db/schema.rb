@@ -88,7 +88,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_215205) do
   end
 
   create_table "report_info", id: false, force: :cascade do |t|
+    t.integer "uuid", default: 1, null: false
     t.date "keg_report_calculated_on"
+    t.index ["uuid"], name: "index_report_info_on_uuid", unique: true
   end
 
   create_table "states", force: :cascade do |t|
