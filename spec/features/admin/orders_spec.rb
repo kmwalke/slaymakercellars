@@ -1,30 +1,30 @@
 require 'rails_helper'
 
-describe 'Admin::Orders', type: :feature do
+describe 'Admin::Orders' do
   describe 'logged out' do
-    scenario 'must be logged in to view admin page' do
+    it 'must be logged in to view admin page' do
       visit admin_orders_path
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit admin_orders_path
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    before :each do
+    before do
       login_as_admin
     end
 
-    let!(:order) { FactoryBot.create(:order) }
+    let!(:order) { create(:order) }
 
     it 'opens Admin::Orders' do
       visit admin_orders_path
 
-      expect(current_path).to eq(admin_orders_path)
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
       expect(page).to have_content('Orders')
     end
 
@@ -32,13 +32,13 @@ describe 'Admin::Orders', type: :feature do
       visit admin_orders_path
 
       first(:link, 'New Order').click
-      expect(current_path).to eq(new_admin_order_path)
+      expect(page).to have_current_path(new_admin_order_path, ignore_query: true)
 
       fill_in 'Contact', with: order.contact.name
       fill_in 'Delivery date', with: order.delivery_date
 
       click_button 'Save'
-      expect(current_path).to eq(admin_orders_path)
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
       expect(page).to have_content('created')
     end
 
@@ -47,18 +47,18 @@ describe 'Admin::Orders', type: :feature do
       visit admin_orders_path
 
       click_link order.contact.name
-      expect(current_path).to eq(edit_admin_order_path(order.id))
+      expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
 
       fill_in 'Delivery date', with: new_date
 
       first(:button, 'Update').click
-      expect(current_path).to eq(edit_admin_order_path(order.id))
-      expect(Order.find_by_id(order.id).delivery_date).to eq(new_date)
+      expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
+      expect(Order.find_by(id: order.id).delivery_date).to eq(new_date)
 
       fill_in 'Delivery date', with: new_date + 1
       first(:button, 'Save & Finish').click
-      expect(current_path).to eq(admin_orders_path)
-      expect(Order.find_by_id(order.id).delivery_date).to eq(new_date + 1)
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      expect(Order.find_by(id: order.id).delivery_date).to eq(new_date + 1)
     end
 
     it 'records users creating orders' do
@@ -87,8 +87,8 @@ describe 'Admin::Orders', type: :feature do
 
       click_link "void_#{order.id}"
 
-      expect(current_path).to eq(admin_orders_path)
-      expect(Order.find_by_id(order.id).deleted_at).to_not be_nil
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      expect(Order.find_by(id: order.id).deleted_at).not_to be_nil
     end
 
     it 'deletes an order from order page' do
@@ -97,8 +97,8 @@ describe 'Admin::Orders', type: :feature do
       click_link order.contact.name
       click_link 'Void'
 
-      expect(current_path).to eq(admin_orders_path)
-      expect(Order.find_by_id(order.id).deleted_at).to_not be_nil
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      expect(Order.find_by(id: order.id).deleted_at).not_to be_nil
     end
 
     it 'delivers an order from index' do
@@ -106,8 +106,8 @@ describe 'Admin::Orders', type: :feature do
 
       click_link "deliver_#{order.id}"
 
-      expect(current_path).to eq(admin_orders_path)
-      expect(Order.find_by_id(order.id).fulfilled_on).not_to eq(nil)
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      expect(Order.find_by(id: order.id).fulfilled_on).not_to be_nil
     end
 
     it 'delivers an order from order page' do
@@ -116,8 +116,8 @@ describe 'Admin::Orders', type: :feature do
       click_link order.contact.name
       click_link 'Mark Delivered'
 
-      expect(current_path).to eq(admin_orders_path)
-      expect(Order.find_by_id(order.id).fulfilled_on).not_to eq(nil)
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      expect(Order.find_by(id: order.id).fulfilled_on).not_to be_nil
     end
 
     it 'shows delivered orders' do
@@ -126,7 +126,7 @@ describe 'Admin::Orders', type: :feature do
 
       click_link 'Delivered Orders'
 
-      expect(current_path).to eq(admin_orders_path)
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
       expect(page).to have_content(order.id)
     end
 
@@ -134,7 +134,7 @@ describe 'Admin::Orders', type: :feature do
       order.fulfill
       visit edit_admin_order_path(order.id)
 
-      expect(current_path).to eq(admin_order_path(order.id))
+      expect(page).to have_current_path(admin_order_path(order.id), ignore_query: true)
 
       expect(page).to have_content(order.id)
     end
@@ -147,8 +147,8 @@ describe 'Admin::Orders', type: :feature do
       click_link order.contact.name
       click_link 'Undeliver'
 
-      expect(current_path).to eq(edit_admin_order_path(order.id))
-      expect(Order.find_by_id(order.id).fulfilled_on).to eq(nil)
+      expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
+      expect(Order.find_by(id: order.id).fulfilled_on).to be_nil
     end
 
     it 'views all orders by a contact' do
@@ -157,7 +157,7 @@ describe 'Admin::Orders', type: :feature do
       click_link order.contact.name
       click_link 'View all orders'
 
-      expect(current_path).to eq(admin_orders_path)
+      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
     end
 
     it 'shows late orders' do
@@ -181,7 +181,7 @@ describe 'Admin::Orders', type: :feature do
     end
 
     describe 'sync' do
-      scenario 'shows xero sync errors' do
+      it 'shows xero sync errors' do
         message = 'bad email'
         order.xero_sync_errors << XeroSyncError.new(message:)
 
@@ -190,21 +190,21 @@ describe 'Admin::Orders', type: :feature do
         expect(page).to have_content(message)
       end
 
-      scenario 'does not show xero link for unsynced on edit' do
+      it 'does not show xero link for unsynced on edit' do
         visit edit_admin_order_path(order)
 
         expect(page).not_to have_content('Open Invoice')
         expect(page).to have_content('Create Invoice')
       end
 
-      scenario 'does not show xero link for unsynced on show' do
+      it 'does not show xero link for unsynced on show' do
         visit admin_order_path(order)
 
         expect(page).not_to have_content('Open Invoice')
         expect(page).to have_content('Create Invoice')
       end
 
-      scenario 'shows xero link for synced' do
+      it 'shows xero link for synced' do
         order.update(xero_id: 'abc123')
         visit admin_order_path(order)
 
@@ -212,21 +212,21 @@ describe 'Admin::Orders', type: :feature do
         expect(page).not_to have_content('Create Invoice')
       end
 
-      scenario 'does not allow editing of orders with an invoice' do
+      it 'does not allow editing of orders with an invoice' do
         order.update(xero_id: 'abc123')
 
         visit edit_admin_order_path(order)
 
-        expect(current_path).to eq(admin_order_path(order))
+        expect(page).to have_current_path(admin_order_path(order), ignore_query: true)
       end
 
-      scenario 'links to show page when invoice is created' do
+      it 'links to show page when invoice is created' do
         order.update(xero_id: 'abc123')
 
         visit admin_orders_path
         click_link order.contact.name
 
-        expect(current_path).to eq(admin_order_path(order))
+        expect(page).to have_current_path(admin_order_path(order), ignore_query: true)
       end
     end
   end

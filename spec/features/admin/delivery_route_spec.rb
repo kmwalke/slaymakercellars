@@ -1,32 +1,30 @@
 require 'rails_helper'
 
-describe 'Admin::DeliveryRoute', type: :feature do
+describe 'Admin::DeliveryRoute' do
   describe 'logged out' do
-    scenario 'must be logged in to view admin page' do
+    it 'must be logged in to view admin page' do
       visit admin_delivery_route_path
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit admin_delivery_route_path
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    before :each do
+    before do
       login_as_admin
-      10.times do
-        FactoryBot.create(:order)
-      end
+      create_list(:order, 10)
     end
 
     it 'navigates directly to Admin::DeliveryRoute' do
       visit admin_path
       click_link('Create a Delivery Route')
 
-      expect(current_path).to eq(admin_delivery_route_path)
+      expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
       expect(page).to have_content('Delivery Route')
     end
 
@@ -34,7 +32,7 @@ describe 'Admin::DeliveryRoute', type: :feature do
       visit admin_orders_path
       click_link('Create a Delivery Route')
 
-      expect(current_path).to eq(admin_delivery_route_path)
+      expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
       expect(page).to have_content('Orders')
     end
 
@@ -47,7 +45,7 @@ describe 'Admin::DeliveryRoute', type: :feature do
 
       click_button 'Create'
 
-      expect(current_path).to eq(admin_delivery_route_path)
+      expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
 
       expect(page).to have_content('Your Delivery Route')
     end

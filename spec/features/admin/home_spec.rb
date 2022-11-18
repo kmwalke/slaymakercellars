@@ -1,52 +1,52 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::Home', type: :feature do
+RSpec.describe 'Admin::Home' do
   describe 'logged out' do
-    scenario 'must be logged in to view admin page' do
+    it 'must be logged in to view admin page' do
       visit '/admin'
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit '/admin'
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    before :each do
+    before do
       login_as_admin
       visit '/admin'
     end
 
-    scenario 'display page' do
+    it 'display page' do
       expect(page).to have_content('Administration')
     end
 
-    scenario 'user link' do
+    it 'user link' do
       first(:link, 'Users').click
-      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_current_path(admin_users_path, ignore_query: true)
     end
 
-    scenario 'product link' do
+    it 'product link' do
       first(:link, 'Products').click
-      expect(current_path).to eq(admin_products_path)
+      expect(page).to have_current_path(admin_products_path, ignore_query: true)
     end
 
-    scenario 'contact link' do
+    it 'contact link' do
       first(:link, 'Contacts').click
-      expect(current_path).to eq(admin_contacts_path)
+      expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
     end
 
-    scenario 'towns link' do
+    it 'towns link' do
       first(:link, 'View Towns').click
-      expect(current_path).to eq(admin_towns_path)
+      expect(page).to have_current_path(admin_towns_path, ignore_query: true)
     end
 
-    scenario 'states link' do
+    it 'states link' do
       first(:link, 'View States').click
-      expect(current_path).to eq(admin_states_path)
+      expect(page).to have_current_path(admin_states_path, ignore_query: true)
     end
 
     scenario 'reports link' do

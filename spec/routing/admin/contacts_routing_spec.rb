@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::ContactsController, type: :routing do
+RSpec.describe Admin::ContactsController do
   it 'routes to #index' do
     expect(get: '/admin/contacts').to route_to('admin/contacts#index')
   end
