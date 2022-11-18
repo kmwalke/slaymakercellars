@@ -32,23 +32,30 @@ describe 'Admin::Reports', type: :feature do
 
         first(:link, 'Keg Report').click
 
-        expect(current_path).to eq(admin_keg_reports_path)
+        expect(current_path).to eq(admin_reports_kegs_path)
+      end
+
+      it 'shows the reg report calculated date' do
+        visit admin_reports_kegs_path
+
+        expect(page).to have_content(humanize_date(ReportInfo.keg_report_calculated_on))
       end
 
       it 'shows contacts with kegs' do
-        contact = FactoryBot.create(:contact, num_kegs: 21)
-        visit admin_keg_reports_path
+        contact = FactoryBot.create(:contact, num_kegs: 87_668_521)
+        FactoryBot.create(:order, contact:, fulfilled_on: Date.yesterday)
+        visit admin_reports_kegs_path
 
         expect(page).to have_content(contact.name)
         expect(page).to have_content(contact.num_kegs)
+        expect(page).to have_content(humanize_date(contact.last_contacted))
       end
 
       it 'does not show contacts with no kegs' do
         contact = FactoryBot.create(:contact, num_kegs: 0)
-        visit admin_keg_reports_path
+        visit admin_reports_kegs_path
 
         expect(page).not_to have_content(contact.name)
-        expect(page).not_to have_content(contact.num_kegs)
       end
     end
   end

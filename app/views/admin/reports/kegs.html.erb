@@ -1,0 +1,33 @@
+<h1>Keg Report</h1>
+
+<p>
+  <%= link_to 'Reports', admin_reports_path %>
+</p>
+
+<p>
+  Keg Report calculated on <strong><%= humanize_date ReportInfo.keg_report_calculated_on %></strong>
+</p>
+
+<table class="crud">
+  <tr class="title">
+    <th>Contact</th>
+    <th># kegs</th>
+    <th>Last Contacted</th>
+  </tr>
+
+  <% @contacts.each do |contact| -%>
+    <tr class="<%= cycle "even", "odd" %>">
+      <td>
+        <%= contact.name %>
+      </td>
+      <td>
+        <%= contact.num_kegs %>
+      </td>
+      <td>
+        <%= humanize_date contact.last_contacted %>
+      </td>
+    </tr>
+  <% end -%>
+</table>
+
+<br/>
