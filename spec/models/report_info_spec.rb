@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ReportInfo, type: :model do
-  before :all do
-    FactoryBot.create(:report_info) if ReportInfo.all.count == 0
-  end
-
   it 'cannot create second row' do
     expect(ReportInfo.all.count).to eq(1)
 

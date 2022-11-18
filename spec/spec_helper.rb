@@ -92,6 +92,9 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+  config.before :all do
+    FactoryBot.create(:report_info) if ReportInfo.all.count == 0
+  end
 end
 
 def login_as_admin
