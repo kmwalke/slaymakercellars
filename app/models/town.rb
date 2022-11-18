@@ -4,4 +4,5 @@ class Town < ApplicationRecord
   has_many :contacts
 
   validates :name, presence: true
+  validates :state_id, presence: true
 end

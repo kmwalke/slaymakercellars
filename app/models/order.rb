@@ -10,6 +10,7 @@ class Order < ApplicationRecord
   belongs_to :assigned_to, class_name: 'User', optional: true
   accepts_nested_attributes_for :line_items, allow_destroy: true
 
+  validates :contact_id, presence: true
   validates :delivery_date, presence: true
 
   after_commit :send_assigned_order_email
@@ -42,7 +43,7 @@ class Order < ApplicationRecord
     when 'void'
       [orders.inactive, 'Void Orders']
     else
-      contact = Contact.find_by(id: show)
+      contact = Contact.find_by_id(show)
       [contact.orders.order('delivery_date DESC'), "Orders by #{contact.name}"]
     end
   end

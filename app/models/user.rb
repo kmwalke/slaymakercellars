@@ -10,8 +10,8 @@ class User < ApplicationRecord
   validates :role, presence: true
   validate :admin_cannot_have_contact
 
-  before_update :send_customer_activation_email
   after_commit :send_new_customer_emails
+  before_update :send_customer_activation_email
 
   scope :admins, -> { where(role: ROLES[:admin]) }
   scope :emailable_admins, -> { where(role: ROLES[:admin], receives_emails: true) }

@@ -11,19 +11,20 @@ class Contact < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true
+  validates :town_id, presence: true
 
   validate :proper_url
 
   scope :active, -> { where(deleted_at: nil) }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).uniq.select(:contact_id)) }
+  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
 
   def self.display(show, search_string, order, direction)
     [show, display_contacts(show, search_string, order, direction), display_title(show)]
   end
 
   def unresolved_notes?
-    notes.where(resolved_at: nil).any?
+    notes.where('resolved_at is null').any?
   end
 
   def last_contacted
