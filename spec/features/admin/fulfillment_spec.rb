@@ -14,7 +14,7 @@ describe 'Admin::Fulfillment' do
     end
   end
 
-  describe 'logged out' do
+  describe 'logged in' do
     let!(:product) { create(:product) }
     let!(:product2) { create(:product) }
     let!(:order) { create(:order) }
