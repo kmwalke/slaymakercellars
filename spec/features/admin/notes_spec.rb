@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::Notes', type: :feature do
-  let!(:contact) { FactoryBot.create(:contact) }
-  let!(:note) { FactoryBot.create(:note, contact:) }
+RSpec.describe 'Admin::Notes' do
+  let!(:contact) { create(:contact) }
+  let!(:note) { create(:note, contact:) }
 
-  before :each do
+  before do
     login_as_admin
   end
 
@@ -21,7 +21,7 @@ RSpec.feature 'Admin::Notes', type: :feature do
     fill_in 'Body', with: body
     click_button 'Create Issue'
 
-    expect(current_path).to eq(edit_admin_contact_path(contact))
+    expect(page).to have_current_path(edit_admin_contact_path(contact), ignore_query: true)
     expect(page).to have_content(body)
   end
 
@@ -40,7 +40,7 @@ RSpec.feature 'Admin::Notes', type: :feature do
     fill_in 'Resolution', with: resolution
     click_button 'Resolve Issue'
 
-    expect(current_path).to eq(edit_admin_contact_path(contact))
+    expect(page).to have_current_path(edit_admin_contact_path(contact), ignore_query: true)
     expect(page).to have_content(resolution)
   end
 end

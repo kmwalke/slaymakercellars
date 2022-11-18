@@ -1,21 +1,21 @@
 require 'rails_helper'
 
-RSpec.feature 'Customer::SignUp', type: :feature do
+RSpec.describe 'Customer::SignUp' do
   describe 'sign up' do
-    scenario 'displays sign up link' do
+    it 'displays sign up link' do
       visit login_path
       expect(page).to have_content('sign up here')
     end
 
-    scenario 'shows the sign up page' do
+    it 'shows the sign up page' do
       visit login_path
       click_link('sign up here')
-      expect(current_path).to eq(customer_signup_path)
+      expect(page).to have_current_path(customer_signup_path, ignore_query: true)
       expect(page).to have_content('wholesale customer')
     end
 
-    scenario 'signs up a new customer' do
-      user = FactoryBot.build(:user)
+    it 'signs up a new customer' do
+      user = build(:user)
       visit login_path
       click_link('sign up here')
       fill_in 'Name', with: user.name
