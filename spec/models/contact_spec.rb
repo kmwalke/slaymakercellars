@@ -34,7 +34,7 @@ RSpec.describe Contact do
   end
 
   it 'cannot have negative kegs' do
-    expect { FactoryBot.create(:contact, num_kegs: -1) }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { create(:contact, num_kegs: -1) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'allows a full url' do

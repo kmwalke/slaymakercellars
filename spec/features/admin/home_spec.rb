@@ -49,9 +49,9 @@ RSpec.describe 'Admin::Home' do
       expect(page).to have_current_path(admin_states_path, ignore_query: true)
     end
 
-    scenario 'reports link' do
+    it 'reports link' do
       first(:link, 'Reports').click
-      expect(current_path).to eq(admin_reports_path)
+      expect(page).to have_current_path(admin_reports_path, ignore_query: true)
     end
   end
 end
