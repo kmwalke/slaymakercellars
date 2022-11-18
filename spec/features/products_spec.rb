@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature 'Products', type: :feature do
-  let!(:product) { FactoryBot.create(:product) }
-  let!(:product_private) { FactoryBot.create(:product, is_public: false) }
-  let!(:award) { FactoryBot.create(:award, product:) }
+RSpec.describe 'Products' do
+  let!(:product) { create(:product) }
+  let!(:product_private) { create(:product, is_public: false) }
+  let!(:award) { create(:award, product:) }
 
   it 'shows the product page' do
     visit products_path

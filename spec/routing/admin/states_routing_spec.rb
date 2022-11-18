@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::StatesController, type: :routing do
+RSpec.describe Admin::StatesController do
   it 'routes to #index' do
     expect(get: '/admin/states').to route_to('admin/states#index')
   end
