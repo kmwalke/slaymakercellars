@@ -15,6 +15,10 @@ describe 'Admin::Reports', type: :feature do
   end
 
   describe 'logged in' do
+    before :all do
+      FactoryBot.create(:report_info) if ReportInfo.all.count == 0
+    end
+
     before(:each) do
       login_as_admin
     end
