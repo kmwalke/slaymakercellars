@@ -14,7 +14,7 @@ describe 'Admin::Fulfillment', type: :feature do
     end
   end
 
-  describe 'logged out' do
+  describe 'logged in' do
     let!(:product) { FactoryBot.create(:product) }
     let!(:product2) { FactoryBot.create(:product) }
     let!(:order) { FactoryBot.create(:order) }
