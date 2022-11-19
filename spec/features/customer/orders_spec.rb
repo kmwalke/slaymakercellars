@@ -15,17 +15,27 @@ RSpec.describe 'Customer::Orders' do
   end
 
   describe 'logged in' do
-    before do
-      @current_user = login_as_customer
-      @order        = create(:order, contact: @current_user.contact)
-    end
+    let(:current_user) { login_as_customer }
+    let!(:order) { create(:order, contact: current_user.contact) }
+    let!(:other_order) { create(:order, contact: create(:contact)) }
 
-    it 'display page' do
-      visit customer_path
-      click_link @order.id.to_s
+    describe 'customer page' do
+      before do
+        visit customer_path
+        click_link order.id.to_s
+      end
 
-      expect(page).to have_current_path(customer_order_path(@order), ignore_query: true)
-      expect(page).to have_content(@order.id)
+      it 'redirects to order path' do
+        expect(page).to have_current_path(customer_order_path(order), ignore_query: true)
+      end
+
+      it 'shows a customers order' do
+        expect(page).to have_content(order.id)
+      end
+
+      it 'does not show other customers order' do
+        expect(page).not_to have_content(other_order.id)
+      end
     end
   end
 end
