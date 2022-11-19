@@ -13,7 +13,7 @@ references:
       RAILS_ENV: test
       NODE_ENV: test
   postgres: &postgres
-    image: circleci/postgres:13.8
+    image: cimg/postgres:13.8
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: scraps-test
