@@ -1,13 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Contacts' do
-  let!(:contact) { create(:contact) }
-  let!(:deleted_contact) { create(:contact, deleted_at: DateTime.now) }
+  let!(:contact) { create(:contact, name: 'active contact') }
+  let!(:deleted_contact) { create(:contact, name: 'deleted contact', deleted_at: DateTime.now) }
 
   it 'list contacts' do
     visit root_path
     click_link 'Where to Buy'
     expect(page).to have_content(contact.name)
+  end
+
+  it 'does not list deleted contacts' do
+    visit root_path
+    click_link 'Where to Buy'
     expect(page).not_to have_content(deleted_contact.name)
   end
 
