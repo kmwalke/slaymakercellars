@@ -21,56 +21,94 @@ RSpec.describe 'Admin::Users' do
       login_as_admin
     end
 
-    it 'list users' do
-      visit admin_users_path
-      expect(page).to have_content(user.name)
-      expect(page).to have_content(user.email)
-      expect(page).to have_content(user.role)
+    describe 'list users' do
+      before do
+        visit admin_users_path
+      end
+
+      it 'shows the user name' do
+        expect(page).to have_content(user.name)
+      end
+
+      it 'shows the user email' do
+        expect(page).to have_content(user.email)
+      end
+
+      it 'shows the user role' do
+        expect(page).to have_content(user.role)
+      end
     end
 
-    it 'create a user' do
-      user2 = build(:admin)
-      visit admin_users_path
+    describe 'create a user' do
+      let(:user2) { build(:admin) }
 
-      click_link 'New User'
-      fill_in_form(user2)
-      click_button 'Create User'
+      before do
+        visit admin_users_path
 
-      expect(page).to have_current_path(admin_users_path, ignore_query: true)
-      expect(page).to have_content(user2.name)
+        click_link 'New User'
+        fill_in_form(user2)
+        click_button 'Create User'
+      end
+
+      it 'renders the index' do
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
+      end
+
+      it 'shows the new user' do
+        expect(page).to have_content(user2.name)
+      end
     end
 
-    it 'edit a user' do
-      visit admin_users_path
+    describe 'edit a user' do
+      before do
+        visit admin_users_path
 
-      click_link user.name
-      user.name = 'new name'
-      fill_in_form(user)
-      click_button 'Update User'
+        click_link user.name
+        user.name = 'new name'
+        fill_in_form(user)
+        click_button 'Update User'
+      end
 
-      expect(page).to have_current_path(admin_users_path, ignore_query: true)
-      expect(page).to have_content(user.name)
+      it 'renders the index' do
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
+      end
+
+      it 'shows the edited user' do
+        expect(page).to have_content(user.name)
+      end
     end
 
-    it 'delete a user' do
-      user_id = user.id
-      visit admin_users_path
+    describe 'delete a user' do
+      let(:user_id) { user.id }
 
-      click_link "delete_#{user.id}"
-      expect(page).to have_current_path(admin_users_path, ignore_query: true)
-      expect(User.find_by(id: user_id)).to be_nil
+      before do
+        visit admin_users_path
+
+        click_link "delete_#{user.id}"
+      end
+
+      it 'renders the index' do
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
+      end
+
+      it 'does not show the deleted user' do
+        expect(User.find_by(id: user_id)).to be_nil
+      end
     end
 
-    it 'activates a customer account' do
-      contact  = create(:contact)
-      customer = create(:customer, contact: nil)
-      visit admin_users_path
+    describe 'customer accounts' do
+      let!(:contact) { create(:contact) }
+      let!(:customer) { create(:customer, contact: nil) }
 
-      click_link customer.name
-      select contact.name, from: 'Contact'
-      click_button 'Update User'
+      it 'activates a customer account' do
+        visit admin_users_path
 
-      expect(customer.reload.contact_id).to eq(contact.id)
+        click_link customer.name
+        select contact.name, from: 'Contact'
+        click_button 'Update User'
+
+        expect(customer.reload.contact_id).to eq(contact.id)
+      end
     end
   end
 

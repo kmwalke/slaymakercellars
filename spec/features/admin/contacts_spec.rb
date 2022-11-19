@@ -22,10 +22,18 @@ RSpec.describe 'Admin::Contacts' do
       login_as_admin
     end
 
-    it 'list contacts' do
-      visit admin_contacts_path
-      expect(page).to have_content(contact.name)
-      expect(page).not_to have_content(deleted_contact.name)
+    describe 'list contacts' do
+      before do
+        visit admin_contacts_path
+      end
+
+      it 'shows an active contact' do
+        expect(page).to have_content(contact.name)
+      end
+
+      it 'does not show a deleted contact' do
+        expect(page).not_to have_content(deleted_contact.name)
+      end
     end
 
     it 'list deleted contacts' do
