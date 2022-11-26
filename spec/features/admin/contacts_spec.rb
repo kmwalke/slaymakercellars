@@ -15,81 +15,152 @@ RSpec.describe 'Admin::Contacts' do
   end
 
   describe 'logged in' do
-    let!(:contact) { create(:contact) }
+    let!(:contact) { create(:contact, name: 'Normal Contact') }
     let!(:deleted_contact) { create(:contact, deleted_at: DateTime.now) }
 
     before do
       login_as_admin
     end
 
-    it 'list contacts' do
-      visit admin_contacts_path
-      expect(page).to have_content(contact.name)
-      expect(page).not_to have_content(deleted_contact.name)
+    describe 'list contacts' do
+      before do
+        visit admin_contacts_path
+      end
+
+      it 'shows an active contact' do
+        expect(page.body).to include("\">#{contact.name}</a>")
+      end
+
+      it 'does not show a deleted contact' do
+        expect(page.body).not_to include("\">#{deleted_contact.name}</a>")
+      end
     end
 
-    it 'list deleted contacts' do
-      visit admin_contacts_path
-      click_link 'Deleted'
-      expect(page).not_to have_content(contact.name)
-      expect(page).to have_content(deleted_contact.name)
+    describe 'list deleted contacts' do
+      before do
+        visit admin_contacts_path
+        click_link 'Deleted'
+      end
+
+      it 'does not show active contact' do
+        expect(page.body).not_to include("\">#{contact.name}</a>")
+      end
+
+      it 'shows deleted contact' do
+        expect(page.body).to include("\">#{deleted_contact.name}</a>")
+      end
     end
 
-    it 'list urgent contacts' do
-      urgent_contact = create(:note).contact
-      visit admin_contacts_path
-      click_link 'Urgent'
-      expect(page).not_to have_content(contact.name)
-      expect(page).to have_content(urgent_contact.name)
+    describe 'list urgent contacts' do
+      let!(:urgent_contact) { create(:note).contact }
+
+      before do
+        visit admin_contacts_path
+        click_link 'Urgent'
+      end
+
+      it 'does not show unurgent contact' do
+        expect(page.body).not_to include("\">#{contact.name}</a>")
+      end
+
+      it 'shows urgent contact' do
+        expect(page.body).to include("\">#{urgent_contact.name}</a>")
+      end
     end
 
-    it 'create a contact' do
-      contact2 = build(:contact, town: create(:town))
-      visit admin_contacts_path
+    describe 'create a contact' do
+      let(:contact2) { build(:contact, town: create(:town)) }
 
-      click_link 'New Contact'
-      fill_in_form(contact2)
-      click_button 'Create Contact'
+      before do
+        visit admin_contacts_path
 
-      expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
-      expect(page).to have_content(contact2.name)
+        click_link 'New Contact'
+        fill_in_form(contact2)
+        click_button 'Create Contact'
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
+      end
+
+      it 'shows the contact name' do
+        expect(page.body).to include("\">#{contact2.name}</a>")
+      end
     end
 
-    it 'edit a contact' do
-      visit admin_contacts_path
+    describe 'edit a contact' do
+      before do
+        visit admin_contacts_path
 
-      click_link contact.name
-      contact.name = 'new name'
-      fill_in_form(contact)
-      click_button 'Update Contact'
+        click_link contact.name
+        contact.name = 'new name'
+        fill_in_form(contact)
+        click_button 'Update Contact'
+      end
 
-      expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
-      expect(page).to have_content(contact.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
+      end
+
+      it 'shows the new contact name' do
+        expect(page.body).to include("\">#{contact.name}</a>")
+      end
     end
 
-    it 'soft delete a contact' do
-      visit admin_contacts_path
+    describe 'soft delete a contact' do
+      before do
+        visit admin_contacts_path
 
-      click_link "delete_#{contact.id}"
-      expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
-      expect(page).to have_content('archived')
+        click_link "delete_#{contact.id}"
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
+      end
+
+      it 'displays the flash text' do
+        expect(page).to have_content('archived')
+      end
+
+      it 'soft deletes the contact' do
+        expect(contact.reload.deleted_at).not_to be_nil
+      end
     end
 
-    it 'hard delete a contact' do
-      visit admin_contacts_path
-      click_link 'Deleted'
+    describe 'hard delete a contact' do
+      before do
+        visit admin_contacts_path
+        click_link 'Deleted'
 
-      click_link "delete_#{deleted_contact.id}"
-      expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
-      expect(page).to have_content('destroyed')
+        click_link "delete_#{deleted_contact.id}"
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
+      end
+
+      it 'displays the flash text' do
+        expect(page).to have_content('destroyed')
+      end
+
+      it 'hard deletes the contact' do
+        expect { deleted_contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
 
-    it 'undelete a contact' do
-      visit edit_admin_contact_path(deleted_contact)
-      click_link 'Activate Contact'
+    describe 'undelete a contact' do
+      before do
+        visit edit_admin_contact_path(deleted_contact)
+        click_link 'Activate Contact'
+      end
 
-      expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
-      expect(page).to have_content(contact.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_contacts_path, ignore_query: true)
+      end
+
+      it 'shows the undeleted contact' do
+        expect(page.body).to include("\">#{contact.name}</a>")
+      end
     end
 
     it 'views all orders by a contact' do
@@ -156,14 +227,21 @@ RSpec.describe 'Admin::Contacts' do
         expect(page.body).to match(/bbbb.*aaaa/m)
       end
 
-      it 'searches by name' do
-        visit admin_contacts_path
+      describe 'searches by name' do
+        before do
+          visit admin_contacts_path
 
-        fill_in 'search', with: 'aa'
-        click_button 'Search'
+          fill_in 'search', with: 'aa'
+          click_button 'Search'
+        end
 
-        expect(page).to have_content(a_contact.name)
-        expect(page).not_to have_content(b_contact.name)
+        it 'shows filtered contact' do
+          expect(page).to have_content(a_contact.name)
+        end
+
+        it 'does not show unfiltered contact' do
+          expect(page).not_to have_content(b_contact.name)
+        end
       end
     end
 

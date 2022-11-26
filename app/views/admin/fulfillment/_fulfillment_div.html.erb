@@ -12,13 +12,9 @@
     <% @fulfillment.product_names.each do |product| -%>
       <% amount = date.nil? ? @fulfillment.total_amount(product) : @fulfillment.amount(product, date) -%>
       <tr class="<%= cycle "even", "odd" %>">
-        <td><%= product %></td>
-        <td class=<%= active_class(amount[:cases]) %>>
-          <%= amount[:cases] %>
-        </td>
-        <td class=<%= active_class(amount[:bottles]) %>>
-          <%= amount[:bottles] %>
-        </td>
+        <td><%= product
+        %></td><td class=<%= active_class(amount[:cases]) %>><%= amount[:cases]
+        %></td><td class=<%= active_class(amount[:bottles]) %>><%= amount[:bottles] %></td>
       </tr>
     <% end -%>
 
