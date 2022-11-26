@@ -21,113 +21,211 @@ describe 'Admin::Orders' do
 
     let!(:order) { create(:order) }
 
-    it 'opens Admin::Orders' do
-      visit admin_orders_path
+    describe 'opens Admin::Orders' do
+      before do
+        visit admin_orders_path
+      end
 
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(page).to have_content('Orders')
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      end
+
+      it 'shows the title' do
+        expect(page).to have_content('Orders')
+      end
     end
 
-    it 'creates an order' do
-      visit admin_orders_path
+    describe 'creates an order' do
+      before do
+        visit admin_orders_path
 
-      first(:link, 'New Order').click
-      expect(page).to have_current_path(new_admin_order_path, ignore_query: true)
+        first(:link, 'New Order').click
+      end
 
-      fill_in 'Contact', with: order.contact.name
-      fill_in 'Delivery date', with: order.delivery_date
+      it 'renders the new order page' do
+        expect(page).to have_current_path(new_admin_order_path, ignore_query: true)
+      end
 
-      click_button 'Save'
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(page).to have_content('created')
+      describe 'new order form' do
+        before do
+          visit admin_orders_path
+
+          first(:link, 'New Order').click
+          fill_in 'Contact', with: order.contact.name
+          fill_in 'Delivery date', with: order.delivery_date
+
+          click_button 'Save'
+        end
+
+        it 'renders the index page' do
+          expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+        end
+
+        it 'creates the order' do
+          expect(page).to have_content('created')
+        end
+      end
     end
 
-    it 'updates an order' do
-      new_date = order.delivery_date + 1
-      visit admin_orders_path
+    describe 'updates an order' do
+      before do
+        visit admin_orders_path
 
-      click_link order.contact.name
-      expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
+        click_link order.contact.name
+      end
 
-      fill_in 'Delivery date', with: new_date
+      it 'renders the edit order page' do
+        expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
+      end
 
-      first(:button, 'Update').click
-      expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
-      expect(Order.find_by(id: order.id).delivery_date).to eq(new_date)
+      describe 'update order form' do
+        let!(:new_date) { order.delivery_date + 1 }
 
-      fill_in 'Delivery date', with: new_date + 1
-      first(:button, 'Save & Finish').click
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(Order.find_by(id: order.id).delivery_date).to eq(new_date + 1)
+        before do
+          visit admin_orders_path
+
+          click_link order.contact.name
+
+          fill_in 'Delivery date', with: new_date
+
+          first(:button, 'Update').click
+
+          fill_in 'Delivery date', with: new_date + 1
+          first(:button, 'Save & Finish').click
+        end
+
+        it 'renders the index page' do
+          expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+        end
+
+        it 'shows the new order id' do
+          expect(page.body).to include("<strong>#{order.id}</strong>")
+        end
+
+        it 'saves the new order date' do
+          expect(Order.find_by(id: order.id).delivery_date).to eq(new_date + 1)
+        end
+      end
     end
 
     it 'records users creating orders' do
       visit edit_admin_order_path(order.id)
 
-      expect(page).to have_content('Created by')
-      expect(page).to have_content(order.created_by.name)
+      expect(page).to have_content("Created by #{order.created_by.name}")
     end
 
-    it 'records users updating orders' do
-      user2 = login_as_admin
+    describe 'records users updating orders' do
+      let!(:user2) { login_as_admin }
 
-      visit edit_admin_order_path(order.id)
-      new_date = order.delivery_date + 1
-      fill_in 'Delivery date', with: new_date
+      before do
+        visit edit_admin_order_path(order.id)
+        fill_in 'Delivery date', with: order.delivery_date + 1
 
-      first(:button, 'Update').click
+        first(:button, 'Update').click
 
-      visit edit_admin_order_path(order.id)
-      expect(page).to have_content('Updated by')
-      expect(page).to have_content(user2.name)
+        visit edit_admin_order_path(order.id)
+      end
+
+      it 'records user when updating orders' do
+        expect(page).to have_content("Updated by #{user2.name}")
+      end
     end
 
-    it 'deletes an order from index' do
-      visit admin_orders_path
+    describe 'deletes an order from index' do
+      before do
+        visit admin_orders_path
 
-      click_link "void_#{order.id}"
+        click_link "void_#{order.id}"
+      end
 
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(Order.find_by(id: order.id).deleted_at).not_to be_nil
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      end
+
+      it 'archives the order' do
+        expect(Order.find_by(id: order.id).deleted_at).not_to be_nil
+      end
+
+      it 'does not display the archived order' do
+        expect(page.body).not_to include("<strong>#{order.id}</strong>")
+      end
     end
 
-    it 'deletes an order from order page' do
-      visit admin_orders_path
+    describe 'deletes an order from order page' do
+      before do
+        visit admin_orders_path
 
-      click_link order.contact.name
-      click_link 'Void'
+        click_link order.contact.name
+        click_link 'Void'
+      end
 
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(Order.find_by(id: order.id).deleted_at).not_to be_nil
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      end
+
+      it 'archives the order' do
+        expect(Order.find_by(id: order.id).deleted_at).not_to be_nil
+      end
+
+      it 'does not display the archived order' do
+        expect(page.body).not_to include("<strong>#{order.id}</strong>")
+      end
     end
 
-    it 'delivers an order from index' do
-      visit admin_orders_path
+    describe 'delivers an order from index' do
+      before do
+        visit admin_orders_path
 
-      click_link "deliver_#{order.id}"
+        click_link "deliver_#{order.id}"
+      end
 
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(Order.find_by(id: order.id).fulfilled_on).not_to be_nil
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      end
+
+      it 'delivers the order' do
+        expect(Order.find_by(id: order.id).fulfilled_on).not_to be_nil
+      end
     end
 
-    it 'delivers an order from order page' do
-      visit admin_orders_path
+    describe 'delivers an order from order page' do
+      before do
+        visit admin_orders_path
 
-      click_link order.contact.name
-      click_link 'Mark Delivered'
+        click_link order.contact.name
+        click_link 'Mark Delivered'
+      end
 
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(Order.find_by(id: order.id).fulfilled_on).not_to be_nil
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      end
+
+      it 'delivers the order' do
+        expect(Order.find_by(id: order.id).fulfilled_on).not_to be_nil
+      end
     end
 
-    it 'shows delivered orders' do
-      order.fulfill
-      visit admin_orders_path
+    describe 'shows delivered orders' do
+      before do
+        order.fulfill
+        visit admin_orders_path
 
-      click_link 'Delivered Orders'
+        click_link 'Delivered Orders'
+      end
 
-      expect(page).to have_current_path(admin_orders_path, ignore_query: true)
-      expect(page).to have_content(order.id)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_orders_path, ignore_query: true)
+      end
+
+      it 'shows the delivered order' do
+        expect(page.body).to include("<strong>#{order.id}</strong>")
+      end
+
+      it 'does not show the delivered order on the main page' do
+        visit admin_orders_path
+
+        expect(page.body).not_to include("<strong>#{order.id}</strong>")
+      end
     end
 
     it 'shows a delivered order' do
@@ -135,20 +233,30 @@ describe 'Admin::Orders' do
       visit edit_admin_order_path(order.id)
 
       expect(page).to have_current_path(admin_order_path(order.id), ignore_query: true)
-
-      expect(page).to have_content(order.id)
     end
 
-    it 'undelivers an order' do
-      order.fulfill
+    describe 'undelivers an order' do
+      before do
+        order.fulfill
 
-      visit admin_orders_path
-      click_link 'Delivered Orders'
-      click_link order.contact.name
-      click_link 'Undeliver'
+        visit admin_orders_path
+        click_link 'Delivered Orders'
+        click_link order.contact.name
+        click_link 'Undeliver'
+      end
 
-      expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
-      expect(Order.find_by(id: order.id).fulfilled_on).to be_nil
+      it 'renders the edit page' do
+        expect(page).to have_current_path(edit_admin_order_path(order.id), ignore_query: true)
+      end
+
+      it 'undelivers the order' do
+        expect(Order.find_by(id: order.id).fulfilled_on).to be_nil
+      end
+
+      it 'shows the order id on the main page' do
+        visit admin_orders_path
+        expect(page.body).to include("<strong>#{order.id}</strong>")
+      end
     end
 
     it 'views all orders by a contact' do
@@ -160,14 +268,26 @@ describe 'Admin::Orders' do
       expect(page).to have_current_path(admin_orders_path, ignore_query: true)
     end
 
-    it 'shows late orders' do
-      order.update(delivery_date: Date.yesterday)
+    describe 'shows late orders' do
+      before do
+        order.update(delivery_date: Date.yesterday)
 
-      visit admin_orders_path
-      click_on 'Late Orders'
+        visit admin_orders_path
+        click_on 'Late Orders'
+      end
 
-      expect(page).to have_content(order.contact.name)
-      expect(page).to have_content(order.id)
+      it 'shows the order contact name' do
+        expect(page.body).to include("\">#{order.contact.name}</a>")
+      end
+
+      it 'shows the order id' do
+        expect(page.body).to include("<strong>#{order.id}</strong>")
+      end
+
+      it 'shows the order id on the main page' do
+        visit admin_orders_path
+        expect(page.body).to include("<strong>#{order.id}</strong>")
+      end
     end
 
     it 'assigns orders to a user' do
@@ -190,26 +310,47 @@ describe 'Admin::Orders' do
         expect(page).to have_content(message)
       end
 
-      it 'does not show xero link for unsynced on edit' do
-        visit edit_admin_order_path(order)
+      describe 'does not show xero link for unsynced on edit' do
+        before do
+          visit edit_admin_order_path(order)
+        end
 
-        expect(page).not_to have_content('Open Invoice')
-        expect(page).to have_content('Create Invoice')
+        it 'does not show open invoice link' do
+          expect(page).not_to have_content('Open Invoice')
+        end
+
+        it 'shows create xero invoice link' do
+          expect(page).to have_content('Create Invoice')
+        end
       end
 
-      it 'does not show xero link for unsynced on show' do
-        visit admin_order_path(order)
+      describe 'does not show xero link for unsynced on show' do
+        before do
+          visit admin_order_path(order)
+        end
 
-        expect(page).not_to have_content('Open Invoice')
-        expect(page).to have_content('Create Invoice')
+        it 'does not show open invoice link' do
+          expect(page).not_to have_content('Open Invoice')
+        end
+
+        it 'shows create xero invoice link' do
+          expect(page).to have_content('Create Invoice')
+        end
       end
 
-      it 'shows xero link for synced' do
-        order.update(xero_id: 'abc123')
-        visit admin_order_path(order)
+      describe 'shows xero link for synced' do
+        before do
+          order.update(xero_id: 'abc123')
+          visit admin_order_path(order)
+        end
 
-        expect(page).to have_content('Open Invoice')
-        expect(page).not_to have_content('Create Invoice')
+        it 'shows the open invoice link' do
+          expect(page).to have_content('Open Invoice')
+        end
+
+        it 'does not show the create invoice link' do
+          expect(page).not_to have_content('Create Invoice')
+        end
       end
 
       it 'does not allow editing of orders with an invoice' do

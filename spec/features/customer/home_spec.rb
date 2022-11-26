@@ -15,16 +15,23 @@ RSpec.describe 'Customer::Home' do
   end
 
   describe 'logged in but unactivated' do
-    it 'shows an info page for unactivated customers' do
+    before do
       login_as(create(:customer, contact: nil))
+    end
+
+    it 'shows an info page for unactivated customers' do
       expect(page).to have_current_path(customer_path, ignore_query: true)
+    end
+
+    it 'renders info page' do
       expect(page).to have_content('has not been activated')
     end
   end
 
   describe 'logged in' do
+    let!(:current_user) { login_as_customer }
+
     before do
-      @current_user = login_as_customer
       visit '/customer'
     end
 
@@ -33,13 +40,13 @@ RSpec.describe 'Customer::Home' do
     end
 
     it 'display past orders' do
-      create(:order, contact: @current_user.contact)
+      create(:order, contact: current_user.contact)
       visit '/customer'
-      expect(page).to have_content(@current_user.contact.orders.last.id)
+      expect(page).to have_content(current_user.contact.orders.last.id)
     end
 
     it 'does not display voided orders' do
-      deleted_order = create(:order, contact: @current_user.contact, deleted_at: DateTime.now)
+      deleted_order = create(:order, contact: current_user.contact, deleted_at: DateTime.now)
       visit '/customer'
       expect(page).not_to have_content(deleted_order.id)
     end
@@ -50,27 +57,47 @@ RSpec.describe 'Customer::Home' do
       expect(page).not_to have_content(other_order.id)
     end
 
-    it 'display open order status' do
-      open_order = create(:order, contact: @current_user.contact)
-      visit '/customer'
-      expect(page).to have_content(open_order.id)
-      expect(page).to have_content('In Process')
+    describe 'display open order status' do
+      let!(:open_order) { create(:order, contact: current_user.contact) }
+
+      before do
+        visit '/customer'
+      end
+
+      it 'shows in process order' do
+        expect(page).to have_content(open_order.id)
+      end
+
+      it 'shows in process order status' do
+        expect(page).to have_content('In Process')
+      end
     end
 
-    it 'display delivered order status' do
-      delivered_order = create(
-        :order,
-        contact: @current_user.contact,
-        delivery_date: Date.yesterday,
-        fulfilled_on: Date.today
-      )
-      visit '/customer'
-      expect(page).to have_content(delivered_order.id)
-      expect(page).to have_content('Delivered')
+    describe 'display delivered order status' do
+      let!(:delivered_order) do
+        create(
+          :order,
+          contact: current_user.contact,
+          delivery_date: Date.yesterday,
+          fulfilled_on: Date.today
+        )
+      end
+
+      before do
+        visit '/customer'
+      end
+
+      it 'shows delivered order' do
+        expect(page).to have_content(delivered_order.id)
+      end
+
+      it 'shows delivered order status' do
+        expect(page).to have_content('Delivered')
+      end
     end
 
     it 'do not show xero link when invoice not created' do
-      create(:order, contact: @current_user.contact)
+      create(:order, contact: current_user.contact)
       visit '/customer'
       expect(page).not_to have_content('View Invoice')
     end

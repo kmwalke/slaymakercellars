@@ -63,6 +63,9 @@ Metrics/MethodLength:
   Exclude:
     - 'app/models/xero/*'
 
+RSpec/NestedGroups:
+  Max: 5
+
 Style/AccessorGrouping:
   Enabled: true
 

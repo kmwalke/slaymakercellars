@@ -23,40 +23,64 @@ RSpec.describe 'Admin::Products' do
 
     it 'list products' do
       visit admin_products_path
-      expect(page).to have_content(product.name)
+      expect(page.body).to include("\">#{product.name}</a>")
     end
 
-    it 'create a product' do
-      product2 = build(:product)
-      visit admin_products_path
+    describe 'create a product' do
+      let(:product2) { build(:product) }
 
-      click_link 'New Product'
-      fill_in_form(product2)
-      click_button 'Create Product'
+      before do
+        visit admin_products_path
 
-      expect(page).to have_current_path(admin_products_path, ignore_query: true)
-      expect(page).to have_content(product2.name)
+        click_link 'New Product'
+        fill_in_form(product2)
+        click_button 'Create Product'
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_products_path, ignore_query: true)
+      end
+
+      it 'lists the new product' do
+        expect(page.body).to include("\">#{product2.name}</a>")
+      end
     end
 
-    it 'edit a product' do
-      visit admin_products_path
+    describe 'edit a product' do
+      before do
+        visit admin_products_path
 
-      click_link product.name
-      product.name = 'new name'
-      fill_in_form(product)
-      click_button 'Update Product'
+        click_link product.name
+        product.name = 'new name'
+        fill_in_form(product)
+        click_button 'Update Product'
+      end
 
-      expect(page).to have_current_path(admin_products_path, ignore_query: true)
-      expect(page).to have_content(product.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_products_path, ignore_query: true)
+      end
+
+      it 'shows the new product name' do
+        expect(page.body).to include("\">#{product.name}</a>")
+      end
     end
 
-    it 'delete a product' do
-      product_id = product.id
-      visit admin_products_path
+    describe 'delete a product' do
+      let!(:product_id) { product.id }
 
-      click_link "delete_#{product.id}"
-      expect(page).to have_current_path(admin_products_path, ignore_query: true)
-      expect(Product.find_by(id: product_id)).to be_nil
+      before do
+        visit admin_products_path
+
+        click_link "delete_#{product.id}"
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_products_path, ignore_query: true)
+      end
+
+      it 'deletes the product' do
+        expect(Product.find_by(id: product_id)).to be_nil
+      end
     end
 
     describe 'sync' do

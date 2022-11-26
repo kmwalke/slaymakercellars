@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Contact do
   let!(:contact) { create(:contact) }
   let(:deleted_contact) { create(:contact, deleted_at: DateTime.now) }
-  let!(:user) { create(:admin) }
+  let(:user) { create(:admin) }
 
   it 'requires a name' do
     expect { create(:contact, name: '') }.to raise_error(ActiveRecord::RecordInvalid)
@@ -41,20 +41,32 @@ RSpec.describe Contact do
     expect { create(:contact, url: 'http://www.google.com') }.not_to raise_error
   end
 
-  it 'softs delete' do
-    expect(contact.destroy).to eq('archived')
-    expect(contact.reload.deleted_at).to be_a(ActiveSupport::TimeWithZone)
+  describe 'soft deletion' do
+    it 'soft deletes' do
+      expect(contact.destroy).to eq('archived')
+    end
+
+    it 'sets deleted_at' do
+      contact.destroy
+      expect(contact.reload.deleted_at).to be_a(ActiveSupport::TimeWithZone)
+    end
+
+    it 'soft undeletes' do
+      deleted_contact.undestroy
+
+      expect(deleted_contact.reload.deleted_at).to be_nil
+    end
   end
 
-  it 'softs undelete' do
-    deleted_contact.undestroy
+  describe 'hard deletion' do
+    it 'hard deletes' do
+      expect(deleted_contact.destroy).to eq('destroyed')
+    end
 
-    expect(deleted_contact.reload.deleted_at).to be_nil
-  end
-
-  it 'hards delete' do
-    expect(deleted_contact.destroy).to eq('destroyed')
-    expect { deleted_contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    it 'cannot retrieve hard deleted items' do
+      deleted_contact.destroy
+      expect { deleted_contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe 'last_contacted' do
