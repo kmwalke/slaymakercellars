@@ -15,7 +15,7 @@ RSpec.describe 'Admin::Contacts' do
   end
 
   describe 'logged in' do
-    let!(:contact) { create(:contact) }
+    let!(:contact) { create(:contact, name: 'Normal Contact') }
     let!(:deleted_contact) { create(:contact, deleted_at: DateTime.now) }
 
     before do
