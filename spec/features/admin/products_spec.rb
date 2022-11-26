@@ -23,7 +23,7 @@ RSpec.describe 'Admin::Products' do
 
     it 'list products' do
       visit admin_products_path
-      expect(page).to have_content(product.name)
+      expect(page.body).to include("\">#{product.name}</a>")
     end
 
     describe 'create a product' do
@@ -42,7 +42,7 @@ RSpec.describe 'Admin::Products' do
       end
 
       it 'lists the new product' do
-        expect(page).to have_content(product2.name)
+        expect(page.body).to include("\">#{product2.name}</a>")
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Admin::Products' do
       end
 
       it 'shows the new product name' do
-        expect(page).to have_content(product.name)
+        expect(page.body).to include("\">#{product.name}</a>")
       end
     end
 

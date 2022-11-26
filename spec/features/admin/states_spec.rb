@@ -23,7 +23,7 @@ RSpec.describe 'Admin::States' do
 
     it 'list states' do
       visit admin_states_path
-      expect(page).to have_content(state.name)
+      expect(page.body).to include("\">#{state.name}</a>")
     end
 
     describe 'create a state' do
@@ -42,7 +42,7 @@ RSpec.describe 'Admin::States' do
       end
 
       it 'shows the new state' do
-        expect(page).to have_content(state2.name)
+        expect(page.body).to include("\">#{state2.name}</a>")
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Admin::States' do
       end
 
       it 'shows the new state name' do
-        expect(page).to have_content(state.name)
+        expect(page.body).to include("\">#{state.name}</a>")
       end
     end
 

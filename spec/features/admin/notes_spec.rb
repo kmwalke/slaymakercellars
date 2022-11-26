@@ -14,7 +14,7 @@ RSpec.describe 'Admin::Notes' do
     end
 
     it 'shows note body' do
-      expect(page).to have_content(note.body)
+      expect(page.body).to include("<p>#{note.body}</p>")
     end
 
     it 'shows note resolved date' do
@@ -37,7 +37,7 @@ RSpec.describe 'Admin::Notes' do
     end
 
     it 'shows note body' do
-      expect(page).to have_content(body)
+      expect(page.body).to include("<p>#{body}</p>")
     end
   end
 
@@ -49,7 +49,7 @@ RSpec.describe 'Admin::Notes' do
   end
 
   describe 'shows the resolution of a note' do
-    let(:resolution) { 'I guess it is fine if other people like Akira, I don\'t have to' }
+    let(:resolution) { 'I guess it is fine if other people like Akira, I dont have to' }
 
     before do
       visit edit_admin_contact_path(contact)
@@ -64,7 +64,7 @@ RSpec.describe 'Admin::Notes' do
     end
 
     it 'shows resolution' do
-      expect(page).to have_content(resolution)
+      expect(page.body).to include("<p>#{resolution}</p>")
     end
   end
 end

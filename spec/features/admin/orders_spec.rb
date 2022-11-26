@@ -277,7 +277,7 @@ describe 'Admin::Orders' do
       end
 
       it 'shows the order contact name' do
-        expect(page).to have_content(order.contact.name)
+        expect(page.body).to include("\">#{order.contact.name}</a>")
       end
 
       it 'shows the order id' do

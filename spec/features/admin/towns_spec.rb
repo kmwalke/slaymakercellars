@@ -23,7 +23,7 @@ RSpec.describe 'Admin::Towns' do
 
     it 'list towns' do
       visit admin_towns_path
-      expect(page).to have_content(town.name)
+      expect(page.body).to include("\">#{town.name}</a>")
     end
 
     describe 'create a town' do
@@ -42,7 +42,7 @@ RSpec.describe 'Admin::Towns' do
       end
 
       it 'shows a town' do
-        expect(page).to have_content(town2.name)
+        expect(page.body).to include("\">#{town2.name}</a>")
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Admin::Towns' do
       end
 
       it 'shows the new name' do
-        expect(page).to have_content(town.name)
+        expect(page.body).to include("\">#{town.name}</a>")
       end
     end
 

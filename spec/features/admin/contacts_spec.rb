@@ -28,11 +28,11 @@ RSpec.describe 'Admin::Contacts' do
       end
 
       it 'shows an active contact' do
-        expect(page).to have_content(contact.name)
+        expect(page.body).to include("\">#{contact.name}</a>")
       end
 
       it 'does not show a deleted contact' do
-        expect(page).not_to have_content(deleted_contact.name)
+        expect(page.body).not_to include("\">#{deleted_contact.name}</a>")
       end
     end
 
@@ -43,11 +43,11 @@ RSpec.describe 'Admin::Contacts' do
       end
 
       it 'does not show active contact' do
-        expect(page).not_to have_content(contact.name)
+        expect(page.body).not_to include("\">#{contact.name}</a>")
       end
 
       it 'shows deleted contact' do
-        expect(page).to have_content(deleted_contact.name)
+        expect(page.body).to include("\">#{deleted_contact.name}</a>")
       end
     end
 
@@ -60,11 +60,11 @@ RSpec.describe 'Admin::Contacts' do
       end
 
       it 'does not show unurgent contact' do
-        expect(page).not_to have_content(contact.name)
+        expect(page.body).not_to include("\">#{contact.name}</a>")
       end
 
       it 'shows urgent contact' do
-        expect(page).to have_content(urgent_contact.name)
+        expect(page.body).to include("\">#{urgent_contact.name}</a>")
       end
     end
 
@@ -84,7 +84,7 @@ RSpec.describe 'Admin::Contacts' do
       end
 
       it 'shows the contact name' do
-        expect(page).to have_content(contact2.name)
+        expect(page.body).to include("\">#{contact2.name}</a>")
       end
     end
 
@@ -103,7 +103,7 @@ RSpec.describe 'Admin::Contacts' do
       end
 
       it 'shows the new contact name' do
-        expect(page).to have_content(contact.name)
+        expect(page.body).to include("\">#{contact.name}</a>")
       end
     end
 
@@ -159,7 +159,7 @@ RSpec.describe 'Admin::Contacts' do
       end
 
       it 'shows the undeleted contact' do
-        expect(page).to have_content(contact.name)
+        expect(page.body).to include("\">#{contact.name}</a>")
       end
     end
 

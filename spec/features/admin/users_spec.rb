@@ -27,15 +27,15 @@ RSpec.describe 'Admin::Users' do
       end
 
       it 'shows the user name' do
-        expect(page).to have_content(user.name)
+        expect(page.body).to include("\">#{user.name}</a>")
       end
 
       it 'shows the user email' do
-        expect(page).to have_content(user.email)
+        expect(page.body).to include("\">#{user.email}</a>")
       end
 
       it 'shows the user role' do
-        expect(page).to have_content(user.role)
+        expect(page.body).to include("\">#{user.role}</a>")
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe 'Admin::Users' do
       end
 
       it 'shows the new user' do
-        expect(page).to have_content(user2.name)
+        expect(page.body).to include("\">#{user2.name}</a>")
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Admin::Users' do
       end
 
       it 'shows the edited user' do
-        expect(page).to have_content(user.name)
+        expect(page.body).to include("\">#{user.name}</a>")
       end
     end
 
