@@ -20,34 +20,54 @@ describe 'Admin::DeliveryRoute' do
       create_list(:order, 10)
     end
 
-    it 'navigates directly to Admin::DeliveryRoute' do
-      visit admin_path
-      click_link('Create a Delivery Route')
-
-      expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
-      expect(page).to have_content('Delivery Route')
-    end
-
-    it 'navigates from orders to Admin::DeliveryRoute' do
-      visit admin_orders_path
-      click_link('Create a Delivery Route')
-
-      expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
-      expect(page).to have_content('Orders')
-    end
-
-    it 'creates a delivery route' do
-      visit admin_delivery_route_path
-
-      Order.all[1..5].each do |order|
-        page.check("order_#{order.id}")
+    describe 'navigates directly to Admin::DeliveryRoute' do
+      before do
+        visit admin_path
+        click_link('Create a Delivery Route')
       end
 
-      click_button 'Create'
+      it 'renders the delivery route page' do
+        expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
+      end
 
-      expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
+      it 'renders the title' do
+        expect(page).to have_content('Delivery Route')
+      end
+    end
 
-      expect(page).to have_content('Your Delivery Route')
+    describe 'navigates from orders to Admin::DeliveryRoute' do
+      before do
+        visit admin_orders_path
+        click_link('Create a Delivery Route')
+      end
+
+      it 'renders the delivery route page' do
+        expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
+      end
+
+      it 'renders the title' do
+        expect(page).to have_content('Delivery Route')
+      end
+    end
+
+    describe 'creates a delivery route' do
+      before do
+        visit admin_delivery_route_path
+
+        Order.all[1..5].each do |order|
+          page.check("order_#{order.id}")
+        end
+
+        click_button 'Create'
+      end
+
+      it 'renders the delivery route page' do
+        expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
+      end
+
+      it 'shows your delivery route' do
+        expect(page).to have_content('Your Delivery Route')
+      end
     end
   end
 end
