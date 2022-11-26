@@ -26,37 +26,61 @@ RSpec.describe 'Admin::Towns' do
       expect(page).to have_content(town.name)
     end
 
-    it 'create a town' do
-      town2 = build(:town, state: create(:state))
-      visit admin_towns_path
+    describe 'create a town' do
+      let!(:town2) { build(:town, state: create(:state)) }
 
-      click_link 'New Town'
-      fill_in_form(town2)
-      click_button 'Create Town'
+      before do
+        visit admin_towns_path
 
-      expect(page).to have_current_path(admin_towns_path, ignore_query: true)
-      expect(page).to have_content(town2.name)
+        click_link 'New Town'
+        fill_in_form(town2)
+        click_button 'Create Town'
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_towns_path, ignore_query: true)
+      end
+
+      it 'shows a town' do
+        expect(page).to have_content(town2.name)
+      end
     end
 
-    it 'edit a town' do
-      visit admin_towns_path
+    describe 'edit a town' do
+      before do
+        visit admin_towns_path
 
-      click_link town.name
-      town.name = 'new name'
-      fill_in_form(town)
-      click_button 'Update Town'
+        click_link town.name
+        town.name = 'new name'
+        fill_in_form(town)
+        click_button 'Update Town'
+      end
 
-      expect(page).to have_current_path(admin_towns_path, ignore_query: true)
-      expect(page).to have_content(town.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_towns_path, ignore_query: true)
+      end
+
+      it 'shows the new name' do
+        expect(page).to have_content(town.name)
+      end
     end
 
-    it 'delete a town' do
-      town_id = town.id
-      visit admin_towns_path
+    describe 'delete a town' do
+      let!(:town_id) { town.id }
 
-      click_link "delete_#{town.id}"
-      expect(page).to have_current_path(admin_towns_path, ignore_query: true)
-      expect(Town.find_by(id: town_id)).to be_nil
+      before do
+        visit admin_towns_path
+
+        click_link "delete_#{town.id}"
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_towns_path, ignore_query: true)
+      end
+
+      it 'removes the town' do
+        expect(Town.find_by(id: town_id)).to be_nil
+      end
     end
   end
 

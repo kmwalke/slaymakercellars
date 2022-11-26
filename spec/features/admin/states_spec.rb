@@ -26,37 +26,61 @@ RSpec.describe 'Admin::States' do
       expect(page).to have_content(state.name)
     end
 
-    it 'create a state' do
-      state2 = build(:state)
-      visit admin_states_path
+    describe 'create a state' do
+      let(:state2) { build(:state) }
 
-      click_link 'New State'
-      fill_in_form(state2)
-      click_button 'Create State'
+      before do
+        visit admin_states_path
 
-      expect(page).to have_current_path(admin_states_path, ignore_query: true)
-      expect(page).to have_content(state2.name)
+        click_link 'New State'
+        fill_in_form(state2)
+        click_button 'Create State'
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_states_path, ignore_query: true)
+      end
+
+      it 'shows the new state' do
+        expect(page).to have_content(state2.name)
+      end
     end
 
-    it 'edit a state' do
-      visit admin_states_path
+    describe 'edit a state' do
+      before do
+        visit admin_states_path
 
-      click_link state.name
-      state.name = 'new name'
-      fill_in_form(state)
-      click_button 'Update State'
+        click_link state.name
+        state.name = 'new name'
+        fill_in_form(state)
+        click_button 'Update State'
+      end
 
-      expect(page).to have_current_path(admin_states_path, ignore_query: true)
-      expect(page).to have_content(state.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_states_path, ignore_query: true)
+      end
+
+      it 'shows the new state name' do
+        expect(page).to have_content(state.name)
+      end
     end
 
-    it 'delete a state' do
-      state_id = state.id
-      visit admin_states_path
+    describe 'delete a state' do
+      let!(:state_id) { state.id }
 
-      click_link "delete_#{state.id}"
-      expect(page).to have_current_path(admin_states_path, ignore_query: true)
-      expect(State.find_by(id: state_id)).to be_nil
+      before do
+        visit admin_states_path
+
+        click_link "delete_#{state.id}"
+      end
+
+      it 'renders index page' do
+        expect(page).to have_current_path(admin_states_path, ignore_query: true)
+      end
+
+      it 'deletes the state' do
+        expect(State.find_by(id: state_id)).to be_nil
+      end
     end
   end
 
