@@ -17,15 +17,9 @@
 
   <% @contacts.each do |contact| -%>
     <tr class="<%= cycle "even", "odd" %>">
-      <td>
-        <%= contact.name %>
-      </td>
-      <td>
-        <%= contact.num_kegs %>
-      </td>
-      <td>
-        <%= humanize_date contact.last_contacted %>
-      </td>
+      <td><%= contact.name
+      %></td><td><%= contact.num_kegs
+      %></td><td><%= humanize_date contact.last_contacted %></td>
     </tr>
   <% end -%>
 </table>

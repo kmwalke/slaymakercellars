@@ -19,11 +19,18 @@ describe 'Admin::Reports' do
       login_as_admin
     end
 
-    it 'opens Admin::Reports' do
-      visit admin_reports_path
+    describe 'opens Admin::Reports' do
+      before do
+        visit admin_reports_path
+      end
 
-      expect(page).to have_current_path(admin_reports_path, ignore_query: true)
-      expect(page).to have_content('Reports')
+      it 'renders the reports page' do
+        expect(page).to have_current_path(admin_reports_path, ignore_query: true)
+      end
+
+      it 'shows the title' do
+        expect(page).to have_content('Reports')
+      end
     end
 
     describe 'keg report' do
@@ -41,14 +48,19 @@ describe 'Admin::Reports' do
         expect(page).to have_content(humanize_date(ReportInfo.keg_report_calculated_on))
       end
 
-      it 'shows contacts with kegs' do
-        contact = create(:contact, num_kegs: 87_668_521)
-        create(:order, contact:, fulfilled_on: Date.yesterday)
-        visit admin_reports_kegs_path
+      describe 'shows contacts with kegs' do
+        let(:contact) { create(:contact, num_kegs: 87_668_521) }
 
-        expect(page).to have_content(contact.name)
-        expect(page).to have_content(contact.num_kegs)
-        expect(page).to have_content(humanize_date(contact.last_contacted))
+        before do
+          create(:order, contact:, fulfilled_on: Date.yesterday)
+          visit admin_reports_kegs_path
+        end
+
+        it 'shows contact info' do
+          expect(page.body).to include(
+            "<td>#{contact.name}</td><td>#{contact.num_kegs}</td><td>#{humanize_date(contact.last_contacted)}</td>"
+          )
+        end
       end
 
       it 'does not show contacts with no kegs' do
