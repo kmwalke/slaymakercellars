@@ -1,76 +1,103 @@
 require 'rails_helper'
 
-RSpec.feature 'Customer::Home', type: :feature do
+RSpec.describe 'Customer::Home' do
   describe 'logged out' do
-    scenario 'must be logged in to view customer page' do
+    it 'must be logged in to view customer page' do
       visit '/customer'
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'admins cannot view customer page' do
+    it 'admins cannot view customer page' do
       login_as_admin
       visit customer_path
-      expect(current_path).to eq(admin_path)
+      expect(page).to have_current_path(admin_path, ignore_query: true)
     end
   end
 
   describe 'logged in but unactivated' do
-    scenario 'shows an info page for unactivated customers' do
-      login_as(FactoryBot.create(:customer, contact: nil))
-      expect(current_path).to eq(customer_path)
+    before do
+      login_as(create(:customer, contact: nil))
+    end
+
+    it 'shows an info page for unactivated customers' do
+      expect(page).to have_current_path(customer_path, ignore_query: true)
+    end
+
+    it 'renders info page' do
       expect(page).to have_content('has not been activated')
     end
   end
 
   describe 'logged in' do
-    before :each do
-      @current_user = login_as_customer
+    let!(:current_user) { login_as_customer }
+
+    before do
       visit '/customer'
     end
 
-    scenario 'display page' do
+    it 'display page' do
       expect(page).to have_content('Customer Portal')
     end
 
-    scenario 'display past orders' do
-      FactoryBot.create(:order, contact: @current_user.contact)
+    it 'display past orders' do
+      create(:order, contact: current_user.contact)
       visit '/customer'
-      expect(page).to have_content(@current_user.contact.orders.last.id)
+      expect(page).to have_content(current_user.contact.orders.last.id)
     end
 
-    scenario 'does not display voided orders' do
-      deleted_order = FactoryBot.create(:order, contact: @current_user.contact, deleted_at: DateTime.now)
+    it 'does not display voided orders' do
+      deleted_order = create(:order, contact: current_user.contact, deleted_at: DateTime.now)
       visit '/customer'
       expect(page).not_to have_content(deleted_order.id)
     end
 
-    scenario 'does not display other customers orders' do
-      other_order = FactoryBot.create(:order)
+    it 'does not display other customers orders' do
+      other_order = create(:order)
       visit '/customer'
       expect(page).not_to have_content(other_order.id)
     end
 
-    scenario 'display open order status' do
-      open_order = FactoryBot.create(:order, contact: @current_user.contact)
-      visit '/customer'
-      expect(page).to have_content(open_order.id)
-      expect(page).to have_content('In Process')
+    describe 'display open order status' do
+      let!(:open_order) { create(:order, contact: current_user.contact) }
+
+      before do
+        visit '/customer'
+      end
+
+      it 'shows in process order' do
+        expect(page).to have_content(open_order.id)
+      end
+
+      it 'shows in process order status' do
+        expect(page).to have_content('In Process')
+      end
     end
 
-    scenario 'display delivered order status' do
-      delivered_order = FactoryBot.create(
-        :order,
-        contact: @current_user.contact,
-        delivery_date: Date.yesterday,
-        fulfilled_on: Date.today
-      )
-      visit '/customer'
-      expect(page).to have_content(delivered_order.id)
-      expect(page).to have_content('Delivered')
+    describe 'display delivered order status' do
+      let!(:delivered_order) do
+        create(
+          :order,
+          contact: current_user.contact,
+          delivery_date: Date.yesterday,
+          fulfilled_on: Date.today
+        )
+      end
+
+      before do
+        visit '/customer'
+      end
+
+      it 'shows delivered order' do
+        expect(page).to have_content(delivered_order.id)
+      end
+
+      it 'shows delivered order status' do
+        expect(page).to have_content('Delivered')
+      end
     end
 
-    scenario 'do not show xero link when invoice not created' do
-      FactoryBot.create(:order, contact: @current_user.contact)
+    it 'do not show xero link when invoice not created' do
+      create(:order, contact: current_user.contact)
       visit '/customer'
       expect(page).not_to have_content('View Invoice')
     end

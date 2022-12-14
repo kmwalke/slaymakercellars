@@ -1,28 +1,44 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::Notes', type: :feature do
-  let!(:contact) { FactoryBot.create(:contact) }
-  let!(:note) { FactoryBot.create(:note, contact:) }
+RSpec.describe 'Admin::Notes' do
+  let!(:contact) { create(:contact) }
+  let!(:note) { create(:note, contact:) }
 
-  before :each do
+  before do
     login_as_admin
   end
 
-  it 'shows notes' do
-    visit edit_admin_contact_path(contact)
-    expect(page).to have_content(note.body)
-    expect(page).not_to have_content('Resolved on ')
+  describe 'shows notes' do
+    before do
+      visit edit_admin_contact_path(contact)
+    end
+
+    it 'shows note body' do
+      expect(page.body).to include("<p>#{note.body}</p>")
+    end
+
+    it 'shows note resolved date' do
+      expect(page).not_to have_content('Resolved on ')
+    end
   end
 
-  it 'creates notes' do
-    body = 'Akira is completely overrated'
-    visit edit_admin_contact_path(contact)
-    click_link('Add Note')
-    fill_in 'Body', with: body
-    click_button 'Create Issue'
+  describe 'creates notes' do
+    let(:body) { 'Akira is completely overrated' }
 
-    expect(current_path).to eq(edit_admin_contact_path(contact))
-    expect(page).to have_content(body)
+    before do
+      visit edit_admin_contact_path(contact)
+      click_link('Add Note')
+      fill_in 'Body', with: body
+      click_button 'Create Issue'
+    end
+
+    it 'renders the edit contact page' do
+      expect(page).to have_current_path(edit_admin_contact_path(contact), ignore_query: true)
+    end
+
+    it 'shows note body' do
+      expect(page.body).to include("<p>#{body}</p>")
+    end
   end
 
   it 'shows resolved notes' do
@@ -32,15 +48,23 @@ RSpec.feature 'Admin::Notes', type: :feature do
     expect(page).to have_content('Resolved on ')
   end
 
-  it 'shows the resolution of a note' do
-    resolution = 'I guess it is fine if other people like Akira, I don\'t have to'
-    visit edit_admin_contact_path(contact)
-    click_link('Resolve')
+  describe 'shows the resolution of a note' do
+    let(:resolution) { 'I guess it is fine if other people like Akira, I dont have to' }
 
-    fill_in 'Resolution', with: resolution
-    click_button 'Resolve Issue'
+    before do
+      visit edit_admin_contact_path(contact)
+      click_link('Resolve')
 
-    expect(current_path).to eq(edit_admin_contact_path(contact))
-    expect(page).to have_content(resolution)
+      fill_in 'Resolution', with: resolution
+      click_button 'Resolve Issue'
+    end
+
+    it 'renders edit contact page' do
+      expect(page).to have_current_path(edit_admin_contact_path(contact), ignore_query: true)
+    end
+
+    it 'shows resolution' do
+      expect(page.body).to include("<p>#{resolution}</p>")
+    end
   end
 end

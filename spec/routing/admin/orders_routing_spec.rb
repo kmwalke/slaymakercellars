@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::OrdersController, type: :routing do
+RSpec.describe Admin::OrdersController do
   it 'routes to #index' do
     expect(get: '/admin/orders').to route_to('admin/orders#index')
   end

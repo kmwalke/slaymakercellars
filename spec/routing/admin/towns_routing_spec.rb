@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::TownsController, type: :routing do
+RSpec.describe Admin::TownsController do
   it 'routes to #index' do
     expect(get: '/admin/towns').to route_to('admin/towns#index')
   end

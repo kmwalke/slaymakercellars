@@ -1,66 +1,90 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::Products', type: :feature do
+RSpec.describe 'Admin::Products' do
   describe 'logged out' do
-    scenario 'must be logged in to manage products' do
+    it 'must be logged in to manage products' do
       visit admin_products_path
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit admin_products_path
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    let!(:product) { FactoryBot.create(:product) }
+    let!(:product) { create(:product) }
 
-    before :each do
+    before do
       login_as_admin
     end
 
-    scenario 'list products' do
+    it 'list products' do
       visit admin_products_path
-      expect(page).to have_content(product.name)
+      expect(page.body).to include("\">#{product.name}</a>")
     end
 
-    scenario 'create a product' do
-      product2 = FactoryBot.build(:product)
-      visit admin_products_path
+    describe 'create a product' do
+      let(:product2) { build(:product) }
 
-      click_link 'New Product'
-      fill_in_form(product2)
-      click_button 'Create Product'
+      before do
+        visit admin_products_path
 
-      expect(current_path).to eq(admin_products_path)
-      expect(page).to have_content(product2.name)
+        click_link 'New Product'
+        fill_in_form(product2)
+        click_button 'Create Product'
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_products_path, ignore_query: true)
+      end
+
+      it 'lists the new product' do
+        expect(page.body).to include("\">#{product2.name}</a>")
+      end
     end
 
-    scenario 'edit a product' do
-      visit admin_products_path
+    describe 'edit a product' do
+      before do
+        visit admin_products_path
 
-      click_link product.name
-      product.name = 'new name'
-      fill_in_form(product)
-      click_button 'Update Product'
+        click_link product.name
+        product.name = 'new name'
+        fill_in_form(product)
+        click_button 'Update Product'
+      end
 
-      expect(current_path).to eq(admin_products_path)
-      expect(page).to have_content(product.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_products_path, ignore_query: true)
+      end
+
+      it 'shows the new product name' do
+        expect(page.body).to include("\">#{product.name}</a>")
+      end
     end
 
-    scenario 'delete a product' do
-      product_id = product.id
-      visit admin_products_path
+    describe 'delete a product' do
+      let!(:product_id) { product.id }
 
-      click_link "delete_#{product.id}"
-      expect(current_path).to eq(admin_products_path)
-      expect(Product.find_by_id(product_id)).to be_nil
+      before do
+        visit admin_products_path
+
+        click_link "delete_#{product.id}"
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_products_path, ignore_query: true)
+      end
+
+      it 'deletes the product' do
+        expect(Product.find_by(id: product_id)).to be_nil
+      end
     end
 
     describe 'sync' do
-      scenario 'shows xero sync errors' do
+      it 'shows xero sync errors' do
         message = 'bad email'
         product.xero_sync_errors << XeroSyncError.new(message:)
 
@@ -70,14 +94,14 @@ RSpec.feature 'Admin::Products', type: :feature do
         expect(page).to have_content(message)
       end
 
-      scenario 'does not show xero link for unsynced' do
+      it 'does not show xero link for unsynced' do
         visit admin_products_path
 
         click_link product.name
         expect(page).not_to have_content('View in Xero')
       end
 
-      scenario 'shows xero link for synced' do
+      it 'shows xero link for synced' do
         product.update(xero_id: 'abc123')
         visit admin_products_path
 

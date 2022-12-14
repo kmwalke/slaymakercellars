@@ -1,76 +1,114 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::Users', type: :feature do
+RSpec.describe 'Admin::Users' do
   describe 'logged out' do
-    scenario 'must be logged in to manage users' do
+    it 'must be logged in to manage users' do
       visit admin_users_path
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit admin_users_path
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    let!(:user) { FactoryBot.create(:admin) }
+    let!(:user) { create(:admin) }
 
-    before :each do
+    before do
       login_as_admin
     end
 
-    scenario 'list users' do
-      visit admin_users_path
-      expect(page).to have_content(user.name)
-      expect(page).to have_content(user.email)
-      expect(page).to have_content(user.role)
+    describe 'list users' do
+      before do
+        visit admin_users_path
+      end
+
+      it 'shows the user name' do
+        expect(page.body).to include("\">#{user.name}</a>")
+      end
+
+      it 'shows the user email' do
+        expect(page.body).to include("\">#{user.email}</a>")
+      end
+
+      it 'shows the user role' do
+        expect(page.body).to include("\">#{user.role}</a>")
+      end
     end
 
-    scenario 'create a user' do
-      user2 = FactoryBot.build(:admin)
-      visit admin_users_path
+    describe 'create a user' do
+      let(:user2) { build(:admin) }
 
-      click_link 'New User'
-      fill_in_form(user2)
-      click_button 'Create User'
+      before do
+        visit admin_users_path
 
-      expect(current_path).to eq(admin_users_path)
-      expect(page).to have_content(user2.name)
+        click_link 'New User'
+        fill_in_form(user2)
+        click_button 'Create User'
+      end
+
+      it 'renders the index' do
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
+      end
+
+      it 'shows the new user' do
+        expect(page.body).to include("\">#{user2.name}</a>")
+      end
     end
 
-    scenario 'edit a user' do
-      visit admin_users_path
+    describe 'edit a user' do
+      before do
+        visit admin_users_path
 
-      click_link user.name
-      user.name = 'new name'
-      fill_in_form(user)
-      click_button 'Update User'
+        click_link user.name
+        user.name = 'new name'
+        fill_in_form(user)
+        click_button 'Update User'
+      end
 
-      expect(current_path).to eq(admin_users_path)
-      expect(page).to have_content(user.name)
+      it 'renders the index' do
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
+      end
+
+      it 'shows the edited user' do
+        expect(page.body).to include("\">#{user.name}</a>")
+      end
     end
 
-    scenario 'delete a user' do
-      user_id = user.id
-      visit admin_users_path
+    describe 'delete a user' do
+      let(:user_id) { user.id }
 
-      click_link "delete_#{user.id}"
-      expect(current_path).to eq(admin_users_path)
-      expect(User.find_by_id(user_id)).to be_nil
+      before do
+        visit admin_users_path
+
+        click_link "delete_#{user.id}"
+      end
+
+      it 'renders the index' do
+        expect(page).to have_current_path(admin_users_path, ignore_query: true)
+      end
+
+      it 'does not show the deleted user' do
+        expect(User.find_by(id: user_id)).to be_nil
+      end
     end
 
-    scenario 'activates a customer account' do
-      contact  = FactoryBot.create(:contact)
-      customer = FactoryBot.create(:customer, contact: nil)
-      visit admin_users_path
+    describe 'customer accounts' do
+      let!(:contact) { create(:contact) }
+      let!(:customer) { create(:customer, contact: nil) }
 
-      click_link customer.name
-      select contact.name, from: 'Contact'
-      click_button 'Update User'
+      it 'activates a customer account' do
+        visit admin_users_path
 
-      expect(customer.reload.contact_id).to eq(contact.id)
+        click_link customer.name
+        select contact.name, from: 'Contact'
+        click_button 'Update User'
+
+        expect(customer.reload.contact_id).to eq(contact.id)
+      end
     end
   end
 

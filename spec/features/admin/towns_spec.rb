@@ -1,62 +1,86 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::Towns', type: :feature do
+RSpec.describe 'Admin::Towns' do
   describe 'logged out' do
-    scenario 'must be logged in to manage towns' do
+    it 'must be logged in to manage towns' do
       visit admin_towns_path
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit admin_towns_path
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    let!(:town) { FactoryBot.create(:town) }
+    let!(:town) { create(:town) }
 
-    before :each do
+    before do
       login_as_admin
     end
 
-    scenario 'list towns' do
+    it 'list towns' do
       visit admin_towns_path
-      expect(page).to have_content(town.name)
+      expect(page.body).to include("\">#{town.name}</a>")
     end
 
-    scenario 'create a town' do
-      town2 = FactoryBot.build(:town, state: FactoryBot.create(:state))
-      visit admin_towns_path
+    describe 'create a town' do
+      let!(:town2) { build(:town, state: create(:state)) }
 
-      click_link 'New Town'
-      fill_in_form(town2)
-      click_button 'Create Town'
+      before do
+        visit admin_towns_path
 
-      expect(current_path).to eq(admin_towns_path)
-      expect(page).to have_content(town2.name)
+        click_link 'New Town'
+        fill_in_form(town2)
+        click_button 'Create Town'
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_towns_path, ignore_query: true)
+      end
+
+      it 'shows a town' do
+        expect(page.body).to include("\">#{town2.name}</a>")
+      end
     end
 
-    scenario 'edit a town' do
-      visit admin_towns_path
+    describe 'edit a town' do
+      before do
+        visit admin_towns_path
 
-      click_link town.name
-      town.name = 'new name'
-      fill_in_form(town)
-      click_button 'Update Town'
+        click_link town.name
+        town.name = 'new name'
+        fill_in_form(town)
+        click_button 'Update Town'
+      end
 
-      expect(current_path).to eq(admin_towns_path)
-      expect(page).to have_content(town.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_towns_path, ignore_query: true)
+      end
+
+      it 'shows the new name' do
+        expect(page.body).to include("\">#{town.name}</a>")
+      end
     end
 
-    scenario 'delete a town' do
-      town_id = town.id
-      visit admin_towns_path
+    describe 'delete a town' do
+      let!(:town_id) { town.id }
 
-      click_link "delete_#{town.id}"
-      expect(current_path).to eq(admin_towns_path)
-      expect(Town.find_by_id(town_id)).to be_nil
+      before do
+        visit admin_towns_path
+
+        click_link "delete_#{town.id}"
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_towns_path, ignore_query: true)
+      end
+
+      it 'removes the town' do
+        expect(Town.find_by(id: town_id)).to be_nil
+      end
     end
   end
 

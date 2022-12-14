@@ -1,55 +1,73 @@
 require 'rails_helper'
 
-describe 'Admin::DeliveryRoute', type: :feature do
+describe 'Admin::DeliveryRoute' do
   describe 'logged out' do
-    scenario 'must be logged in to view admin page' do
+    it 'must be logged in to view admin page' do
       visit admin_delivery_route_path
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit admin_delivery_route_path
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    before :each do
+    before do
       login_as_admin
-      10.times do
-        FactoryBot.create(:order)
+      create_list(:order, 10)
+    end
+
+    describe 'navigates directly to Admin::DeliveryRoute' do
+      before do
+        visit admin_path
+        click_link('Create a Delivery Route')
+      end
+
+      it 'renders the delivery route page' do
+        expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
+      end
+
+      it 'renders the title' do
+        expect(page).to have_content('Delivery Route')
       end
     end
 
-    it 'navigates directly to Admin::DeliveryRoute' do
-      visit admin_path
-      click_link('Create a Delivery Route')
-
-      expect(current_path).to eq(admin_delivery_route_path)
-      expect(page).to have_content('Delivery Route')
-    end
-
-    it 'navigates from orders to Admin::DeliveryRoute' do
-      visit admin_orders_path
-      click_link('Create a Delivery Route')
-
-      expect(current_path).to eq(admin_delivery_route_path)
-      expect(page).to have_content('Orders')
-    end
-
-    it 'creates a delivery route' do
-      visit admin_delivery_route_path
-
-      Order.all[1..5].each do |order|
-        page.check("order_#{order.id}")
+    describe 'navigates from orders to Admin::DeliveryRoute' do
+      before do
+        visit admin_orders_path
+        click_link('Create a Delivery Route')
       end
 
-      click_button 'Create'
+      it 'renders the delivery route page' do
+        expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
+      end
 
-      expect(current_path).to eq(admin_delivery_route_path)
+      it 'renders the title' do
+        expect(page).to have_content('Delivery Route')
+      end
+    end
 
-      expect(page).to have_content('Your Delivery Route')
+    describe 'creates a delivery route' do
+      before do
+        visit admin_delivery_route_path
+
+        Order.all[1..5].each do |order|
+          page.check("order_#{order.id}")
+        end
+
+        click_button 'Create'
+      end
+
+      it 'renders the delivery route page' do
+        expect(page).to have_current_path(admin_delivery_route_path, ignore_query: true)
+      end
+
+      it 'shows your delivery route' do
+        expect(page).to have_content('Your Delivery Route')
+      end
     end
   end
 end

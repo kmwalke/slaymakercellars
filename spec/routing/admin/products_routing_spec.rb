@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Admin::ProductsController, type: :routing do
+RSpec.describe Admin::ProductsController do
   it 'routes to #index' do
     expect(get: '/admin/products').to route_to('admin/products#index')
   end

@@ -1,62 +1,86 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::States', type: :feature do
+RSpec.describe 'Admin::States' do
   describe 'logged out' do
-    scenario 'must be logged in to manage states' do
+    it 'must be logged in to manage states' do
       visit admin_states_path
-      expect(current_path).to eq(login_path)
+      expect(page).to have_current_path(login_path, ignore_query: true)
     end
 
-    scenario 'customers cannot view admin page' do
+    it 'customers cannot view admin page' do
       login_as_customer
       visit admin_states_path
-      expect(current_path).to eq(customer_path)
+      expect(page).to have_current_path(customer_path, ignore_query: true)
     end
   end
 
   describe 'logged in' do
-    let!(:state) { FactoryBot.create(:state) }
+    let!(:state) { create(:state) }
 
-    before :each do
+    before do
       login_as_admin
     end
 
-    scenario 'list states' do
+    it 'list states' do
       visit admin_states_path
-      expect(page).to have_content(state.name)
+      expect(page.body).to include("\">#{state.name}</a>")
     end
 
-    scenario 'create a state' do
-      state2 = FactoryBot.build(:state)
-      visit admin_states_path
+    describe 'create a state' do
+      let(:state2) { build(:state) }
 
-      click_link 'New State'
-      fill_in_form(state2)
-      click_button 'Create State'
+      before do
+        visit admin_states_path
 
-      expect(current_path).to eq(admin_states_path)
-      expect(page).to have_content(state2.name)
+        click_link 'New State'
+        fill_in_form(state2)
+        click_button 'Create State'
+      end
+
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_states_path, ignore_query: true)
+      end
+
+      it 'shows the new state' do
+        expect(page.body).to include("\">#{state2.name}</a>")
+      end
     end
 
-    scenario 'edit a state' do
-      visit admin_states_path
+    describe 'edit a state' do
+      before do
+        visit admin_states_path
 
-      click_link state.name
-      state.name = 'new name'
-      fill_in_form(state)
-      click_button 'Update State'
+        click_link state.name
+        state.name = 'new name'
+        fill_in_form(state)
+        click_button 'Update State'
+      end
 
-      expect(current_path).to eq(admin_states_path)
-      expect(page).to have_content(state.name)
+      it 'renders the index page' do
+        expect(page).to have_current_path(admin_states_path, ignore_query: true)
+      end
+
+      it 'shows the new state name' do
+        expect(page.body).to include("\">#{state.name}</a>")
+      end
     end
 
-    scenario 'delete a state' do
-      state_id = state.id
-      visit admin_states_path
+    describe 'delete a state' do
+      let!(:state_id) { state.id }
 
-      click_link "delete_#{state.id}"
-      expect(current_path).to eq(admin_states_path)
-      expect(State.find_by_id(state_id)).to be_nil
+      before do
+        visit admin_states_path
+
+        click_link "delete_#{state.id}"
+      end
+
+      it 'renders index page' do
+        expect(page).to have_current_path(admin_states_path, ignore_query: true)
+      end
+
+      it 'deletes the state' do
+        expect(State.find_by(id: state_id)).to be_nil
+      end
     end
   end
 
