@@ -6,9 +6,7 @@ module Admin
       @note       = Note.new
       @contact_id = params[:contact_id]
 
-      respond_to do |format|
-        format.html
-      end
+      respond_to(&:html)
     end
 
     def create
