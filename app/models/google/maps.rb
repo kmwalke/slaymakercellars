@@ -11,7 +11,7 @@ module Google
     end
 
     def self.embed_url(address)
-      "#{GOOGLE_MAPS_BASE_URL}/embed/v1/place?key=#{GOOGLE_API_KEY}&q=#{sanitize(address)}"
+      "#{GOOGLE_MAPS_BASE_URL}/embed/v1/place?key=#{GOOGLE_API_KEY}" + '&q=' + sanitize(address)
     end
   end
 end
