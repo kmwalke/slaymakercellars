@@ -1,4 +1,4 @@
-require 'sidekiq/web'
+require 'sidekiq/web' if Rails.env.development?
 Rails.application.routes.draw do
   root to: 'home#index'
   mount Sidekiq::Web => "/sidekiq" if Rails.env.development?
