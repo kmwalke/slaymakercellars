@@ -37,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_215205) do
     t.boolean "always_gets_case_deal", default: false, null: false
     t.boolean "is_public", default: true, null: false
     t.string "unit_number"
+    t.integer "num_kegs", default: 0, null: false
   end
 
   create_table "line_items", force: :cascade do |t|
