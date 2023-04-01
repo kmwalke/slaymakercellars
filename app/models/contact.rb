@@ -12,6 +12,7 @@ class Contact < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true
   validates :town_id, presence: true
+  validates :num_kegs, numericality: { greater_than_or_equal_to: 0 }
 
   validate :proper_url
 

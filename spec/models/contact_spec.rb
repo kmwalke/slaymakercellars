@@ -33,6 +33,10 @@ RSpec.describe Contact do
     expect { create(:contact, url: 'www.google.com') }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
+  it 'cannot have negative kegs' do
+    expect { create(:contact, num_kegs: -1) }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
   it 'allows a full url' do
     expect { create(:contact, url: 'http://www.google.com') }.not_to raise_error
   end

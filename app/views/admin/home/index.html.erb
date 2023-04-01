@@ -9,7 +9,7 @@
 
 <% if Rails.env == 'development' -%>
   <p>
-    <%= link_to 'Mailers', 'rails/mailers', target: '_blank'  %>
+    <%= link_to 'Mailers', 'rails/mailers', target: '_blank' %>
   </p>
 <% end -%>
 
@@ -73,20 +73,14 @@
       </ul>
     </fieldset>
 
-    <!--  <fieldset>-->
-    <!--    <legend><%#= link_to "Reports", admin_reports_path %></legend>-->
-    <!--    <ul>-->
-    <!--      <li>-->
-    <%#= link_to 'Sales Activity', sales_activity_admin_reports_path %>
-    <!--      </li>-->
-    <!--      <li>-->
-    <%#= link_to 'New Report', new_admin_report_path %>
-    <!--      </li>-->
-    <!--      <li>-->
-    <%#= pluralize @reports, 'Report' %>
-    <!--      </li>-->
-    <!--    </ul>-->
-    <!--  </fieldset>-->
+<!--    <fieldset>-->
+<!--      <legend><%#= link_to "Reports", admin_reports_path %></legend>-->
+<!--      <ul>-->
+<!--        <li>-->
+          <%#= link_to 'Keg Report', admin_reports_kegs_path %>
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </fieldset>-->
 
     <fieldset>
       <legend><%= link_to "Locations", admin_states_path %></legend>
