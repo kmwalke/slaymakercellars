@@ -3,7 +3,7 @@
 </h1>
 
 <div class="section">
-  <%= image_tag 'tasting_room.jpg', class: 'float-right' %>
+  <%= image_tag 'tr_1.jpg', class: 'float-right' %>
   <h3>
     <%= link_to 'Check out our Menu', ApplicationHelper::MENU_URL, target: '_blank', class: 'menu' %>
   </h3>
@@ -19,6 +19,7 @@
 </div>
 
 <div class="section">
+  <%= image_tag 'tr_2.jpg', class: 'float-right' %>
   <h2>
     Hours
   </h2>
@@ -30,11 +31,11 @@
     </tr>
     <tr>
       <td>Tuesday</td>
-      <td>10am - 5pm</td>
+      <td>By Appointment. <br />Call <a href="tel:7204320133">720-432-0133</a> for appointment.</td>
     </tr>
     <tr>
       <td>Wednesday</td>
-      <td>10am - 5pm</td>
+      <td>By Appointment. <br />Call <a href="tel:7204320133">720-432-0133</a> for appointment.</td>
     </tr>
     <tr>
       <td>Thursday</td>
@@ -42,17 +43,20 @@
     </tr>
     <tr>
       <td>Friday</td>
-      <td>10am - 6pm</td>
+      <td>10am - 5pm</td>
     </tr>
     <tr>
       <td>Saturday</td>
-      <td>10am - 6pm</td>
+      <td>10am - 5pm</td>
     </tr>
     <tr>
       <td>Sunday</td>
-      <td>10am - 6pm</td>
+      <td>10am - 5pm</td>
     </tr>
   </table>
+</div>
+
+<div class="section">
 
   <h2>
     Directions
@@ -61,7 +65,7 @@
     width="600"
     height="450"
     frameborder="0" style="border:0; margin-bottom: 2em;"
-    src="https://www.google.com/maps/embed/v1/place?key=<%= @google_api_key %>&q=1535+Miner+st,+Idaho+springs,+CO"
+    src="<%= Google::Maps.embed_url('1428 Miner St, Idaho Springs, CO') %>"
     allowfullscreen>
     >
 
