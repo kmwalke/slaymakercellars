@@ -1,33 +1,42 @@
 version: '3.4'
 
+x-smc-common:
+  &smc-common
+  build:
+    context: .
+    args:
+      USERNAME: $USER
+      UID: ${USER_ID:-0}
+      GID: ${GROUP_ID:-0}
+  volumes:
+    - .:/app
+    - smc-gems:/gems
+    - /app/node_modules
+  depends_on:
+    - db
+    - redis
+  links:
+    - db
+  stdin_open: true # docker run -i
+  tty: true        # docker run -t
+  #    user: $USER
+  environment:
+    DB_DEV: smc-development
+    DB_HOST: db
+    DB_TEST: smc-test
+    DB_USERNAME: postgres
+    GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+    REDIS_URL: redis://redis:6379
+    XERO_ID: ${XERO_ID}
+    XERO_SECRET: ${XERO_SECRET}
+
+
 services:
   web:
-    build:
-      context: .
-      args:
-        USERNAME: $USER
-        UID: ${USER_ID:-0}
-        GID: ${GROUP_ID:-0}
+    << : *smc-common
     command: "./script/start-dev.sh"
-    volumes:
-      - .:/app
-      - smc-gems:/gems
-      - /app/node_modules
     ports:
       - "3000:3000"
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-#    user: $USER
-    links:
-      - db
-    environment:
-      DB_DEV: smc-development
-      DB_HOST: db
-      DB_TEST: smc-test
-      DB_USERNAME: postgres
-      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
-      XERO_ID: ${XERO_ID}
-      XERO_SECRET: ${XERO_SECRET}
 
   db:
     image: postgres:11.5
@@ -36,6 +45,16 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    image: "redis:7-alpine"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./tmp/redis_data:/var/lib/redis/data
+
+  sidekiq:
+    << : *smc-common
+    command: bundle exec sidekiq -r . -C config/sidekiq.yml
 
 volumes:
   smc-data:
