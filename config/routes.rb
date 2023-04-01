@@ -37,6 +37,8 @@ Rails.application.routes.draw do
       end
     end
     resources :products
+    get 'reports', to: 'reports#index'
+    get 'reports/kegs', to: 'reports#kegs'
     resources :states
     resources :towns
     resources :users
