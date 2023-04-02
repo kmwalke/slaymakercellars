@@ -29,7 +29,6 @@ services:
   web:
     << : *smc-common
     command: "./script/start-dev.sh"
-#    user: $USER
     ports:
       - "3000:3000"
     depends_on:
