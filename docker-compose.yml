@@ -12,12 +12,8 @@ x-smc-common:
     - .:/app
     - smc-gems:/gems
     - /app/node_modules
-  depends_on:
-    - db
-    - redis
   stdin_open: true # docker run -i
   tty: true        # docker run -t
-  #    user: $USER
   environment:
     DB_DEV: smc-development
     DB_HOST: db
@@ -35,6 +31,10 @@ services:
     command: "./script/start-dev.sh"
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+      - redis
+      - sidekiq
 
   db:
     image: postgres:11.5
@@ -53,6 +53,9 @@ services:
   sidekiq:
     << : *smc-common
     command: bundle exec sidekiq -r . -C config/sidekiq.yml
+    depends_on:
+      - db
+      - redis
 
 volumes:
   smc-data:

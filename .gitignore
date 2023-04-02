@@ -42,6 +42,8 @@ yarn-debug.log*
 
 .env
 .idea
+.bash_history
+.local
 
 /public/packs
 /public/packs-test
