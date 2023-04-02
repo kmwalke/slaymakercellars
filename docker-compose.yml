@@ -14,7 +14,7 @@ x-smc-common:
     - /app/node_modules
   stdin_open: true # docker run -i
   tty: true        # docker run -t
-  #    user: $USER
+  user: $USER
   environment:
     DB_DEV: smc-development
     DB_HOST: db
