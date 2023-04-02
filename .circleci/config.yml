@@ -11,7 +11,6 @@ references:
       PGUSER: postgres
       PGPASSWORD: ""
       RAILS_ENV: test
-      REDIS_URL: test
       NODE_ENV: test
   postgres: &postgres
     image: cimg/postgres:13.8
