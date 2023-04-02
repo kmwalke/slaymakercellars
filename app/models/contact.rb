@@ -32,7 +32,7 @@ class Contact < ApplicationRecord
     return last_order_date if last_note_date.nil?
     return last_note_date if last_order_date.nil?
 
-    last_note_date > last_order_date ? last_note_date : last_order_date
+    [last_note_date, last_order_date].max
   end
 
   def town_name
