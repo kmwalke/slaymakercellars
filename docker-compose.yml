@@ -39,14 +39,14 @@ services:
       - "3000:3000"
 
   db:
-    image: postgres:11.5
+    image: postgres:latest
     volumes:
       - smc-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
   redis:
-    image: "redis:7-alpine"
+    image: redis:latest
     ports:
       - "6379:6379"
     volumes:
