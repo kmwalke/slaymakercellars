@@ -14,7 +14,6 @@ x-smc-common:
     - /app/node_modules
   stdin_open: true # docker run -i
   tty: true        # docker run -t
-  user: $USER
   environment:
     DB_DEV: smc-development
     DB_HOST: db
@@ -30,6 +29,7 @@ services:
   web:
     << : *smc-common
     command: "./script/start-dev.sh"
+#    user: $USER
     ports:
       - "3000:3000"
     depends_on:
