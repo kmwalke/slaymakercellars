@@ -1,5 +1,7 @@
+require 'sidekiq/web' if Rails.env.development?
 Rails.application.routes.draw do
   root to: 'home#index'
+  mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
 
   resources :sessions, only: [:new, :create, :destroy]
   get 'login', to: 'sessions#new', as: 'login'
