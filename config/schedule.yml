@@ -1,4 +1,4 @@
 instantiate_tasks:
-  cron: "* * * * * America/Denver"
+  cron: "0 1 * * * America/Denver"
   class: "UpdateKegReportJob"
   queue: default
