@@ -43,6 +43,7 @@ yarn-debug.log*
 .env
 .idea
 .bash_history
+.guard_history
 .local
 
 /public/packs

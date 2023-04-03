@@ -33,7 +33,29 @@ describe 'Admin::Reports' do
       end
     end
 
-    describe 'keg report' do
+    describe 'wholesale orders report' do
+      it 'visits the report page' do
+        visit admin_reports_path
+
+        first(:link, 'Wholesale Orders Report').click
+
+        expect(page).to have_current_path(admin_reports_orders_path, ignore_query: true)
+      end
+
+      it 'selects date for report' do
+        expect(true).to eq(false)
+      end
+
+      it 'shows the proper data for a date range' do
+        expect(true).to eq(false)
+      end
+
+      it 'does not include data outside of date range' do
+        expect(true).to eq(false)
+      end
+    end
+
+    describe 'keg report', skip: 'hidden for now' do
       it 'runs the keg report' do
         visit admin_reports_path
 

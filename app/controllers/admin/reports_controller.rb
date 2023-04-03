@@ -7,5 +7,9 @@ module Admin
     def kegs
       @contacts = Contact.where.not(num_kegs: 0)
     end
+
+    def orders
+      @orders = Order.all
+    end
   end
 end
