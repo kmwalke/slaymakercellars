@@ -4,13 +4,29 @@
   <%= link_to 'Reports', admin_reports_path %>
 </p>
 
-<table class="crud">
-  <tr class="title">
-    <th>Contact</th>
-    <th># kegs</th>
-    <th>Last Contacted</th>
-  </tr>
+<%= form_tag(admin_reports_orders_path, method: :get) do %>
+  <div class="field">
+    <%= label_tag :start_date, 'Start Date' %>
 
-</table>
+    <%= date_field_tag :start_date, class: "datepicker" %>
+  </div>
+  <div class="field">
+    <%= label_tag :end_date, 'End Date' %>
 
-<br/>
+    <%= date_field_tag :end_date, class: "datepicker" %>
+  </div>
+  <%= submit_tag 'Update', name: :update, disable_with: "Loading..." %>
+<% end -%>
+
+
+<% unless @orders.blank? -%>
+  <h1><%= "#{humanize_date(@start_date)} - #{humanize_date(@end_date)}" %></h1>
+
+  <% @orders.each do |order| -%>
+    <p>
+      Order id: <%= order.id %>
+    </p>
+
+  <% end %>
+
+<% end -%>

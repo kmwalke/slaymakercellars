@@ -42,16 +42,26 @@ describe 'Admin::Reports' do
         expect(page).to have_current_path(admin_reports_orders_path, ignore_query: true)
       end
 
-      it 'selects date for report' do
-        expect(true).to eq(false)
-      end
+      describe 'report data' do
+        before do
+          visit admin_reports_orders_path
+          fill_in 'Start Date', with: 8.days.ago
+          fill_in 'End Date', with: 1.day.ago
 
-      it 'shows the proper data for a date range' do
-        expect(true).to eq(false)
-      end
+          click_button 'Update'
+        end
 
-      it 'does not include data outside of date range' do
-        expect(true).to eq(false)
+        it 'selects date for report' do
+          expect(page).to have_current_path(admin_reports_orders_path, ignore_query: true)
+        end
+
+        it 'shows the proper data for a date range' do
+          expect(true).to be(false)
+        end
+
+        it 'does not include data outside of date range' do
+          expect(true).to be(false)
+        end
       end
     end
 
