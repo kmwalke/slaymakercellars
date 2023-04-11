@@ -1,5 +1,5 @@
 class OrdersReport
-  attr :start_date, :end_date, :orders
+  attr_reader :start_date, :end_date, :orders
 
   def initialize(start_date, end_date)
     return if start_date.blank? || end_date.blank?
@@ -22,7 +22,7 @@ class OrdersReport
   end
 
   class MockOrder
-    attr :id, :num_items, :order, :value
+    attr_reader :id, :num_items, :order, :value
 
     def initialize(order)
       @id        = order.id

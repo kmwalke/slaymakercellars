@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe OrdersReport do
-  let!(:order1) { create(:order, created_at: '04-01-20234') }
+  let!(:order1) { create(:order, created_at: '04-01-2023') }
   let!(:order2) { create(:order, created_at: '04-04-2023') }
   let!(:order3) { create(:order, created_at: 'o4-11-2023') }
 
   describe 'initialize' do
     let(:start_date) { '04-01-2023' }
     let(:end_date) { '04-11-2023' }
-    let(:report) { OrdersReport.new(start_date, end_date) }
+    let(:report) { described_class.new(start_date, end_date) }
 
     it 'sets the start date' do
       expect(report.start_date).to eq(DateTime.parse("#{start_date} 00:00:00"))
@@ -23,7 +23,7 @@ RSpec.describe OrdersReport do
     end
 
     it 'returns wholesale orders' do
-      expect(report.orders.empty?).to eq(false)
+      expect(report.orders.empty?).to be(false)
     end
 
     it 'returns a mock order with an id' do
