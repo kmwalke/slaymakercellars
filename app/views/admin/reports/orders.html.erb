@@ -22,11 +22,21 @@
 <% unless @orders.blank? -%>
   <h1><%= "#{humanize_date(@start_date)} - #{humanize_date(@end_date)}" %></h1>
 
-  <% @orders.each do |order| -%>
-    <p>
-      Order id: <%= order.id %>
-    </p>
+  <table class="crud">
+    <tr>
+      <th>Order #</th>
+      <th># of Items</th>
+      <th>Order Price</th>
+    </tr>
+
+    <% @orders.each do |order| -%>
+      <tr>
+        <td><%= order.id %></td>
+<!--        <td><%#= num_items(order) %></td>-->
+<!--        <td><%#= order_value(order) %></td>-->
+    </tr>
 
   <% end %>
 
+  </table>
 <% end -%>
