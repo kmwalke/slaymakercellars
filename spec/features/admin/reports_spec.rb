@@ -43,6 +43,10 @@ describe 'Admin::Reports' do
       end
 
       describe 'report data' do
+        let!(:bad_order) { create(:order, created_at: 12.days.ago) }
+        let!(:good_order_1) { create(:order, created_at: 4.days.ago) }
+        let!(:good_order_2) { create(:order, created_at: 2.days.ago) }
+
         before do
           visit admin_reports_orders_path
           fill_in 'Start Date', with: 8.days.ago
@@ -56,11 +60,12 @@ describe 'Admin::Reports' do
         end
 
         it 'shows the proper data for a date range' do
-          expect(true).to be(false)
+          expect(page).to have_content(good_order_1.id)
+          expect(page).to have_content(good_order_2.id)
         end
 
         it 'does not include data outside of date range' do
-          expect(true).to be(false)
+          expect(page).not_to have_content(bad_order.id)
         end
       end
     end

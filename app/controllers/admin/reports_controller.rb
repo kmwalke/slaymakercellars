@@ -24,7 +24,7 @@ module Admin
     def wholesale_orders(start_date, end_date)
       return if start_date.blank? || end_date.blank?
 
-      Order.all
+      Order.where(created_at: start_date..end_date)
     end
   end
 end
