@@ -26,14 +26,14 @@
     <tr>
       <th>Order #</th>
       <th># of Items</th>
-      <th>Order Price</th>
+      <th>Value</th>
     </tr>
 
     <% @orders.each do |order| -%>
       <tr>
         <td><%= order.id %></td>
-<!--        <td><%#= num_items(order) %></td>-->
-<!--        <td><%#= order_value(order) %></td>-->
+        <td><%= order.num_items %></td>
+        <td>$<%= order.value %></td>
     </tr>
 
   <% end %>
