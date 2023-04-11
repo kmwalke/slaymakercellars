@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe OrdersReport do
-  let!(:order1) { create(:order, created_at: '04-01-2023') }
+  let!(:order1) { create(:order, created_at: '03-01-2023') }
   let!(:order2) { create(:order, created_at: '04-04-2023') }
   let!(:order3) { create(:order, created_at: 'o4-11-2023') }
 
