@@ -18,7 +18,7 @@ module Admin
     def dates(start_date, end_date)
       return [nil, nil] if start_date.blank? || end_date.blank?
 
-      [start_date.to_date, end_date.to_date]
+      [DateTime.parse("#{start_date} 00:00:00"), DateTime.parse("#{end_date} 23:59:59")]
     end
 
     def wholesale_orders(start_date, end_date)
