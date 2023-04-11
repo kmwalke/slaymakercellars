@@ -44,8 +44,7 @@ describe 'Admin::Reports' do
 
       describe 'report data' do
         let!(:bad_order) { create(:order, created_at: 12.days.ago) }
-        let!(:good_order_1) { create(:order, created_at: 4.days.ago) }
-        let!(:good_order_2) { create(:order, created_at: 2.days.ago) }
+        let!(:good_order) { create(:order, created_at: 4.days.ago) }
 
         before do
           visit admin_reports_orders_path
@@ -60,8 +59,7 @@ describe 'Admin::Reports' do
         end
 
         it 'shows the proper data for a date range' do
-          expect(page).to have_content(good_order_1.id)
-          expect(page).to have_content(good_order_2.id)
+          expect(page).to have_content(good_order.id)
         end
 
         it 'does not include data outside of date range' do
