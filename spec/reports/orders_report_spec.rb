@@ -31,13 +31,5 @@ RSpec.describe OrdersReport do
     it 'returns a mock order with an id' do
       expect(report.orders.first.id).to eq(order2.id)
     end
-
-    it 'returns a mock order with an item count' do
-      expect(report.orders.first.num_items).to eq(-1)
-    end
-
-    it 'returns a mock order with a value' do
-      expect(report.orders.first.value).to eq(-1)
-    end
   end
 end

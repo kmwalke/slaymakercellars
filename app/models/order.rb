@@ -68,14 +68,6 @@ class Order < ApplicationRecord
     update(fulfilled_on: nil)
   end
 
-  def num_items
-    line_items.map(&:quantity).sum
-  end
-
-  def value
-    line_items.map { |li| li.quantity * li.price_point }.sum
-  end
-
   private
 
   def send_assigned_order_email

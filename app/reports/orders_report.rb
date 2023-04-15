@@ -32,11 +32,11 @@ class OrdersReport
     end
 
     def count_items
-      1
+      @order.line_items.map(&:quantity).sum
     end
 
     def calc_value
-      15
+      @order.line_items.map { |li| li.quantity * li.price_point }.sum.round(2)
     end
   end
 end

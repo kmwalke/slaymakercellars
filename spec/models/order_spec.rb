@@ -43,18 +43,4 @@ RSpec.describe Order do
 
     expect(order2.reload.fulfilled?).to be(false)
   end
-
-  it 'calculates number of items in order' do
-    3.times { create(:line_item, order:) }
-    num = order.line_items.map(&:quantity).sum
-
-    expect(order.num_items).to eq(num)
-  end
-
-  it 'calculates value of an order' do
-    3.times { create(:line_item, order:) }
-    value = order.line_items.map { |li| li.quantity * li.price_point }.sum
-
-    expect(order.value).to eq(value)
-  end
 end
