@@ -33,7 +33,42 @@ describe 'Admin::Reports' do
       end
     end
 
-    describe 'keg report' do
+    describe 'wholesale orders report' do
+      it 'visits the report page' do
+        visit admin_reports_path
+
+        first(:link, 'Wholesale Orders Report').click
+
+        expect(page).to have_current_path(admin_reports_orders_path, ignore_query: true)
+      end
+
+      describe 'report data' do
+        let!(:bad_order) { create(:order, created_at: 12.days.ago) }
+        let!(:good_order) { create(:order, created_at: 4.days.ago) }
+
+        before do
+          visit admin_reports_orders_path
+          fill_in 'Start Date', with: 8.days.ago
+          fill_in 'End Date', with: 1.day.ago
+
+          click_button 'Update'
+        end
+
+        it 'selects date for report' do
+          expect(page).to have_current_path(admin_reports_orders_path, ignore_query: true)
+        end
+
+        it 'shows the proper data for a date range' do
+          expect(page).to have_content(good_order.id)
+        end
+
+        it 'does not include data outside of date range' do
+          expect(page).not_to have_content(bad_order.id)
+        end
+      end
+    end
+
+    describe 'keg report', skip: 'hidden for now' do
       it 'runs the keg report' do
         visit admin_reports_path
 

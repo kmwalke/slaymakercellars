@@ -65,7 +65,7 @@ class Order < ApplicationRecord
   end
 
   def unfulfill
-    self.fulfilled_on = nil
+    update(fulfilled_on: nil)
   end
 
   private

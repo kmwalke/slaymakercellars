@@ -1,0 +1,49 @@
+<h1>Wholesale Orders Report</h1>
+
+<p>
+  <%= link_to 'Reports', admin_reports_path %>
+</p>
+
+<%= form_tag(admin_reports_orders_path, method: :get) do %>
+  <div class="field">
+    <%= label_tag :start_date, 'Start Date' %>
+
+    <%= date_field_tag :start_date, class: "datepicker" %>
+  </div>
+  <div class="field">
+    <%= label_tag :end_date, 'End Date' %>
+
+    <%= date_field_tag :end_date, class: "datepicker" %>
+  </div>
+  <%= submit_tag 'Update', name: :update, disable_with: "Loading..." %>
+<% end -%>
+
+
+<% unless @report.orders.blank? -%>
+  <h1><%= "#{humanize_date(@report.start_date)} - #{humanize_date(@report.end_date)}" %></h1>
+
+  <table class="crud">
+    <tr>
+      <th>Order #</th>
+      <th># of Items</th>
+      <th>Value</th>
+    </tr>
+
+    <% @report.orders.each do |order| -%>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.num_items %></td>
+        <td>$<%= order.value %></td>
+      </tr>
+
+    <% end %>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong><%= @report.num_items %></strong></td>
+      <td><strong>$<%= @report.value %></strong></td>
+    </tr>
+
+  </table>
+<% end -%>
+
+<p></p>
