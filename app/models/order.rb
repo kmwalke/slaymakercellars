@@ -43,7 +43,7 @@ class Order < ApplicationRecord
     when 'void'
       [orders.inactive, 'Void Orders']
     else
-      contact = Contact.find_by_id(show)
+      contact = Contact.find_by(id: show)
       [contact.orders.order('delivery_date DESC'), "Orders by #{contact.name}"]
     end
   end

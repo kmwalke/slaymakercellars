@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_15_195354) do
     t.boolean "is_public", default: true, null: false
     t.string "unit_number"
     t.integer "num_kegs", default: 0, null: false
+    t.index ["name"], name: "index_contacts_on_name", unique: true
   end
 
   create_table "line_items", force: :cascade do |t|

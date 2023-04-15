@@ -64,7 +64,13 @@ Metrics/MethodLength:
   Exclude:
     - 'app/models/xero/*'
 
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
 Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
 
 RSpec/LetSetup:

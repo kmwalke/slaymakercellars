@@ -18,14 +18,14 @@ class Contact < ApplicationRecord
 
   scope :active, -> { where(deleted_at: nil) }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
+  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).pluck(:contact_id).uniq) }
 
   def self.display(show, search_string, order, direction)
     [show, display_contacts(show, search_string, order, direction), display_title(show)]
   end
 
   def unresolved_notes?
-    notes.where('resolved_at is null').any?
+    notes.where(resolved_at: nil).any?
   end
 
   def last_contacted
