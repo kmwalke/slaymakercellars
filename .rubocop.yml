@@ -64,6 +64,12 @@ Metrics/MethodLength:
   Exclude:
     - 'app/models/xero/*'
 
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 
