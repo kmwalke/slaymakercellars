@@ -21,7 +21,7 @@ RSpec.describe Order do
   end
 
   it 'updates contact by name' do
-    new_contact = create(:contact, name: 'new_conact')
+    new_contact        = create(:contact, name: 'new_conact')
     order.contact_name = new_contact.name
     order.save
 
@@ -42,5 +42,19 @@ RSpec.describe Order do
     order2.unfulfill
 
     expect(order2.reload.fulfilled?).to be(false)
+  end
+
+  it 'calculates number of items in order' do
+    3.times { create(:line_item, order:) }
+    num = order.line_items.map(&:quantity).sum
+
+    expect(order.num_items).to eq(num)
+  end
+
+  it 'calculates value of an order' do
+    3.times { create(:line_item, order:) }
+    value = order.line_items.map { |li| li.quantity * li.price_point }.sum
+
+    expect(order.value).to eq(value)
   end
 end
