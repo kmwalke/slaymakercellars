@@ -9,7 +9,7 @@ module Admin
     end
 
     def orders
-      @report      = OrdersReport.new(params[:start_date], params[:end_date])
+      @report = OrdersReport.new(params[:start_date], params[:end_date])
     end
   end
 end
