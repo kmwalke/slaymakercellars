@@ -78,8 +78,8 @@ RSpec.describe 'Customer::Home' do
         create(
           :order,
           contact: current_user.contact,
-          delivery_date: Date.yesterday,
-          fulfilled_on: Date.today
+          delivery_date: Time.zone.yesterday,
+          fulfilled_on: Time.zone.today
         )
       end
 

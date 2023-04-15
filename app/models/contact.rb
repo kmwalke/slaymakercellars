@@ -50,7 +50,7 @@ class Contact < ApplicationRecord
   def last_fulfilled_order_date
     order = orders.order('fulfilled_on desc').first
 
-    order.fulfilled_on || Date.today if order
+    order.fulfilled_on || Time.zone.today if order
   end
 
   def repeat_last_order
@@ -60,7 +60,7 @@ class Contact < ApplicationRecord
     new_order               = order.dup
     new_order.xero_id       = nil
     new_order.fulfilled_on  = nil
-    new_order.delivery_date = Date.today
+    new_order.delivery_date = Time.zone.today
     new_order.save
     order.line_items.each do |item|
       new_order.line_items.create(item.dup.attributes)
