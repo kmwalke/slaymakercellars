@@ -39,11 +39,13 @@ Rails.application.routes.draw do
       end
     end
     resources :products
-    get 'reports', to: 'reports#index'
-    get 'reports/kegs', to: 'reports#kegs'
     resources :states
     resources :towns
     resources :users
+
+    get 'reports', to: 'reports#index'
+    get 'reports/kegs', to: 'reports#kegs'
+    get 'reports/orders', to: 'reports#orders'
   end
 
   namespace :customer do
