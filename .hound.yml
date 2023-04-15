@@ -2,7 +2,7 @@ haml:
   enabled: false
 
 rubocop:
-  version: 1.49.0
+  version: 1.5.2
   config_file: .rubocop.yml
 
 scss:
