@@ -18,11 +18,11 @@ class Order < ApplicationRecord
   scope :active, -> { where(fulfilled_on: nil, deleted_at: nil).order('delivery_date asc') }
   scope :fulfilled, -> { where.not(fulfilled_on: nil).order('fulfilled_on DESC') }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :late, -> { active.where('delivery_date < ?', Date.today).order('delivery_date asc') }
+  scope :late, -> { active.where('delivery_date < ?', Time.zone.today).order('delivery_date asc') }
 
   def self.to_be_fulfilled(day)
-    if day == Date.today
-      Order.active.where('delivery_date <= ?', Date.today)
+    if day == Time.zone.today
+      Order.active.where('delivery_date <= ?', Time.zone.today)
     else
       Order.active.where(delivery_date: day)
     end
@@ -43,7 +43,7 @@ class Order < ApplicationRecord
     when 'void'
       [orders.inactive, 'Void Orders']
     else
-      contact = Contact.find_by_id(show)
+      contact = Contact.find_by(id: show)
       [contact.orders.order('delivery_date DESC'), "Orders by #{contact.name}"]
     end
   end
@@ -61,7 +61,7 @@ class Order < ApplicationRecord
   end
 
   def fulfill
-    update(fulfilled_on: Date.today)
+    update(fulfilled_on: Time.zone.today)
   end
 
   def unfulfill

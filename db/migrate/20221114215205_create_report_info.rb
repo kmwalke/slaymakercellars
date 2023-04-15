@@ -7,7 +7,7 @@ class CreateReportInfo < ActiveRecord::Migration[7.0]
 
     add_index :report_info, :uuid, unique: true
 
-    ReportInfo.create(keg_report_calculated_on: Date.today)
+    ReportInfo.create(keg_report_calculated_on: Time.zone.today)
   end
 
   def down

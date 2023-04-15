@@ -38,7 +38,7 @@ RSpec.describe Order do
   end
 
   it 'unfulfills an order' do
-    order2 = create(:order, fulfilled_on: Date.today)
+    order2 = create(:order, fulfilled_on: Time.zone.today)
     order2.unfulfill
 
     expect(order2.reload.fulfilled?).to be(false)

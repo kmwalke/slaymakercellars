@@ -120,7 +120,7 @@ RSpec.describe Contact do
     create(:order, contact:)
     create(:order, contact:, fulfilled_on: 7.days.ago)
 
-    expect(contact.last_fulfilled_order_date).to eq(Date.today)
+    expect(contact.last_fulfilled_order_date).to eq(Time.zone.today)
   end
 
   it 'gets nil on contacts with no orders' do
