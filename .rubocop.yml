@@ -64,6 +64,9 @@ Metrics/MethodLength:
   Exclude:
     - 'app/models/xero/*'
 
+Rails/I18nLocaleTexts:
+  Enabled: false
+
 RSpec/LetSetup:
   Exclude:
     - 'spec/reports/*'

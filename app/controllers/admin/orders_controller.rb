@@ -20,6 +20,8 @@ module Admin
       redirect_to path
     end
 
+    def show; end
+
     def new
       @order = Order.new
     end
