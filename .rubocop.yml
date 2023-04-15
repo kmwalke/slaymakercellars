@@ -63,6 +63,14 @@ Metrics/MethodLength:
   Exclude:
     - 'app/models/xero/*'
 
+RSpec/LetSetup:
+  Exclude:
+    - 'spec/reports/*'
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - 'spec/reports/*'
+
 RSpec/NestedGroups:
   Max: 5
 

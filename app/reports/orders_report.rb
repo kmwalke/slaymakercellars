@@ -13,6 +13,14 @@ class OrdersReport
     [@start_date, @end_date]
   end
 
+  def num_items
+    @orders.map(&:num_items).sum
+  end
+
+  def value
+    @orders.map(&:value).sum
+  end
+
   private
 
   def wholesale_orders

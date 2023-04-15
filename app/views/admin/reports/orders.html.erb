@@ -19,8 +19,8 @@
 <% end -%>
 
 
-<% unless @orders.blank? -%>
-  <h1><%= "#{humanize_date(@start_date)} - #{humanize_date(@end_date)}" %></h1>
+<% unless @report.orders.blank? -%>
+  <h1><%= "#{humanize_date(@report.start_date)} - #{humanize_date(@report.end_date)}" %></h1>
 
   <table class="crud">
     <tr>
@@ -29,14 +29,19 @@
       <th>Value</th>
     </tr>
 
-    <% @orders.each do |order| -%>
+    <% @report.orders.each do |order| -%>
       <tr>
         <td><%= order.id %></td>
         <td><%= order.num_items %></td>
         <td>$<%= order.value %></td>
-    </tr>
+      </tr>
 
-  <% end %>
+    <% end %>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong><%= @report.num_items %></strong></td>
+      <td><strong>$<%= @report.value %></strong></td>
+    </tr>
 
   </table>
 <% end -%>
