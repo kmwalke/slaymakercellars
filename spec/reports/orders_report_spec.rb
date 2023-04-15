@@ -23,11 +23,11 @@ RSpec.describe OrdersReport do
     let!(:order1) { create(:order, created_at: '03-01-2023') }
     let!(:order2) { create(:order, created_at: '04-04-2023') }
     let!(:order3) { create(:order, created_at: 'o4-11-2023') }
-    let!(:report2) { described_class.new(start_date, end_date) }
+    let(:report2) { described_class.new(start_date, end_date) }
     let(:orders) { [order1, order2, order3] }
 
     before do
-      3.times { create(:line_item, order: order2) }
+      create_list(:line_item, 3, order: order2)
     end
 
     it 'returns wholesale orders' do
