@@ -8,7 +8,7 @@
   <% else -%>
     <td><%= link_to order.contact.name, edit_admin_order_path(order) %></td>
   <% end -%>
-  <td class=<%= order.delivery_date < Date.today && !order.fulfilled? ? 'late' : '' %>>
+  <td class=<%= order.delivery_date < Time.zone.today && !order.fulfilled? ? 'late' : '' %>>
     <% if order.fulfilled? -%>
       <%= humanize_date order.fulfilled_on %>
     <% else -%>

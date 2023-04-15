@@ -14,9 +14,9 @@ module ApplicationHelper
   end
 
   def days_ago_in_words(from_day)
-    return 'Today' if from_day == Date.today
+    return 'Today' if from_day == Time.zone.today
 
-    "#{distance_of_time_in_words(from_day, Time.now)} ago"
+    "#{distance_of_time_in_words(from_day, Time.zone.now)} ago"
   end
 
   def sortable(name)

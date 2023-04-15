@@ -1,4 +1,5 @@
 require:
+  - rubocop-rails
   - rubocop-rspec
 
 AllCops:
@@ -62,6 +63,21 @@ Metrics/MethodLength:
   Max: 20
   Exclude:
     - 'app/models/xero/*'
+
+Rails/CreateTableWithTimestamps:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
 
 RSpec/LetSetup:
   Exclude:

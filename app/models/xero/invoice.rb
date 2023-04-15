@@ -46,7 +46,7 @@ module Xero
     end
 
     private_class_method def self.delivery_date(order)
-      return Date.today if order.delivery_date < Date.today
+      return Time.zone.today if order.delivery_date < Time.zone.today
 
       order.delivery_date
     end

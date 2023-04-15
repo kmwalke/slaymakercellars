@@ -18,14 +18,14 @@ class Contact < ApplicationRecord
 
   scope :active, -> { where(deleted_at: nil) }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).uniq.pluck(:contact_id)) }
+  scope :urgent, -> { active.where(id: Note.where(resolved_at: nil).pluck(:contact_id).uniq) }
 
   def self.display(show, search_string, order, direction)
     [show, display_contacts(show, search_string, order, direction), display_title(show)]
   end
 
   def unresolved_notes?
-    notes.where('resolved_at is null').any?
+    notes.where(resolved_at: nil).any?
   end
 
   def last_contacted
@@ -50,7 +50,7 @@ class Contact < ApplicationRecord
   def last_fulfilled_order_date
     order = orders.order('fulfilled_on desc').first
 
-    order.fulfilled_on || Date.today if order
+    order.fulfilled_on || Time.zone.today if order
   end
 
   def repeat_last_order
@@ -60,7 +60,7 @@ class Contact < ApplicationRecord
     new_order               = order.dup
     new_order.xero_id       = nil
     new_order.fulfilled_on  = nil
-    new_order.delivery_date = Date.today
+    new_order.delivery_date = Time.zone.today
     new_order.save
     order.line_items.each do |item|
       new_order.line_items.create(item.dup.attributes)

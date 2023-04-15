@@ -70,7 +70,7 @@ module Xero
     def self.save_token(user, response)
       resp_hash = JSON.parse(response.body)
 
-      user.update_columns(
+      user.update(
         xeroAccessToken: resp_hash['access_token'],
         xeroRefreshToken: resp_hash['refresh_token'],
         xeroTokenExpiresAt: Time.now.to_i + resp_hash['expires_in']

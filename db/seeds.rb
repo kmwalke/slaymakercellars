@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-ReportInfo.create(keg_report_calculated_on: Date.today)
+ReportInfo.create(keg_report_calculated_on: Time.zone.today)
 description = 'This is the description. ' * 20
 user1       = User.create(email: 'kent@slaymakercellars.com', name: 'Kent', password: '123', role: User::ROLES[:admin])
 User.create(email: 'cris@slaymakercellars.com', name: 'Cris', password: '123', role: User::ROLES[:admin])

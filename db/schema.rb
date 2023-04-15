@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_215205) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_15_195354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_215205) do
     t.boolean "is_public", default: true, null: false
     t.string "unit_number"
     t.integer "num_kegs", default: 0, null: false
+    t.index ["name"], name: "index_contacts_on_name", unique: true
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -84,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_215205) do
     t.string "xero_id"
     t.string "xero_code", null: false
     t.boolean "in_production", default: true, null: false
+    t.index ["name"], name: "index_products_on_name", unique: true
     t.index ["xero_code"], name: "index_products_on_xero_code", unique: true
   end
 
