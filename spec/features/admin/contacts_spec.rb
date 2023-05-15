@@ -17,10 +17,7 @@ RSpec.describe 'Admin::Contacts' do
   describe 'logged in' do
     let!(:contact) { create(:contact, name: 'Normal Contact') }
     let!(:deleted_contact) { create(:contact, deleted_at: DateTime.now) }
-
-    before do
-      login_as_admin
-    end
+    let!(:current_user) { login_as_admin }
 
     describe 'list contacts' do
       before do
@@ -180,6 +177,16 @@ RSpec.describe 'Admin::Contacts' do
       click_link contact.name
       click_link 'Repeat last order'
       expect(page).to have_current_path(edit_admin_order_path(contact.orders.last), ignore_query: true)
+    end
+
+    it 'repeats last order with the correct user' do
+      create(:order, contact:, created_by: create(:admin))
+
+      visit admin_contacts_path
+
+      click_link contact.name
+      click_link 'Repeat last order'
+      expect(contact.orders.last.created_by).to eq(current_user)
     end
 
     it 'hides repeat option for new contacts' do

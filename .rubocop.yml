@@ -79,6 +79,9 @@ Rails/I18nLocaleTexts:
 Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
 
+RSpec/IndexedLet:
+  Enabled: false
+
 RSpec/LetSetup:
   Exclude:
     - 'spec/reports/*'

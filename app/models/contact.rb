@@ -61,6 +61,7 @@ class Contact < ApplicationRecord
     new_order.xero_id       = nil
     new_order.fulfilled_on  = nil
     new_order.delivery_date = Time.zone.today
+    new_order.updated_by    = nil
     new_order.save
     order.line_items.each do |item|
       new_order.line_items.create(item.dup.attributes)
