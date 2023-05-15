@@ -54,6 +54,7 @@ module Admin
 
     def repeat_last_order
       new_order = @contact.repeat_last_order
+      new_order.update(created_by: current_user)
       redirect_to edit_admin_order_path(new_order)
     end
 
