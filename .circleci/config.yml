@@ -27,9 +27,9 @@ jobs:
       - checkout
       - run:
           name: Install Node
-          command: sudo apt-get install -y ca-certificates curl gnupg #&&
-#                   mkdir -p /etc/apt/keyrings &&
-#                   curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+          command: sudo apt-get install -y ca-certificates curl gnupg &&
+                   mkdir -p /etc/apt/keyrings &&
+                   curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
       - run:
           name: Install yarn
           command: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install yarn
