@@ -151,4 +151,3 @@ Style/SymbolArray:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
-
