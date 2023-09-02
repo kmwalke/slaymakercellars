@@ -12,6 +12,7 @@ references:
       PGPASSWORD: ""
       RAILS_ENV: test
       NODE_ENV: test
+      NODE_OPTIONS: --openssl-legacy-provider
   postgres: &postgres
     image: cimg/postgres:13.8
     environment:
