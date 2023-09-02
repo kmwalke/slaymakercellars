@@ -14,3 +14,7 @@ Rails/RedundantPresenceValidationOnBelongsTo:
 
 RSpec/IndexedLet:
   Enabled: false
+
+RSpec/LetSetup:
+  Exclude:
+    - 'spec/reports/*'
