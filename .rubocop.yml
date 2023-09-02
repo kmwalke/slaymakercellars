@@ -9,5 +9,8 @@ require:
 Rails/I18nLocaleTexts:
   Enabled: false
 
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false
+
 RSpec/IndexedLet:
   Enabled: false

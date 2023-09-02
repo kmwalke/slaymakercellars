@@ -72,9 +72,6 @@ Rails/BulkChangeTable:
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 
-Rails/RedundantPresenceValidationOnBelongsTo:
-  Enabled: false
-
 RSpec/LetSetup:
   Exclude:
     - 'spec/reports/*'
