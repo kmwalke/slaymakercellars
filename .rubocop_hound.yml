@@ -73,9 +73,6 @@ Rails/BulkChangeTable:
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 
-Rails/RedundantPresenceValidationOnBelongsTo:
-  Enabled: false
-
 RSpec/IndexedLet:
   Enabled: false
 
