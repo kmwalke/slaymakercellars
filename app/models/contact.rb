@@ -55,8 +55,7 @@ class Contact < ApplicationRecord
 
   def repeat_last_order
     return if orders.empty?
-
-    order                   = orders.order('fulfilled_on desc').first
+    order                  = orders.order('fulfilled_on desc').first
     new_order               = order.dup
     new_order.xero_id       = nil
     new_order.fulfilled_on  = nil
