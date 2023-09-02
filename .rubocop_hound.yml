@@ -1,5 +1,6 @@
 require:
   - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
   Exclude:
@@ -71,6 +72,13 @@ Rails/BulkChangeTable:
 
 Rails/HasManyOrHasOneDependent:
   Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false
+
+RSpec/LetSetup:
+  Exclude:
+    - 'spec/reports/*'
 
 RSpec/MultipleMemoizedHelpers:
   Exclude:
