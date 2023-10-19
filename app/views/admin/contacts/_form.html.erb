@@ -54,6 +54,21 @@
 
 <div class="column">
   <div class="field">
+    <%= form.label :sales_rep_name, 'Sales Rep' %>
+    <%= form.text_field :sales_rep_name, list: 'sales_reps' %>
+
+    <datalist id="sales_reps">
+      <% SalesRep.all.each do |sales_rep| %>
+        <option value="<%= sales_rep.name %>">
+      <% end %>
+    </datalist>
+    <% unless @contact.sales_rep.blank? -%>
+      <span><%= @contact.sales_rep.email %></span>
+      <span><%= link_to 'View Sales Rep', edit_admin_sales_rep_path(@contact.sales_rep) %></span>
+    <% end -%>
+  </div>
+
+  <div class="field">
     <%= form.check_box :pickup_check %>
     <%= form.label :pickup_check, class: :inline %>
   </div>
