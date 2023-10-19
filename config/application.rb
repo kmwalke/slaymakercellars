@@ -11,8 +11,6 @@ class App
   class Application < Rails::Application
     config.time_zone = 'Mountain Time (US & Canada)'
 
-    config.active_record.legacy_connection_handling = false
-
     config.active_job.queue_adapter = :sidekiq
 
     # Settings in config/environments/* take precedence over those specified here.
