@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       end
     end
     resources :products
+    resources :sales_reps
     resources :states
     resources :towns
     resources :users

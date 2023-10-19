@@ -3,6 +3,7 @@ class Contact < ApplicationRecord
   include SoftDeletable
   include Xero::Syncable
 
+  belongs_to :sales_rep
   belongs_to :town
   has_many :notes
   has_many :orders
@@ -33,6 +34,14 @@ class Contact < ApplicationRecord
     return last_note_date if last_order_date.nil?
 
     [last_note_date, last_order_date].max
+  end
+
+  def sales_rep_name
+    sales_rep&.name
+  end
+
+  def sales_rep_name=(name)
+    self.sales_rep = SalesRep.find_by(name:)
   end
 
   def town_name

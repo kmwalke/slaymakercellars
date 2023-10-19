@@ -77,6 +77,7 @@ module Admin
         :phone,
         :paperless_billing,
         :pickup_check,
+        :sales_rep_name,
         :town_name,
         :unit_number,
         :url

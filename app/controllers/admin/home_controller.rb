@@ -8,6 +8,7 @@ module Admin
       @todays_orders   = Order.to_be_fulfilled(Time.zone.today).count
       @contacts        = Contact.active.count
       @urgent_contacts = Contact.urgent.count
+      @sales_reps      = SalesRep.count
       @states          = State.count
       @towns           = Town.count
       @products        = Product.count

@@ -74,13 +74,13 @@
     </fieldset>
 
     <fieldset>
-      <legend><%= link_to "Reports", admin_reports_path %></legend>
+      <legend><%= link_to "Sales Reps", admin_sales_reps_path %></legend>
       <ul>
-<!--        <li>-->
-          <%#= link_to 'Keg Report', admin_reports_kegs_path %>
-<!--        </li>-->
         <li>
-          <%= link_to 'Wholesale Orders Report', admin_reports_orders_path %>
+          <%= link_to 'New Sales Rep', new_admin_sales_rep_path %>
+        </li>
+        <li>
+          <%= pluralize @sales_reps, 'sales rep' %>
         </li>
       </ul>
     </fieldset>
@@ -107,6 +107,18 @@
         </li>
         <li>
           <%= pluralize @towns, 'Town' %>
+        </li>
+      </ul>
+    </fieldset>
+
+    <fieldset>
+      <legend><%= link_to "Reports", admin_reports_path %></legend>
+      <ul>
+        <!--        <li>-->
+        <%#= link_to 'Keg Report', admin_reports_kegs_path %>
+        <!--        </li>-->
+        <li>
+          <%= link_to 'Wholesale Orders Report', admin_reports_orders_path %>
         </li>
       </ul>
     </fieldset>
