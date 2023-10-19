@@ -33,9 +33,9 @@
       <th>Phone</th>
       <th>Email</th>
       <th>Last Contact</th>
-      <th>Pickup Check?</th>
+      <th>Sales Rep</th>
       <th>Synced?</th>
-      <th>Last Order</th>
+<!--      <th>Last Order</th>-->
       <th></th>
     </tr>
 
@@ -75,17 +75,10 @@
           <% end -%>
         </td>
         <td>
-          <%= contact.pickup_check ? 'Y' : '' %>
+          <%= contact.sales_rep&.name %>
         </td>
         <td>
           <span><%= contact.synced? ? '✓' : 'X' %></span>
-        </td>
-        <td nowrap>
-          <% if contact.last_fulfilled_order_date -%>
-            <%= link_to "#{days_ago_in_words contact.last_fulfilled_order_date}", admin_orders_path({ show: contact.id }) %>
-          <% else -%>
-            &nbsp;
-          <% end -%>
         </td>
         <td>
           <%= link_to 'X',

@@ -7,8 +7,6 @@ ARG GID
 
 RUN echo "$USERNAME:1234:$UID:$GID:docker-user,,,:/app/:/bin/bash" >> /etc/passwd
 
-RUN curl https://cli-assets.heroku.com/install.sh | sh
-
 RUN apt-get update && \
     apt-get install -y ca-certificates curl gnupg && \
     mkdir -p /etc/apt/keyrings && \
@@ -27,6 +25,8 @@ RUN apt-get update && \
   build-essential \
   yarn \
   postgresql-client
+
+RUN curl https://cli-assets.heroku.com/install.sh | sh
 
 ENV BUNDLE_PATH /gems
 ENV PATH $BUNDLE_PATH/bin:$GEM_HOME/gems/bin:$PATH

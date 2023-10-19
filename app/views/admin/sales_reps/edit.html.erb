@@ -1,0 +1,25 @@
+<h1>Editing <%= @sales_rep.name %></h1>
+
+<%= form_for(@sales_rep, url: admin_sales_rep_path(@sales_rep), html: { multipart: true, autocomplete: 'off' }) do |form| %>
+  <%= render 'form', sales_rep: @sales_rep, form: form %>
+<% end -%>
+
+<br />
+<h2>Contacts</h2>
+<table class="crud">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+  </thead>
+  <% @sales_rep.contacts.each do |contact| -%>
+    <tr>
+      <td><%= link_to contact.name, edit_admin_contact_path(contact) %></td>
+      <td><%= contact.email %></td>
+    </tr>
+  <% end -%>
+</table>
+<br />
+
+<%= link_to 'Back', admin_sales_reps_path %>
