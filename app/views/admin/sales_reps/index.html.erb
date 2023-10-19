@@ -1,0 +1,31 @@
+<h1>Sales Reps</h1>
+
+<p>
+  <%= link_to 'New Sales Rep', new_admin_sales_rep_path %>
+</p>
+
+<div class="wide-wrapper">
+  <table class="crud">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>State</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @sales_reps.each do |sales_rep| %>
+      <tr>
+        <td><%= link_to sales_rep.name, edit_admin_sales_rep_path(sales_rep) %></td>
+        <td>
+          <%= link_to 'X', admin_sales_rep_path(sales_rep), method: :delete, id: "delete_#{sales_rep.id}", data: { confirm: 'Are you sure?' } %>
+          &nbsp;
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br/>

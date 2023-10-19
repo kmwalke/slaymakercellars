@@ -1,0 +1,7 @@
+<h1>Editing <%= @sales_rep.name %></h1>
+
+<%= form_for(@sales_rep, url: admin_sales_rep_path(@sales_rep), html: { multipart: true, autocomplete: 'off' }) do |form| %>
+  <%= render 'form', sales_rep: @sales_rep, form: form %>
+<% end -%>
+
+<%= link_to 'Back', admin_sales_reps_path %>

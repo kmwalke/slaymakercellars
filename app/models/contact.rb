@@ -8,6 +8,7 @@ class Contact < ApplicationRecord
   has_many :orders
   has_many :xero_sync_errors, as: :syncable
   has_one :user
+  has_one :sales_rep
 
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true

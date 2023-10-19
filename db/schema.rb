@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_200857) do
     t.boolean "is_public", default: true, null: false
     t.string "unit_number"
     t.integer "num_kegs", default: 0, null: false
+    t.integer "sales_rep_id"
     t.index ["name"], name: "index_contacts_on_name", unique: true
   end
 
@@ -97,7 +98,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_200857) do
 
   create_table "sales_reps", force: :cascade do |t|
     t.string "name"
-    t.integer "contact_id"
   end
 
   create_table "states", force: :cascade do |t|
