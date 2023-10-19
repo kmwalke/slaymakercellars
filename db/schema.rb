@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_15_195354) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_19_200857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_15_195354) do
     t.integer "uuid", default: 1, null: false
     t.date "keg_report_calculated_on"
     t.index ["uuid"], name: "index_report_info_on_uuid", unique: true
+  end
+
+  create_table "sales_reps", force: :cascade do |t|
+    t.string "name"
+    t.integer "contact_id"
   end
 
   create_table "states", force: :cascade do |t|
