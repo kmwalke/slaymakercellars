@@ -92,6 +92,14 @@ RSpec.describe 'Admin::Contacts' do
         visit admin_contacts_path
         click_link contact.name
       end
+
+      it 'shows the sales rep' do
+        expect(page.body).to include(contact.sales_rep.name)
+      end
+
+      it 'shows the sales rep email' do
+        expect(page.body).to include(contact.sales_rep.email)
+      end
     end
 
     describe 'edit a contact' do
