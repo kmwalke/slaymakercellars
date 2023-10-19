@@ -38,10 +38,22 @@ def order_quantity(product)
   (rand(1..3) * product.case_size) + rand(0..6)
 end
 
+SalesRep.create(name: 'Tom')
+SalesRep.create(name: 'Bill')
+SalesRep.create(name: 'Candy')
+SalesRep.create(name: 'Sally')
+SalesRep.create(name: 'Keith')
+
 Town.all.each do |town|
   rand(1..6).times do |i|
     contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
-    contact     = Contact.create(name: "Contact_#{town.id}_#{i}", town:, address: '123 Main St', url: contact_url)
+    contact     = Contact.create(
+      name: "Contact_#{town.id}_#{i}",
+      town:,
+      address: '123 Main St',
+      sales_rep: SalesRep.order("RANDOM()").first,
+      url: contact_url
+    )
 
     rand(0..3).times do
       Note.create(body: 'This is a note.', contact:, created_by: user1)

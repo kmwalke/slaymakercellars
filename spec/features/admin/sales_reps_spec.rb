@@ -26,6 +26,32 @@ RSpec.describe 'Admin::Sales_Reps' do
       expect(page.body).to include("\">#{sales_rep.name}</a>")
     end
 
+    it 'list sales reps email' do
+      visit admin_sales_reps_path
+      expect(page.body).to include(sales_rep.email)
+    end
+
+    describe 'shows sales rep' do
+      before do
+        3.times do
+          create(:contact, sales_rep: sales_rep)
+        end
+
+        visit admin_sales_reps_path
+        click_link sales_rep.name
+      end
+
+      it 'shows a sales rep' do
+        expect(page.body).to include(sales_rep.name)
+      end
+
+      it 'shows sales reps contacts' do
+        sales_rep.contacts.each do |contact|
+          expect(page.body).to include(contact.name)
+        end
+      end
+    end
+
     describe 'create a sales rep' do
       let!(:sales_rep2) { build(:sales_rep) }
 
@@ -34,7 +60,7 @@ RSpec.describe 'Admin::Sales_Reps' do
 
         click_link 'New Sales Rep'
         fill_in_form(sales_rep2)
-        click_button 'Create Sales Rep'
+        click_button 'Create Sales rep'
       end
 
       it 'renders the index page' do
@@ -53,7 +79,7 @@ RSpec.describe 'Admin::Sales_Reps' do
         click_link sales_rep.name
         sales_rep.name = 'new name'
         fill_in_form(sales_rep)
-        click_button 'Update Sales Rep'
+        click_button 'Update Sales rep'
       end
 
       it 'renders the index page' do
@@ -86,5 +112,6 @@ RSpec.describe 'Admin::Sales_Reps' do
 
   def fill_in_form(sales_rep)
     fill_in 'Name', with: sales_rep.name
+    fill_in 'Email', with: sales_rep.email
   end
 end

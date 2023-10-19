@@ -49,6 +49,11 @@ RSpec.describe 'Admin::Home' do
       expect(page).to have_current_path(admin_states_path, ignore_query: true)
     end
 
+    it 'sales reps link' do
+      first(:link, 'View Sales Reps').click
+      expect(page).to have_current_path(admin_sales_reps_path, ignore_query: true)
+    end
+
     it 'reports link' do
       first(:link, 'Reports').click
       expect(page).to have_current_path(admin_reports_path, ignore_query: true)

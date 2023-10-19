@@ -51,7 +51,7 @@ module Admin
     end
 
     def sales_rep_params
-      params.require(:sales_rep).permit(:name)
+      params.require(:sales_rep).permit(:email, :name)
     end
   end
 end

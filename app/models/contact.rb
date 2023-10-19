@@ -3,12 +3,12 @@ class Contact < ApplicationRecord
   include SoftDeletable
   include Xero::Syncable
 
+  belongs_to :sales_rep
   belongs_to :town
   has_many :notes
   has_many :orders
   has_many :xero_sync_errors, as: :syncable
   has_one :user
-  has_one :sales_rep
 
   validates :name, presence: true, uniqueness: true
   validates :address, presence: true

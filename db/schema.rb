@@ -98,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_200857) do
 
   create_table "sales_reps", force: :cascade do |t|
     t.string "name"
+    t.string "email"
   end
 
   create_table "states", force: :cascade do |t|
