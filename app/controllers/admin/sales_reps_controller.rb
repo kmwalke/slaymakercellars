@@ -4,7 +4,7 @@ module Admin
     before_action :must_be_admin
 
     def index
-      @sales_reps = SalesRep.all.order('sales_reps.name')
+      @sales_reps = SalesRep.order('sales_reps.name')
     end
 
     def show; end

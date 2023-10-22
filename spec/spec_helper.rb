@@ -93,7 +93,7 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
   config.before :all do
-    FactoryBot.create(:report_info) if ReportInfo.all.count == 0
+    FactoryBot.create(:report_info) if ReportInfo.count == 0
   end
 end
 

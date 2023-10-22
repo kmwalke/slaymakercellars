@@ -273,7 +273,7 @@ describe 'Admin::Orders' do
         order.update(delivery_date: Date.yesterday)
 
         visit admin_orders_path
-        click_on 'Late Orders'
+        click_link 'Late Orders'
       end
 
       it 'shows the order contact name' do

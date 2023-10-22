@@ -35,6 +35,7 @@ end
 group :development do
   gem 'listen'
   gem 'rubocop'
+  gem 'rubocop-daemon', require: false
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'

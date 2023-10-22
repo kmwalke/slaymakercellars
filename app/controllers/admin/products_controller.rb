@@ -5,7 +5,7 @@ module Admin
     after_action :sync_to_xero, only: [:update, :create]
 
     def index
-      @products = Product.all.order(:category, :name)
+      @products = Product.order(:category, :name)
     end
 
     def new

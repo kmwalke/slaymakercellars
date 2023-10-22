@@ -333,6 +333,8 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-capybara (2.19.0)
       rubocop (~> 1.41)
+    rubocop-daemon (0.3.2)
+      rubocop
     rubocop-factory_bot (2.24.0)
       rubocop (~> 1.33)
     rubocop-performance (1.19.1)
@@ -449,6 +451,7 @@ DEPENDENCIES
   redis
   rspec-rails
   rubocop
+  rubocop-daemon
   rubocop-performance
   rubocop-rails
   rubocop-rspec
