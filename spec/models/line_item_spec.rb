@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe LineItem do
   it 'requires an order' do
-    expect { create(:line_item, order: nil) }.to raise_error(ActiveRecord::NotNullViolation)
+    expect { create(:line_item, order: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'requires a product' do
-    expect { create(:line_item, product_id: nil) }.to raise_error(ActiveRecord::NotNullViolation)
+    expect { create(:line_item, product_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'requires a quantity' do
-    expect { create(:line_item, order_id: nil) }.to raise_error(ActiveRecord::NotNullViolation)
+    expect { create(:line_item, order_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   describe 'methods' do
