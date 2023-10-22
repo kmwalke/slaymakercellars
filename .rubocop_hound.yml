@@ -10,6 +10,7 @@ AllCops:
     - 'bin/*'
     - 'node_modules/**/*'
   NewCops: enable
+  UseCache: true
 
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
