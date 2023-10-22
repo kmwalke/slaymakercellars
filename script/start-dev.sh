@@ -1,5 +1,7 @@
 #!/bin/bash
-psql -h $DB_HOST -d $DB_DEV -U $DB_USERNAME -c 'SELECT id FROM users LIMIT 1'
+psql -h $DB_HOST -d $DB_DEV -U $DB_USERNAME -c 'SELECT id FROM users LIMIT 1' & PID=$!
+
+wait $PID
 
 if [ $? == 0 ]; then
   echo "DB already set up"
