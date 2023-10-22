@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ReportInfo do
   it 'defaults to 1 row' do
-    expect(described_class.all.count).to eq(1)
+    expect(described_class.count).to eq(1)
   end
 
   it 'cannot create second row' do
@@ -15,7 +15,7 @@ RSpec.describe ReportInfo do
     rescue ActiveRecord::RecordNotUnique
       # Ignored
     end
-    expect(described_class.all.count).to eq(1)
+    expect(described_class.count).to eq(1)
   end
 
   it 'uses class method for keg report date' do

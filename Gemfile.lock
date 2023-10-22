@@ -176,14 +176,14 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
+    mini_portile2 (2.8.5)
     minitest (5.20.0)
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     mutex_m (0.1.2)
     nenv (0.3.0)
-    net-imap (0.4.1)
+    net-imap (0.4.2)
       date
       net-protocol
     net-pop (0.1.2)
@@ -333,6 +333,8 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-capybara (2.19.0)
       rubocop (~> 1.41)
+    rubocop-daemon (0.3.2)
+      rubocop
     rubocop-factory_bot (2.24.0)
       rubocop (~> 1.33)
     rubocop-performance (1.19.1)
@@ -449,6 +451,7 @@ DEPENDENCIES
   redis
   rspec-rails
   rubocop
+  rubocop-daemon
   rubocop-performance
   rubocop-rails
   rubocop-rspec

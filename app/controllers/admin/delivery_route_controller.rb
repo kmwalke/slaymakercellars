@@ -18,7 +18,7 @@ module Admin
 
     def addresses(orders)
       addresses = []
-      Order.where(id: order_ids(orders)).each do |o|
+      Order.where(id: order_ids(orders)).find_each do |o|
         addresses << o.contact.full_address
       end
       addresses

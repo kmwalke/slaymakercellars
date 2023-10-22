@@ -39,6 +39,7 @@ RUN echo " \
   alias rails='bundle exec rails' \n\
   alias rake='bundle exec rake'  \n\
   alias rubocop='bundle exec rubocop'  \n\
+  alias guard='bundle exec guard'  \n\
   alias ls='ls --color=auto' \n\
   " >> ~/.bashrc
 

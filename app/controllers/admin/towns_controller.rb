@@ -4,7 +4,7 @@ module Admin
     before_action :must_be_admin
 
     def index
-      @towns = Town.all.includes(:state).order('states.name, towns.name')
+      @towns = Town.includes(:state).order('states.name, towns.name')
     end
 
     def show; end

@@ -33,7 +33,7 @@ RSpec.describe 'Admin::Sales_Reps' do
 
     describe 'shows sales rep' do
       before do
-        create_list(:contact, 3, sales_rep: sales_rep)
+        create_list(:contact, 3, sales_rep:)
 
         visit admin_sales_reps_path
         click_link sales_rep.name

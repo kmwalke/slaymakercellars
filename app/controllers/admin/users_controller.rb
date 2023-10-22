@@ -4,7 +4,7 @@ module Admin
     before_action :must_be_admin
 
     def index
-      @users = User.all.order(:role, :name)
+      @users = User.order(:role, :name)
     end
 
     def new
