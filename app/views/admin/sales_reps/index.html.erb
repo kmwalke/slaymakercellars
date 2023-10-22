@@ -10,6 +10,7 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th>Phone</th>
       <th></th>
     </tr>
     </thead>
@@ -19,6 +20,7 @@
       <tr>
         <td><%= link_to sales_rep.name, edit_admin_sales_rep_path(sales_rep) %></td>
         <td><%= sales_rep.email %></td>
+        <td><%= sales_rep.phone %></td>
         <td>
           <%= link_to 'X', admin_sales_rep_path(sales_rep), method: :delete, id: "delete_#{sales_rep.id}", data: { confirm: 'Are you sure?' } %>
           &nbsp;
