@@ -3,7 +3,7 @@ class Contact < ApplicationRecord
   include SoftDeletable
   include Xero::Syncable
 
-  belongs_to :sales_rep
+  belongs_to :sales_rep, optional: true
   belongs_to :town
   has_many :notes
   has_many :orders
