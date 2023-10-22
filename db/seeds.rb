@@ -44,14 +44,14 @@ SalesRep.create(name: 'Candy')
 SalesRep.create(name: 'Sally')
 SalesRep.create(name: 'Keith')
 
-Town.all.each do |town|
+Town.find_each do |town|
   rand(1..6).times do |i|
     contact_url = [true, false].sample == true ? 'http://www.thing.com' : nil
     contact     = Contact.create(
       name: "Contact_#{town.id}_#{i}",
       town:,
       address: '123 Main St',
-      sales_rep: SalesRep.order("RANDOM()").first,
+      sales_rep: SalesRep.order('RANDOM()').first,
       url: contact_url
     )
 
