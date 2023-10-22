@@ -1,0 +1,83 @@
+// Place all the styles related to the Menu controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+@media print {
+  @page {
+    size: portrait
+  }
+  body.menu {
+    div.header, p#notice {
+      display: none;
+    }
+
+    h1 {
+      display: none;
+    }
+
+    h1.title {
+      display: block !important;
+      clear: both;
+      width: 100%;
+    }
+
+    div.content {
+      position: inherit;
+      max-width: inherit;
+      padding-left: 0;
+      margin-left: 0;
+      line-height: 1.4;
+      color: black;
+
+      div.page {
+        page-break-after: always;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+body.menu {
+  text-align: center;
+
+  h1.title {
+    display: none;
+  }
+
+  div.page {
+    font-size: 16px;
+    font-family: 'Courier Prime', monospace;
+
+    div.column {
+      width: 49%;
+      margin: 0;
+      display: inline-block;
+      vertical-align: top;
+
+      fieldset {
+        padding: 0.5em;
+        margin: 0 0 1em 0;
+
+        legend {
+          margin: 0 0 0 1em;
+          font-size: 26px;
+          color: black;
+          font-family: 'Averia Serif Libre', cursive;
+        }
+
+        table {
+          width: 100%;
+
+          th {
+            text-align: left;
+          }
+
+          td:first-child {
+            width: 70%;
+          }
+        }
+
+      }
+    }
+  }
+}
