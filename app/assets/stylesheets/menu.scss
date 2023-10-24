@@ -62,6 +62,7 @@ body.menu {
       vertical-align: top;
 
       fieldset {
+        @include rounded-corners(10px);
         padding: 0.5em;
         margin: 0 0 1em 0;
 
