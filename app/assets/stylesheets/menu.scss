@@ -1,0 +1,99 @@
+@import 'variables';
+
+@media print {
+  @page {
+    size: portrait
+  }
+  html {
+    padding: 0;
+    margin: 0;
+  }
+  body.menu {
+    padding: 0;
+    margin: 0;
+
+    div.header, p#notice {
+      display: none;
+      height: 0;
+    }
+
+    h1 {
+      display: none;
+    }
+
+    h1.title {
+      display: block !important;
+      clear: both;
+      width: 100%;
+      font-size: 42px;
+    }
+
+    div.content {
+      position: inherit;
+      max-width: inherit;
+      padding: 0;
+      margin: 0;
+      line-height: 1.4;
+      color: black;
+
+      div.page {
+        page-break-after: always;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+body.menu {
+  text-align: center;
+
+  h1.title {
+    display: none;
+  }
+
+  div.page {
+    font-size: 16px;
+    font-family: 'Courier Prime', monospace;
+
+    div.column {
+      width: 49%;
+      margin: 0;
+      display: inline-block;
+      vertical-align: top;
+
+      fieldset {
+        @include rounded-corners(10px);
+        padding: 0.5em;
+        margin: 0 0 1em 0;
+
+        legend {
+          margin: 0 0 0 1em;
+          font-size: 26px;
+          color: black;
+          font-family: 'Averia Serif Libre', cursive;
+        }
+
+        table {
+          width: 100%;
+
+          th {
+            text-align: left;
+          }
+
+          td:first-child {
+            width: 70%;
+          }
+
+          td {
+            border-bottom: 1px dashed $brown;
+          }
+
+          tr:last-child td {
+            border: none;
+          }
+        }
+
+      }
+    }
+  }
+}

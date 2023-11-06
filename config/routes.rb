@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   # get 'careers', to: 'careers#index'
   get 'contacts', to: 'contacts#index'
+  get 'menu', to: 'menu#index'
   get 'products', to: 'products#index'
   get 'visit', to: 'visit#index'
 
