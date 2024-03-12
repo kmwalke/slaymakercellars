@@ -107,7 +107,7 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
     erubi (1.12.0)
-    et-orbi (1.2.7)
+    et-orbi (1.2.8)
       tzinfo
     eventmachine (1.2.7)
     factory_bot (6.4.6)
@@ -320,7 +320,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.13.1)
-    rubocop (1.62.0)
+    rubocop (1.62.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
