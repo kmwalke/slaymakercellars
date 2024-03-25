@@ -24,7 +24,7 @@ module Admin
 
     def new
       @order            = Order.new
-      @order.line_items = [LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new]
+      @order.line_items = [LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new]
     end
 
     def edit
