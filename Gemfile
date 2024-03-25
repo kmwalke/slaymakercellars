@@ -5,7 +5,6 @@ ruby '3.3.0'
 
 gem 'bcrypt'
 gem 'bootsnap'
-gem 'cocoon'
 gem 'faraday'
 gem 'importmap-rails'
 gem 'jbuilder'

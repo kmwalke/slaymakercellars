@@ -8,7 +8,7 @@ class Order < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User', optional: true
   belongs_to :assigned_to, class_name: 'User', optional: true
-  accepts_nested_attributes_for :line_items, allow_destroy: true
+  accepts_nested_attributes_for :line_items, reject_if: :reject_line_items
 
   validates :contact_id, presence: true
   validates :delivery_date, presence: true
@@ -74,5 +74,9 @@ class Order < ApplicationRecord
     return if assigned_to.nil?
 
     OrderMailer.with(order: self).assigned.deliver_later
+  end
+  
+  def reject_line_items(attributes)
+    attributes['quantity'].blank? || attributes['product_id'].blank?
   end
 end
