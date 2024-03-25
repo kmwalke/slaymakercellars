@@ -149,6 +149,10 @@ GEM
     http_parser.rb (0.8.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.0.1)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.7.2)
     irb (1.12.0)
       rdoc
@@ -242,8 +246,6 @@ GEM
     rack-protection (4.0.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0, < 4)
-    rack-proxy (0.7.7)
-      rack
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -367,7 +369,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
     shellany (0.0.1)
     sidekiq (7.2.2)
       concurrent-ruby (< 2)
@@ -414,11 +415,6 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0, < 4.11)
-    webpacker (5.4.4)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webrick (1.8.1)
     websocket (1.2.10)
     websocket-driver (0.7.6)
@@ -442,6 +438,7 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-rspec
+  importmap-rails
   jbuilder
   listen
   omniauth-rails_csrf_protection
@@ -469,7 +466,6 @@ DEPENDENCIES
   vinochipper
   web-console
   webdrivers
-  webpacker
 
 RUBY VERSION
    ruby 3.3.0p0
