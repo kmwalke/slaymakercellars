@@ -3,9 +3,6 @@
   "stack": "heroku-22",
   "buildpacks": [
     {
-      "url": "heroku/nodejs"
-    },
-    {
       "url": "heroku/ruby"
     }
   ],
