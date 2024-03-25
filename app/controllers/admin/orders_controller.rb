@@ -23,7 +23,8 @@ module Admin
     def show; end
 
     def new
-      @order = Order.new
+      @order            = Order.new
+      @order.line_items = [LineItem.new, LineItem.new, LineItem.new, LineItem.new, LineItem.new]
     end
 
     def edit
