@@ -44,9 +44,6 @@
   <%= f.fields_for :line_items do |line_item| %>
     <%= render 'line_item_fields', f: line_item %>
   <% end -%>
-  <div class="links">
-    <%= link_to_add_association 'add line item', f, :line_items %>
-  </div>
 </div>
 
 <div class="field">
