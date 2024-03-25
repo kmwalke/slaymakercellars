@@ -18,7 +18,7 @@ gem 'redis'
 gem 'sass-rails'
 gem 'sidekiq'
 gem 'sidekiq-cron'
-gem 'turbolinks'
+gem 'turbo-rails'
 gem 'vinochipper'
 
 group :development, :test do
