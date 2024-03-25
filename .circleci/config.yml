@@ -27,18 +27,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Node
-          command: sudo apt-get update &&
-            sudo apt-get install -y ca-certificates curl gnupg &&
-            sudo mkdir -p /etc/apt/keyrings &&
-            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg &&
-            echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list &&
-            sudo apt-get update &&
-            sudo apt-get install nodejs -y
-      - run:
-          name: Install yarn
-          command: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install yarn
-      - run:
           name: Install bundler
           command: gem install bundler
       # Which version of bundler?
@@ -58,22 +46,6 @@ jobs:
           key: smc-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      # Only necessary if app uses webpacker or yarn in some other way
-      - restore_cache:
-          keys:
-            - smc-yarn-{{ checksum "yarn.lock" }}
-            - smc-yarn-
-      - run:
-          name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
-      - run:
-          name: Webpacker Compile
-          command: bundle exec rails webpacker:compile
-      # Store yarn / webpacker cache
-      - save_cache:
-          key: smc-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
   test:
     parallelism: 1
     docker:
@@ -86,27 +58,8 @@ jobs:
             - smc-bundle-v2-{{ checksum "Gemfile.lock" }}
             - smc-bundle-v2-
       - run:
-          name: Install Node
-          command: sudo apt-get update &&
-            sudo apt-get install -y ca-certificates curl gnupg &&
-            sudo mkdir -p /etc/apt/keyrings &&
-            curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg &&
-            echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list &&
-            sudo apt-get update &&
-            sudo apt-get install nodejs -y
-      - run:
-          name: Install yarn
-          command: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install yarn
-      - run:
           name: Bundle Install
           command: bundle check || bundle install
-      - restore_cache:
-          keys:
-            - smc-yarn-{{ checksum "yarn.lock" }}
-            - smc-yarn-
-      - run:
-          name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m

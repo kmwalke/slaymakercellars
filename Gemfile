@@ -5,8 +5,8 @@ ruby '3.3.0'
 
 gem 'bcrypt'
 gem 'bootsnap'
-gem 'cocoon'
 gem 'faraday'
+gem 'importmap-rails'
 gem 'jbuilder'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-xero-oauth2'
@@ -17,9 +17,8 @@ gem 'redis'
 gem 'sass-rails'
 gem 'sidekiq'
 gem 'sidekiq-cron'
-gem 'turbolinks'
+gem 'turbo-rails'
 gem 'vinochipper'
-gem 'webpacker'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

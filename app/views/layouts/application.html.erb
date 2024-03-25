@@ -8,8 +8,6 @@
     <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "print", media: "print" %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'jquery', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-233310029-1">
@@ -21,6 +19,7 @@
 
         gtag('config', 'UA-233310029-1');
     </script>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body class="<%= controller.controller_name%><%= current_user ? ' admin' : '' %>">
