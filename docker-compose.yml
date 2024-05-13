@@ -34,7 +34,6 @@ services:
     depends_on:
       - db
       - redis
-      - sidekiq
 
   db:
     image: postgres:11.5
@@ -56,6 +55,7 @@ services:
     depends_on:
       - db
       - redis
+      - web
 
 volumes:
   smc-data:
