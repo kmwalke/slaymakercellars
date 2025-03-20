@@ -45,7 +45,7 @@
 }
 
 body.menu {
-  text-align: center;
+  text-align: left;
 
   h1.title {
     display: none;
@@ -86,6 +86,13 @@ body.menu {
 
           td {
             border-bottom: 1px dashed $brown;
+
+            span.flavors {
+              display: block;
+              margin-left: 1em;
+              text-align: left;
+              font-style: italic;
+            }
           }
 
           tr:last-child td {
