@@ -2,7 +2,8 @@
 
 @media print {
   @page {
-    size: portrait
+    size: portrait;
+    margin: 0.25in;
   }
   html {
     padding: 0;
@@ -23,6 +24,7 @@
 
     h1.title {
       display: block !important;
+      text-align: center;
       clear: both;
       width: 100%;
       font-size: 42px;
@@ -78,6 +80,7 @@ body.menu {
 
           th {
             text-align: left;
+            white-space: nowrap;
           }
 
           td:first-child {
