@@ -316,7 +316,7 @@ describe 'Admin::Orders' do
         end
 
         it 'does not show open invoice link' do
-          expect(page).not_to have_content('Open Invoice')
+          expect(page).to have_no_content('Open Invoice')
         end
 
         it 'shows create xero invoice link' do
@@ -330,7 +330,7 @@ describe 'Admin::Orders' do
         end
 
         it 'does not show open invoice link' do
-          expect(page).not_to have_content('Open Invoice')
+          expect(page).to have_no_content('Open Invoice')
         end
 
         it 'shows create xero invoice link' do
@@ -349,7 +349,7 @@ describe 'Admin::Orders' do
         end
 
         it 'does not show the create invoice link' do
-          expect(page).not_to have_content('Create Invoice')
+          expect(page).to have_no_content('Create Invoice')
         end
       end
 

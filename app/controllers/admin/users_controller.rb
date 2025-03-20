@@ -49,14 +49,14 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(
-        :email,
-        :contact_id,
-        :name,
-        :password,
-        :password_confirmation,
-        :receives_emails,
-        :role
+      params.expect(
+        user: [:email,
+               :contact_id,
+               :name,
+               :password,
+               :password_confirmation,
+               :receives_emails,
+               :role]
       )
     end
   end

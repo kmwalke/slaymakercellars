@@ -18,11 +18,11 @@ class Order < ApplicationRecord
   scope :active, -> { where(fulfilled_on: nil, deleted_at: nil).order('delivery_date asc') }
   scope :fulfilled, -> { where.not(fulfilled_on: nil).order('fulfilled_on DESC') }
   scope :inactive, -> { where.not(deleted_at: nil) }
-  scope :late, -> { active.where('delivery_date < ?', Time.zone.today).order('delivery_date asc') }
+  scope :late, -> { active.where(delivery_date: ...Time.zone.today).order('delivery_date asc') }
 
   def self.to_be_fulfilled(day)
     if day == Time.zone.today
-      Order.active.where('delivery_date <= ?', Time.zone.today)
+      Order.active.where(delivery_date: ..Time.zone.today)
     else
       Order.active.where(delivery_date: day)
     end
@@ -75,7 +75,7 @@ class Order < ApplicationRecord
 
     OrderMailer.with(order: self).assigned.deliver_later
   end
-  
+
   def reject_line_items(attributes)
     attributes['quantity'].blank? || attributes['product_id'].blank?
   end

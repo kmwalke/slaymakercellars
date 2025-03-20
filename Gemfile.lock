@@ -348,8 +348,14 @@ GEM
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.41.0)
       parser (>= 3.3.7.2)
+    rubocop-capybara (2.22.1)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     rubocop-daemon (0.3.2)
       rubocop
+    rubocop-factory_bot (2.27.1)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     rubocop-performance (1.24.0)
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1, < 2.0)
@@ -467,7 +473,9 @@ DEPENDENCIES
   redis
   rspec-rails
   rubocop
+  rubocop-capybara
   rubocop-daemon
+  rubocop-factory_bot
   rubocop-performance
   rubocop-rails
   rubocop-rspec
@@ -484,7 +492,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.4.1p0
+   ruby 3.4.2p28
 
 BUNDLED WITH
    2.5.17

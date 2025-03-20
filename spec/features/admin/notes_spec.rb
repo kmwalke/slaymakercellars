@@ -18,7 +18,7 @@ RSpec.describe 'Admin::Notes' do
     end
 
     it 'shows note resolved date' do
-      expect(page).not_to have_content('Resolved on ')
+      expect(page).to have_no_content('Resolved on ')
     end
   end
 

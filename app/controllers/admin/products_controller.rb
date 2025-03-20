@@ -50,15 +50,15 @@ module Admin
     end
 
     def product_params
-      params.require(:product).permit(
-        :category,
-        :case_size,
-        :description,
-        :in_production,
-        :is_public,
-        :name,
-        :price_point,
-        :xero_code
+      params.expect(
+        product: [:category,
+                  :case_size,
+                  :description,
+                  :in_production,
+                  :is_public,
+                  :name,
+                  :price_point,
+                  :xero_code]
       )
     end
 
