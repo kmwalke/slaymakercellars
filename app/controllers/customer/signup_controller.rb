@@ -17,11 +17,11 @@ module Customer
     end
 
     def user_params
-      params.require(:user).permit(
-        :email,
-        :name,
-        :password,
-        :password_confirmation
+      params.expect(
+        user: [:email,
+               :name,
+               :password,
+               :password_confirmation]
       )
     end
   end

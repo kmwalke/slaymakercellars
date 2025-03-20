@@ -13,14 +13,14 @@ RSpec.describe 'Contacts' do
   it 'does not list deleted contacts' do
     visit root_path
     click_link 'Where to Buy'
-    expect(page).not_to have_content(deleted_contact.name)
+    expect(page).to have_no_content(deleted_contact.name)
   end
 
   it 'do not list private contacts' do
     contact.update(is_public: false)
     visit root_path
     click_link 'Where to Buy'
-    expect(page).not_to have_content(contact.name)
+    expect(page).to have_no_content(contact.name)
   end
 
   it 'list towns' do
@@ -33,13 +33,13 @@ RSpec.describe 'Contacts' do
     town = create(:town)
     visit root_path
     click_link 'Where to Buy'
-    expect(page).not_to have_content(town.name)
+    expect(page).to have_no_content(town.name)
   end
 
   it 'do not list inactive towns' do
     contact.update(is_public: false)
     visit root_path
     click_link 'Where to Buy'
-    expect(page).not_to have_content(contact.town.name)
+    expect(page).to have_no_content(contact.town.name)
   end
 end

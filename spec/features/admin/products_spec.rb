@@ -98,7 +98,7 @@ RSpec.describe 'Admin::Products' do
         visit admin_products_path
 
         click_link product.name
-        expect(page).not_to have_content('View in Xero')
+        expect(page).to have_no_content('View in Xero')
       end
 
       it 'shows xero link for synced' do

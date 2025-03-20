@@ -210,7 +210,7 @@ RSpec.describe 'Admin::Contacts' do
       visit admin_contacts_path
 
       click_link contact.name
-      expect(page).not_to have_content('Repeat last order')
+      expect(page).to have_no_content('Repeat last order')
     end
 
     describe 'sorting & searching' do
@@ -264,7 +264,7 @@ RSpec.describe 'Admin::Contacts' do
         end
 
         it 'does not show unfiltered contact' do
-          expect(page).not_to have_content(b_contact.name)
+          expect(page).to have_no_content(b_contact.name)
         end
       end
     end
@@ -284,7 +284,7 @@ RSpec.describe 'Admin::Contacts' do
         visit admin_contacts_path
 
         click_link contact.name
-        expect(page).not_to have_content('View in Xero')
+        expect(page).to have_no_content('View in Xero')
       end
 
       it 'shows xero link for synced' do

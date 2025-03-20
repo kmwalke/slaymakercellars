@@ -51,7 +51,7 @@ module Admin
     end
 
     def town_params
-      params.require(:town).permit(:name, :state_id)
+      params.expect(town: [:name, :state_id])
     end
   end
 end

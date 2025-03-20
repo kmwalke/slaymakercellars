@@ -49,7 +49,7 @@ module Admin
     end
 
     def state_params
-      params.require(:state).permit(:name, :abbreviation)
+      params.expect(state: [:name, :abbreviation])
     end
   end
 end

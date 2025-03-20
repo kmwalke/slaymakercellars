@@ -63,7 +63,7 @@ describe 'Admin::Reports' do
         end
 
         it 'does not include data outside of date range' do
-          expect(page).not_to have_content(bad_order.id)
+          expect(page).to have_no_content(bad_order.id)
         end
       end
     end
@@ -102,7 +102,7 @@ describe 'Admin::Reports' do
         contact = create(:contact, num_kegs: 0)
         visit admin_reports_kegs_path
 
-        expect(page).not_to have_content(contact.name)
+        expect(page).to have_no_content(contact.name)
       end
     end
   end

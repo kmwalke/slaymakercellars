@@ -34,7 +34,7 @@ RSpec.describe 'Customer::Orders' do
       end
 
       it 'does not show other customers order' do
-        expect(page).not_to have_content(other_order.id)
+        expect(page).to have_no_content(other_order.id)
       end
     end
   end

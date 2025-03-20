@@ -123,21 +123,21 @@ module Admin
     end
 
     def order_params
-      params.require(:order).permit(
-        :assigned_to_id,
-        :comments,
-        :contact_name,
-        :created_by_id,
-        :customer_po,
-        :delivery_date,
-        :updated_by_id,
-        line_items_attributes: [
-          :fulfilled,
-          :id,
-          :product_id,
-          :quantity,
-          :_destroy
-        ]
+      params.expect(
+        order: [:assigned_to_id,
+                :comments,
+                :contact_name,
+                :created_by_id,
+                :customer_po,
+                :delivery_date,
+                :updated_by_id,
+                { line_items_attributes: [
+                  :fulfilled,
+                  :id,
+                  :product_id,
+                  :quantity,
+                  :_destroy
+                ] }]
       )
     end
   end
