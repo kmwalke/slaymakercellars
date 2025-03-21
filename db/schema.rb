@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_21_170943) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_21_184502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_170943) do
     t.string "name"
     t.integer "on_prem_price"
     t.integer "off_prem_price"
+    t.integer "subsection_id"
+    t.integer "winery_id"
   end
 
   create_table "menu_sections", force: :cascade do |t|
@@ -62,10 +64,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_170943) do
 
   create_table "menu_sub_sections", force: :cascade do |t|
     t.string "name"
-    t.integer "menu_section_id"
+    t.integer "section_id"
     t.integer "position"
     t.string "on_prem_name"
     t.string "off_prem_name"
+  end
+
+  create_table "menu_wineries", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "notes", force: :cascade do |t|

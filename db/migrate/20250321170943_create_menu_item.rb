@@ -4,6 +4,8 @@ class CreateMenuItem < ActiveRecord::Migration[8.0]
       t.string :name
       t.integer :on_prem_price
       t.integer :off_prem_price
+      t.integer :subsection_id
+      t.integer :winery_id
     end
   end
 end
