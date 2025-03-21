@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :menu_winery do
-    name { "MyString" }
+    sequence(:name) { |n| "Winery_#{n}" }
   end
 end
