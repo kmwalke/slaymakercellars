@@ -49,7 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_184502) do
   end
 
   create_table "menu_items", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "on_prem_price"
     t.integer "off_prem_price"
     t.integer "sub_section_id"
@@ -57,21 +57,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_184502) do
   end
 
   create_table "menu_sections", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "verbiage"
     t.integer "position"
   end
 
   create_table "menu_sub_sections", force: :cascade do |t|
-    t.string "name"
-    t.integer "section_id"
+    t.string "name", null: false
+    t.integer "section_id", null: false
     t.integer "position"
     t.string "on_prem_name"
     t.string "off_prem_name"
   end
 
   create_table "menu_wineries", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
   end
 
   create_table "notes", force: :cascade do |t|
