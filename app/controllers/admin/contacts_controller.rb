@@ -65,22 +65,22 @@ module Admin
     end
 
     def contact_params
-      params.require(:contact).permit(
-        :address,
-        :always_gets_case_deal,
-        :contact_point,
-        :deleted_at,
-        :description,
-        :email,
-        :is_public,
-        :name,
-        :phone,
-        :paperless_billing,
-        :pickup_check,
-        :sales_rep_name,
-        :town_name,
-        :unit_number,
-        :url
+      params.expect(
+        contact: [:address,
+                  :always_gets_case_deal,
+                  :contact_point,
+                  :deleted_at,
+                  :description,
+                  :email,
+                  :is_public,
+                  :name,
+                  :phone,
+                  :paperless_billing,
+                  :pickup_check,
+                  :sales_rep_name,
+                  :town_name,
+                  :unit_number,
+                  :url]
       )
     end
 

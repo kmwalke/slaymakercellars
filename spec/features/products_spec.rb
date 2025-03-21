@@ -21,14 +21,14 @@ RSpec.describe 'Products' do
   it 'does not show a product in the wrong category' do
     visit products_path
 
-    expect(page).not_to have_content(product.name)
+    expect(page).to have_no_content(product.name)
   end
 
   it 'does not show private products' do
     visit products_path
     click_link product_private.category
 
-    expect(page).not_to have_content(product_private.name)
+    expect(page).to have_no_content(product_private.name)
   end
 
   it 'shows the awards for a product' do

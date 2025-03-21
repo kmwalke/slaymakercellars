@@ -37,7 +37,7 @@ module Admin
     private
 
     def note_params
-      params.require(:note).permit(:contact_id, :body, :resolution)
+      params.expect(note: [:contact_id, :body, :resolution])
     end
   end
 end

@@ -48,13 +48,13 @@ RSpec.describe 'Customer::Home' do
     it 'does not display voided orders' do
       deleted_order = create(:order, contact: current_user.contact, deleted_at: DateTime.now)
       visit '/customer'
-      expect(page).not_to have_content(deleted_order.id)
+      expect(page).to have_no_content(deleted_order.id)
     end
 
     it 'does not display other customers orders' do
       other_order = create(:order)
       visit '/customer'
-      expect(page).not_to have_content(other_order.id)
+      expect(page).to have_no_content(other_order.id)
     end
 
     describe 'display open order status' do
@@ -99,7 +99,7 @@ RSpec.describe 'Customer::Home' do
     it 'do not show xero link when invoice not created' do
       create(:order, contact: current_user.contact)
       visit '/customer'
-      expect(page).not_to have_content('View Invoice')
+      expect(page).to have_no_content('View Invoice')
     end
   end
 end
