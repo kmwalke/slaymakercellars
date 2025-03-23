@@ -1,6 +1,6 @@
 class MenuSection < ApplicationRecord
-  has_many :subsections, class_name: MenuSubSection.to_s
-  belongs_to :page, class_name: MenuPage.to_s
+  has_many :subsections, class_name: 'MenuSubSection'
+  belongs_to :page, class_name: 'MenuPage'
 
   validates :name, presence: true
 end

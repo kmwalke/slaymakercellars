@@ -46,7 +46,7 @@ RSpec.describe 'Admin::Menu' do
       let(:new_item) { build(:menu_item, sub_section: menu_sub_section) }
 
       it 'creates a page' do
-        num_pages = Page.all.count
+        num_pages = Page.count
         click_link 'New Page'
         expect(Page.last.position).to eq(num_pages + 1)
       end
@@ -85,14 +85,6 @@ RSpec.describe 'Admin::Menu' do
         click_button 'Create Item'
         expect(page).to have_content(new_menu.name)
       end
-    end
-
-    describe 'edit items' do
-
-    end
-
-    describe 'delete items' do
-
     end
   end
 end

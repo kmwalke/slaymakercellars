@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe MenuPage, type: :model do
   it 'calculates the position' do
-    expect {true}.to be_nil
-    # should put new sections at the end and should rearrange correctly
+    num_pages = described_class.count
+    page      = create(:menu_page)
+    expect(page.position).to eq(num_pages + 1)
   end
 
   it 'returns the page name' do

@@ -1,3 +1,7 @@
 class MenuPage < ApplicationRecord
-  has_many :sections, class_name: MenuSection.to_s
+  has_many :sections, class_name: 'MenuSection'
+
+  def name
+    "Page #{position}"
+  end
 end
