@@ -46,9 +46,9 @@ RSpec.describe 'Admin::Menu' do
       let(:new_item) { build(:menu_item, sub_section: menu_sub_section) }
 
       it 'creates a page' do
-        num_pages = Page.count
+        num_pages = MenuPage.count
         click_link 'New Page'
-        expect(Page.last.position).to eq(num_pages + 1)
+        expect(page).to have_content("Page #{num_pages + 1}")
       end
 
       it 'creates a section' do

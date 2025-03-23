@@ -10,6 +10,8 @@ x-smc-common:
     - .:/app
     - smc-gems:/gems
     - /app/node_modules
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
   stdin_open: true # docker run -i
   tty: true        # docker run -t
   environment:

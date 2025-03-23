@@ -5,8 +5,6 @@ ARG USERNAME
 ARG UID
 ARG GID
 
-RUN echo "$USERNAME:1234:$UID:$GID:docker-user,,,:/app/:/bin/bash" >> /etc/passwd
-
 RUN apt-get update && \
   apt-get install -y \
   build-essential \
