@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_21_184502) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_23_160121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,8 +56,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_184502) do
     t.integer "winery_id"
   end
 
+  create_table "menu_pages", force: :cascade do |t|
+    t.integer "position"
+  end
+
   create_table "menu_sections", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "page_id", null: false
     t.text "verbiage"
     t.integer "position"
   end
