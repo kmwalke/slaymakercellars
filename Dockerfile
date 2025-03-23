@@ -17,6 +17,7 @@ ENV PATH $BUNDLE_PATH/bin:$GEM_HOME/gems/bin:$PATH
 
 WORKDIR /app
 EXPOSE 3000
+RUN mkdir /home/$USERNAME
 
 RUN echo " \
   alias rspec='RAILS_ENV=test bundle exec rspec' \n\
@@ -25,8 +26,7 @@ RUN echo " \
   alias rubocop='bundle exec rubocop'  \n\
   alias guard='bundle exec guard'  \n\
   alias ls='ls --color=auto' \n\
-  " >> ~/.bashrc
-
+  " >> /home/$USERNAME/.bashrc
 
 RUN gem install bundler
 
