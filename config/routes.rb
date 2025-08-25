@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'admin/home#xero'
   get 'auth/xero_oauth2/callback', to: 'admin/home#index'
 
-  get 'careers', to: 'careers#index'
+  # get 'careers', to: 'careers#index'
   get 'contacts', to: 'contacts#index'
   get 'menu', to: 'menu#index'
   get 'products', to: 'products#index'
