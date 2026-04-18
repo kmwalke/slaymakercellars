@@ -1,4 +1,4 @@
-FROM ruby:3.4.5
+FROM ruby:4.0.2
 LABEL maintainer="kent@slaymakercellars.com"
 
 ARG USERNAME

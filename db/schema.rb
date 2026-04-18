@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2023_10_22_170435) do
+ActiveRecord::Schema[8.1].define(version: 2023_10_22_170435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,25 +20,25 @@ ActiveRecord::Schema[8.0].define(version: 2023_10_22_170435) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.string "name"
-    t.string "phone"
-    t.string "email"
-    t.string "contact_point"
     t.string "address", null: false
-    t.text "description"
-    t.datetime "deleted_at"
-    t.integer "town_id"
+    t.boolean "always_gets_case_deal", default: false, null: false
+    t.string "contact_point"
     t.datetime "created_at", null: false
+    t.datetime "deleted_at"
+    t.text "description"
+    t.string "email"
+    t.boolean "is_public", default: true, null: false
+    t.string "name"
+    t.integer "num_kegs", default: 0, null: false
+    t.boolean "paperless_billing", default: false, null: false
+    t.string "phone"
+    t.boolean "pickup_check", default: true, null: false
+    t.integer "sales_rep_id"
+    t.integer "town_id"
+    t.string "unit_number"
     t.datetime "updated_at", null: false
     t.string "url"
-    t.boolean "pickup_check", default: true, null: false
     t.string "xero_id"
-    t.boolean "paperless_billing", default: false, null: false
-    t.boolean "always_gets_case_deal", default: false, null: false
-    t.boolean "is_public", default: true, null: false
-    t.string "unit_number"
-    t.integer "num_kegs", default: 0, null: false
-    t.integer "sales_rep_id"
     t.index ["name"], name: "index_contacts_on_name", unique: true
   end
 
@@ -51,60 +51,60 @@ ActiveRecord::Schema[8.0].define(version: 2023_10_22_170435) do
   create_table "notes", force: :cascade do |t|
     t.text "body"
     t.integer "contact_id"
-    t.integer "created_by_id"
-    t.datetime "resolved_at"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "created_by_id"
     t.text "resolution"
+    t.datetime "resolved_at"
+    t.datetime "updated_at", null: false
   end
 
   create_table "orders", force: :cascade do |t|
+    t.integer "assigned_to_id"
+    t.text "comments"
     t.integer "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "created_by_id", null: false
+    t.string "customer_po"
+    t.datetime "deleted_at"
     t.boolean "delivered", default: false, null: false
     t.date "delivery_date"
     t.date "fulfilled_on"
-    t.datetime "deleted_at"
-    t.string "customer_po"
-    t.text "comments"
-    t.integer "created_by_id", null: false
-    t.integer "updated_by_id"
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "updated_by_id"
     t.string "xero_id"
-    t.integer "assigned_to_id"
   end
 
   create_table "products", force: :cascade do |t|
+    t.integer "case_size", default: 12, null: false
+    t.string "category", default: "Flagship", null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.boolean "in_production", default: true, null: false
+    t.boolean "is_public", default: true, null: false
     t.string "name"
     t.float "price_point"
-    t.text "description"
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "category", default: "Flagship", null: false
-    t.boolean "is_public", default: true, null: false
-    t.integer "case_size", default: 12, null: false
-    t.string "xero_id"
     t.string "xero_code", null: false
-    t.boolean "in_production", default: true, null: false
+    t.string "xero_id"
     t.index ["name"], name: "index_products_on_name", unique: true
     t.index ["xero_code"], name: "index_products_on_xero_code", unique: true
   end
 
   create_table "report_info", id: false, force: :cascade do |t|
-    t.integer "uuid", default: 1, null: false
     t.date "keg_report_calculated_on"
+    t.integer "uuid", default: 1, null: false
     t.index ["uuid"], name: "index_report_info_on_uuid", unique: true
   end
 
   create_table "sales_reps", force: :cascade do |t|
-    t.string "name"
     t.string "email"
+    t.string "name"
     t.string "phone"
   end
 
   create_table "states", force: :cascade do |t|
-    t.string "name"
     t.string "abbreviation"
+    t.string "name"
   end
 
   create_table "towns", force: :cascade do |t|
@@ -114,27 +114,27 @@ ActiveRecord::Schema[8.0].define(version: 2023_10_22_170435) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
-    t.string "name"
+    t.integer "contact_id"
     t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name"
+    t.string "password_digest"
+    t.boolean "receives_emails", default: true, null: false
+    t.string "role", null: false
     t.datetime "updated_at", null: false
-    t.string "xeroUid"
     t.string "xeroAccessToken"
     t.string "xeroRefreshToken"
     t.string "xeroTenantId"
     t.string "xeroTokenExpiresAt"
-    t.string "role", null: false
-    t.integer "contact_id"
-    t.boolean "receives_emails", default: true, null: false
+    t.string "xeroUid"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "xero_sync_errors", force: :cascade do |t|
-    t.string "message"
-    t.string "syncable_type"
-    t.bigint "syncable_id"
     t.datetime "created_at", null: false
+    t.string "message"
+    t.bigint "syncable_id"
+    t.string "syncable_type"
     t.datetime "updated_at", null: false
     t.index ["syncable_type", "syncable_id"], name: "index_xero_sync_errors_on_syncable"
   end
