@@ -3,7 +3,6 @@ version: 3
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
     image: cimg/ruby:4.0.2
-    resource_class: large
     environment:
       BUNDLE_JOBS: 3
       BUNDLE_RETRY: 3
@@ -25,6 +24,7 @@ jobs:
   build:
     docker:
       - *default_docker_ruby_executor
+    resource_class: large
     steps:
       - checkout
       - run:
