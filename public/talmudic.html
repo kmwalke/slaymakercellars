@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<style>
+  a, a:visited {
+    color: green;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  div#content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    width: 95%;
+    height: 100%;
+
+    div#header {
+      grid-area: 1 / 1 / span 1 / span 1;
+
+
+      label {
+        display: block;
+        font-size: x-large;
+        font-weight: bold;
+      }
+
+      input#estate-range {
+        width: 50%;
+      }
+
+      input {
+        display: block;
+      }
+    }
+    
+    table#payouts {
+      grid-area: 2 / 1 / span 4 / span 1;
+      
+      tr#claim-amount-row {
+        height: 1em;
+      }    
+        
+      tr#claim-bucket-row {
+        height: auto;
+      }     
+       
+      tr#claim-payout-row {
+        height: 1em;
+      }
+      
+      td {
+        vertical-align: bottom;
+      }
+      
+      div.bucket {
+        border: 5px outset black;
+        display: block;
+        margin: 1em;
+        width: 20px;
+        
+        position: relative;
+        
+        div.water {
+          background: blue;
+          display: inline-block;
+          position: absolute;
+          bottom: 0;
+          width: 20px;
+          z-index: 0;
+        }
+      
+        div.pipe {
+          border-width: 5px 15px;
+          border-color: black;
+          border-style: inset solid inset solid;
+          position: absolute;
+          left: -5px;
+          width: 2px;
+          z-index: 1;
+        }
+      }
+    }
+  
+  }
+
+</style>
+
+
+<html>
+<head>
+<title>Talmudic Sharing</title>
+</head>
+
+<script>
+  const BG_COLOR     = 'black';
+  const COLOR        = 'white';
+  const TALMUDIC     = 'Talmudic';
+  const PROPORTIONAL = 'Proportional';
+  const MAX_ESTATE   = 1000;
+  let MODE           = TALMUDIC;
+  let currentEstate  = 500;
+  let totalClaims    = 0;
+  let largestClaim   = 0;
+  let claims         = [];
+  let payout         = [];
+  let fill           = [];
+
+  function init() {
+    currentEstate  = 500;
+    totalClaims    = 0;
+    largestClaim   = 0;
+    claims         = [];
+    payout         = [];
+    fill           = [];
+    setMode();
+    setPageStyle();
+    clearScreen();
+    drawModeLink();
+    parseClaims();
+    setSlider();
+    drawClaims();
+    updateEstate();
+  }
+  
+  function setMode() {
+    const urlParams = new URL(window.location.toLocaleString()).searchParams;
+    if (urlParams.get('mode') == PROPORTIONAL) {
+      MODE = PROPORTIONAL;
+    }
+  }
+  
+  function setPageStyle() {
+    document.body.style.backgroundColor = BG_COLOR;
+    document.body.style.color = COLOR;
+  }
+  
+  function clearScreen() {
+    document.getElementById("payouts").innerHTML = "\
+    <tr id=\"claim-bucket-row\">\
+      <td><span id=\"curren\">&curren;</span><span class=\"estate-span\">&nbsp;</span></td>\
+    </tr>\
+    <tr id=\"claim-amount-row\"><td>Claim:</td></tr>\
+    <tr id=\"claim-payout-row\"><td>Payout:</td></tr>\
+    ";
+  }
+  
+  function drawModeLink() {
+    link = document.getElementById("mode-link");
+    switch(MODE) {
+      case PROPORTIONAL:
+        link.innerHTML = "Switch to " + TALMUDIC + " Mode";
+        link.setAttribute('href', 'talmudic.html');
+        break;
+      case TALMUDIC:
+        link.innerHTML = "Switch to " + PROPORTIONAL + " Mode";
+        link.setAttribute('href', 'talmudic.html?mode=' + PROPORTIONAL);
+        break;
+    }
+  }
+  
+  function parseClaims() {
+    claims = document.getElementById("claims-span").value.split(',');
+    for (let i = 0; i < claims.length; i++) {
+      claims[i] = parseInt(claims[i]);
+      totalClaims += claims[i];
+      if (claims[i] > largestClaim) {
+        largestClaim = claims[i];
+      }
+    }
+  }
+  
+  function setSlider() {
+    document.getElementById("estate-range").max = MAX_ESTATE;
+  }
+  
+  function drawClaims() {
+    bucketsTable = document.getElementById("payouts");
+    for (let i = 0; i < claims.length; i++) {
+      drawClaim(claims[i]);
+    }
+  }
+  
+  function drawClaim(claimAmount) {
+    drawClaimAmount(claimAmount);
+    drawClaimBucket(claimAmount);
+    drawClaimWater();
+    drawClaimPayout();
+  }
+   
+  function drawClaimAmount(amount){  
+    claimAmount = document.createElement("span");
+    claimAmount.innerHTML = "&curren;" + amount;
+    document.getElementById("claim-amount-row").appendChild(document.createElement("td")).appendChild(claimAmount);
+  }
+   
+  function drawClaimBucket(amount){  
+    bucket = document.createElement("div");
+    bucket.classList.add("bucket");
+    switch(MODE) {
+      case PROPORTIONAL:
+        bucket.style.height = amount + "px";
+        break;
+      case TALMUDIC:
+        bucket.style.height = largestClaim + "px";
+        drawPipe(bucket, amount);
+        break;
+    }
+    document.getElementById("claim-bucket-row").appendChild(document.createElement("td")).appendChild(bucket);
+  }
+  
+  function drawPipe(bucket, amount) {
+    pipe = document.createElement("div");
+    pipe.classList.add("pipe");
+    pipe.style.height = (largestClaim - amount) + "px";
+    pipe.style.top = (largestClaim/2) - (largestClaim - amount)/2 - 5 + "px";
+    bucket.appendChild(pipe);
+  }
+   
+  function drawClaimWater(){  
+    water = document.createElement("div");
+    water.classList.add("water");
+    water.innerHTML = "&nbsp;"
+    bucket.appendChild(water);
+  }
+   
+  function drawClaimPayout(amount){  
+    payout = document.createElement("span");
+    payout.classList.add("payout-span");
+    payout.innerHTML = "&curren;";
+    document.getElementById("claim-payout-row").appendChild(document.createElement("td")).appendChild(payout);
+  }
+  
+  function updateEstate() {
+    currentEstate = document.getElementById("estate-range").value;
+    
+    updateFill();
+    updatePayouts();
+    updateEstateSpans();
+    updateWater();
+    updatePayoutSpans();
+  }
+  
+  function updateFill() {
+    for (let i = 0; i < claims.length; i++) {
+      let maxHeight = 0;
+    
+      switch(MODE) {
+        case PROPORTIONAL:
+          maxHeight = claims[i];
+          break;
+        case TALMUDIC:
+          maxHeight = largestClaim;
+          break;
+      }
+      
+      switch(MODE) {
+        case PROPORTIONAL:
+          fill[i] = percent(currentEstate, totalClaims) * maxHeight;
+          break;
+        case TALMUDIC:
+          fill[i] = currentEstate / claims.length;
+          break;
+      }
+      if (fill[i] > maxHeight) {
+        fill[i] = maxHeight;
+      }
+    }
+  }
+  
+  function updatePayouts() {
+    for (let i = 0; i < claims.length; i++) {
+      payout[i] = calcPayout(claims[i], i);
+    }
+  }
+  
+  function calcPayout(claim, i) {
+    let payout = 0;
+    switch(MODE) {
+      case PROPORTIONAL:
+        return Math.round(fill[i]);
+      case TALMUDIC:
+        let payout = Math.round(fill[i]);
+        if (payout > largestClaim - (claim/2)) {
+          payout = claim - (largestClaim - payout);
+        }
+        else if (payout > claim/2) {
+          payout = claim/2;
+
+        }
+        return payout;
+    }
+  }
+  
+  function updateEstateSpans(newlue) {
+    const collection = document.getElementsByClassName("estate-span");
+    
+    for (let i = 0; i < collection.length; i++) {
+      collection[i].innerHTML = currentEstate;
+    }
+  }
+  
+  function updateWater() {
+    const water = document.getElementsByClassName("water");
+    
+    for (let i = 0; i < water.length; i++) {
+
+      water[i].style.height = fill[i] + "px";
+    }
+  }
+  
+  function updatePayoutSpans() {
+    const collection = document.getElementsByClassName("payout-span");
+    
+    for (let i = 0; i < collection.length; i++) {
+      collection[i].innerHTML = "&curren;" + payout[i];
+    }
+  }
+  
+  function percentPretty(amount) {
+    return (amount * 100) + "%";
+  }
+  
+  function percent(amount, total) {
+    return amount / total;
+  }
+  
+  function checkSubmit(event) {
+    if ( event.key == "Enter" ) {
+      init();
+    }
+  }
+  
+</script>
+
+
+
+
+<div id="content">
+  <div id="header">
+    <a id="mode-link"></a>
+    <label for="estate-range">Estate Amount</label>
+    <span id="curren">&curren;</span>
+    <span class="estate-span">&nbsp;</span>
+    <input 
+      type="range" 
+      id="estate-range" 
+      min="0" 
+      onmousemove="updateEstate()" 
+      onclick="updateEstate()" 
+      ontouchmove="updateEstate()" 
+      ontouchend="updateEstate()" 
+      />
+
+    <label for="claims-span">Claims (comma seperated)</label>
+    <input type="text" 
+      id="claims-span" 
+      width="25%" 
+      value="50,100, 150, 200" 
+      onBlur="init()" 
+      onKeyPress="checkSubmit(event)" 
+    />
+
+  </div>
+
+  <table id="payouts"></table>
+</div>
+
+<script>
+  init();
+</script>
