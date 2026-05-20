@@ -1,11 +1,11 @@
-FROM ruby:4.0.2
+FROM ruby:4.0.5
 LABEL maintainer="kent@slaymakercellars.com"
 
 ARG USERNAME
 ARG UID
 ARG GID
 
-RUN echo "$USERNAME:1234:$UID:$GID:docker-user,,,:/app/:/bin/bash" >> /etc/passwd
+RUN echo "$USERNAME:x:$UID:$UID::/app:/bin/sh" >> /etc/passwd
 
 RUN apt-get update && \
   apt-get install -y \
