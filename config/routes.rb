@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
 
   resources :sessions, only: [:new, :create, :destroy]
+  get 'input', to: 'input#index', as: :input
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'auth/:provider/callback', to: 'admin/home#xero'
