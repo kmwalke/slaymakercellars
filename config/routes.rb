@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'input', to: 'input#index', as: :input
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
+  get 'trade', to: redirect(ApplicationHelper::TRADE_URL), as: 'trade', status: 302
   get 'auth/:provider/callback', to: 'admin/home#xero'
   get 'auth/xero_oauth2/callback', to: 'admin/home#index'
 
