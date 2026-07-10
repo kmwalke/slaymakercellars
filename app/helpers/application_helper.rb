@@ -1,4 +1,6 @@
 module ApplicationHelper
+  TRADE_URL = 'https://drive.google.com/drive/folders/132Ps_1Q2OnDG6B2puh9TwlyY4OiSxhhR?usp=sharing'.freeze
+
   def humanize_time(time)
     time&.strftime('%I:%M %p')
   end
